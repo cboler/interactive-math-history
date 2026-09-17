@@ -19,6 +19,14 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // 1. Root shell and brand verification
     await expect(page.locator('.brand-title')).toHaveText('Interactive Math & History');
     await expect(page.locator('.brand-logo')).toHaveText('∑');
+    await expect(page.locator('link[rel="icon"][type="image/svg+xml"]')).toHaveAttribute(
+      'href',
+      'favicon.svg',
+    );
+    await expect(page.locator('link[rel="icon"][type="image/x-icon"]')).toHaveAttribute(
+      'href',
+      'favicon.ico',
+    );
 
     // 2. Primary layout elements are visible
     await expect(page.locator('header[role="banner"]')).toBeVisible();

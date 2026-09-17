@@ -55,3 +55,9 @@ if (existsSync(swPath)) {
     '⚠ Warning: ngsw.json not found in browser directory (production build may not have been run with service worker)',
   );
 }
+
+const faviconIcoPath = join(browserDir, 'favicon.ico');
+const faviconSvgPath = join(browserDir, 'favicon.svg');
+if (existsSync(faviconIcoPath) && existsSync(faviconSvgPath)) {
+  console.log('✓ Found favicon assets: favicon.ico and favicon.svg');
+}

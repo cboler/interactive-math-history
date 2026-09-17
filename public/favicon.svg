@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="sapphireGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#sapphireGrad)" />
+  <path d="M 47,15 L 17,15 L 17,20 L 29.5,32 L 17,44 L 17,49 L 47,49 L 47,42 L 42,42 L 42,44 L 24,44 L 34.5,33.5 L 34.5,30.5 L 24,20 L 42,20 L 42,22 L 47,22 Z" fill="#ffffff" />
+</svg>
