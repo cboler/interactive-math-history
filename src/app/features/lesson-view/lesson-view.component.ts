@@ -1,6 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CurriculumService } from '../../services/curriculum.service';
 import {
   NumberLineComponent,
@@ -24,8 +26,12 @@ import { IconComponent } from '../../shared/components/icon/icon.component';
   templateUrl: './lesson-view.component.html',
   styleUrls: ['./lesson-view.component.css'],
 })
-export class LessonViewComponent {
+export class LessonViewComponent implements OnInit, OnDestroy {
   readonly curriculum = inject(CurriculumService);
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private paramSub?: Subscription;
+
   readonly lesson = this.curriculum.currentLesson;
   readonly allLessons = this.curriculum.allLessons;
   readonly activeIndex = this.curriculum.activeLessonIndex;
@@ -39,35 +45,61 @@ export class LessonViewComponent {
   readonly inputB = signal<number>(3);
   readonly operation = signal<OperationType>('add');
 
+  ngOnInit(): void {
+    this.paramSub = this.route.paramMap.subscribe((params) => {
+      const level = params.get('level');
+      const unit = params.get('unit');
+      if (level && unit) {
+        this.curriculum.navigateToLesson(level, unit);
+        const curr = this.curriculum.currentLesson();
+        if (curr) {
+          this.inputA.set(curr.interactiveConfig.defaultA);
+          this.inputB.set(curr.interactiveConfig.defaultB);
+        }
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.paramSub?.unsubscribe();
+  }
+
   toggleDrawer(): void {
     this.curriculum.toggleDrawer();
   }
 
   selectLesson(index: number): void {
-    this.curriculum.setLessonIndex(index);
-    const curr = this.curriculum.currentLesson();
-    if (curr) {
-      this.inputA.set(curr.interactiveConfig.defaultA);
-      this.inputB.set(curr.interactiveConfig.defaultB);
+    const target = this.allLessons()[index];
+    if (target) {
+      this.curriculum.setLessonIndex(index);
+      this.inputA.set(target.interactiveConfig.defaultA);
+      this.inputB.set(target.interactiveConfig.defaultB);
+      this.router.navigate(['/', target.level, target.slug]);
     }
     this.curriculum.toggleDrawer(false);
   }
 
   goToNext(): void {
-    this.curriculum.nextLesson();
-    const curr = this.curriculum.currentLesson();
-    if (curr) {
-      this.inputA.set(curr.interactiveConfig.defaultA);
-      this.inputB.set(curr.interactiveConfig.defaultB);
+    if (this.hasNext()) {
+      this.curriculum.nextLesson();
+      const curr = this.curriculum.currentLesson();
+      if (curr) {
+        this.inputA.set(curr.interactiveConfig.defaultA);
+        this.inputB.set(curr.interactiveConfig.defaultB);
+        this.router.navigate(['/', curr.level, curr.slug]);
+      }
     }
   }
 
   goToPrev(): void {
-    this.curriculum.prevLesson();
-    const curr = this.curriculum.currentLesson();
-    if (curr) {
-      this.inputA.set(curr.interactiveConfig.defaultA);
-      this.inputB.set(curr.interactiveConfig.defaultB);
+    if (this.hasPrev()) {
+      this.curriculum.prevLesson();
+      const curr = this.curriculum.currentLesson();
+      if (curr) {
+        this.inputA.set(curr.interactiveConfig.defaultA);
+        this.inputB.set(curr.interactiveConfig.defaultB);
+        this.router.navigate(['/', curr.level, curr.slug]);
+      }
     }
   }
 

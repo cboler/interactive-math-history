@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
 import { LessonViewComponent } from './lesson-view.component';
 import { CurriculumService } from '../../services/curriculum.service';
+import { routes } from '../../app.routes';
 
 describe('LessonViewComponent', () => {
   let component: LessonViewComponent;
@@ -9,7 +12,7 @@ describe('LessonViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LessonViewComponent],
-      providers: [CurriculumService],
+      providers: [CurriculumService, provideRouter(routes)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LessonViewComponent);
@@ -108,5 +111,43 @@ describe('LessonViewComponent', () => {
       'Columns (B):',
     );
     expect(el.querySelector('.btn-group')).toBeFalsy(); // Operation toggle hidden
+  });
+
+  it('should sync active lesson when navigating to route directly', async () => {
+    const harness = await RouterTestingHarness.create();
+    const routedComponent = await harness.navigateByUrl(
+      '/arithmetic/spatial-invariance-multiplication',
+      LessonViewComponent,
+    );
+    expect(routedComponent.curriculum.currentLesson().id).toBe(
+      'unit-03-commutative-multiplication',
+    );
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain(
+      'Spatial Invariance',
+    );
+    expect(harness.routeNativeElement?.querySelector('app-grid-array')).toBeTruthy();
+  });
+
+  it('should resolve flexible unit aliases like unit-02', async () => {
+    const harness = await RouterTestingHarness.create();
+    const routedComponent = await harness.navigateByUrl(
+      '/foundations/unit-02',
+      LessonViewComponent,
+    );
+    expect(routedComponent.curriculum.currentLesson().id).toBe('unit-02-euclid-equality');
+    expect(harness.routeNativeElement?.querySelector('app-balance-scale')).toBeTruthy();
+    const router = TestBed.inject(Router);
+    expect(router.url).toBe('/foundations/unit-02');
+  });
+
+  it('should redirect unknown routes to canonical origins-of-addition', async () => {
+    const harness = await RouterTestingHarness.create();
+    const routedComponent = await harness.navigateByUrl(
+      '/nonexistent/unknown',
+      LessonViewComponent,
+    );
+    expect(routedComponent.curriculum.currentLesson().id).toBe('unit-01-ishango-addition');
+    const router = TestBed.inject(Router);
+    expect(router.url).toBe('/foundations/origins-of-addition');
   });
 });

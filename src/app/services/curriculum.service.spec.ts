@@ -59,4 +59,38 @@ describe('CurriculumService', () => {
     service.setLessonIndex(2);
     expect(service.activeLessonIndex()).toBe(2);
   });
+
+  it('should find lesson index by level and flexible unit descriptors', () => {
+    // By canonical slug
+    expect(service.findLessonIndex('foundations', 'origins-of-addition')).toBe(0);
+    expect(service.findLessonIndex('foundations', 'euclid-common-notions')).toBe(1);
+    expect(service.findLessonIndex('arithmetic', 'spatial-invariance-multiplication')).toBe(2);
+
+    // By ID
+    expect(service.findLessonIndex('foundations', 'unit-01-ishango-addition')).toBe(0);
+    expect(service.findLessonIndex('foundations', 'unit-02-euclid-equality')).toBe(1);
+
+    // By order number and unit prefixes
+    expect(service.findLessonIndex('foundations', '1')).toBe(0);
+    expect(service.findLessonIndex('foundations', 'unit-02')).toBe(1);
+    expect(service.findLessonIndex('arithmetic', 'unit-3')).toBe(2);
+
+    // Case insensitivity
+    expect(service.findLessonIndex('FOUNDATIONS', 'EUCLID-COMMON-NOTIONS')).toBe(1);
+
+    // Invalid combinations
+    expect(service.findLessonIndex('geometry', 'origins-of-addition')).toBe(-1);
+    expect(service.findLessonIndex('foundations', 'non-existent')).toBe(-1);
+  });
+
+  it('should navigate to lesson directly and update active index', () => {
+    const success = service.navigateToLesson('arithmetic', 'spatial-invariance-multiplication');
+    expect(success).toBe(true);
+    expect(service.activeLessonIndex()).toBe(2);
+    expect(service.currentLesson().shortTitle).toBe('Unit 03: Multiplication');
+
+    const fail = service.navigateToLesson('invalid', 'unit');
+    expect(fail).toBe(false);
+    expect(service.activeLessonIndex()).toBe(2);
+  });
 });

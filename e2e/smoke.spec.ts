@@ -159,4 +159,32 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // 9. Zero unhandled console errors or exceptions
     expect(consoleErrors).toEqual([]);
   });
+
+  test('should support direct URL deep-linking to curriculum levels and units', async ({
+    page,
+  }) => {
+    // 1. Direct deep-link to Unit 03
+    await page.goto('/arithmetic/spatial-invariance-multiplication');
+    await expect(page.locator('h1')).toContainText('Spatial Invariance');
+    await expect(page.locator('#grid-formula')).toHaveText('3 × 5 = 15 dots');
+    await expect(page.locator('app-grid-array')).toBeVisible();
+    await expect(page.locator('#nav-link-curriculum')).toHaveText('Unit 03: Multiplication');
+
+    // 2. Direct deep-link to Unit 02 via slug
+    await page.goto('/foundations/euclid-common-notions');
+    await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
+    await expect(page.locator('app-balance-scale')).toBeVisible();
+    await expect(page.locator('#nav-link-curriculum')).toHaveText('Unit 02: Equality');
+
+    // 3. Direct deep-link to Unit 02 via order/alias
+    await page.goto('/foundations/unit-02');
+    await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
+    await expect(page.locator('app-balance-scale')).toBeVisible();
+
+    // 4. Fallback on invalid route redirecting to canonical Unit 01
+    await page.goto('/nonexistent/unknown');
+    await expect(page).toHaveURL(/.*foundations\/origins-of-addition/);
+    await expect(page.locator('h1')).toContainText('The Origin of Combining');
+    await expect(page.locator('app-number-line')).toBeVisible();
+  });
 });

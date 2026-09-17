@@ -202,4 +202,32 @@ export class CurriculumService {
       this.activeLessonIndex.update((i) => i - 1);
     }
   }
+
+  findLessonIndex(level: string, unit: string): number {
+    const normLevel = level.toLowerCase().trim();
+    const normUnit = unit.toLowerCase().trim();
+
+    return this.lessons().findIndex((lesson) => {
+      if (lesson.level.toLowerCase() !== normLevel) {
+        return false;
+      }
+
+      return (
+        lesson.slug.toLowerCase() === normUnit ||
+        lesson.id.toLowerCase() === normUnit ||
+        lesson.order.toString() === normUnit ||
+        `unit-${lesson.order}` === normUnit ||
+        `unit-0${lesson.order}` === normUnit
+      );
+    });
+  }
+
+  navigateToLesson(level: string, unit: string): boolean {
+    const idx = this.findLessonIndex(level, unit);
+    if (idx !== -1) {
+      this.setLessonIndex(idx);
+      return true;
+    }
+    return false;
+  }
 }

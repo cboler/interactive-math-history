@@ -12,9 +12,8 @@
 
       <nav class="app-nav" aria-label="Primary Navigation">
         <a
-          routerLink="/"
+          [routerLink]="['/', curriculum.currentLesson().level, curriculum.currentLesson().slug]"
           routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
           class="nav-link"
           id="nav-link-curriculum"
           (click)="curriculum.toggleDrawer()"
