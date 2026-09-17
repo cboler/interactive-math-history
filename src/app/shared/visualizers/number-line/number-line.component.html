@@ -1,0 +1,93 @@
+<figure class="visualizer-container">
+  <div class="sr-only" aria-live="polite">
+    {{ speechSummary() }}
+  </div>
+
+  <svg [attr.viewBox]="'0 0 ' + svgWidth + ' ' + svgHeight" class="viewport-svg" aria-hidden="true">
+    <defs>
+      <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L7,3 z" fill="#2563eb" />
+      </marker>
+      <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L7,3 z" fill="#d97706" />
+      </marker>
+      <marker id="arrow-amber-rev" markerWidth="8" markerHeight="8" refX="1" refY="3" orient="auto">
+        <path d="M7,0 L7,6 L0,3 z" fill="#d97706" />
+      </marker>
+    </defs>
+
+    <line
+      [attr.x1]="paddingX"
+      [attr.y1]="axisY"
+      [attr.x2]="svgWidth - paddingX"
+      [attr.y2]="axisY"
+      class="axis"
+    />
+
+    @for (tick of ticks(); track tick.value) {
+      <line
+        [attr.x1]="tick.x"
+        [attr.y1]="tick.y - 6"
+        [attr.x2]="tick.x"
+        [attr.y2]="tick.y + 6"
+        class="tick"
+      />
+      <text [attr.x]="tick.x" [attr.y]="tick.y + 24" class="tick-text">{{ tick.value }}</text>
+    }
+
+    <!-- Vector A -->
+    @if (valA() > 0) {
+      <line
+        [attr.x1]="vectorA().startX"
+        [attr.y1]="vectorA().y"
+        [attr.x2]="vectorA().endX"
+        [attr.y2]="vectorA().y"
+        marker-end="url(#arrow-blue)"
+        class="vector-a"
+      />
+      <line
+        [attr.x1]="vectorA().endX"
+        [attr.y1]="vectorA().y"
+        [attr.x2]="vectorA().endX"
+        [attr.y2]="axisY"
+        class="drop-line"
+      />
+      <text
+        [attr.x]="(vectorA().startX + vectorA().endX) / 2"
+        [attr.y]="vectorA().y - 8"
+        class="label label-a"
+      >
+        +{{ valA() }}
+      </text>
+    }
+
+    <!-- Vector B -->
+    @if (valB() > 0) {
+      <line
+        [attr.x1]="vectorB().startX"
+        [attr.y1]="vectorB().y"
+        [attr.x2]="vectorB().endX"
+        [attr.y2]="vectorB().y"
+        [attr.marker-end]="vectorB().isForward ? 'url(#arrow-amber)' : 'url(#arrow-amber-rev)'"
+        class="vector-b"
+      />
+      <line
+        [attr.x1]="vectorB().endX"
+        [attr.y1]="vectorB().y"
+        [attr.x2]="vectorB().endX"
+        [attr.y2]="axisY"
+        class="drop-line highlight"
+      />
+      <text
+        [attr.x]="(vectorB().startX + vectorB().endX) / 2"
+        [attr.y]="vectorB().y - 8"
+        class="label label-b"
+      >
+        {{ operation() === 'add' ? '+' : '-' }}{{ valB() }}
+      </text>
+    }
+  </svg>
+  <figcaption class="caption">
+    Figure 1.1: Directional vector addition along a one-dimensional coordinate axis.
+  </figcaption>
+</figure>

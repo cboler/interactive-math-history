@@ -1,0 +1,135 @@
+@if (lesson(); as current) {
+  <article class="reader-article" role="article">
+    <header class="lesson-header">
+      <p class="eyebrow">{{ current.level | uppercase }} · UNIT {{ current.order }}</p>
+      <h1>{{ current.title }}</h1>
+      <p class="subtitle">{{ current.subtitle }}</p>
+      <div class="formula-badge">
+        <code>{{ current.mathematicalStatement }}</code>
+      </div>
+    </header>
+
+    <!-- Narrative Section: Pure readable prose for browser reader modes -->
+    <section class="prose-section">
+      <h2>The Human Story</h2>
+      <p class="lead-hook">{{ current.narrative.hook }}</p>
+      <p>{{ current.narrative.historicalContext.story }}</p>
+
+      <aside class="historical-card">
+        <h3>Context & Provenance</h3>
+        <ul>
+          <li>
+            <strong>Origin:</strong> {{ current.narrative.historicalContext.civilizationOrOrigin }}
+          </li>
+          <li>
+            <strong>Estimated Era:</strong>
+            {{ current.narrative.historicalContext.approximateDate }}
+          </li>
+          <li>
+            <strong>Encyclopedia:</strong>
+            <a
+              [href]="current.narrative.historicalContext.wikipedia.url"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ current.narrative.historicalContext.wikipedia.pageTitle }} on Wikipedia
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- Interactive Sandbox (Aria-hidden controls keep text reader flow clean) -->
+    <section class="interactive-stage">
+      <h2>Visualizing the Concept</h2>
+      <p class="interactive-instructions">
+        Adjust the parameters below to see how physical tallies behave as continuous vector
+        displacements.
+      </p>
+
+      <div class="controls-panel" aria-hidden="true">
+        <div class="control-group">
+          <label for="quantity-a-input"
+            >Quantity A: <strong>{{ inputA() }}</strong></label
+          >
+          <input
+            id="quantity-a-input"
+            type="range"
+            [min]="current.interactiveConfig.minA"
+            [max]="current.interactiveConfig.maxA"
+            [ngModel]="inputA()"
+            (ngModelChange)="inputA.set($event)"
+          />
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Operation:</span>
+          <div class="btn-group" role="group" aria-label="Operation selection">
+            <button type="button" [class.active]="operation() === 'add'" (click)="setOp('add')">
+              Add (+)
+            </button>
+            <button
+              type="button"
+              [class.active]="operation() === 'subtract'"
+              (click)="setOp('subtract')"
+            >
+              Subtract (-)
+            </button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="quantity-b-input"
+            >Quantity B: <strong>{{ inputB() }}</strong></label
+          >
+          <input
+            id="quantity-b-input"
+            type="range"
+            [min]="current.interactiveConfig.minB"
+            [max]="current.interactiveConfig.maxB"
+            [ngModel]="inputB()"
+            (ngModelChange)="inputB.set($event)"
+          />
+        </div>
+      </div>
+
+      <!-- Active Visualizer Outlet -->
+      <div class="visualizer-outlet">
+        @if (current.interactiveConfig.visualizer === 'three-geometry') {
+          @defer (on viewport) {
+            <app-three-viewport></app-three-viewport>
+          } @placeholder {
+            <div class="visualizer-placeholder" aria-hidden="true">Loading 3D Viewport...</div>
+          }
+        } @else {
+          <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
+        }
+      </div>
+    </section>
+
+    <!-- Principles to Remember -->
+    <section class="prose-section">
+      <h2>Principles to Remember</h2>
+      <ul>
+        @for (point of current.narrative.conceptualExplanation; track point) {
+          <li>{{ point }}</li>
+        }
+      </ul>
+      <h3>Real-World Relevance</h3>
+      <p>{{ current.narrative.realWorldApplication }}</p>
+    </section>
+
+    <!-- Citations -->
+    <footer class="lesson-footer">
+      <h3>Academic References</h3>
+      <ol>
+        @for (source of current.narrative.historicalContext.sources; track source.title) {
+          <li>
+            <strong>{{ source.title }}</strong> — {{ source.author }}.
+            <em>{{ source.citationSnippet }}</em>
+          </li>
+        }
+      </ol>
+    </footer>
+  </article>
+}
