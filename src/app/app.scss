@@ -89,17 +89,50 @@
   gap: var(--space-2);
 }
 
+.feedback-toggle-btn {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  padding: var(--space-2);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+
+  &:hover {
+    background-color: var(--surface-card);
+    color: var(--color-primary);
+    border-color: var(--border-muted);
+  }
+
+  &[aria-pressed='true'] {
+    color: var(--color-primary);
+  }
+
+  &[aria-pressed='false'] {
+    color: var(--text-muted);
+    opacity: 0.75;
+  }
+}
+
 .install-btn {
   background-color: var(--color-primary);
   color: var(--text-inverse);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  padding: var(--space-1) var(--space-3);
-  min-height: 36px;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--touch-target-min);
   border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
   transition: background-color 0.15s ease;
+  touch-action: manipulation;
 
   &:hover {
     background-color: var(--color-primary-hover);
@@ -146,6 +179,10 @@
   width: 100%;
   margin: 0 auto;
   padding: var(--space-4);
+
+  @media (max-width: 640px) {
+    padding: var(--space-2);
+  }
 }
 
 .app-footer {

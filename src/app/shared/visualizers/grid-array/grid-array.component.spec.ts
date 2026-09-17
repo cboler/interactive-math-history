@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
 import { GridArrayComponent } from './grid-array.component';
+import { FeedbackService } from '../../../core/services/feedback.service';
 
 describe('GridArrayComponent', () => {
   let component: GridArrayComponent;
@@ -60,5 +61,28 @@ describe('GridArrayComponent', () => {
     expect(component.totalDots()).toBe(24);
     expect(component.dots().length).toBe(24);
     expect(component.speechSummary()).toContain('4 rows of 6 dots, totaling 24 items');
+  });
+
+  it('should trigger feedback on transposition and dimension adjustments', async () => {
+    const feedback = fixture.debugElement.injector.get(FeedbackService);
+    const snapSpy = vi.spyOn(feedback, 'snapWhoosh');
+    const medSnapSpy = vi.spyOn(feedback, 'mediumSnap');
+    const tickSpy = vi.spyOn(feedback, 'tick');
+    const tapSpy = vi.spyOn(feedback, 'lightTap');
+
+    component.toggleTranspose();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(snapSpy).toHaveBeenCalled();
+    expect(medSnapSpy).toHaveBeenCalled();
+
+    // Test dimension change
+    componentRef.setInput('rows', 5);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(tickSpy).toHaveBeenCalled();
+    expect(tapSpy).toHaveBeenCalled();
   });
 });

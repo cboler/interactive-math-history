@@ -58,7 +58,7 @@
   --space-12: 3rem;
 
   /* Interactive Standards */
-  --touch-target-min: 44px;
+  --touch-target-min: 48px;
   --focus-ring: 2px solid var(--accent-vector-a);
   --focus-offset: 3px;
   --shadow-subtle: 0 1px 3px rgba(28, 25, 23, 0.05), 0 1px 2px rgba(28, 25, 23, 0.03);
@@ -193,29 +193,33 @@ button,
   text-decoration: none;
 }
 
-/* Range sliders */
+/* Range sliders & Touch Affordances */
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-  height: 8px;
+  height: 10px;
   background: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   outline: none;
   cursor: pointer;
+  touch-action: manipulation;
+  min-height: var(--touch-target-min);
+  padding: 12px 0;
 }
 
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: var(--accent-vector-a);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   transition: transform 0.15s ease;
+  touch-action: manipulation;
 }
 
 input[type='range']::-webkit-slider-thumb:hover {
@@ -223,18 +227,40 @@ input[type='range']::-webkit-slider-thumb:hover {
 }
 
 input[type='range']::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: var(--accent-vector-a);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   border: none;
   transition: transform 0.15s ease;
+  touch-action: manipulation;
 }
 
 input[type='range']::-moz-range-thumb:hover {
   transform: scale(1.15);
+}
+
+/* Mobile Touch Affordances (< 768px): minimum 28px diameter slider thumbs */
+@media (max-width: 768px) {
+  input[type='range']::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+
+  input[type='range']::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Interactive Visualizer Canvas & Outlet Touch Protection */
+.visualizer-container,
+.visualizer-outlet,
+.viewport-svg,
+.interactive-stage {
+  touch-action: manipulation;
 }
 
 /* 5. Visible keyboard focus ring for accessibility */

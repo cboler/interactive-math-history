@@ -1,6 +1,7 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, input, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IconComponent } from '../../components/icon/icon.component';
+import { FeedbackService } from '../../../core/services/feedback.service';
 
 export interface GridDot {
   id: string;
@@ -19,10 +20,37 @@ export interface GridDot {
   styleUrls: ['./grid-array.component.css'],
 })
 export class GridArrayComponent {
+  private readonly feedback = inject(FeedbackService);
+
   readonly rows = input<number>(3);
   readonly cols = input<number>(5);
 
   readonly isTransposed = signal<boolean>(false);
+
+  constructor() {
+    let initialized = false;
+    let prevRows = this.rows();
+    let prevCols = this.cols();
+
+    effect(() => {
+      const currentRows = this.rows();
+      const currentCols = this.cols();
+
+      if (!initialized) {
+        initialized = true;
+        prevRows = currentRows;
+        prevCols = currentCols;
+        return;
+      }
+
+      if (currentRows !== prevRows || currentCols !== prevCols) {
+        this.feedback.tick();
+        this.feedback.lightTap();
+        prevRows = currentRows;
+        prevCols = currentCols;
+      }
+    });
+  }
 
   readonly svgWidth = 640;
   readonly svgHeight = 420;
@@ -75,5 +103,7 @@ export class GridArrayComponent {
 
   toggleTranspose(): void {
     this.isTransposed.update((v) => !v);
+    this.feedback.snapWhoosh();
+    this.feedback.mediumSnap();
   }
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
 import { BalanceScaleComponent } from './balance-scale.component';
+import { FeedbackService } from '../../../core/services/feedback.service';
 
 describe('BalanceScaleComponent', () => {
   let component: BalanceScaleComponent;
@@ -60,5 +61,46 @@ describe('BalanceScaleComponent', () => {
 
     expect(component.leftTokens().length).toBe(4);
     expect(component.rightTokens().length).toBe(6);
+  });
+
+  it('should trigger feedback on balance, max tilt, and intermediate steps', async () => {
+    const feedback = fixture.debugElement.injector.get(FeedbackService);
+    const chimeSpy = vi.spyOn(feedback, 'equilibriumChime');
+    const pulseSpy = vi.spyOn(feedback, 'successPulse');
+    const thudSpy = vi.spyOn(feedback, 'tiltThud');
+    const tapSpy = vi.spyOn(feedback, 'lightTap');
+    const tickSpy = vi.spyOn(feedback, 'tick');
+
+    // 1. Intermediate adjustment (from 5=5 to 4!=5)
+    componentRef.setInput('a', 4);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(tickSpy).toHaveBeenCalled();
+    expect(chimeSpy).not.toHaveBeenCalled();
+    expect(thudSpy).not.toHaveBeenCalled();
+
+    tickSpy.mockClear();
+
+    // 2. Max tilt reached (from 4 vs 5 [tilt 3] to 1 vs 10 [tilt 15])
+    componentRef.setInput('a', 1);
+    componentRef.setInput('b', 10);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(thudSpy).toHaveBeenCalled();
+    expect(tapSpy).toHaveBeenCalled();
+    expect(chimeSpy).not.toHaveBeenCalled();
+
+    thudSpy.mockClear();
+    tapSpy.mockClear();
+
+    // 3. Balance reached (from 1 vs 10 to 10 vs 10)
+    componentRef.setInput('a', 10);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(chimeSpy).toHaveBeenCalled();
+    expect(pulseSpy).toHaveBeenCalled();
   });
 });

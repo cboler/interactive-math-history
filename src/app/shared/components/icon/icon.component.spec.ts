@@ -33,4 +33,15 @@ describe('IconComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('svg path')).toBeTruthy();
   });
+
+  it('should render volume and volume-x icons', () => {
+    fixture.componentRef.setInput('name', 'volume');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('svg polygon')).toBeTruthy();
+
+    fixture.componentRef.setInput('name', 'volume-x');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('svg polygon')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('svg line')).toBeTruthy();
+  });
 });

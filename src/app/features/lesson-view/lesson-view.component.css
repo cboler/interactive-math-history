@@ -42,12 +42,14 @@
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
   font-weight: 500;
-  padding: 0.25rem 0.6rem;
+  padding: 0.35rem 0.75rem;
+  min-height: var(--touch-target-min);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 
 .drawer-toggle-btn:hover {
@@ -68,13 +70,16 @@
   color: var(--text-primary);
   font-size: var(--font-size-xs);
   font-weight: 600;
-  padding: 0.35rem 0.75rem;
+  padding: 0.35rem 0.85rem;
+  min-height: var(--touch-target-min);
   border-radius: var(--radius-sm);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 
 .unit-step-btn:hover:not(:disabled) {
@@ -129,9 +134,15 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.9rem;
+  padding: var(--space-2);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
   border-radius: var(--radius-sm);
+  touch-action: manipulation;
 }
 
 .drawer-close-btn:hover {
@@ -158,13 +169,15 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.6rem 0.75rem;
+  padding: 0.75rem;
+  min-height: var(--touch-target-min);
   background: transparent;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
   text-align: left;
   cursor: pointer;
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 
 .stepper-btn:hover {
@@ -391,7 +404,8 @@ h1 {
 
 .btn-group button {
   flex: 1;
-  padding: 0.45rem 0.75rem;
+  padding: 0.5rem 0.85rem;
+  min-height: var(--touch-target-min);
   background: var(--surface-card);
   border: 1px solid var(--border-muted);
   border-radius: var(--radius-sm);
@@ -399,6 +413,7 @@ h1 {
   font-weight: 600;
   color: var(--text-secondary);
   transition: all 0.15s ease;
+  touch-action: manipulation;
 }
 
 .btn-group button:hover {
@@ -414,18 +429,6 @@ h1 {
 
 .visualizer-outlet {
   width: 100%;
-}
-
-.visualizer-placeholder {
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--surface-subtle);
-  color: var(--text-muted);
-  border-radius: var(--radius-md);
-  border: 1px dashed var(--border-subtle);
-  font-weight: 500;
 }
 
 .principles-list {
@@ -470,4 +473,55 @@ h1 {
 
 .lesson-footer em {
   color: var(--text-muted);
+}
+
+/* Mobile Responsive Ergonomics & Viewport Scaling down to 360px */
+@media (max-width: 640px) {
+  .curriculum-nav-bar {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .nav-bar-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+  }
+
+  .unit-badge-group {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .nav-controls {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .unit-step-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .reader-article {
+    padding: 1.25rem 0.5rem 3rem;
+  }
+
+  .interactive-stage {
+    padding: 1rem 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .controls-panel {
+    padding: 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .control-group {
+    flex: 1 1 100%;
+  }
+
+  .formula-badge code {
+    font-size: 0.95rem;
+    word-break: break-word;
+  }
 }

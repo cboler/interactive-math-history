@@ -2,6 +2,8 @@ import { Component, signal, inject, effect, OnInit, OnDestroy } from '@angular/c
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { CurriculumService } from './services/curriculum.service';
+import { FeedbackService } from './core/services/feedback.service';
+import { IconComponent } from './shared/components/icon/icon.component';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -11,7 +13,7 @@ interface BeforeInstallPromptEvent extends Event {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, IconComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
@@ -20,6 +22,7 @@ export class App implements OnInit, OnDestroy {
   protected readonly isOnline = signal(typeof navigator !== 'undefined' ? navigator.onLine : true);
   protected readonly canInstall = signal(false);
   protected readonly curriculum = inject(CurriculumService);
+  protected readonly feedback = inject(FeedbackService);
   private readonly titleService = inject(Title);
 
   constructor() {

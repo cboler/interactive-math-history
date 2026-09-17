@@ -75,5 +75,25 @@ describe('Interactive Math & History Shell Tests', () => {
       const badge = compiled.querySelector('.network-badge');
       expect(badge).toBeTruthy();
     });
+
+    it('should render and toggle feedback button with accessible aria attributes', async () => {
+      const fixture = TestBed.createComponent(App);
+      await fixture.whenStable();
+      fixture.detectChanges();
+      const compiled = fixture.nativeElement as HTMLElement;
+      const btn = compiled.querySelector('#feedback-toggle-btn') as HTMLButtonElement;
+
+      expect(btn).toBeTruthy();
+      expect(btn.getAttribute('aria-label')).toBe('Toggle audio and tactile feedback');
+      expect(btn.getAttribute('aria-pressed')).toBe('true');
+
+      btn.click();
+      fixture.detectChanges();
+      expect(btn.getAttribute('aria-pressed')).toBe('false');
+
+      btn.click();
+      fixture.detectChanges();
+      expect(btn.getAttribute('aria-pressed')).toBe('true');
+    });
   });
 });

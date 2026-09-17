@@ -35,6 +35,17 @@
       </nav>
 
       <div class="header-actions">
+        <button
+          type="button"
+          class="feedback-toggle-btn"
+          id="feedback-toggle-btn"
+          (click)="feedback.toggleFeedback()"
+          [attr.aria-pressed]="feedback.feedbackEnabled()"
+          aria-label="Toggle audio and tactile feedback"
+        >
+          <app-icon [name]="feedback.feedbackEnabled() ? 'volume' : 'volume-x'"></app-icon>
+        </button>
+
         @if (canInstall()) {
           <button
             type="button"

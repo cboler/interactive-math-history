@@ -1,5 +1,6 @@
-import { Component, Input, computed, signal } from '@angular/core';
+import { Component, Input, computed, signal, inject, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FeedbackService } from '../../../core/services/feedback.service';
 
 export type OperationType = 'add' | 'subtract';
 
@@ -11,6 +12,8 @@ export type OperationType = 'add' | 'subtract';
   styleUrls: ['./number-line.component.css'],
 })
 export class NumberLineComponent {
+  private readonly feedback = inject(FeedbackService);
+
   readonly valA = signal<number>(4);
   readonly valB = signal<number>(3);
   readonly operation = signal<OperationType>('add');
@@ -23,6 +26,24 @@ export class NumberLineComponent {
   }
   @Input() set op(v: OperationType) {
     this.operation.set(v);
+  }
+
+  constructor() {
+    let initialized = false;
+    effect(() => {
+      // Read dependencies to track discrete changes
+      this.valA();
+      this.valB();
+      this.operation();
+
+      if (!initialized) {
+        initialized = true;
+        return;
+      }
+
+      this.feedback.tick();
+      this.feedback.lightTap();
+    });
   }
 
   readonly svgWidth = 800;

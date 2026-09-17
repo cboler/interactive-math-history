@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NumberLineComponent } from './number-line.component';
+import { FeedbackService } from '../../../core/services/feedback.service';
 
 describe('NumberLineComponent', () => {
   let component: NumberLineComponent;
@@ -75,5 +76,28 @@ describe('NumberLineComponent', () => {
     // Ensure arrow-amber marker exists with orient="auto" and positive-x arrow tip
     const marker = element.querySelector('marker#arrow-amber');
     expect(marker?.getAttribute('orient')).toBe('auto');
+  });
+
+  it('should trigger tick and lightTap feedback when a, b, or op changes', async () => {
+    const feedback = fixture.debugElement.injector.get(FeedbackService);
+    const tickSpy = vi.spyOn(feedback, 'tick');
+    const tapSpy = vi.spyOn(feedback, 'lightTap');
+
+    component.a = 7;
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(tickSpy).toHaveBeenCalled();
+    expect(tapSpy).toHaveBeenCalled();
+
+    tickSpy.mockClear();
+    tapSpy.mockClear();
+
+    component.op = 'subtract';
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(tickSpy).toHaveBeenCalled();
+    expect(tapSpy).toHaveBeenCalled();
   });
 });
