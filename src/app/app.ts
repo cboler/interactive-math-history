@@ -1,5 +1,7 @@
-import { Component, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, signal, inject, effect, OnInit, OnDestroy } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { CurriculumService } from './services/curriculum.service';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -17,6 +19,19 @@ export class App implements OnInit, OnDestroy {
   protected readonly title = signal('Interactive Math & History');
   protected readonly isOnline = signal(typeof navigator !== 'undefined' ? navigator.onLine : true);
   protected readonly canInstall = signal(false);
+  protected readonly curriculum = inject(CurriculumService);
+  private readonly titleService = inject(Title);
+
+  constructor() {
+    effect(() => {
+      const current = this.curriculum.currentLesson();
+      if (current) {
+        this.titleService.setTitle(
+          `${current.shortTitle}: ${current.title} • Interactive Math & History`,
+        );
+      }
+    });
+  }
 
   private deferredPrompt: BeforeInstallPromptEvent | null = null;
   private onlineListener?: () => void;

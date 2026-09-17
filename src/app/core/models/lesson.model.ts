@@ -19,6 +19,7 @@ export interface MathLesson {
   slug: string;
   level: 'foundations' | 'arithmetic' | 'algebra' | 'geometry' | 'calculus' | 'logic';
   order: number;
+  shortTitle: string; // e.g. "Unit 01: Addition"
   title: string;
   subtitle: string;
   mathematicalStatement: string; // e.g. "a + b = c"

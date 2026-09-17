@@ -62,23 +62,37 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     });
 
     // 5. Navigate to Unit 02 via Next button
+    const navLink = page.locator('#nav-link-curriculum');
+    await expect(navLink).toHaveText('Unit 01: Addition');
+    await expect(page).toHaveTitle(/Unit 01: Addition/);
+
     const nextBtn = page.locator('#next-lesson-btn');
     await expect(nextBtn).toBeVisible();
     await nextBtn.click();
 
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(page.locator('.formula-badge code')).toHaveText('If A = B and B = C, then A = C');
+    await expect(navLink).toHaveText('Unit 02: Equality');
+    await expect(page).toHaveTitle(/Unit 02: Equality/);
+
+    await page.screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/navbar_unit02_verified.png',
+    });
 
     // 6. Navigate to Unit 03 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
     await expect(page.locator('.formula-badge code')).toHaveText('A × B = B × A');
+    await expect(navLink).toHaveText('Unit 03: Multiplication');
+    await expect(page).toHaveTitle(/Unit 03: Multiplication/);
 
     // 7. Navigate back to Unit 02 via Previous button
     const prevBtn = page.locator('#prev-lesson-btn');
     await expect(prevBtn).toBeVisible();
     await prevBtn.click();
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
+    await expect(navLink).toHaveText('Unit 02: Equality');
+    await expect(page).toHaveTitle(/Unit 02: Equality/);
 
     // 8. Prevent accidental horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {

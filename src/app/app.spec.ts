@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { App } from './app';
 import { routes } from './app.routes';
+import { CurriculumService } from './services/curriculum.service';
 
 describe('Interactive Math & History Shell Tests', () => {
   beforeEach(async () => {
@@ -28,13 +30,33 @@ describe('Interactive Math & History Shell Tests', () => {
       expect(compiled.querySelector('.brand-logo')?.textContent?.trim()).toBe('∑');
     });
 
-    it('should render accessible navigation link for Curriculum', async () => {
+    it('should render and dynamically update navigation link and title for active curriculum unit', async () => {
       const fixture = TestBed.createComponent(App);
+      const curriculum = fixture.debugElement.injector.get(CurriculumService);
+      const titleService = fixture.debugElement.injector.get(Title);
       await fixture.whenStable();
+      fixture.detectChanges();
+
       const compiled = fixture.nativeElement as HTMLElement;
-      expect(compiled.querySelector('#nav-link-curriculum')?.textContent?.trim()).toBe(
-        'Unit 01: Addition',
-      );
+      const navLink = compiled.querySelector('#nav-link-curriculum');
+      expect(navLink?.textContent?.trim()).toBe('Unit 01: Addition');
+      expect(titleService.getTitle()).toContain('Unit 01: Addition');
+
+      // Navigate to Unit 02
+      curriculum.nextLesson();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(navLink?.textContent?.trim()).toBe('Unit 02: Equality');
+      expect(titleService.getTitle()).toContain('Unit 02: Equality');
+
+      // Navigate to Unit 03
+      curriculum.nextLesson();
+      fixture.detectChanges();
+      await fixture.whenStable();
+
+      expect(navLink?.textContent?.trim()).toBe('Unit 03: Multiplication');
+      expect(titleService.getTitle()).toContain('Unit 03: Multiplication');
     });
 
     it('should render skip link for accessibility', async () => {

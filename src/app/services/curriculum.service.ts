@@ -11,6 +11,7 @@ export class CurriculumService {
       slug: 'origins-of-addition',
       level: 'foundations',
       order: 1,
+      shortTitle: 'Unit 01: Addition',
       title: 'The Origin of Combining: Physical Accumulation',
       subtitle: 'From Baboon Fibulae to Directional Number Lines',
       mathematicalStatement: 'a + b = c',
@@ -63,6 +64,7 @@ export class CurriculumService {
       slug: 'euclid-common-notions',
       level: 'foundations',
       order: 2,
+      shortTitle: 'Unit 02: Equality',
       title: "The Bridge of Reason: Euclid's Common Notions",
       subtitle: 'Balancing Scales and the Transitive Law of Equality',
       mathematicalStatement: 'If A = B and B = C, then A = C',
@@ -115,6 +117,7 @@ export class CurriculumService {
       slug: 'spatial-invariance-multiplication',
       level: 'arithmetic',
       order: 3,
+      shortTitle: 'Unit 03: Multiplication',
       title: 'Spatial Invariance: The Commutative Law',
       subtitle: 'Why 3 × 5 Always Equals 5 × 3 Across Ancient Farmlands',
       mathematicalStatement: 'A × B = B × A',
@@ -171,6 +174,16 @@ export class CurriculumService {
 
   readonly hasPrev = computed(() => this.activeLessonIndex() > 0);
   readonly hasNext = computed(() => this.activeLessonIndex() < this.lessons().length - 1);
+
+  readonly isDrawerOpen = signal<boolean>(false);
+
+  toggleDrawer(open?: boolean): void {
+    if (typeof open === 'boolean') {
+      this.isDrawerOpen.set(open);
+    } else {
+      this.isDrawerOpen.update((v) => !v);
+    }
+  }
 
   setLessonIndex(index: number): void {
     if (index >= 0 && index < this.lessons().length) {

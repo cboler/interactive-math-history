@@ -25,14 +25,14 @@ export class LessonViewComponent {
   readonly hasPrev = this.curriculum.hasPrev;
   readonly hasNext = this.curriculum.hasNext;
 
-  readonly isDrawerOpen = signal<boolean>(false);
+  readonly isDrawerOpen = this.curriculum.isDrawerOpen;
 
   readonly inputA = signal<number>(4);
   readonly inputB = signal<number>(3);
   readonly operation = signal<OperationType>('add');
 
   toggleDrawer(): void {
-    this.isDrawerOpen.update((v) => !v);
+    this.curriculum.toggleDrawer();
   }
 
   selectLesson(index: number): void {
@@ -42,7 +42,7 @@ export class LessonViewComponent {
       this.inputA.set(curr.interactiveConfig.defaultA);
       this.inputB.set(curr.interactiveConfig.defaultB);
     }
-    this.isDrawerOpen.set(false);
+    this.curriculum.toggleDrawer(false);
   }
 
   goToNext(): void {

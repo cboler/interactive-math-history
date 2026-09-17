@@ -17,8 +17,11 @@
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-link"
           id="nav-link-curriculum"
+          (click)="curriculum.toggleDrawer()"
+          [attr.aria-expanded]="curriculum.isDrawerOpen()"
+          aria-controls="curriculum-drawer"
         >
-          Unit 01: Addition
+          {{ curriculum.currentLesson().shortTitle }}
         </a>
         <a
           href="https://github.com/cboler/interactive-math-history"
