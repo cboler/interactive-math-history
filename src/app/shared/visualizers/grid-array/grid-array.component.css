@@ -1,0 +1,162 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.visualizer-container {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.transpose-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-muted);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.transpose-btn:hover {
+  background: var(--surface-card);
+  border-color: var(--accent-vector-a);
+  color: var(--accent-vector-a);
+  box-shadow: var(--shadow-subtle);
+}
+
+.transpose-btn.transposed {
+  background: rgba(37, 99, 235, 0.1);
+  border-color: var(--accent-vector-a);
+  color: var(--accent-vector-a);
+}
+
+.formula-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.formula-expression {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.formula-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.1rem;
+}
+
+.viewport-svg {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font-sans);
+}
+
+/* Field Boundary */
+.field-boundary {
+  fill: var(--surface-subtle);
+  stroke: var(--border-subtle);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+/* Dimension Indicators */
+.dim-line {
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.dim-serif {
+  stroke: var(--text-muted);
+  stroke-width: 1.5;
+}
+
+.dim-text {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--text-secondary);
+  user-select: none;
+}
+
+.dim-text-rows {
+  text-anchor: end;
+  dominant-baseline: central;
+}
+
+.dim-text-cols {
+  text-anchor: middle;
+  dominant-baseline: auto;
+}
+
+/* Dot Canvas and Cells */
+.dot-cell {
+  /* Cells position synchronously via computed SVG coordinates */
+}
+
+.dot-circle {
+  fill: var(--accent-vector-a);
+  stroke: var(--surface-card);
+  stroke-width: 2;
+  transition: fill 0.15s ease;
+}
+
+.dot-circle.alt-col {
+  fill: var(--accent-vector-b);
+}
+
+.dot-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #ffffff;
+  text-anchor: middle;
+  dominant-baseline: central;
+  user-select: none;
+  pointer-events: none;
+}
+
+.caption {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

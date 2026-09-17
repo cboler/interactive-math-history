@@ -131,9 +131,20 @@
 
       <div class="controls-panel" aria-hidden="true">
         <div class="control-group">
-          <label for="quantity-a-input"
-            >Quantity A: <strong>{{ inputA() }}</strong></label
-          >
+          <label for="quantity-a-input">
+            @switch (current.interactiveConfig.visualizer) {
+              @case ('balance-scale') {
+                Left Pan (A):
+              }
+              @case ('grid-array') {
+                Rows (A):
+              }
+              @default {
+                Quantity A:
+              }
+            }
+            <strong>{{ inputA() }}</strong>
+          </label>
           <input
             id="quantity-a-input"
             type="range"
@@ -144,32 +155,45 @@
           />
         </div>
 
-        <div class="control-group">
-          <span class="control-label">Operation:</span>
-          <div class="btn-group" role="group" aria-label="Operation selection">
-            <button
-              type="button"
-              id="add-op-btn"
-              [class.active]="operation() === 'add'"
-              (click)="setOp('add')"
-            >
-              Add (+)
-            </button>
-            <button
-              type="button"
-              id="subtract-op-btn"
-              [class.active]="operation() === 'subtract'"
-              (click)="setOp('subtract')"
-            >
-              Subtract (-)
-            </button>
+        @if (current.interactiveConfig.visualizer === 'number-line-vector') {
+          <div class="control-group">
+            <span class="control-label">Operation:</span>
+            <div class="btn-group" role="group" aria-label="Operation selection">
+              <button
+                type="button"
+                id="add-op-btn"
+                [class.active]="operation() === 'add'"
+                (click)="setOp('add')"
+              >
+                Add (+)
+              </button>
+              <button
+                type="button"
+                id="subtract-op-btn"
+                [class.active]="operation() === 'subtract'"
+                (click)="setOp('subtract')"
+              >
+                Subtract (-)
+              </button>
+            </div>
           </div>
-        </div>
+        }
 
         <div class="control-group">
-          <label for="quantity-b-input"
-            >Quantity B: <strong>{{ inputB() }}</strong></label
-          >
+          <label for="quantity-b-input">
+            @switch (current.interactiveConfig.visualizer) {
+              @case ('balance-scale') {
+                Right Pan (B):
+              }
+              @case ('grid-array') {
+                Columns (B):
+              }
+              @default {
+                Quantity B:
+              }
+            }
+            <strong>{{ inputB() }}</strong>
+          </label>
           <input
             id="quantity-b-input"
             type="range"
@@ -183,14 +207,16 @@
 
       <!-- Active Visualizer Outlet -->
       <div class="visualizer-outlet">
-        @if (current.interactiveConfig.visualizer === 'three-geometry') {
-          @defer (on viewport) {
-            <app-three-viewport></app-three-viewport>
-          } @placeholder {
-            <div class="visualizer-placeholder" aria-hidden="true">Loading 3D Viewport...</div>
+        @switch (current.interactiveConfig.visualizer) {
+          @case ('number-line-vector') {
+            <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
           }
-        } @else {
-          <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
+          @case ('balance-scale') {
+            <app-balance-scale [a]="inputA()" [b]="inputB()"></app-balance-scale>
+          }
+          @case ('grid-array') {
+            <app-grid-array [rows]="inputA()" [cols]="inputB()"></app-grid-array>
+          }
         }
       </div>
     </section>

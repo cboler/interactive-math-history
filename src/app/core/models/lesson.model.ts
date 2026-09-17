@@ -12,7 +12,7 @@ export interface WikipediaReference {
   url: string;
 }
 
-export type VisualizerMode = 'number-line-vector' | 'discrete-counters' | 'three-geometry';
+export type VisualizerMode = 'number-line-vector' | 'balance-scale' | 'grid-array';
 
 export interface MathLesson {
   id: string;

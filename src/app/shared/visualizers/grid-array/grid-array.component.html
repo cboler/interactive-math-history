@@ -1,0 +1,148 @@
+<figure class="visualizer-container">
+  <div class="sr-only" aria-live="polite">
+    {{ speechSummary() }}
+  </div>
+
+  <!-- Interactive Controls & Formula Banner -->
+  <div class="grid-actions-bar">
+    <button
+      type="button"
+      class="transpose-btn"
+      [class.transposed]="isTransposed()"
+      (click)="toggleTranspose()"
+      id="transpose-btn"
+      aria-label="Rotate Grid 90 degrees Transpose"
+    >
+      <app-icon name="rotate"></app-icon>
+      <span>Rotate Grid 90° (Transpose)</span>
+    </button>
+
+    <div class="formula-banner">
+      <div class="formula-expression" id="grid-formula">
+        {{ effectiveRows() }} × {{ effectiveCols() }} = {{ totalDots() }} dots
+      </div>
+      <div class="formula-note">
+        @if (isTransposed()) {
+          Transposed: ({{ cols() }} × {{ rows() }}) ≡ ({{ rows() }} × {{ cols() }})
+        } @else {
+          Standard: ({{ rows() }} × {{ cols() }}) ≡ ({{ cols() }} × {{ rows() }})
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG Visualizer Canvas -->
+  <svg
+    [attr.viewBox]="'0 0 ' + svgWidth + ' ' + svgHeight"
+    class="viewport-svg"
+    [class.grid-transposed]="isTransposed()"
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id="dot-grad-a" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#3b82f6" />
+        <stop offset="100%" stop-color="var(--accent-vector-a)" />
+      </linearGradient>
+      <linearGradient id="dot-grad-b" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f59e0b" />
+        <stop offset="100%" stop-color="var(--accent-vector-b)" />
+      </linearGradient>
+    </defs>
+
+    <!-- Field Boundary (representing ancient orthogonal agricultural plot) -->
+    <rect
+      [attr.x]="startX() - 22"
+      [attr.y]="startY() - 22"
+      [attr.width]="gridWidth() + 44"
+      [attr.height]="gridHeight() + 44"
+      rx="12"
+      class="field-boundary"
+    />
+
+    <!-- Row Bracket & Dimension Indicator (Left side) -->
+    <g class="dim-indicator dim-rows">
+      <line
+        [attr.x1]="startX() - 34"
+        [attr.y1]="startY() - 10"
+        [attr.x2]="startX() - 34"
+        [attr.y2]="startY() + gridHeight() + 10"
+        class="dim-line"
+      />
+      <line
+        [attr.x1]="startX() - 38"
+        [attr.y1]="startY() - 10"
+        [attr.x2]="startX() - 30"
+        [attr.y2]="startY() - 10"
+        class="dim-serif"
+      />
+      <line
+        [attr.x1]="startX() - 38"
+        [attr.y1]="startY() + gridHeight() + 10"
+        [attr.x2]="startX() - 30"
+        [attr.y2]="startY() + gridHeight() + 10"
+        class="dim-serif"
+      />
+      <text
+        [attr.x]="startX() - 44"
+        [attr.y]="startY() + gridHeight() / 2"
+        class="dim-text dim-text-rows"
+      >
+        {{ effectiveRows() }} rows
+      </text>
+    </g>
+
+    <!-- Column Bracket & Dimension Indicator (Top side) -->
+    <g class="dim-indicator dim-cols">
+      <line
+        [attr.x1]="startX() - 10"
+        [attr.y1]="startY() - 34"
+        [attr.x2]="startX() + gridWidth() + 10"
+        [attr.y2]="startY() - 34"
+        class="dim-line"
+      />
+      <line
+        [attr.x1]="startX() - 10"
+        [attr.y1]="startY() - 38"
+        [attr.x2]="startX() - 10"
+        [attr.y2]="startY() - 30"
+        class="dim-serif"
+      />
+      <line
+        [attr.x1]="startX() + gridWidth() + 10"
+        [attr.y1]="startY() - 38"
+        [attr.x2]="startX() + gridWidth() + 10"
+        [attr.y2]="startY() - 30"
+        class="dim-serif"
+      />
+      <text
+        [attr.x]="startX() + gridWidth() / 2"
+        [attr.y]="startY() - 44"
+        class="dim-text dim-text-cols"
+      >
+        {{ effectiveCols() }} columns
+      </text>
+    </g>
+
+    <!-- Interactive Dots Grid -->
+    <g class="dots-canvas">
+      @for (dot of dots(); track dot.id) {
+        <g class="dot-cell" [attr.id]="dot.id">
+          <circle
+            [attr.cx]="dot.x"
+            [attr.cy]="dot.y"
+            r="14"
+            class="dot-circle"
+            [class.alt-col]="dot.col % 2 === 1"
+          />
+          <text [attr.x]="dot.x" [attr.y]="dot.y" class="dot-num">
+            {{ dot.index }}
+          </text>
+        </g>
+      }
+    </g>
+  </svg>
+
+  <figcaption class="caption">
+    Two-dimensional area model demonstrating spatial invariance and commutativity (A × B = B × A).
+  </figcaption>
+</figure>

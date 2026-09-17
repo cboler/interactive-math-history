@@ -75,9 +75,38 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(navLink).toHaveText('Unit 02: Equality');
     await expect(page).toHaveTitle(/Unit 02: Equality/);
 
-    await page.screenshot({
-      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/navbar_unit02_verified.png',
+    // Verify Balance Scale visualizer is active and controls are adapted
+    await expect(page.locator('app-balance-scale')).toBeVisible();
+    await expect(page.locator('app-number-line')).toBeHidden();
+    await expect(page.locator('label[for="quantity-a-input"]')).toContainText('Left Pan (A):');
+    await expect(page.locator('label[for="quantity-b-input"]')).toContainText('Right Pan (B):');
+    await expect(page.locator('.btn-group')).toBeHidden();
+
+    // Verify Equilibrium badge on 5 = 5
+    const eqBadge = page.locator('#equilibrium-indicator');
+    await expect(eqBadge).toBeVisible();
+    await expect(eqBadge).toContainText('Equilibrium');
+    await expect(eqBadge).toContainText('(5 = 5)');
+
+    await page.locator('.interactive-stage').screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/balance_scale_equilibrium_verified.png',
     });
+
+    // Test tipping the scale: Increase Left Pan (A) to 8
+    const sliderA = page.locator('#quantity-a-input');
+    await sliderA.fill('8');
+    await expect(eqBadge).toBeHidden();
+    const tiltBadge = page.locator('.tilt-badge');
+    await expect(tiltBadge).toBeVisible();
+    await expect(tiltBadge).toContainText('Tipped Left: Pan A is heavier (+3)');
+
+    await page.locator('.interactive-stage').screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/balance_scale_tipped_verified.png',
+    });
+
+    // Restore to 5 = 5
+    await sliderA.fill('5');
+    await expect(eqBadge).toBeVisible();
 
     // 6. Navigate to Unit 03 via Next button
     await nextBtn.click();
@@ -86,6 +115,32 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(navLink).toHaveText('Unit 03: Multiplication');
     await expect(page).toHaveTitle(/Unit 03: Multiplication/);
 
+    // Verify Grid Array visualizer is active and controls are adapted
+    await expect(page.locator('app-grid-array')).toBeVisible();
+    await expect(page.locator('app-balance-scale')).toBeHidden();
+    await expect(page.locator('app-number-line')).toBeHidden();
+    await expect(page.locator('label[for="quantity-a-input"]')).toContainText('Rows (A):');
+    await expect(page.locator('label[for="quantity-b-input"]')).toContainText('Columns (B):');
+    await expect(page.locator('.btn-group')).toBeHidden();
+
+    // Verify formula banner in standard layout (3 rows × 5 columns)
+    const gridFormula = page.locator('#grid-formula');
+    await expect(gridFormula).toHaveText('3 × 5 = 15 dots');
+
+    await page.locator('.interactive-stage').screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/grid_array_standard_verified.png',
+    });
+
+    // Test Transpose button
+    const transposeBtn = page.locator('#transpose-btn');
+    await expect(transposeBtn).toBeVisible();
+    await transposeBtn.click();
+    await expect(gridFormula).toHaveText('5 × 3 = 15 dots');
+
+    await page.locator('.interactive-stage').screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/grid_array_transposed_verified.png',
+    });
+
     // 7. Navigate back to Unit 02 via Previous button
     const prevBtn = page.locator('#prev-lesson-btn');
     await expect(prevBtn).toBeVisible();
@@ -93,6 +148,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(navLink).toHaveText('Unit 02: Equality');
     await expect(page).toHaveTitle(/Unit 02: Equality/);
+    await expect(page.locator('app-balance-scale')).toBeVisible();
 
     // 8. Prevent accidental horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {

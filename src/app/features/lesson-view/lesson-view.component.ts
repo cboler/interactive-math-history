@@ -6,13 +6,21 @@ import {
   NumberLineComponent,
   OperationType,
 } from '../../shared/visualizers/number-line/number-line.component';
-import { ThreeViewportComponent } from '../../shared/visualizers/three-viewport/three-viewport.component';
+import { BalanceScaleComponent } from '../../shared/visualizers/balance-scale/balance-scale.component';
+import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-array.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 
 @Component({
   selector: 'app-lesson-view',
   standalone: true,
-  imports: [CommonModule, FormsModule, NumberLineComponent, ThreeViewportComponent, IconComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    NumberLineComponent,
+    BalanceScaleComponent,
+    GridArrayComponent,
+    IconComponent,
+  ],
   templateUrl: './lesson-view.component.html',
   styleUrls: ['./lesson-view.component.css'],
 })

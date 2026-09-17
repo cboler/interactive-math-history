@@ -71,4 +71,42 @@ describe('LessonViewComponent', () => {
     component.setOp('subtract');
     expect(component.operation()).toBe('subtract');
   });
+
+  it('should dynamically mount correct visualizers and adapt control labels', () => {
+    const el = fixture.nativeElement as HTMLElement;
+
+    // Unit 01: number-line-vector
+    expect(el.querySelector('app-number-line')).toBeTruthy();
+    expect(el.querySelector('app-balance-scale')).toBeFalsy();
+    expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Quantity A:');
+    expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain('Quantity B:');
+    expect(el.querySelector('.btn-group')).toBeTruthy();
+
+    // Unit 02: balance-scale
+    component.goToNext();
+    fixture.detectChanges();
+    expect(el.querySelector('app-number-line')).toBeFalsy();
+    expect(el.querySelector('app-balance-scale')).toBeTruthy();
+    expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain(
+      'Left Pan (A):',
+    );
+    expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain(
+      'Right Pan (B):',
+    );
+    expect(el.querySelector('.btn-group')).toBeFalsy(); // Operation toggle hidden
+
+    // Unit 03: grid-array
+    component.goToNext();
+    fixture.detectChanges();
+    expect(el.querySelector('app-number-line')).toBeFalsy();
+    expect(el.querySelector('app-balance-scale')).toBeFalsy();
+    expect(el.querySelector('app-grid-array')).toBeTruthy();
+    expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Rows (A):');
+    expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain(
+      'Columns (B):',
+    );
+    expect(el.querySelector('.btn-group')).toBeFalsy(); // Operation toggle hidden
+  });
 });

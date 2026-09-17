@@ -1,0 +1,106 @@
+<figure class="visualizer-container">
+  <div class="sr-only" aria-live="polite">
+    {{ speechSummary() }}
+  </div>
+
+  <div class="scale-status-bar">
+    @if (isBalanced()) {
+      <div class="equilibrium-badge" role="status" id="equilibrium-indicator">
+        <span class="badge-pulse"></span>
+        <span class="badge-icon">⚖</span>
+        <span class="badge-text">Equilibrium</span>
+        <span class="badge-val">({{ a() }} = {{ b() }})</span>
+      </div>
+    } @else {
+      <div class="tilt-badge" role="status">
+        @if (a() > b()) {
+          <span class="tilt-arrow">◀</span>
+          <span>Tipped Left: Pan A is heavier (+{{ a() - b() }})</span>
+        } @else {
+          <span>Tipped Right: Pan B is heavier (+{{ b() - a() }})</span>
+          <span class="tilt-arrow">▶</span>
+        }
+      </div>
+    }
+  </div>
+
+  <svg [attr.viewBox]="'0 0 ' + svgWidth + ' ' + svgHeight" class="viewport-svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="fulcrum-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--surface-subtle)" />
+        <stop offset="100%" stop-color="var(--border-subtle)" />
+      </linearGradient>
+    </defs>
+
+    <!-- Fulcrum Pedestal (Stationary base and central support) -->
+    <rect x="290" y="270" width="120" height="12" rx="4" class="fulcrum-base" />
+    <polygon points="350,110 318,270 382,270" class="fulcrum-pillar" />
+
+    <!-- Tilt Indicator Arc -->
+    <path d="M 320,85 A 40,40 0 0,1 380,85" class="gauge-arc" />
+    <line x1="350" y1="80" x2="350" y2="88" class="gauge-center-tick" />
+    <circle cx="350" cy="84" r="3" [class.equilibrium-gem]="isBalanced()" class="gauge-pin" />
+
+    <!-- Rotating Beam Assembly -->
+    <g [attr.transform]="'rotate(' + tilt() + ' ' + cx + ' ' + cy + ')'" class="beam-assembly">
+      <!-- Beam Bar -->
+      <line x1="130" y1="110" x2="570" y2="110" class="beam-bar" />
+      <circle cx="130" cy="110" r="5" class="beam-eyelet" />
+      <circle cx="570" cy="110" r="5" class="beam-eyelet" />
+      <!-- Center Needle Pointer pointing to gauge arc -->
+      <line x1="350" y1="110" x2="350" y2="80" class="beam-pointer" />
+
+      <!-- Left Pan Assembly (Suspended at x=130, counter-rotates by -tilt so cords hang plumb) -->
+      <g [attr.transform]="'rotate(' + -tilt() + ' 130 110)'" class="pan-assembly left-pan">
+        <line x1="130" y1="110" x2="80" y2="215" class="pan-cord" />
+        <line x1="130" y1="110" x2="180" y2="215" class="pan-cord" />
+        <path d="M 75,215 C 75,238 185,238 185,215 Z" class="pan-dish pan-dish-a" />
+        <line x1="70" y1="215" x2="190" y2="215" class="pan-rim pan-rim-a" />
+
+        @for (token of leftTokens(); track token.id) {
+          <rect
+            [attr.x]="token.x - 10"
+            [attr.y]="token.y - 6"
+            width="20"
+            height="12"
+            rx="3"
+            class="weight-token weight-token-a"
+          />
+          <circle [attr.cx]="token.x" [attr.cy]="token.y" r="2" class="token-pip" />
+        }
+
+        <text x="130" y="254" class="pan-label pan-label-a">Left Pan (A): {{ a() }}</text>
+      </g>
+
+      <!-- Right Pan Assembly (Suspended at x=570, counter-rotates by -tilt so cords hang plumb) -->
+      <g [attr.transform]="'rotate(' + -tilt() + ' 570 110)'" class="pan-assembly right-pan">
+        <line x1="570" y1="110" x2="520" y2="215" class="pan-cord" />
+        <line x1="570" y1="110" x2="620" y2="215" class="pan-cord" />
+        <path d="M 515,215 C 515,238 625,238 625,215 Z" class="pan-dish pan-dish-b" />
+        <line x1="510" y1="215" x2="630" y2="215" class="pan-rim pan-rim-b" />
+
+        @for (token of rightTokens(); track token.id) {
+          <rect
+            [attr.x]="token.x - 10"
+            [attr.y]="token.y - 6"
+            width="20"
+            height="12"
+            rx="3"
+            class="weight-token weight-token-b"
+          />
+          <circle [attr.cx]="token.x" [attr.cy]="token.y" r="2" class="token-pip" />
+        }
+
+        <text x="570" y="254" class="pan-label pan-label-b">Right Pan (B): {{ b() }}</text>
+      </g>
+    </g>
+
+    <!-- Center Pivot Pin -->
+    <circle cx="350" cy="110" r="9" class="pivot-outer" />
+    <circle cx="350" cy="110" r="4" class="pivot-inner" />
+  </svg>
+
+  <figcaption class="caption">
+    Euclidean balance scale demonstrating physical equilibrium and the transitive law of equality.
+  </figcaption>
+</figure>
