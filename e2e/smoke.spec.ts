@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
-  test('should load application cleanly without runtime errors or horizontal overflow', async ({
+  test('should load application cleanly and navigate through curriculum units', async ({
     page,
   }) => {
     const consoleErrors: string[] = [];
@@ -25,7 +25,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('main[role="main"]')).toBeVisible();
     await expect(page.locator('footer[role="contentinfo"]')).toBeVisible();
 
-    // 3. Reader article and narrative content
+    // 3. Reader article and narrative content for Unit 01
     const article = page.locator('article.reader-article');
     await expect(article).toBeVisible();
     await expect(page.locator('h1')).toContainText('The Origin of Combining');
@@ -38,13 +38,32 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('#quantity-a-input')).toBeVisible();
     await expect(page.locator('#quantity-b-input')).toBeVisible();
 
-    // 5. Prevent accidental horizontal overflow
+    // 5. Navigate to Unit 02 via Next button
+    const nextBtn = page.locator('#next-lesson-btn');
+    await expect(nextBtn).toBeVisible();
+    await nextBtn.click();
+
+    await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
+    await expect(page.locator('.formula-badge code')).toHaveText('If A = B and B = C, then A = C');
+
+    // 6. Navigate to Unit 03 via Next button
+    await nextBtn.click();
+    await expect(page.locator('h1')).toContainText('Spatial Invariance');
+    await expect(page.locator('.formula-badge code')).toHaveText('A × B = B × A');
+
+    // 7. Navigate back to Unit 02 via Previous button
+    const prevBtn = page.locator('#prev-lesson-btn');
+    await expect(prevBtn).toBeVisible();
+    await prevBtn.click();
+    await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
+
+    // 8. Prevent accidental horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {
       return document.documentElement.scrollWidth > window.innerWidth;
     });
     expect(hasHorizontalOverflow).toBeFalsy();
 
-    // 6. Zero unhandled console errors or exceptions
+    // 9. Zero unhandled console errors or exceptions
     expect(consoleErrors).toEqual([]);
   });
 });

@@ -16,74 +16,80 @@
   max-width: 800px;
   height: auto;
   overflow: visible;
-  font-family: var(--font-family);
+  font-family: var(--font-sans);
 }
 
 .axis {
-  stroke: #475569;
+  stroke: var(--border-muted);
   stroke-width: 2.5;
   stroke-linecap: round;
 }
 
 .tick {
-  stroke: #94a3b8;
+  stroke: var(--text-muted);
   stroke-width: 1.5;
 }
 
 .tick-text {
   font-size: 13px;
   font-weight: 600;
-  fill: #e2e8f0;
+  fill: var(--text-secondary);
   text-anchor: middle;
   user-select: none;
 }
 
 .vector-a {
-  stroke: #38bdf8;
+  stroke: var(--accent-vector-a);
   stroke-width: 3.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
   transition: all 0.2s ease-out;
 }
 
 .vector-b {
-  stroke: #fbbf24;
+  stroke: var(--accent-vector-b);
   stroke-width: 3.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
   transition: all 0.2s ease-out;
 }
 
+.marker-arrow-a {
+  fill: var(--accent-vector-a);
+}
+
+.marker-arrow-b {
+  fill: var(--accent-vector-b);
+}
+
 .drop-line {
-  stroke: rgba(148, 163, 184, 0.35);
+  stroke: var(--border-muted);
   stroke-width: 1.5;
   stroke-dasharray: 3 3;
 }
 
 .drop-line.highlight {
-  stroke: #fbbf24;
+  stroke: var(--accent-vector-b);
   stroke-width: 1.5;
   stroke-dasharray: 4 4;
 }
 
 .label {
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 700;
   text-anchor: middle;
 }
 
 .label-a {
-  fill: #38bdf8;
+  fill: var(--accent-vector-a);
 }
 
 .label-b {
-  fill: #fbbf24;
+  fill: var(--accent-vector-b);
 }
 
 .caption {
   margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #94a3b8;
+  font-size: 0.875rem;
+  color: var(--text-muted);
   text-align: center;
   font-style: italic;
 }

@@ -1,4 +1,83 @@
 @if (lesson(); as current) {
+  <!-- Curriculum Stepper & Navigation Bar (Aria-hidden from narrative text reader) -->
+  <nav class="curriculum-nav-bar" aria-label="Curriculum Unit Navigation">
+    <div class="nav-bar-inner">
+      <div class="unit-badge-group">
+        <span class="unit-level-badge">
+          {{ current.level === 'foundations' ? 'Level 0' : 'Level 1' }} · Unit
+          {{ current.order }} of {{ totalLessons() }}
+        </span>
+        <button
+          type="button"
+          class="drawer-toggle-btn"
+          (click)="toggleDrawer()"
+          [attr.aria-expanded]="isDrawerOpen()"
+          aria-controls="curriculum-drawer"
+        >
+          <app-icon name="book"></app-icon>
+          <span class="btn-text">Curriculum Outline</span>
+        </button>
+      </div>
+
+      <div class="nav-controls">
+        <button
+          type="button"
+          class="unit-step-btn"
+          [disabled]="!hasPrev()"
+          (click)="goToPrev()"
+          aria-label="Previous lesson"
+          id="prev-lesson-btn"
+        >
+          <app-icon name="chevron-left"></app-icon>
+          <span class="btn-text">Previous</span>
+        </button>
+
+        <button
+          type="button"
+          class="unit-step-btn"
+          [disabled]="!hasNext()"
+          (click)="goToNext()"
+          aria-label="Next lesson"
+          id="next-lesson-btn"
+        >
+          <span class="btn-text">Next</span>
+          <app-icon name="chevron-right"></app-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Collapsible Curriculum Drawer -->
+    @if (isDrawerOpen()) {
+      <div class="drawer-panel" id="curriculum-drawer">
+        <div class="drawer-header">
+          <h3>Curriculum Blueprint</h3>
+          <button
+            type="button"
+            class="drawer-close-btn"
+            (click)="toggleDrawer()"
+            aria-label="Close outline"
+          >
+            ✕
+          </button>
+        </div>
+        <ul class="lesson-stepper-list">
+          @for (item of allLessons(); track item.id; let idx = $index) {
+            <li class="stepper-item" [class.active]="idx === activeIndex()">
+              <button type="button" class="stepper-btn" (click)="selectLesson(idx)">
+                <span class="stepper-number">0{{ item.order }}</span>
+                <div class="stepper-meta">
+                  <span class="stepper-title">{{ item.title }}</span>
+                  <span class="stepper-statement">{{ item.mathematicalStatement }}</span>
+                </div>
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </nav>
+
+  <!-- Semantic Reader View: Pure prose structured for browser TTS engines & Reader Mode -->
   <article class="reader-article" role="article">
     <header class="lesson-header">
       <p class="eyebrow">{{ current.level | uppercase }} · UNIT {{ current.order }}</p>
@@ -9,14 +88,17 @@
       </div>
     </header>
 
-    <!-- Narrative Section: Pure readable prose for browser reader modes -->
+    <!-- Narrative Section -->
     <section class="prose-section">
       <h2>The Human Story</h2>
       <p class="lead-hook">{{ current.narrative.hook }}</p>
       <p>{{ current.narrative.historicalContext.story }}</p>
 
       <aside class="historical-card">
-        <h3>Context & Provenance</h3>
+        <h3>
+          <app-icon name="history"></app-icon>
+          Context &amp; Provenance
+        </h3>
         <ul>
           <li>
             <strong>Origin:</strong> {{ current.narrative.historicalContext.civilizationOrOrigin }}
@@ -32,7 +114,8 @@
               target="_blank"
               rel="noopener noreferrer"
             >
-              {{ current.narrative.historicalContext.wikipedia.pageTitle }} on Wikipedia
+              {{ current.narrative.historicalContext.wikipedia.pageTitle }}
+              <app-icon name="external-link"></app-icon>
             </a>
           </li>
         </ul>
@@ -43,8 +126,7 @@
     <section class="interactive-stage">
       <h2>Visualizing the Concept</h2>
       <p class="interactive-instructions">
-        Adjust the parameters below to see how physical tallies behave as continuous vector
-        displacements.
+        Adjust the parameters below to explore this concept through computational visual models.
       </p>
 
       <div class="controls-panel" aria-hidden="true">
@@ -110,8 +192,8 @@
     <!-- Principles to Remember -->
     <section class="prose-section">
       <h2>Principles to Remember</h2>
-      <ul>
-        @for (point of current.narrative.conceptualExplanation; track point) {
+      <ul class="principles-list">
+        @for (point of current.narrative.conceptualExplanation; track $index) {
           <li>{{ point }}</li>
         }
       </ul>
@@ -119,9 +201,12 @@
       <p>{{ current.narrative.realWorldApplication }}</p>
     </section>
 
-    <!-- Citations -->
+    <!-- Academic Citations -->
     <footer class="lesson-footer">
-      <h3>Academic References</h3>
+      <h3>
+        <app-icon name="quote"></app-icon>
+        Academic References
+      </h3>
       <ol>
         @for (source of current.narrative.historicalContext.sources; track source.title) {
           <li>
