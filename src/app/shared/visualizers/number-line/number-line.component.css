@@ -2,6 +2,7 @@
   display: block;
   width: 100%;
 }
+
 .visualizer-container {
   margin: 0;
   width: 100%;
@@ -9,67 +10,84 @@
   flex-direction: column;
   align-items: center;
 }
+
 .viewport-svg {
   width: 100%;
   max-width: 800px;
   height: auto;
   overflow: visible;
-  font-family: inherit;
+  font-family: var(--font-family);
 }
+
 .axis {
-  stroke: #94a3b8;
+  stroke: #475569;
   stroke-width: 2.5;
   stroke-linecap: round;
 }
+
 .tick {
-  stroke: #64748b;
+  stroke: #94a3b8;
   stroke-width: 1.5;
 }
+
 .tick-text {
   font-size: 13px;
-  font-weight: 500;
-  fill: #64748b;
+  font-weight: 600;
+  fill: #e2e8f0;
   text-anchor: middle;
   user-select: none;
 }
+
 .vector-a {
-  stroke: #2563eb;
+  stroke: #38bdf8;
   stroke-width: 3.5;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(56, 189, 248, 0.4));
   transition: all 0.2s ease-out;
 }
+
 .vector-b {
-  stroke: #d97706;
+  stroke: #fbbf24;
   stroke-width: 3.5;
   stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.4));
   transition: all 0.2s ease-out;
 }
+
 .drop-line {
-  stroke: #cbd5e1;
+  stroke: rgba(148, 163, 184, 0.35);
   stroke-width: 1.5;
   stroke-dasharray: 3 3;
 }
+
 .drop-line.highlight {
-  stroke: #d97706;
+  stroke: #fbbf24;
+  stroke-width: 1.5;
   stroke-dasharray: 4 4;
 }
+
 .label {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-anchor: middle;
 }
+
 .label-a {
-  fill: #1d4ed8;
+  fill: #38bdf8;
 }
+
 .label-b {
-  fill: #b45309;
+  fill: #fbbf24;
 }
+
 .caption {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: #64748b;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
   text-align: center;
+  font-style: italic;
 }
+
 .sr-only {
   position: absolute;
   width: 1px;

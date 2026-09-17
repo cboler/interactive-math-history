@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-pwa-starter": {
+    "interactive-math-history": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -65,10 +65,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-pwa-starter:build:production"
+              "buildTarget": "interactive-math-history:build:production"
             },
             "development": {
-              "buildTarget": "angular-pwa-starter:build:development"
+              "buildTarget": "interactive-math-history:build:development"
             }
           },
           "defaultConfiguration": "development"

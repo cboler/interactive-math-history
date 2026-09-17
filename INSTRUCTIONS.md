@@ -1,6 +1,6 @@
 # Agent Instructions
 
-This repository is an **Angular PWA Starter** optimized for hosting on **GitHub Pages**.
+This repository is **Interactive Math & History**, an interactive, accessible mathematics and history curriculum hosted on **GitHub Pages**.
 
 When working in this repository or any project created from this template, follow these guidelines:
 

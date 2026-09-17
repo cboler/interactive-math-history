@@ -1,14 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
-import { HomeComponent } from './home/home.component';
-import { StatusComponent } from './status/status.component';
 import { routes } from './app.routes';
 
-describe('Starter Application Tests', () => {
+describe('Interactive Math & History Shell Tests', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, HomeComponent, StatusComponent],
+      imports: [App],
       providers: [provideRouter(routes)],
     }).compileComponents();
   });
@@ -20,19 +18,23 @@ describe('Starter Application Tests', () => {
       expect(app).toBeTruthy();
     });
 
-    it('should render the starter brand title', async () => {
+    it('should render the brand title and math symbol', async () => {
       const fixture = TestBed.createComponent(App);
       await fixture.whenStable();
       const compiled = fixture.nativeElement as HTMLElement;
-      expect(compiled.querySelector('.brand-title')?.textContent).toContain('Angular PWA Starter');
+      expect(compiled.querySelector('.brand-title')?.textContent).toContain(
+        'Interactive Math & History',
+      );
+      expect(compiled.querySelector('.brand-logo')?.textContent?.trim()).toBe('∑');
     });
 
-    it('should render accessible navigation links for Home and Status', async () => {
+    it('should render accessible navigation link for Curriculum', async () => {
       const fixture = TestBed.createComponent(App);
       await fixture.whenStable();
       const compiled = fixture.nativeElement as HTMLElement;
-      expect(compiled.querySelector('#nav-link-home')?.textContent?.trim()).toBe('Home');
-      expect(compiled.querySelector('#nav-link-status')?.textContent?.trim()).toBe('Status');
+      expect(compiled.querySelector('#nav-link-curriculum')?.textContent?.trim()).toBe(
+        'Unit 01: Addition',
+      );
     });
 
     it('should render skip link for accessibility', async () => {
@@ -43,36 +45,13 @@ describe('Starter Application Tests', () => {
       expect(skipLink).toBeTruthy();
       expect(skipLink?.getAttribute('href')).toBe('#main-content');
     });
-  });
 
-  describe('HomeComponent', () => {
-    it('should render hero title and action buttons', async () => {
-      const fixture = TestBed.createComponent(HomeComponent);
+    it('should render network status badge', async () => {
+      const fixture = TestBed.createComponent(App);
       await fixture.whenStable();
       const compiled = fixture.nativeElement as HTMLElement;
-      expect(compiled.querySelector('#starter-title')?.textContent).toBe('Angular PWA Starter');
-      expect(compiled.querySelector('#view-status-btn')).toBeTruthy();
-    });
-
-    it('should display starter capabilities cards', async () => {
-      const fixture = TestBed.createComponent(HomeComponent);
-      await fixture.whenStable();
-      const compiled = fixture.nativeElement as HTMLElement;
-      const cards = compiled.querySelectorAll('.feature-card');
-      expect(cards.length).toBe(4);
-    });
-  });
-
-  describe('StatusComponent', () => {
-    it('should create status component and render base uri diagnostic', async () => {
-      const fixture = TestBed.createComponent(StatusComponent);
-      await fixture.whenStable();
-      const compiled = fixture.nativeElement as HTMLElement;
-      expect(compiled.querySelector('#status-heading')?.textContent).toContain(
-        'Runtime & Routing Verification',
-      );
-      expect(compiled.querySelector('#base-uri-val')).toBeTruthy();
-      expect(compiled.querySelector('#back-home-link')).toBeTruthy();
+      const badge = compiled.querySelector('.network-badge');
+      expect(badge).toBeTruthy();
     });
   });
 });
