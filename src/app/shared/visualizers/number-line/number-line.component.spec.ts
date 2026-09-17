@@ -54,4 +54,26 @@ describe('NumberLineComponent', () => {
     expect(svg).toBeTruthy();
     expect(svg?.getAttribute('aria-hidden')).toBe('true');
   });
+
+  it('should orient subtraction vector from a to result using arrow-amber marker', async () => {
+    component.a = 4;
+    component.b = 3;
+    component.op = 'subtract';
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const element = fixture.nativeElement as HTMLElement;
+    const vectorB = element.querySelector('line.vector-b');
+    expect(vectorB).toBeTruthy();
+
+    const x1 = parseFloat(vectorB?.getAttribute('x1') ?? '0');
+    const x2 = parseFloat(vectorB?.getAttribute('x2') ?? '0');
+    // Vector starts at 4 and ends at 1, moving leftward
+    expect(x1).toBeGreaterThan(x2);
+    expect(vectorB?.getAttribute('marker-end')).toBe('url(#arrow-amber)');
+
+    // Ensure arrow-amber marker exists with orient="auto" and positive-x arrow tip
+    const marker = element.querySelector('marker#arrow-amber');
+    expect(marker?.getAttribute('orient')).toBe('auto');
+  });
 });

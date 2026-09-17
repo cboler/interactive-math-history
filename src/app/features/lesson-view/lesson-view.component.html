@@ -147,11 +147,17 @@
         <div class="control-group">
           <span class="control-label">Operation:</span>
           <div class="btn-group" role="group" aria-label="Operation selection">
-            <button type="button" [class.active]="operation() === 'add'" (click)="setOp('add')">
+            <button
+              type="button"
+              id="add-op-btn"
+              [class.active]="operation() === 'add'"
+              (click)="setOp('add')"
+            >
               Add (+)
             </button>
             <button
               type="button"
+              id="subtract-op-btn"
               [class.active]="operation() === 'subtract'"
               (click)="setOp('subtract')"
             >

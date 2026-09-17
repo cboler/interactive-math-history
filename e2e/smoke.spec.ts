@@ -32,11 +32,26 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('.formula-badge code')).toHaveText('a + b = c');
     await expect(page.locator('.historical-card')).toBeVisible();
 
-    // 4. Interactive stage and vector visualizer
+    // 4. Interactive stage and vector visualizer (Addition and Subtraction)
     await expect(page.locator('.interactive-stage')).toBeVisible();
     await expect(page.locator('figure.visualizer-container svg')).toBeVisible();
     await expect(page.locator('#quantity-a-input')).toBeVisible();
     await expect(page.locator('#quantity-b-input')).toBeVisible();
+
+    // Verify subtraction vector direction (arrow pointing left towards result)
+    const subtractBtn = page.locator('#subtract-op-btn');
+    await expect(subtractBtn).toBeVisible();
+    await subtractBtn.click();
+    const vectorB = page.locator('line.vector-b');
+    await expect(vectorB).toBeAttached();
+    await expect(vectorB).toHaveAttribute('x1', '190');
+    await expect(vectorB).toHaveAttribute('x2', '85');
+    await expect(vectorB).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+
+    // Capture visual snapshot of subtraction state for verification
+    await page.locator('.interactive-stage').screenshot({
+      path: 'C:/Users/chris/.gemini/antigravity-ide/brain/08064615-788a-44e9-a86e-3a6e113a8581/subtraction_verified.png',
+    });
 
     // 5. Navigate to Unit 02 via Next button
     const nextBtn = page.locator('#next-lesson-btn');

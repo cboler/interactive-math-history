@@ -60,7 +60,6 @@ export class NumberLineComponent {
       startX,
       endX,
       y: this.axisY - 80,
-      isForward: this.operation() === 'add',
     };
   });
 
