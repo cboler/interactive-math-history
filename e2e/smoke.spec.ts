@@ -18,7 +18,8 @@ test.describe('Responsive Shell Smoke Tests', () => {
 
     // 1. Root shell and brand verification
     await expect(page.locator('.brand-title')).toBeVisible();
-    await expect(page.locator('#starter-title')).toHaveText('Angular PWA Starter');
+    await expect(page.locator('article.reader-article')).toBeVisible();
+    await expect(page.locator('h1')).toContainText('The Origin of Combining');
 
     // 2. Primary layout elements are visible
     await expect(page.locator('header[role="banner"]')).toBeVisible();
@@ -32,7 +33,7 @@ test.describe('Responsive Shell Smoke Tests', () => {
     expect(hasHorizontalOverflow).toBeFalsy();
 
     // 4. Client-side navigation to status screen
-    const statusLink = page.locator('#view-status-btn');
+    const statusLink = page.locator('#nav-link-status');
     await expect(statusLink).toBeVisible();
     await statusLink.click();
 
@@ -49,7 +50,7 @@ test.describe('Responsive Shell Smoke Tests', () => {
     // 5. Navigate back to Home
     await page.locator('#back-home-link').click();
     await expect(page).toHaveURL(/\/?$/);
-    await expect(page.locator('#starter-title')).toBeVisible();
+    await expect(page.locator('article.reader-article')).toBeVisible();
 
     // 6. Zero unhandled console errors or exceptions
     expect(consoleErrors).toEqual([]);
