@@ -10,8 +10,12 @@ export class FeedbackService {
   private audioCtx: AudioContext | null = null;
   private unlockHandler?: () => void;
 
-  readonly soundEnabled = signal<boolean>(this.loadStorageBoolean(FeedbackService.SOUND_STORAGE_KEY, true));
-  readonly hapticsEnabled = signal<boolean>(this.loadStorageBoolean(FeedbackService.HAPTICS_STORAGE_KEY, true));
+  readonly soundEnabled = signal<boolean>(
+    this.loadStorageBoolean(FeedbackService.SOUND_STORAGE_KEY, true),
+  );
+  readonly hapticsEnabled = signal<boolean>(
+    this.loadStorageBoolean(FeedbackService.HAPTICS_STORAGE_KEY, true),
+  );
 
   readonly feedbackEnabled = computed(() => this.soundEnabled() || this.hapticsEnabled());
 
@@ -238,7 +242,9 @@ export class FeedbackService {
     }
 
     if (this.audioCtx && this.audioCtx.state === 'suspended') {
-      this.audioCtx.resume().catch(() => {});
+      this.audioCtx.resume().catch(() => {
+        // Ignore audio resume failure before gesture
+      });
     }
 
     return this.audioCtx;
@@ -249,7 +255,9 @@ export class FeedbackService {
 
     this.unlockHandler = () => {
       if (this.audioCtx && this.audioCtx.state === 'suspended') {
-        this.audioCtx.resume().catch(() => {});
+        this.audioCtx.resume().catch(() => {
+          // Ignore audio resume failure
+        });
       }
       this.removeUnlockListeners();
     };
