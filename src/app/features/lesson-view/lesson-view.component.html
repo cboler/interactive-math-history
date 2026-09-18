@@ -9,6 +9,7 @@
         <button
           type="button"
           class="drawer-toggle-btn"
+          id="drawer-toggle-btn"
           (click)="toggleDrawer()"
           [attr.aria-expanded]="isDrawerOpen()"
           aria-controls="curriculum-drawer"
@@ -59,10 +60,47 @@
             ✕
           </button>
         </div>
+
+        <!-- Domain Strand Filter Pills -->
+        <div class="strand-filter-row" role="group" aria-label="Curriculum domain strand filter">
+          <button
+            type="button"
+            class="strand-filter-btn"
+            [class.active]="selectedStrand() === 'all'"
+            (click)="setStrand('all')"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            class="strand-filter-btn"
+            [class.active]="selectedStrand() === 'numeracy'"
+            (click)="setStrand('numeracy')"
+          >
+            Numeracy
+          </button>
+          <button
+            type="button"
+            class="strand-filter-btn"
+            [class.active]="selectedStrand() === 'logic'"
+            (click)="setStrand('logic')"
+          >
+            Logic
+          </button>
+          <button
+            type="button"
+            class="strand-filter-btn"
+            [class.active]="selectedStrand() === 'arithmetic'"
+            (click)="setStrand('arithmetic')"
+          >
+            Arithmetic
+          </button>
+        </div>
+
         <ul class="lesson-stepper-list">
-          @for (item of allLessons(); track item.id; let idx = $index) {
-            <li class="stepper-item" [class.active]="idx === activeIndex()">
-              <button type="button" class="stepper-btn" (click)="selectLesson(idx)">
+          @for (item of filteredLessons(); track item.id) {
+            <li class="stepper-item" [class.active]="item.id === current.id">
+              <button type="button" class="stepper-btn" (click)="selectLessonById(item.id)">
                 <span class="stepper-number">0{{ item.order }}</span>
                 <div class="stepper-meta">
                   <span class="stepper-title">{{ item.title }}</span>
@@ -110,7 +148,10 @@
       <h2>Interactive Laboratory</h2>
 
       <!-- Contextual Controls for Slider-based Visualizers -->
-      @if (current.interactiveConfig.visualizer !== 'partition-slicer') {
+      @if (
+        current.interactiveConfig.visualizer !== 'partition-slicer' &&
+        current.interactiveConfig.visualizer !== 'logic-circuit'
+      ) {
         <div class="controls-panel" aria-hidden="true">
           <div class="control-group">
             <label for="quantity-a-input">
@@ -181,6 +222,9 @@
           }
           @case ('partition-slicer') {
             <app-bread-slicer></app-bread-slicer>
+          }
+          @case ('logic-circuit') {
+            <app-logic-circuit></app-logic-circuit>
           }
         }
       </div>
@@ -269,6 +313,45 @@
           </li>
         }
       </ol>
+
+      <!-- Bottom Lesson Navigation Affordance -->
+      <nav class="lesson-bottom-nav" aria-label="End of Lesson Navigation">
+        <button
+          type="button"
+          class="unit-step-btn"
+          [disabled]="!hasPrev()"
+          (click)="goToPrev()"
+          aria-label="Previous lesson"
+          id="bottom-prev-lesson-btn"
+        >
+          <app-icon name="chevron-left"></app-icon>
+          <span class="btn-text">Previous Unit</span>
+        </button>
+
+        <button
+          type="button"
+          class="drawer-toggle-btn"
+          id="bottom-drawer-toggle-btn"
+          (click)="toggleDrawer()"
+          [attr.aria-expanded]="isDrawerOpen()"
+          aria-controls="curriculum-drawer"
+        >
+          <app-icon name="book"></app-icon>
+          <span class="btn-text">Curriculum Outline</span>
+        </button>
+
+        <button
+          type="button"
+          class="unit-step-btn"
+          [disabled]="!hasNext()"
+          (click)="goToNext()"
+          aria-label="Next lesson"
+          id="bottom-next-lesson-btn"
+        >
+          <span class="btn-text">Next Unit</span>
+          <app-icon name="chevron-right"></app-icon>
+        </button>
+      </nav>
     </footer>
   </article>
 }

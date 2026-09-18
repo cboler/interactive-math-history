@@ -10,33 +10,6 @@
         </a>
       </div>
 
-      <nav class="app-nav" aria-label="Primary Navigation">
-        <a
-          [routerLink]="[
-            '/',
-            curriculum.currentLesson().stage || curriculum.currentLesson().level,
-            curriculum.currentLesson().slug,
-          ]"
-          routerLinkActive="active"
-          class="nav-link"
-          id="nav-link-curriculum"
-          (click)="curriculum.toggleDrawer()"
-          [attr.aria-expanded]="curriculum.isDrawerOpen()"
-          aria-controls="curriculum-drawer"
-        >
-          {{ curriculum.currentLesson().shortTitle }}
-        </a>
-        <a
-          href="https://github.com/cboler/interactive-math-history"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="nav-link"
-          id="nav-link-github"
-        >
-          GitHub
-        </a>
-      </nav>
-
       <div class="header-actions">
         <button
           type="button"
@@ -60,19 +33,6 @@
             ⬇ Install App
           </button>
         }
-
-        <div
-          class="network-badge"
-          [class.online]="isOnline()"
-          [class.offline]="!isOnline()"
-          role="status"
-          [attr.aria-label]="
-            isOnline() ? 'Application is online' : 'Application is running offline'
-          "
-        >
-          <span class="dot"></span>
-          <span class="network-text">{{ isOnline() ? 'Online' : 'Offline' }}</span>
-        </div>
       </div>
     </div>
   </header>
@@ -98,4 +58,18 @@
       </div>
     </div>
   </footer>
+
+  <!-- Floating Back-to-Top Navigation Aid -->
+  @if (showBackToTop()) {
+    <button
+      type="button"
+      class="floating-back-to-top-btn"
+      id="back-to-top-btn"
+      (click)="scrollToTop()"
+      aria-label="Back to top"
+      title="Back to top"
+    >
+      <app-icon name="arrow-up"></app-icon>
+    </button>
+  }
 </div>

@@ -1,0 +1,509 @@
+<div
+  class="logic-circuit-container"
+  role="region"
+  aria-label="Aristotelian Truth Circuit Laboratory"
+>
+  <!-- Screen reader live announcement region -->
+  <div class="sr-only" aria-live="polite" aria-atomic="true">
+    {{ liveAnnouncement() }}
+  </div>
+
+  <!-- Primary Circuit Header & Mode Selector -->
+  <div class="circuit-header">
+    <div class="circuit-title-group">
+      <h3 class="circuit-heading">Aristotelian Logic Gate Circuit</h3>
+      <span class="circuit-status-badge" [class.lit]="isLit()">
+        <span class="status-dot"></span>
+        {{ isLit() ? 'Circuit Closed · Lamp Lit' : 'Circuit Open · Lamp Extinguished' }}
+      </span>
+    </div>
+
+    <!-- Gate Type Selector (AND / OR) -->
+    <div class="gate-toggle-group" role="group" aria-label="Logic Gate Type">
+      <button
+        type="button"
+        id="gate-and-btn"
+        class="gate-select-btn"
+        [class.active]="gateType() === 'AND'"
+        [attr.aria-pressed]="gateType() === 'AND'"
+        (click)="setGateType('AND')"
+      >
+        <span class="gate-symbol">P ∧ Q</span>
+        <span class="gate-desc">AND (Series)</span>
+      </button>
+      <button
+        type="button"
+        id="gate-or-btn"
+        class="gate-select-btn"
+        [class.active]="gateType() === 'OR'"
+        [attr.aria-pressed]="gateType() === 'OR'"
+        (click)="setGateType('OR')"
+      >
+        <span class="gate-symbol">P ∨ Q</span>
+        <span class="gate-desc">OR (Parallel)</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive SVG Circuit Diagram -->
+  <figure class="circuit-diagram-figure">
+    <svg
+      class="circuit-svg"
+      viewBox="0 0 760 340"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="Physical truth circuit schematic displaying battery, switches, and Athenian oil lamp"
+    >
+      <defs>
+        <!-- Lamp Radiant Glow Filter -->
+        <filter id="lamp-radiance" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="12" result="blur" />
+          <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+
+        <!-- Current Flow Electric Gradient -->
+        <linearGradient id="wire-gradient-lit" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#2563eb" />
+          <stop offset="50%" stop-color="#38bdf8" />
+          <stop offset="100%" stop-color="#d97706" />
+        </linearGradient>
+
+        <!-- Flame Gradient -->
+        <linearGradient id="flame-gradient" x1="0%" y1="100%" x2="0%" y2="0%">
+          <stop offset="0%" stop-color="#ea580c" />
+          <stop offset="40%" stop-color="#f59e0b" />
+          <stop offset="100%" stop-color="#fef08a" />
+        </linearGradient>
+
+        <!-- Radial Lamp Halo Gradient -->
+        <radialGradient id="lamp-halo-gradient" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.75" />
+          <stop offset="50%" stop-color="#f59e0b" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#d97706" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+
+      <!-- Grid Background Pattern -->
+      <g class="schematic-grid" opacity="0.12">
+        <pattern id="small-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" stroke-width="0.75" />
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#small-grid)" />
+      </g>
+
+      <!-- ========================================== -->
+      <!-- 1. POWER SOURCE (Battery Cell - 3V DC)    -->
+      <!-- ========================================== -->
+      <g class="circuit-component battery-group" transform="translate(60, 110)">
+        <!-- Battery Enclosure Box -->
+        <rect x="-25" y="-25" width="50" height="120" rx="6" class="battery-housing" />
+        <!-- Positive Terminal Plate -->
+        <line x1="-16" y1="15" x2="16" y2="15" class="battery-plate positive-plate" />
+        <line x1="-8" y1="35" x2="8" y2="35" class="battery-plate negative-plate" />
+        <line x1="-16" y1="55" x2="16" y2="55" class="battery-plate positive-plate" />
+        <line x1="-8" y1="75" x2="8" y2="75" class="battery-plate negative-plate" />
+
+        <!-- Terminal Labels -->
+        <text x="0" y="-8" class="battery-label positive-sym">+</text>
+        <text x="0" y="105" class="battery-label negative-sym">−</text>
+        <text x="0" y="125" class="component-caption">3V DC Cell</text>
+      </g>
+
+      <!-- Common Ground / Return Wire (Bottom Rail) -->
+      <!-- From Lamp Base (620, 250) to (60, 250) down to Battery (-) at (60, 205) -->
+      <path d="M 620 250 L 620 280 L 60 280 L 60 205" class="wire-base" />
+      @if (isLit()) {
+        <path d="M 620 250 L 620 280 L 60 280 L 60 205" class="wire-active-flow" />
+      }
+
+      <!-- ========================================== -->
+      <!-- 2. CONDUITS & SWITCHES: SERIES (AND GATE) -->
+      <!-- ========================================== -->
+      @if (gateType() === 'AND') {
+        <!-- Segment 1: Battery (+) to Switch P (60, 110) to (200, 110) -->
+        <path d="M 60 110 L 200 110" class="wire-base" />
+        @if (isLit()) {
+          <path d="M 60 110 L 200 110" class="wire-active-flow" />
+        }
+
+        <!-- SWITCH P (Series at x = 200 to 280, y = 110) -->
+        <g
+          class="knife-switch switch-p-group"
+          [class.closed]="switchP()"
+          (click)="toggleSwitchP()"
+          (keydown.enter)="toggleSwitchP()"
+          (keydown.space)="toggleSwitchP()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Knife switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
+        >
+          <!-- Switch Terminal Contacts -->
+          <circle cx="200" cy="110" r="7" class="terminal-post" />
+          <circle cx="280" cy="110" r="7" class="terminal-post" />
+          <!-- Knife Jaw Clip -->
+          <path d="M 276 100 L 284 100 L 284 120 L 276 120" class="knife-jaw" />
+
+          <!-- Pivoting Knife Blade -->
+          <line
+            x1="200"
+            y1="110"
+            x2="280"
+            y2="110"
+            class="knife-blade"
+            [class.blade-open]="!switchP()"
+            [attr.transform]="!switchP() ? 'rotate(-30 200 110)' : ''"
+          />
+
+          <!-- Switch Handle & Label -->
+          <text x="240" y="80" class="switch-badge-label">Premise P</text>
+          <text x="240" y="145" class="switch-state-text">
+            {{ switchP() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
+          </text>
+        </g>
+
+        <!-- Segment 2: Switch P (280, 110) to Switch Q (380, 110) -->
+        <path d="M 280 110 L 380 110" class="wire-base" />
+        @if (isLit()) {
+          <path d="M 280 110 L 380 110" class="wire-active-flow" />
+        }
+
+        <!-- SWITCH Q (Series at x = 380 to 460, y = 110) -->
+        <g
+          class="knife-switch switch-q-group"
+          [class.closed]="switchQ()"
+          (click)="toggleSwitchQ()"
+          (keydown.enter)="toggleSwitchQ()"
+          (keydown.space)="toggleSwitchQ()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Knife switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
+        >
+          <!-- Switch Terminal Contacts -->
+          <circle cx="380" cy="110" r="7" class="terminal-post" />
+          <circle cx="460" cy="110" r="7" class="terminal-post" />
+          <path d="M 456 100 L 464 100 L 464 120 L 456 120" class="knife-jaw" />
+
+          <!-- Pivoting Knife Blade -->
+          <line
+            x1="380"
+            y1="110"
+            x2="460"
+            y2="110"
+            class="knife-blade"
+            [class.blade-open]="!switchQ()"
+            [attr.transform]="!switchQ() ? 'rotate(-30 380 110)' : ''"
+          />
+
+          <!-- Switch Handle & Label -->
+          <text x="420" y="80" class="switch-badge-label">Premise Q</text>
+          <text x="420" y="145" class="switch-state-text">
+            {{ switchQ() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
+          </text>
+        </g>
+
+        <!-- Segment 3: Switch Q (460, 110) to Lamp (580, 110) -->
+        <path d="M 460 110 L 580 110" class="wire-base" />
+        @if (isLit()) {
+          <path d="M 460 110 L 580 110" class="wire-active-flow" />
+        }
+      }
+
+      <!-- ========================================== -->
+      <!-- 3. CONDUITS & SWITCHES: PARALLEL (OR GATE)-->
+      <!-- ========================================== -->
+      @if (gateType() === 'OR') {
+        <!-- Feed Wire from Battery (+) to Junction (160, 110) -->
+        <path d="M 60 110 L 160 110" class="wire-base" />
+        <!-- Junction split: up to (160, 60), down to (160, 170) -->
+        <path d="M 160 60 L 160 170" class="wire-base" />
+        <circle cx="160" cy="110" r="5" class="junction-node" />
+        <circle cx="160" cy="60" r="4" class="junction-node" />
+        <circle cx="160" cy="170" r="4" class="junction-node" />
+
+        <!-- Top Branch Wire to Switch P: (160, 60) to (240, 60) -->
+        <path d="M 160 60 L 240 60" class="wire-base" />
+        <!-- Bottom Branch Wire to Switch Q: (160, 170) to (240, 170) -->
+        <path d="M 160 170 L 240 170" class="wire-base" />
+
+        <!-- Top Branch: SWITCH P (x = 240 to 360, y = 60) -->
+        <g
+          class="knife-switch switch-p-group"
+          [class.closed]="switchP()"
+          (click)="toggleSwitchP()"
+          (keydown.enter)="toggleSwitchP()"
+          (keydown.space)="toggleSwitchP()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Knife switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
+        >
+          <circle cx="240" cy="60" r="7" class="terminal-post" />
+          <circle cx="360" cy="60" r="7" class="terminal-post" />
+          <path d="M 356 50 L 364 50 L 364 70 L 356 70" class="knife-jaw" />
+
+          <line
+            x1="240"
+            y1="60"
+            x2="360"
+            y2="60"
+            class="knife-blade"
+            [class.blade-open]="!switchP()"
+            [attr.transform]="!switchP() ? 'rotate(-30 240 60)' : ''"
+          />
+
+          <text x="300" y="32" class="switch-badge-label">Premise P</text>
+          <text x="300" y="95" class="switch-state-text">
+            {{ switchP() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
+          </text>
+        </g>
+
+        <!-- Bottom Branch: SWITCH Q (x = 240 to 360, y = 170) -->
+        <g
+          class="knife-switch switch-q-group"
+          [class.closed]="switchQ()"
+          (click)="toggleSwitchQ()"
+          (keydown.enter)="toggleSwitchQ()"
+          (keydown.space)="toggleSwitchQ()"
+          role="button"
+          tabindex="0"
+          [attr.aria-label]="'Knife switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
+        >
+          <circle cx="240" cy="170" r="7" class="terminal-post" />
+          <circle cx="360" cy="170" r="7" class="terminal-post" />
+          <path d="M 356 160 L 364 160 L 364 180 L 356 180" class="knife-jaw" />
+
+          <line
+            x1="240"
+            y1="170"
+            x2="360"
+            y2="170"
+            class="knife-blade"
+            [class.blade-open]="!switchQ()"
+            [attr.transform]="!switchQ() ? 'rotate(-30 240 170)' : ''"
+          />
+
+          <text x="300" y="142" class="switch-badge-label">Premise Q</text>
+          <text x="300" y="205" class="switch-state-text">
+            {{ switchQ() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
+          </text>
+        </g>
+
+        <!-- Top Branch Output: (360, 60) to (440, 60) -->
+        <path d="M 360 60 L 440 60" class="wire-base" />
+        <!-- Bottom Branch Output: (360, 170) to (440, 170) -->
+        <path d="M 360 170 L 440 170" class="wire-base" />
+        <!-- Rejoin Collector: (440, 60) to (440, 170) and out to (580, 115) -->
+        <path d="M 440 60 L 440 170" class="wire-base" />
+        <circle cx="440" cy="60" r="4" class="junction-node" />
+        <circle cx="440" cy="170" r="4" class="junction-node" />
+        <circle cx="440" cy="115" r="5" class="junction-node" />
+        <path d="M 440 115 L 580 115" class="wire-base" />
+
+        <!-- Active Current Flows for Parallel (Energized paths) -->
+        @if (switchP()) {
+          <path
+            d="M 60 110 L 160 110 L 160 60 L 440 60 L 440 115 L 580 115"
+            class="wire-active-flow"
+          />
+        }
+        @if (switchQ()) {
+          <path
+            d="M 60 110 L 160 110 L 160 170 L 440 170 L 440 115 L 580 115"
+            class="wire-active-flow"
+          />
+        }
+      }
+
+      <!-- ========================================== -->
+      <!-- 4. ATHENIAN OIL LAMP / LYCEUM LANTERN      -->
+      <!-- ========================================== -->
+      <g class="circuit-component lamp-group" transform="translate(620, 130)">
+        <!-- Radiant Glow Halo (When Lit) -->
+        @if (isLit()) {
+          <circle cx="0" cy="-35" r="65" fill="url(#lamp-halo-gradient)" class="flame-halo-aura" />
+          <circle
+            cx="0"
+            cy="-35"
+            r="35"
+            fill="url(#lamp-halo-gradient)"
+            class="flame-inner-aura"
+            filter="url(#lamp-radiance)"
+          />
+        }
+
+        <!-- Terracotta Oil Lamp Base & Nozzle -->
+        <g class="terracotta-lamp-body">
+          <!-- Lamp Stand Pedestal -->
+          <ellipse cx="0" cy="90" rx="35" ry="10" class="lamp-stand-base" />
+          <path d="M -15 90 L -8 40 L 8 40 L 15 90 Z" class="lamp-stand-stem" />
+
+          <!-- Lamp Body (Classical Greek Shape) -->
+          <ellipse cx="0" cy="30" rx="42" ry="24" class="lamp-bowl" />
+          <!-- Lamp Elongated Spout / Wick Channel -->
+          <path d="M -15 20 Q 0 -15 0 -22 Q 0 -15 15 20 Z" class="lamp-spout" />
+          <!-- Lamp Curled Handle -->
+          <path
+            d="M -38 25 C -55 10 -55 -15 -35 -10 C -45 -5 -45 15 -32 20"
+            class="lamp-handle"
+            fill="none"
+            stroke-width="5"
+          />
+          <!-- Decorative Lyceum Laurel Stamp Motif -->
+          <circle cx="0" cy="30" r="10" class="lamp-motif" />
+          <!-- Spout Wick Opening -->
+          <ellipse cx="0" cy="-22" rx="7" ry="3" class="lamp-wick-hole" />
+          <!-- Wick Carbon -->
+          <line x1="0" y1="-22" x2="0" y2="-28" class="lamp-wick" />
+        </g>
+
+        <!-- Electrical Contacts into Lamp Base -->
+        <circle cx="-15" cy="90" r="5" class="terminal-post" />
+        <circle cx="15" cy="90" r="5" class="terminal-post" />
+        <!-- Internal filament / conductor leads -->
+        <path
+          d="M -15 90 L -15 40 L 0 -22"
+          class="lamp-internal-wire"
+          [class.wire-energized]="isLit()"
+        />
+        <path
+          d="M 15 90 L 15 40 L 0 -22"
+          class="lamp-internal-wire"
+          [class.wire-energized]="isLit()"
+        />
+
+        <!-- Animated Flame Glyph (When Lit) -->
+        @if (isLit()) {
+          <g class="animated-flame-group">
+            <path
+              d="M 0 -28 C -10 -40 -12 -55 0 -72 C 12 -55 10 -40 0 -28 Z"
+              fill="url(#flame-gradient)"
+              class="lamp-flame-glyph"
+              filter="url(#lamp-radiance)"
+            />
+            <!-- Inner White Core -->
+            <path
+              d="M 0 -28 C -5 -36 -6 -46 0 -56 C 6 -46 5 -36 0 -28 Z"
+              fill="#fffbeb"
+              class="flame-core"
+            />
+          </g>
+        }
+
+        <!-- Component Label -->
+        <text x="0" y="125" class="component-caption">Lyceum Lantern</text>
+      </g>
+    </svg>
+  </figure>
+
+  <!-- Semantic Accessible Control Bar -->
+  <div class="circuit-controls-panel">
+    <div class="switches-control-row">
+      <!-- Switch P Toggle Control -->
+      <button
+        type="button"
+        id="switch-p-btn"
+        class="switch-toggle-card"
+        [class.active]="switchP()"
+        [attr.aria-pressed]="switchP()"
+        (click)="toggleSwitchP()"
+      >
+        <div class="card-indicator-row">
+          <span class="premise-badge">Premise P</span>
+          <span class="toggle-pill" [class.pill-true]="switchP()">
+            {{ switchP() ? 'TRUE' : 'FALSE' }}
+          </span>
+        </div>
+        <div class="card-label-row">
+          <span class="card-action-text">{{
+            switchP() ? 'Knife Switch Closed' : 'Knife Switch Open'
+          }}</span>
+          <span class="card-hint-text">Click to toggle premise validity</span>
+        </div>
+      </button>
+
+      <!-- Switch Q Toggle Control -->
+      <button
+        type="button"
+        id="switch-q-btn"
+        class="switch-toggle-card"
+        [class.active]="switchQ()"
+        [attr.aria-pressed]="switchQ()"
+        (click)="toggleSwitchQ()"
+      >
+        <div class="card-indicator-row">
+          <span class="premise-badge">Premise Q</span>
+          <span class="toggle-pill" [class.pill-true]="switchQ()">
+            {{ switchQ() ? 'TRUE' : 'FALSE' }}
+          </span>
+        </div>
+        <div class="card-label-row">
+          <span class="card-action-text">{{
+            switchQ() ? 'Knife Switch Closed' : 'Knife Switch Open'
+          }}</span>
+          <span class="card-hint-text">Click to toggle premise validity</span>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <!-- Real-Time Dynamic Truth Table -->
+  <div class="truth-table-section">
+    <div class="table-header-row">
+      <h4 class="table-title">
+        Truth Table: {{ gateType() === 'AND' ? 'Conjunction (P ∧ Q)' : 'Disjunction (P ∨ Q)' }}
+      </h4>
+      <span class="table-formula-badge">
+        {{ gateType() === 'AND' ? 'Output = P AND Q' : 'Output = P OR Q' }}
+      </span>
+    </div>
+
+    <div class="table-container">
+      <table class="truth-table" aria-label="Propositional Truth Table">
+        <thead>
+          <tr>
+            <th scope="col">Premise P</th>
+            <th scope="col">Premise Q</th>
+            <th scope="col">{{ gateType() === 'AND' ? 'P ∧ Q' : 'P ∨ Q' }}</th>
+            <th scope="col">Lantern Status</th>
+            <th scope="col">Logical State</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of truthTableRows(); track row.p + '-' + row.q) {
+            <tr [class.active-row]="row.isActive">
+              <td class="cell-val">
+                <span class="bool-tag" [class.tag-true]="row.p">{{
+                  row.p ? 'T (1)' : 'F (0)'
+                }}</span>
+              </td>
+              <td class="cell-val">
+                <span class="bool-tag" [class.tag-true]="row.q">{{
+                  row.q ? 'T (1)' : 'F (0)'
+                }}</span>
+              </td>
+              <td class="cell-val cell-output">
+                <span class="bool-tag result-tag" [class.tag-true]="row.output">
+                  {{ row.output ? 'T (1)' : 'F (0)' }}
+                </span>
+              </td>
+              <td class="cell-lamp">
+                <span class="lamp-status-indicator" [class.lamp-lit]="row.output">
+                  {{ row.output ? '● Illuminated' : '○ Dark' }}
+                </span>
+              </td>
+              <td class="cell-active">
+                @if (row.isActive) {
+                  <span class="active-badge">Active Circuit State</span>
+                } @else {
+                  <span class="inactive-label">—</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,40 +1,95 @@
 import { chromium } from '@playwright/test';
 import path from 'path';
 
-const artifactsDir = 'C:\\Users\\chris\\.gemini\\antigravity-ide\\brain\\a8939f8c-82c1-4140-9081-134bd244d34b';
+const artifactsDir =
+  'C:\\Users\\chris\\.gemini\\antigravity-ide\\brain\\9ac1cc21-20b0-4b55-9d63-a1ee10eabca9';
 
 async function capture() {
   const browser = await chromium.launch();
 
-  for (const scheme of ['dark', 'light']) {
+  // Desktop Light
+  {
     const context = await browser.newContext({
       viewport: { width: 1280, height: 800 },
-      colorScheme: scheme,
+      colorScheme: 'light',
     });
     const page = await context.newPage();
+    await page.goto('http://localhost:4200/foundations/aristotelian-logic-circuits', {
+      waitUntil: 'networkidle',
+    });
+    await page.waitForTimeout(400);
 
-    const urls = [
-      { url: 'http://localhost:4200/foundations/origins-of-addition', name: `unit-01-${scheme}.png` },
-      { url: 'http://localhost:4200/foundations/euclids-common-notions', name: `unit-02-${scheme}.png` },
-      { url: 'http://localhost:4200/elementary/spatial-invariance-multiplication', name: `unit-03-${scheme}.png` },
-      { url: 'http://localhost:4200/elementary/egyptian-unit-fractions-rhind', name: `unit-04-${scheme}.png` },
-    ];
+    // Streamlined header
+    await page.screenshot({
+      path: path.join(artifactsDir, 'streamlined-header-light.png'),
+      clip: { x: 0, y: 0, width: 1280, height: 260 },
+    });
 
-    for (const item of urls) {
-      await page.goto(item.url, { waitUntil: 'networkidle' });
-      await page.waitForTimeout(400);
-      const dest = path.join(artifactsDir, item.name);
-      await page.screenshot({ path: dest, fullPage: false });
-      console.log(`Captured ${item.name}`);
-    }
+    // Scroll down to test Back-to-Top button
+    await page.evaluate(() => window.scrollTo(0, 800));
+    await page.waitForTimeout(300);
+    await page.screenshot({
+      path: path.join(artifactsDir, 'back-to-top-button-visible.png'),
+    });
+
+    // Bottom navigation
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(300);
+    await page.screenshot({
+      path: path.join(artifactsDir, 'lesson-bottom-nav.png'),
+    });
+
+    await context.close();
+  }
+
+  // Desktop Dark
+  {
+    const context = await browser.newContext({
+      viewport: { width: 1280, height: 800 },
+      colorScheme: 'dark',
+    });
+    const page = await context.newPage();
+    await page.goto('http://localhost:4200/foundations/aristotelian-logic-circuits', {
+      waitUntil: 'networkidle',
+    });
+    await page.waitForTimeout(400);
+
+    await page.screenshot({
+      path: path.join(artifactsDir, 'streamlined-header-dark.png'),
+      clip: { x: 0, y: 0, width: 1280, height: 260 },
+    });
+
+    await context.close();
+  }
+
+  // Mobile Viewport (iPhone 13 - 390x844)
+  {
+    const context = await browser.newContext({
+      viewport: { width: 390, height: 844 },
+      colorScheme: 'light',
+      isMobile: true,
+      hasTouch: true,
+    });
+    const page = await context.newPage();
+    await page.goto('http://localhost:4200/foundations/aristotelian-logic-circuits', {
+      waitUntil: 'networkidle',
+    });
+    await page.waitForTimeout(400);
+
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await page.waitForTimeout(300);
+    await page.screenshot({
+      path: path.join(artifactsDir, 'mobile-back-to-top.png'),
+    });
 
     await context.close();
   }
 
   await browser.close();
+  console.log('Screenshots captured successfully!');
 }
 
-capture().catch(err => {
+capture().catch((err) => {
   console.error(err);
   process.exit(1);
 });

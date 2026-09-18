@@ -60,8 +60,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(vectorB).toHaveAttribute('marker-end', 'url(#arrow-amber)');
 
     // 5. Navigate to Unit 02 via Next button
-    const navLink = page.locator('#nav-link-curriculum');
-    await expect(navLink).toHaveText('Unit 01: Addition');
+    const unitBadge = page.locator('.unit-level-badge');
+    await expect(unitBadge).toContainText('Unit 1 of 5');
     await expect(page).toHaveTitle(/Unit 01: Addition/);
 
     const nextBtn = page.locator('#next-lesson-btn');
@@ -71,7 +71,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('A = B');
-    await expect(navLink).toHaveText('Unit 02: Equality');
+    await expect(unitBadge).toContainText('Unit 2 of 5');
     await expect(page).toHaveTitle(/Unit 02: Equality/);
 
     // Verify Balance Scale visualizer is active and controls are adapted
@@ -104,7 +104,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('a');
-    await expect(navLink).toHaveText('Unit 03: Multiplication');
+    await expect(unitBadge).toContainText('Unit 3 of 5');
     await expect(page).toHaveTitle(/Unit 03: Multiplication/);
 
     // Verify Grid Array visualizer is active and controls are adapted
@@ -130,7 +130,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText('The Bread Partition');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('3');
-    await expect(navLink).toHaveText('Unit 04: Fractions');
+    await expect(unitBadge).toContainText('Unit 4 of 5');
     await expect(page).toHaveTitle(/Unit 04: Fractions/);
 
     // Verify Bread Slicer visualizer is active and slider controls are hidden
@@ -154,22 +154,101 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(solvedBanner).toBeVisible();
     await expect(solvedBanner).toContainText("Ahmes' Equilibrium Achieved!");
 
-    // 8. Navigate back to Unit 03 via Previous button
-    const prevBtn = page.locator('#prev-lesson-btn');
-    await expect(prevBtn).toBeVisible();
-    await prevBtn.click();
-    await expect(page.locator('h1')).toContainText('Spatial Invariance');
-    await expect(navLink).toHaveText('Unit 03: Multiplication');
-    await expect(page).toHaveTitle(/Unit 03: Multiplication/);
-    await expect(page.locator('app-grid-array')).toBeVisible();
+    // 8. Navigate to Unit 05 via Next button
+    await nextBtn.click();
+    await expect(page.locator('h1')).toContainText('Architecture of Reason');
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(unitBadge).toContainText('Unit 5 of 5');
+    await expect(page).toHaveTitle(/Unit 05: Logic/);
 
-    // 9. Prevent accidental horizontal overflow
+    // Verify Logic Circuit visualizer is active and slider controls are hidden
+    await expect(page.locator('app-logic-circuit')).toBeVisible();
+    await expect(page.locator('.controls-panel')).toBeHidden();
+    await expect(page.locator('app-bread-slicer')).toBeHidden();
+
+    // Verify Aristotle bust plate and Epistemic Card
+    await expect(page.locator('.artifact-plate img')).toHaveAttribute(
+      'src',
+      /.*Aristotle_Altemps_Inv8575\.jpg/,
+    );
+    await expect(page.locator('.epistemic-card')).toBeVisible();
+
+    // Verify initial circuit state: AND gate, P=true, Q=false -> Lamp Extinguished
+    const circuitBadge = page.locator('.circuit-status-badge');
+    await expect(circuitBadge).toContainText('Circuit Open · Lamp Extinguished');
+
+    // Toggle switch Q to close circuit in AND mode (P=true, Q=true)
+    const switchQBtn = page.locator('#switch-q-btn');
+    await switchQBtn.click();
+    await expect(circuitBadge).toContainText('Circuit Closed · Lamp Lit');
+
+    // Switch to OR mode
+    const gateOrBtn = page.locator('#gate-or-btn');
+    await gateOrBtn.click();
+    await expect(circuitBadge).toContainText('Circuit Closed · Lamp Lit');
+
+    // Toggle switch P to false in OR mode (P=false, Q=true) -> Still Lit
+    const switchPBtn = page.locator('#switch-p-btn');
+    await switchPBtn.click();
+    await expect(circuitBadge).toContainText('Circuit Closed · Lamp Lit');
+
+    // Toggle switch Q to false in OR mode (P=false, Q=false) -> Extinguished
+    await switchQBtn.click();
+    await expect(circuitBadge).toContainText('Circuit Open · Lamp Extinguished');
+
+    // 9. Test Curriculum Drawer & Domain Strand Filtering
+    const drawerToggle = page.locator('#drawer-toggle-btn');
+    await drawerToggle.click();
+    const drawerPanel = page.locator('#curriculum-drawer');
+    await expect(drawerPanel).toBeVisible();
+
+    // Filter to Logic strand
+    const logicFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'Logic' });
+    await logicFilterBtn.click();
+    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(2);
+
+    // Filter to Numeracy strand
+    const numFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'Numeracy' });
+    await numFilterBtn.click();
+    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(1);
+
+    // Filter to All
+    const allFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'All' });
+    await allFilterBtn.click();
+    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(5);
+
+    // Close drawer
+    const drawerCloseBtn = drawerPanel.locator('.drawer-close-btn');
+    await drawerCloseBtn.click();
+    await expect(drawerPanel).toBeHidden();
+
+    // 10. Verify navigation aids: End-of-Lesson Navigation & Floating Back-to-Top Button
+    const bottomPrevBtn = page.locator('#bottom-prev-lesson-btn');
+    const bottomNextBtn = page.locator('#bottom-next-lesson-btn');
+    await expect(bottomPrevBtn).toBeVisible();
+    await expect(bottomNextBtn).toBeDisabled(); // On last unit (Unit 05)
+
+    // Scroll down to test Back-to-Top floating button
+    await page.evaluate(() => window.scrollTo(0, 1000));
+    const backToTopBtn = page.locator('#back-to-top-btn');
+    await expect(backToTopBtn).toBeVisible();
+    await backToTopBtn.click();
+    await page.waitForFunction(() => window.scrollY < 100);
+    expect(await page.evaluate(() => window.scrollY)).toBeLessThan(100);
+
+    // 11. Navigate back to Unit 04 via bottom Previous button
+    await bottomPrevBtn.click();
+    await expect(page.locator('h1')).toContainText('The Bread Partition');
+    await expect(unitBadge).toContainText('Unit 4 of 5');
+    await expect(page.locator('app-bread-slicer')).toBeVisible();
+
+    // 12. Prevent accidental horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {
       return document.documentElement.scrollWidth > window.innerWidth;
     });
     expect(hasHorizontalOverflow).toBeFalsy();
 
-    // 10. Zero unhandled console errors or exceptions
+    // 13. Zero unhandled console errors or exceptions
     expect(consoleErrors).toEqual([]);
   });
 
@@ -181,20 +260,34 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
     await expect(page.locator('#grid-formula')).toHaveText('3 × 5 = 15 dots');
     await expect(page.locator('app-grid-array')).toBeVisible();
-    await expect(page.locator('#nav-link-curriculum')).toHaveText('Unit 03: Multiplication');
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 3 of 5');
+    await expect(page).toHaveTitle(/Unit 03: Multiplication/);
 
     // 2. Direct deep-link to Unit 04
     await page.goto('/elementary/egyptian-unit-fractions-rhind');
     await expect(page.locator('h1')).toContainText('The Bread Partition');
     await expect(page.locator('app-bread-slicer')).toBeVisible();
-    await expect(page.locator('#nav-link-curriculum')).toHaveText('Unit 04: Fractions');
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 4 of 5');
+    await expect(page).toHaveTitle(/Unit 04: Fractions/);
 
-    // 3. Direct deep-link to Unit 02 via order/alias
+    // 3. Direct deep-link to Unit 05
+    await page.goto('/foundations/aristotelian-logic-circuits');
+    await expect(page.locator('h1')).toContainText('Architecture of Reason');
+    await expect(page.locator('app-logic-circuit')).toBeVisible();
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 5 of 5');
+    await expect(page).toHaveTitle(/Unit 05: Logic/);
+
+    // 4. Direct deep-link to Unit 05 via order/alias
+    await page.goto('/foundations/unit-05');
+    await expect(page.locator('h1')).toContainText('Architecture of Reason');
+    await expect(page.locator('app-logic-circuit')).toBeVisible();
+
+    // 5. Direct deep-link to Unit 02 via order/alias
     await page.goto('/foundations/unit-02');
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(page.locator('app-balance-scale')).toBeVisible();
 
-    // 4. Fallback on invalid route redirecting to canonical Unit 01
+    // 6. Fallback on invalid route redirecting to canonical Unit 01
     await page.goto('/nonexistent/unknown');
     await expect(page).toHaveURL(/.*foundations\/origins-of-addition/);
     await expect(page.locator('h1')).toContainText('The Origin of Combining');

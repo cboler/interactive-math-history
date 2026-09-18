@@ -150,6 +150,52 @@
   color: var(--text-primary);
 }
 
+/* Domain Strand Filter Pills */
+.strand-filter-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-1);
+}
+
+.strand-filter-btn {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  min-height: var(--touch-target-min);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.strand-filter-btn:hover {
+  background: var(--surface-card);
+  color: var(--text-primary);
+  border-color: var(--border-muted);
+}
+
+.strand-filter-btn:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+
+.strand-filter-btn.active {
+  background: var(--accent-history);
+  color: var(--text-inverse);
+  border-color: transparent;
+  box-shadow: 0 1px 4px rgba(133, 77, 14, 0.25);
+}
+
 .lesson-stepper-list {
   list-style: none;
   margin: 0;
@@ -705,4 +751,16 @@ h1 {
     color: #d8b4fe;
     border: 1px solid rgba(168, 85, 247, 0.4);
   }
+}
+
+/* Bottom Lesson Navigation Affordance */
+.lesson-bottom-nav {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
 }

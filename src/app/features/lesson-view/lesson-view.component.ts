@@ -11,6 +11,7 @@ import {
 import { BalanceScaleComponent } from '../../shared/visualizers/balance-scale/balance-scale.component';
 import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-array.component';
 import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
+import { LogicCircuitComponent } from '../../shared/visualizers/logic-circuit/logic-circuit.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { MathDirective } from '../../shared/directives/math.directive';
 import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
@@ -25,6 +26,7 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
     BalanceScaleComponent,
     GridArrayComponent,
     BreadSlicerComponent,
+    LogicCircuitComponent,
     IconComponent,
     MathDirective,
     MathTextPipe,
@@ -46,6 +48,13 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   readonly hasNext = this.curriculum.hasNext;
 
   readonly isDrawerOpen = this.curriculum.isDrawerOpen;
+
+  readonly selectedStrand = signal<string>('all');
+  readonly filteredLessons = computed(() => {
+    const strand = this.selectedStrand();
+    const lessons = this.allLessons();
+    return strand === 'all' ? lessons : lessons.filter((l) => l.strand === strand);
+  });
 
   readonly inputA = signal<number>(4);
   readonly inputB = signal<number>(3);
@@ -90,6 +99,17 @@ export class LessonViewComponent implements OnInit, OnDestroy {
 
   toggleDrawer(open?: boolean): void {
     this.curriculum.toggleDrawer(open);
+  }
+
+  setStrand(strand: string): void {
+    this.selectedStrand.set(strand);
+  }
+
+  selectLessonById(id: string): void {
+    const idx = this.allLessons().findIndex((l) => l.id === id);
+    if (idx !== -1) {
+      this.selectLesson(idx);
+    }
   }
 
   selectLesson(index: number): void {

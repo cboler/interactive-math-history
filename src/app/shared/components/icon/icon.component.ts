@@ -10,6 +10,8 @@ export type IconName =
   | 'volume-x'
   | 'chevron-left'
   | 'chevron-right'
+  | 'chevron-up'
+  | 'arrow-up'
   | 'quote'
   | 'external-link'
   | 'rotate';
@@ -75,6 +77,13 @@ export type IconName =
         }
         @case ('chevron-right') {
           <path d="m9 18 6-6-6-6" />
+        }
+        @case ('chevron-up') {
+          <path d="m18 15-6-6-6 6" />
+        }
+        @case ('arrow-up') {
+          <path d="m5 12 7-7 7 7" />
+          <path d="M12 19V5" />
         }
         @case ('quote') {
           <path

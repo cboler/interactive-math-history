@@ -30,16 +30,13 @@ describe('Interactive Math & History Shell Tests', () => {
       expect(compiled.querySelector('.brand-logo')?.textContent?.trim()).toBe('∑');
     });
 
-    it('should render and dynamically update navigation link and title for active curriculum unit', async () => {
+    it('should dynamically update document title for active curriculum unit', async () => {
       const fixture = TestBed.createComponent(App);
       const curriculum = fixture.debugElement.injector.get(CurriculumService);
       const titleService = fixture.debugElement.injector.get(Title);
       await fixture.whenStable();
       fixture.detectChanges();
 
-      const compiled = fixture.nativeElement as HTMLElement;
-      const navLink = compiled.querySelector('#nav-link-curriculum');
-      expect(navLink?.textContent?.trim()).toBe('Unit 01: Addition');
       expect(titleService.getTitle()).toContain('Unit 01: Addition');
 
       // Navigate to Unit 02
@@ -47,7 +44,6 @@ describe('Interactive Math & History Shell Tests', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(navLink?.textContent?.trim()).toBe('Unit 02: Equality');
       expect(titleService.getTitle()).toContain('Unit 02: Equality');
 
       // Navigate to Unit 03
@@ -55,7 +51,6 @@ describe('Interactive Math & History Shell Tests', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(navLink?.textContent?.trim()).toBe('Unit 03: Multiplication');
       expect(titleService.getTitle()).toContain('Unit 03: Multiplication');
     });
 
@@ -68,12 +63,27 @@ describe('Interactive Math & History Shell Tests', () => {
       expect(skipLink?.getAttribute('href')).toBe('#main-content');
     });
 
-    it('should render network status badge', async () => {
+    it('should render floating back to top button when showBackToTop is true', async () => {
       const fixture = TestBed.createComponent(App);
+      const app = fixture.componentInstance;
       await fixture.whenStable();
-      const compiled = fixture.nativeElement as HTMLElement;
-      const badge = compiled.querySelector('.network-badge');
-      expect(badge).toBeTruthy();
+      fixture.detectChanges();
+
+      let compiled = fixture.nativeElement as HTMLElement;
+      expect(compiled.querySelector('#back-to-top-btn')).toBeFalsy();
+
+      // Simulate scrolled past threshold
+      app['showBackToTop'].set(true);
+      fixture.detectChanges();
+
+      compiled = fixture.nativeElement as HTMLElement;
+      const btn = compiled.querySelector('#back-to-top-btn') as HTMLButtonElement;
+      expect(btn).toBeTruthy();
+      expect(btn.getAttribute('aria-label')).toBe('Back to top');
+
+      const scrollSpy = vi.spyOn(window, 'scrollTo').mockImplementation(() => undefined);
+      btn.click();
+      expect(scrollSpy).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' });
     });
 
     it('should render and toggle feedback button with accessible aria attributes', async () => {

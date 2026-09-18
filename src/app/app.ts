@@ -1,5 +1,5 @@
 import { Component, signal, inject, effect, OnInit, OnDestroy } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { CurriculumService } from './services/curriculum.service';
 import { FeedbackService } from './core/services/feedback.service';
@@ -13,14 +13,14 @@ interface BeforeInstallPromptEvent extends Event {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, IconComponent],
+  imports: [RouterOutlet, RouterLink, IconComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App implements OnInit, OnDestroy {
   protected readonly title = signal('Interactive Math & History');
-  protected readonly isOnline = signal(typeof navigator !== 'undefined' ? navigator.onLine : true);
   protected readonly canInstall = signal(false);
+  protected readonly showBackToTop = signal(false);
   protected readonly curriculum = inject(CurriculumService);
   protected readonly feedback = inject(FeedbackService);
   private readonly titleService = inject(Title);
@@ -37,16 +37,15 @@ export class App implements OnInit, OnDestroy {
   }
 
   private deferredPrompt: BeforeInstallPromptEvent | null = null;
-  private onlineListener?: () => void;
-  private offlineListener?: () => void;
+  private scrollListener?: () => void;
   private installPromptListener?: (e: Event) => void;
 
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
-      this.onlineListener = () => this.isOnline.set(true);
-      this.offlineListener = () => this.isOnline.set(false);
-      window.addEventListener('online', this.onlineListener);
-      window.addEventListener('offline', this.offlineListener);
+      this.scrollListener = () => {
+        this.showBackToTop.set(window.scrollY > 300);
+      };
+      window.addEventListener('scroll', this.scrollListener, { passive: true });
 
       this.installPromptListener = (e: Event) => {
         e.preventDefault();
@@ -59,11 +58,16 @@ export class App implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (typeof window !== 'undefined') {
-      if (this.onlineListener) window.removeEventListener('online', this.onlineListener);
-      if (this.offlineListener) window.removeEventListener('offline', this.offlineListener);
+      if (this.scrollListener) window.removeEventListener('scroll', this.scrollListener);
       if (this.installPromptListener) {
         window.removeEventListener('beforeinstallprompt', this.installPromptListener);
       }
+    }
+  }
+
+  protected scrollToTop(): void {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 

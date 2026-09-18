@@ -4,7 +4,7 @@ export type MathematicalStrand =
   'numeracy' | 'arithmetic' | 'algebra' | 'geometry' | 'number-theory' | 'logic' | 'calculus';
 
 export type VisualizerMode =
-  'number-line-vector' | 'balance-scale' | 'grid-array' | 'partition-slicer';
+  'number-line-vector' | 'balance-scale' | 'grid-array' | 'partition-slicer' | 'logic-circuit';
 
 export interface ScholarlyInterpretation {
   claim: string;

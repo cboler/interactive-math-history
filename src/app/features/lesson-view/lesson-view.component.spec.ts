@@ -34,7 +34,7 @@ describe('LessonViewComponent', () => {
     expect(compiled.querySelector('.formula-badge .katex')).toBeTruthy();
     expect(compiled.querySelector('.formula-badge')?.textContent).toContain('a');
     expect(compiled.querySelector('h1')?.textContent).toContain('The Origin of Combining');
-    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 4');
+    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 5');
   });
 
   it('should cycle through units via next and previous buttons', () => {
@@ -55,9 +55,16 @@ describe('LessonViewComponent', () => {
     expect(component.curriculum.currentLesson().id).toBe('unit-04-egyptian-fractions');
     expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain('The Bread Partition');
 
+    component.goToNext();
+    fixture.detectChanges();
+    expect(component.curriculum.currentLesson().id).toBe('unit-05-aristotle-logic');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain(
+      'Architecture of Reason',
+    );
+
     component.goToPrev();
     fixture.detectChanges();
-    expect(component.curriculum.currentLesson().id).toBe('unit-03-commutative-multiplication');
+    expect(component.curriculum.currentLesson().id).toBe('unit-04-egyptian-fractions');
   });
 
   it('should open and close curriculum outline drawer', () => {
@@ -89,6 +96,7 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
     expect(el.querySelector('app-bread-slicer')).toBeFalsy();
+    expect(el.querySelector('app-logic-circuit')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Quantity A:');
     expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain('Quantity B:');
     expect(el.querySelector('.btn-group')).toBeTruthy();
@@ -100,6 +108,7 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-balance-scale')).toBeTruthy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
     expect(el.querySelector('app-bread-slicer')).toBeFalsy();
+    expect(el.querySelector('app-logic-circuit')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain(
       'Left Pan (A):',
     );
@@ -115,6 +124,7 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeTruthy();
     expect(el.querySelector('app-bread-slicer')).toBeFalsy();
+    expect(el.querySelector('app-logic-circuit')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Rows (A):');
     expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain(
       'Columns (B):',
@@ -128,7 +138,71 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
     expect(el.querySelector('app-bread-slicer')).toBeTruthy();
+    expect(el.querySelector('app-logic-circuit')).toBeFalsy();
     expect(el.querySelector('.controls-panel')).toBeFalsy(); // Slider controls hidden
+
+    // Unit 05: logic-circuit
+    component.goToNext();
+    fixture.detectChanges();
+    expect(el.querySelector('app-number-line')).toBeFalsy();
+    expect(el.querySelector('app-balance-scale')).toBeFalsy();
+    expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('app-bread-slicer')).toBeFalsy();
+    expect(el.querySelector('app-logic-circuit')).toBeTruthy();
+    expect(el.querySelector('.controls-panel')).toBeFalsy(); // Slider controls hidden
+  });
+
+  it('should filter curriculum outline by mathematical strand', () => {
+    component.toggleDrawer();
+    fixture.detectChanges();
+
+    // Default: 'all'
+    expect(component.selectedStrand()).toBe('all');
+    expect(component.filteredLessons().length).toBe(5);
+
+    // Filter to 'logic' (Unit 02 and Unit 05)
+    component.setStrand('logic');
+    fixture.detectChanges();
+    expect(component.selectedStrand()).toBe('logic');
+    expect(component.filteredLessons().length).toBe(2);
+    expect(component.filteredLessons().map((l) => l.id)).toEqual([
+      'unit-02-euclid-equality',
+      'unit-05-aristotle-logic',
+    ]);
+
+    // Active lesson index is preserved until explicit selection
+    expect(component.curriculum.activeLessonIndex()).toBe(0);
+
+    // Filter to 'numeracy' (Unit 01)
+    component.setStrand('numeracy');
+    fixture.detectChanges();
+    expect(component.filteredLessons().length).toBe(1);
+    expect(component.filteredLessons()[0].id).toBe('unit-01-ishango-addition');
+
+    // Filter to 'arithmetic' (Unit 03 and Unit 04)
+    component.setStrand('arithmetic');
+    fixture.detectChanges();
+    expect(component.filteredLessons().length).toBe(2);
+
+    // Reset to 'all'
+    component.setStrand('all');
+    fixture.detectChanges();
+    expect(component.filteredLessons().length).toBe(5);
+  });
+
+  it('should select lesson by id from filtered list and close drawer', () => {
+    component.toggleDrawer();
+    fixture.detectChanges();
+
+    component.setStrand('logic');
+    fixture.detectChanges();
+
+    component.selectLessonById('unit-05-aristotle-logic');
+    fixture.detectChanges();
+
+    expect(component.curriculum.activeLessonIndex()).toBe(4);
+    expect(component.curriculum.currentLesson().id).toBe('unit-05-aristotle-logic');
+    expect(component.isDrawerOpen()).toBe(false);
   });
 
   it('should sync active lesson when navigating to route directly', async () => {

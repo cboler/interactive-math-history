@@ -476,6 +476,124 @@ export class CurriculumService {
       },
       level: 'elementary',
     },
+
+    // ==========================================
+    // UNIT 05: The Logic of Athens
+    // ==========================================
+    {
+      id: 'unit-05-aristotle-logic',
+      slug: 'aristotelian-logic-circuits',
+      shortTitle: 'Unit 05: Logic',
+      title: "The Architecture of Reason: Aristotle's Syllogism",
+      subtitle: 'Propositional Connectives, Truth Tables, and Physical Circuits',
+      stage: 'foundations',
+      strand: 'logic',
+      order: 5,
+      prerequisites: ['unit-02-euclid-equality'],
+      civilization: 'Classical Athens (Lyceum)',
+      historicalEra: 'c. 350 BCE',
+      mathematicalStatement: 'P \\land Q \\implies R',
+      discoveryHook: {
+        prompt:
+          'To illuminate the Athenian Lyceum lantern, two premises must both be true (P AND Q). Wire the switches in series. What happens if you switch to an alternative premise (P OR Q)?',
+        targetAxiom:
+          'Conjunction requires simultaneous truth (series); disjunction requires at least one true path (parallel).',
+        successCondition:
+          'Configure the circuit to successfully illuminate the lamp under both AND and OR configurations.',
+        guidanceTip:
+          'Notice how electric current mirrors the flow of deductive validity: a broken switch invalidates the conclusion.',
+      },
+      narrative: {
+        hook: 'Before logic was silicon chips and binary code, it was Aristotle pacing the Lyceum gardens, determining which arguments could never be refuted.',
+        historicalContext: {
+          story:
+            'In 4th-century BCE Athens, democratic assemblies and courtroom trials demanded a reliable standard to separate genuine truth from sophistry. In the Prior Analytics, Aristotle established formal syllogistic deduction: if All humans are mortal (P) and Socrates is human (Q), then Socrates is mortal (R). Centuries later, Claude Shannon realized that these exact Boolean connectives could be physically manifested through electrical switches: closed switches represent True, open switches represent False, series wiring represents AND, and parallel wiring represents OR.',
+          civilizationOrOrigin: 'Athens, Ancient Greece',
+          approximateDate: 'c. 350 BCE',
+          epistemicStatus: {
+            consensusLevel: 'established',
+            summary:
+              'Aristotle is recognized as the founder of formal logic, but historians debate the completeness of his term logic compared to later Stoic propositional logic.',
+            competingHypotheses: [
+              {
+                claim: 'Term Logic Priority',
+                proponentsOrSources: 'Aristotle (Organon / Prior Analytics)',
+                evidenceSummary:
+                  'Focused entirely on category inclusion (All A is B) rather than conditional statements (If P, then Q).',
+              },
+              {
+                claim: 'Stoic Propositional Foundations',
+                proponentsOrSources: 'Chrysippus of Soli (c. 280–206 BCE)',
+                evidenceSummary:
+                  'Developed true propositional calculus and five fundamental inference rules (including Modus Ponens) independent of Aristotle.',
+              },
+            ],
+          },
+        },
+        conceptualExplanation: [
+          'A proposition is a declarative statement that is either strictly True ($1$) or False ($0$).',
+          'Conjunction ($P \\land Q$) requires both inputs to be True, modeled physically by two switches wired in series.',
+          'Disjunction ($P \\lor Q$) requires at least one input to be True, modeled physically by switches wired in parallel.',
+          'Deductive validity ensures that if all premises are True, the conclusion cannot be False.',
+        ],
+        realWorldApplication:
+          'Boolean algebra and propositional logic form the physical foundation of every digital microchip, logic gate (ALU), search engine query parser, and cryptographic proof.',
+      },
+      artifactPlate: {
+        title: 'Bust of Aristotle (Roman copy after Greek original)',
+        credit: 'Ludovisi Collection / National Roman Museum / Wikimedia Commons',
+        license: 'Public Domain',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/640px-Aristotle_Altemps_Inv8575.jpg',
+        altText: 'Marble bust of philosopher Aristotle with curly hair and beard.',
+        caption:
+          'Aristotle, whose Prior Analytics and Organon established the deductive syllogism as the bedrock of Western philosophy.',
+      },
+      exploreGraph: [
+        {
+          label: 'Aristotelian Logic',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Term_logic',
+        },
+        {
+          label: 'Organon & Prior Analytics',
+          category: 'primary-text',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Organon',
+        },
+        {
+          label: 'Boolean Algebra',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Boolean_algebra',
+        },
+        {
+          label: 'Claude Shannon & Circuits',
+          category: 'person',
+          wikipediaUrl:
+            'https://en.wikipedia.org/wiki/A_Symbolic_Analysis_of_Relay_and_Switching_Circuits',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'William & Martha Kneale',
+          title: 'The Development of Logic',
+          citationSnippet: "Chapters 2–3: Aristotle's Syllogistic and the Megarian-Stoic School.",
+          publicationYear: 1962,
+        },
+        {
+          author: 'Claude E. Shannon',
+          title: 'A Symbolic Analysis of Relay and Switching Circuits',
+          citationSnippet:
+            "Master's Thesis, MIT: Translating Boolean propositional logic into physical switching circuits.",
+          publicationYear: 1938,
+        },
+      ],
+      interactiveConfig: {
+        visualizer: 'logic-circuit',
+        initialState: { gate: 'AND', switchP: true, switchQ: false },
+      },
+      level: 'foundations',
+    },
   ]);
 
   readonly currentLesson = computed(() => this.lessons()[this.activeLessonIndex()]);
