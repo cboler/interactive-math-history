@@ -239,13 +239,35 @@
   padding-bottom: 1.75rem;
 }
 
-.eyebrow {
+.metadata-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.badge {
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--accent-history);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+.stage-badge {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.strand-badge {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.era-badge {
+  background: #f4f1ea;
+  color: #57534e;
+  border: 1px solid #e5e0d8;
 }
 
 h1 {
@@ -276,77 +298,45 @@ h1 {
   display: inline-block;
 }
 
-.prose-section {
-  margin-bottom: 2.75rem;
-}
-
-.prose-section h2 {
-  font-size: 1.45rem;
-  color: var(--text-primary);
-  margin-bottom: 0.85rem;
-}
-
-.prose-section p {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text-secondary);
-  margin-bottom: 1.25rem;
-}
-
-.lead-hook {
-  font-size: 1.25rem;
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: var(--text-primary);
-  line-height: 1.6;
-  border-left: 3px solid var(--accent-history);
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.historical-card {
-  background: var(--surface-subtle);
-  border: 1px solid var(--border-subtle);
-  border-left: 4px solid var(--accent-history);
-  padding: 1.25rem 1.5rem;
-  margin: 1.75rem 0;
-  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+/* 1. Discovery Challenge Card */
+.discovery-card {
+  background: #fdfbf7;
+  border-left: 4px solid var(--accent-vector-b, #d97706);
+  padding: 1.25rem;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 2rem;
   box-shadow: var(--shadow-subtle);
 }
 
-.historical-card h3 {
-  margin: 0 0 0.65rem;
-  font-size: 1rem;
-  font-family: var(--font-sans);
-  font-weight: 700;
-  color: var(--text-primary);
+.discovery-header {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
 }
 
-.historical-card ul {
+.discovery-icon {
+  color: var(--accent-vector-b, #d97706);
+}
+
+.discovery-header h2 {
+  font-size: 1.1rem;
   margin: 0;
-  padding-left: 1.25rem;
-  color: var(--text-secondary);
+  color: var(--text-primary, #1c1917);
 }
 
-.historical-card li {
-  margin-bottom: 0.45rem;
+.discovery-prompt {
+  font-size: 1.05rem;
+  font-style: italic;
+  margin: 0.5rem 0;
+  color: var(--text-primary, #1c1917);
 }
 
-.historical-card strong {
-  color: var(--text-primary);
+.discovery-tip {
+  font-size: 0.85rem;
+  color: var(--text-secondary, #57534e);
 }
 
-.historical-card a {
-  color: var(--color-primary);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-/* Interactive Sandbox Stage */
+/* 2. Interactive Sandbox Stage */
 .interactive-stage {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
@@ -359,12 +349,6 @@ h1 {
 .interactive-stage h2 {
   color: var(--text-primary);
   margin-bottom: 0.4rem;
-}
-
-.interactive-instructions {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
 }
 
 .controls-panel {
@@ -386,8 +370,7 @@ h1 {
   font-size: 0.9rem;
 }
 
-.control-group label,
-.control-label {
+.control-group label {
   color: var(--text-primary);
   font-weight: 500;
 }
@@ -431,6 +414,120 @@ h1 {
   width: 100%;
 }
 
+/* 3. Prose & Narrative Section */
+.prose-section {
+  margin-bottom: 2.75rem;
+}
+
+.prose-section h2 {
+  font-size: 1.45rem;
+  color: var(--text-primary);
+  margin-bottom: 0.85rem;
+}
+
+.prose-section p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.lead-hook {
+  font-size: 1.25rem;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-primary);
+  line-height: 1.6;
+  border-left: 3px solid var(--accent-history);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Artifact Plate */
+.artifact-plate {
+  margin: 2rem 0;
+  border: 1px solid var(--border-subtle, #e5e0d8);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-card, #ffffff);
+  box-shadow: var(--shadow-subtle);
+}
+
+.artifact-plate img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.artifact-plate figcaption {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary, #57534e);
+  border-top: 1px solid var(--border-subtle, #e5e0d8);
+}
+
+.plate-credit {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted, #78716c);
+  margin-top: 0.25rem;
+}
+
+/* Epistemic Card */
+.epistemic-card {
+  background: #fbfbfb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 2rem 0;
+}
+
+.consensus-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.consensus-tag[data-level='contested'] {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.consensus-tag[data-level='established'] {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.consensus-tag[data-level='probable'] {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.consensus-tag[data-level='speculative'] {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+.epistemic-summary {
+  margin: 0.6rem 0;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.debates-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.debates-list li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+/* 4. Principles List */
 .principles-list {
   padding-left: 1.25rem;
   color: var(--text-secondary);
@@ -441,6 +538,7 @@ h1 {
   line-height: 1.7;
 }
 
+/* 5. Explore Further & Academic Bibliography */
 .lesson-footer {
   border-top: 1px solid var(--border-subtle);
   padding-top: 1.75rem;
@@ -453,25 +551,55 @@ h1 {
   color: var(--text-primary);
   font-size: 1.05rem;
   margin-bottom: 0.85rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
 }
 
-.lesson-footer ol {
+.explore-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.explore-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--border-subtle, #e5e0d8);
+  background: var(--surface-card, #ffffff);
+  border-radius: 9999px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  color: var(--text-primary, #1c1917);
+  transition: all 0.2s ease;
+}
+
+.explore-chip:hover {
+  border-color: var(--accent-vector-a, #2563eb);
+  background: var(--surface-subtle, #f4f1ea);
+}
+
+.chip-category {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  color: var(--text-muted, #78716c);
+  font-weight: 700;
+}
+
+.sources-list {
   padding-left: 1.25rem;
 }
 
-.lesson-footer li {
+.sources-list li {
   margin-bottom: 0.65rem;
   line-height: 1.6;
 }
 
-.lesson-footer strong {
+.sources-list strong {
   color: var(--text-primary);
 }
 
-.lesson-footer em {
+.sources-list em {
   color: var(--text-muted);
 }
 

@@ -5,52 +5,125 @@ import { MathLesson } from '../core/models/lesson.model';
   providedIn: 'root',
 })
 export class CurriculumService {
-  private readonly lessons = signal<MathLesson[]>([
+  readonly isDrawerOpen = signal<boolean>(false);
+  readonly activeLessonIndex = signal<number>(0);
+
+  readonly lessons = signal<MathLesson[]>([
+    // ==========================================
+    // UNIT 01: Physical Accumulation
+    // ==========================================
     {
       id: 'unit-01-ishango-addition',
       slug: 'origins-of-addition',
-      level: 'foundations',
-      order: 1,
       shortTitle: 'Unit 01: Addition',
       title: 'The Origin of Combining: Physical Accumulation',
       subtitle: 'From Baboon Fibulae to Directional Number Lines',
+      stage: 'foundations',
+      strand: 'numeracy',
+      order: 1,
+      prerequisites: [],
+      civilization: 'Upper Paleolithic Central Africa (Congo Basin)',
+      historicalEra: 'c. 20,000 BCE',
       mathematicalStatement: 'a + b = c',
+      discoveryHook: {
+        prompt:
+          'If you walk 4 paces east, and then 3 more paces east, how many total paces have you journeyed from your hearth?',
+        targetAxiom: 'Addition as continuous displacement along a 1D vector line.',
+        successCondition: 'Set Quantity A to 4 and Quantity B to 3 in additive mode.',
+        guidanceTip:
+          'Notice that the resulting arrow is not a static point; it is the compound length of two joined travels.',
+      },
       narrative: {
         hook: 'Before numbers were symbols written in ink, they were physical notches carved into bone to survive the changing seasons.',
         historicalContext: {
           story:
-            'Discovered near the headwaters of the Nile, the Ishango Bone dates back over 20,000 years. Early humans carved sequential notches into baboon bones, grouping tallies to record lunar cycles and seasonal food supplies. In Latin, the smooth stones used on early counting boards were called calculi—the direct ancestor of modern calculus.',
+            'Unearthed in 1950 by Belgian geologist Jean de Heinzelin at Ishango near Lake Edward, this 10-centimeter baboon fibula bears quartz-tool score marks arranged in distinct columns. While long romanticized as humanity’s first arithmetic calculator, archaeological consensus recognizes it as physical tallying—grouping quantities to bridge memory over time. In Latin, the smooth counting stones used for similar tallies were known as calculi: the literal etymological ancestor of modern calculus.',
           civilizationOrOrigin: 'Upper Paleolithic Central Africa (Modern-day DRC)',
           approximateDate: 'c. 20,000 BCE',
-          sources: [
-            {
-              title: 'A History of Mathematics',
-              author: 'Carl B. Boyer and Uta C. Merzbach',
-              citationSnippet: 'Chapter 1: The Origins of Counting.',
-            },
-            {
-              title: 'The Crest of the Peacock: Non-European Roots of Mathematics',
-              author: 'George Gheverghese Joseph',
-              citationSnippet: 'Chapter 2: Rivers of Life.',
-            },
-          ],
-          wikipedia: {
-            pageTitle: 'Ishango bone',
+          epistemicStatus: {
+            consensusLevel: 'contested',
             summary:
-              'A bone tool dated to the Upper Paleolithic era, featuring carved notches often considered an early tally or mathematical device.',
-            url: 'https://en.wikipedia.org/wiki/Ishango_bone',
+              'Scholars debate whether the markings represent intentional prime-number arithmetic, a 6-month lunar calendar, or merely functional grip-notches.',
+            competingHypotheses: [
+              {
+                claim: 'Lunar Calendrical Device',
+                proponentsOrSources: 'Alexander Marshack (1972)',
+                evidenceSummary:
+                  'Analyzed micro-wear on notches and correlated column tallies (11, 13, 17, 19) to lunar synodic phases.',
+              },
+              {
+                claim: 'Mathematical Game or Arithmetic Table',
+                proponentsOrSources: 'Jean de Heinzelin (1957); Claudia Zaslavsky',
+                evidenceSummary:
+                  'Grouping of numbers suggests deliberate duplication, addition, and early awareness of prime sequences.',
+              },
+              {
+                claim: 'Skeptical View: Non-Mathematical Markings',
+                proponentsOrSources: 'Olivier Keller (2010)',
+                evidenceSummary:
+                  'Argues grouping patterns are arbitrary artifacts of carving technique and grip rather than symbolic number theory.',
+              },
+            ],
           },
         },
         conceptualExplanation: [
-          'Addition is the physical act of combining distinct collections or moving forward across a distance.',
-          'When represented as a vector, a number is not a static position—it is a magnitude and a direction of travel.',
-          'Subtracting is simply reversing direction along the exact same path.',
+          'Addition represents the physical accumulation of discrete objects or displacement across continuous space.',
+          'On a coordinate axis, numbers are vectors possessing both length (magnitude) and direction.',
+          'Subtraction does not destroy quantity; it simply reverses the spatial vector direction along the line.',
         ],
         realWorldApplication:
-          'Vector addition is the foundation of aircraft navigation, game engine physics, and structural load analysis.',
+          '1D vector addition is the physical underpinning of inertial flight computers, kinematic game physics, and structural load distribution.',
       },
+      artifactPlate: {
+        title: 'The Ishango Bone (Royal Belgian Institute of Natural Sciences)',
+        credit: 'Photo by Ben2 (Wikimedia Commons / RBINS)',
+        license: 'CC BY-SA 3.0',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ishango_bone.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ishango_bone.jpg/640px-Ishango_bone.jpg',
+        altText: 'The fossilized Ishango bone displaying carved notches in three columns.',
+        caption:
+          'The Ishango bone, found near the Congolese border, bearing three columns of grouped incision marks.',
+      },
+      exploreGraph: [
+        {
+          label: 'Ishango Bone',
+          category: 'artifact',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Ishango_bone',
+        },
+        {
+          label: 'Lebombo Bone',
+          category: 'artifact',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Lebombo_bone',
+        },
+        {
+          label: 'Tally Sticks & Markings',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Tally_mark',
+        },
+        {
+          label: 'History of Central Africa',
+          category: 'civilization',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Pre-colonial_African_history',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Carl B. Boyer and Uta C. Merzbach',
+          title: 'A History of Mathematics',
+          citationSnippet: 'Chapter 1: The Origins of Counting and Prehistoric Records.',
+          publicationYear: 2011,
+        },
+        {
+          author: 'George Gheverghese Joseph',
+          title: 'The Crest of the Peacock: Non-European Roots of Mathematics',
+          citationSnippet: 'Chapter 2: Rivers of Life: Prehistoric Mathematics in Africa.',
+          publicationYear: 2010,
+        },
+      ],
       interactiveConfig: {
         visualizer: 'number-line-vector',
+        initialState: { a: 4, b: 3, op: 'add' },
         minA: 0,
         maxA: 10,
         defaultA: 4,
@@ -58,52 +131,113 @@ export class CurriculumService {
         maxB: 10,
         defaultB: 3,
       },
+      level: 'foundations',
     },
+
+    // ==========================================
+    // UNIT 02: Axioms of Equality
+    // ==========================================
     {
       id: 'unit-02-euclid-equality',
-      slug: 'euclid-common-notions',
-      level: 'foundations',
-      order: 2,
+      slug: 'euclids-common-notions',
       shortTitle: 'Unit 02: Equality',
       title: "The Bridge of Reason: Euclid's Common Notions",
       subtitle: 'Balancing Scales and the Transitive Law of Equality',
-      mathematicalStatement: 'If A = B and B = C, then A = C',
+      stage: 'foundations',
+      strand: 'logic',
+      order: 2,
+      prerequisites: ['unit-01-ishango-addition'],
+      civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
+      historicalEra: 'c. 300 BCE',
+      mathematicalStatement: '\\text{If } A = B \\text{ and } B = C \\text{, then } A = C',
+      discoveryHook: {
+        prompt:
+          'Place 5 weights on the left pan. How many weights must you place on the right pan to eliminate beam deflection?',
+        targetAxiom: 'Common Notion 1: Things which equal the same thing also equal one another.',
+        successCondition: 'Bring both Left and Right pans to equal quantities.',
+        guidanceTip:
+          'Watch the center equilibrium pointer align with the zero-degree vertical plumb line.',
+      },
       narrative: {
-        hook: "Before modern algebra had an equals sign, equality was a physical equilibrium verified on a merchant's scale.",
+        hook: 'Before the modern equals sign was invented in 1557, equality was not a mark on paper: it was physical balance verified upon an honest merchant’s scale.',
         historicalContext: {
           story:
-            'In Hellenistic Alexandria c. 300 BCE, Greek scholars synthesized centuries of practical Egyptian land surveys into rigorous axiomatic geometry. In Book I of the Elements, Euclid set forth his Common Notions—principles so intuitive they required no proof. The first stated that things equal to the same thing are also equal to one another. Just as a balance beam rests horizontal when equal weights sit on either side, mathematical deduction demands that identical relationships transfer unchanged across intermediate steps.',
-          civilizationOrOrigin: 'Hellenistic Alexandria (Egypt)',
+            'In Ptolemaic Alexandria, Greek geometer Euclid cataloged the logical bedrock of geometry in the Elements. Rather than treating equality as self-evident intuition, he codified his "Common Notions"—foundational axioms establishing that things equal to the same thing are equal to each other, and that equals added to equals result in whole equals. These axioms governed land taxation and boundary disputes after the annual flooding of the Nile River.',
+          civilizationOrOrigin: 'Alexandria, Egypt (Hellenistic Greek World)',
           approximateDate: 'c. 300 BCE',
-          sources: [
-            {
-              title: 'The Thirteen Books of the Elements, Vol. 1',
-              author: 'Euclid (trans. Sir Thomas L. Heath)',
-              citationSnippet: 'Book I: Common Notions and Postulates.',
-            },
-            {
-              title: 'Journey Through Genius: The Great Theorems of Mathematics',
-              author: 'William Dunham',
-              citationSnippet: "Chapter 2: Euclid's Proof of the Pythagorean Theorem.",
-            },
-          ],
-          wikipedia: {
-            pageTitle: 'Common notions',
+          epistemicStatus: {
+            consensusLevel: 'established',
             summary:
-              "The foundational axioms in Euclid's Elements asserting that things equal to the same thing are also equal to one another.",
-            url: 'https://en.wikipedia.org/wiki/Euclid%27s_Elements#Common_notions',
+              'Euclid’s Common Notions are universally acknowledged as the historical birth of rigorous deductive axiomatic proof.',
+            competingHypotheses: [
+              {
+                claim: 'Did Euclid Author All Axioms?',
+                proponentsOrSources: 'Thomas L. Heath (1908 Commentary)',
+                evidenceSummary:
+                  'Manuscript analysis indicates later Byzantine commentators may have expanded Euclid’s original five Common Notions to nine.',
+              },
+            ],
           },
         },
         conceptualExplanation: [
-          'Equality is an equivalence relation possessing reflexivity (A = A), symmetry (if A = B then B = A), and transitivity (if A = B and B = C then A = C).',
-          'If two separate quantities balance against the exact same third benchmark, they must balance each other perfectly.',
-          'Adding or subtracting identical quantities from both sides of an equality preserves the equilibrium.',
+          'Equality ($=$) is an equivalence relation possessing reflexivity, symmetry, and transitivity.',
+          'An algebraic equation represents an equilibrium: whatever transformation is performed on one pan must be mirrored on the other.',
+          'Deductive mathematics requires unproven foundational postulates from which all theorems must logically derive.',
         ],
         realWorldApplication:
-          'Transitive equivalence underpins database relational joins, cryptographic zero-knowledge proofs, and automated formal verification compilers.',
+          'Transitive equality is the foundation of relational database query compilers, type inference engines in programming languages, and electronic scale calibrators.',
       },
+      artifactPlate: {
+        title: "Papyrus Oxyrhynchus 29 (Euclid's Elements Book II)",
+        credit: 'University of Pennsylvania Museum / Wikimedia Commons',
+        license: 'Public Domain',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/P._Oxy._I_29.jpg/640px-P._Oxy._I_29.jpg',
+        altText:
+          'Ancient papyrus fragment with Greek text and a geometric diagram of Euclid Elements.',
+        caption:
+          "One of the oldest surviving fragments of Euclid's Elements (c. 75–125 CE), excavated at Oxyrhynchus.",
+      },
+      exploreGraph: [
+        {
+          label: "Euclid's Elements",
+          category: 'primary-text',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Euclid%27s_Elements',
+        },
+        {
+          label: 'Euclid of Alexandria',
+          category: 'person',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Euclid',
+        },
+        {
+          label: 'Axiomatic System',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Axiomatic_system',
+        },
+        {
+          label: 'Balance Scale Metaphor',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Balance_puzzle',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Euclid (Trans. Thomas L. Heath)',
+          title: 'The Thirteen Books of The Elements (Vol. 1)',
+          citationSnippet: 'The Common Notions and Historical Commentary, Book I.',
+          publicationYear: 1956,
+        },
+        {
+          author: 'William Dunham',
+          title: 'Journey Through Genius: The Great Theorems of Mathematics',
+          citationSnippet: "Chapter 2: Euclid's Proof of the Pythagorean Theorem.",
+          publicationYear: 1990,
+        },
+      ],
       interactiveConfig: {
         visualizer: 'balance-scale',
+        initialState: { a: 5, b: 5 },
         minA: 1,
         maxA: 10,
         defaultA: 5,
@@ -111,52 +245,109 @@ export class CurriculumService {
         maxB: 10,
         defaultB: 5,
       },
+      level: 'foundations',
     },
+
+    // ==========================================
+    // UNIT 03: Spatial Invariance (Commutativity)
+    // ==========================================
     {
       id: 'unit-03-commutative-multiplication',
       slug: 'spatial-invariance-multiplication',
-      level: 'arithmetic',
-      order: 3,
       shortTitle: 'Unit 03: Multiplication',
       title: 'Spatial Invariance: The Commutative Law',
       subtitle: 'Why 3 × 5 Always Equals 5 × 3 Across Ancient Farmlands',
-      mathematicalStatement: 'A × B = B × A',
+      stage: 'elementary',
+      strand: 'arithmetic',
+      order: 3,
+      prerequisites: ['unit-01-ishango-addition'],
+      civilization: 'Ancient Mesopotamia and Old Kingdom Egypt',
+      historicalEra: 'c. 1800 BCE',
+      mathematicalStatement: 'a \\times b = b \\times a',
+      discoveryHook: {
+        prompt:
+          'Arrange a farm parcel into 3 rows of 5 crops. Now rotate the field 90 degrees. Did the total crop count change?',
+        targetAxiom: 'Commutativity: Multiplicative area is invariant under planar rotation.',
+        successCondition:
+          'Press the Transpose button and verify the total dot count remains exactly 15.',
+        guidanceTip:
+          'Observe how rows transform into columns, yet the total area enclosed is completely conserved.',
+      },
       narrative: {
-        hook: 'Turn a field by ninety degrees, and the crop yield remains unchanged: the birth of the area model.',
+        hook: 'Turn a field by ninety degrees, and the grain yield remains identical: the birth of the geometric area model.',
         historicalContext: {
           story:
-            'Across the alluvial floodplains of the Nile and the Tigris-Euphrates valleys, tax assessors and scribes calculated crop quotas based on rectangular plots of land. Egyptian rope-stretchers (harpedonaptai) divided fields into orthogonal grids. Whether counting 3 rows of 5 irrigation plots or rotating their vantage point by 90 degrees to see 5 columns of 3 plots, the total area was invariant. Ancient Babylonian cuneiform tablets demonstrate that this spatial conservation became the bedrock of multiplication.',
-          civilizationOrOrigin: 'Old Kingdom Egypt & Ancient Mesopotamia',
+            'In the fertile floodplains between the Tigris and Euphrates rivers, Babylonian scribes managed agricultural deeds using cuneiform clay tablets. When assessing crop yields or grain storage, they recognized that an orchard arranged in 3 rows of 5 date palms produced the exact same harvest as 5 rows of 3 palms. Multiplication ceased to be merely repeated addition—it became an invariant measurement of planar area.',
+          civilizationOrOrigin: 'Mesopotamia (Babylonia) & Nile Valley Egypt',
           approximateDate: 'c. 1800 BCE',
-          sources: [
-            {
-              title: 'A History of Mathematics',
-              author: 'Carl B. Boyer and Uta C. Merzbach',
-              citationSnippet: 'Chapter 2: Egypt and Chapter 3: Mesopotamia.',
-            },
-            {
-              title: 'The Crest of the Peacock: Non-European Roots of Mathematics',
-              author: 'George Gheverghese Joseph',
-              citationSnippet: 'Chapter 4: The Geometry of Agriculture.',
-            },
-          ],
-          wikipedia: {
-            pageTitle: 'Commutative property',
+          epistemicStatus: {
+            consensusLevel: 'established',
             summary:
-              'A binary operation is commutative if changing the order of the operands does not change the result.',
-            url: 'https://en.wikipedia.org/wiki/Commutative_property',
+              'The geometric interpretation of multiplication as rectangular area is historically universal across Egyptian, Babylonian, and Vedic sources.',
+            competingHypotheses: [
+              {
+                claim: 'Discrete vs Continuous Priority',
+                proponentsOrSources: 'Reviel Netz (The Shaping of Deduction in Greek Mathematics)',
+                evidenceSummary:
+                  'Debates whether early civilizations viewed multiplication primarily as discrete dot-counting or continuous rectangular land surface area.',
+              },
+            ],
           },
         },
         conceptualExplanation: [
-          'Multiplication is repeated addition along an orthogonal grid of rows and columns.',
-          'Rotating a two-dimensional rectangular array swaps rows and columns without adding or removing any elements.',
-          'Physical area is invariant under rigid Euclidean transformations, establishing the fundamental law of commutativity.',
+          'Multiplication maps two orthogonal linear dimensions ($A$ and $B$) to a 2D scalar area ($A \\times B$).',
+          'The Commutative Property states that order of operations does not affect the resulting scalar product.',
+          'Transposition of an $M \\times N$ matrix into an $N \\times M$ matrix preserves the trace, determinant, and total cardinality.',
         ],
         realWorldApplication:
-          'Matrix operations in graphics shader pipelines, convolutional neural networks, and digital audio signal filtering.',
+          'Matrix transpose symmetry is central to image rotation algorithms, quantum state bra-ket commutators, and relational database cross-joins.',
       },
+      artifactPlate: {
+        title: 'Babylonian Clay Tablet YBC 7289',
+        credit: 'Yale Babylonian Collection / Wikimedia Commons',
+        license: 'CC BY-SA 4.0',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ybc7289-diagonal.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ybc7289-diagonal.jpg/640px-Ybc7289-diagonal.jpg',
+        altText:
+          'Ancient Babylonian clay tablet depicting a square with intersecting diagonals and sexagesimal markings.',
+        caption:
+          'Tablet YBC 7289 (c. 1800–1600 BCE), demonstrating sophisticated Babylonian geometric calculation of square diagonals.',
+      },
+      exploreGraph: [
+        {
+          label: 'Commutative Property',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Commutative_property',
+        },
+        {
+          label: 'Babylonian Mathematics',
+          category: 'civilization',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Babylonian_mathematics',
+        },
+        {
+          label: 'Area Model of Multiplication',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Multiplication_algorithm',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Carl B. Boyer and Uta C. Merzbach',
+          title: 'A History of Mathematics',
+          citationSnippet: 'Chapter 3: Mesopotamia and Cuneiform Clay Deeds.',
+          publicationYear: 2011,
+        },
+        {
+          author: 'Eleanor Robson',
+          title: 'Mathematics in Ancient Iraq: A Social History',
+          citationSnippet: 'Scribal training and agricultural land surveying in Ur and Babylon.',
+          publicationYear: 2008,
+        },
+      ],
       interactiveConfig: {
         visualizer: 'grid-array',
+        initialState: { rows: 3, cols: 5, isTransposed: false },
         minA: 1,
         maxA: 8,
         defaultA: 3,
@@ -164,10 +355,129 @@ export class CurriculumService {
         maxB: 8,
         defaultB: 5,
       },
+      level: 'arithmetic',
+    },
+
+    // ==========================================
+    // UNIT 04: Unit Fractions & Slicing
+    // ==========================================
+    {
+      id: 'unit-04-egyptian-fractions',
+      slug: 'egyptian-unit-fractions-rhind',
+      shortTitle: 'Unit 04: Fractions',
+      title: 'The Bread Partition: Unit Fractions & Ahmes',
+      subtitle: 'Decomposing Quantities into Non-Repeating Unit Shares',
+      stage: 'elementary',
+      strand: 'arithmetic',
+      order: 4,
+      prerequisites: ['unit-01-ishango-addition', 'unit-03-commutative-multiplication'],
+      civilization: 'Middle Kingdom Egypt (Thebes)',
+      historicalEra: 'c. 1550 BCE',
+      mathematicalStatement: '\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}',
+      discoveryHook: {
+        prompt:
+          'You have 3 loaves of bread to distribute equally among 5 workers. Egyptian law forbids repeating fractions (like 1/5 + 1/5 + 1/5). Can you slice and distribute the loaves so every worker receives identical unit-fraction portions?',
+        targetAxiom:
+          'Every rational fraction can be expressed as a sum of distinct unit fractions: m/n = 1/x + 1/y.',
+        successCondition:
+          'Give each of the 5 worker baskets exactly 1/2 and 1/10 of a loaf (Total: 3/5).',
+        guidanceTip:
+          'Slice 2 loaves into halves (yielding 4 halves) and 1 loaf into tenths... then distribute them fairly!',
+      },
+      narrative: {
+        hook: 'If you give five laborers each three-fifths of a loaf, disputes erupt over who received the ragged crust. Ancient Egyptian scribes resolved this by requiring identical, perfect unit slices.',
+        historicalContext: {
+          story:
+            'In the Second Intermediate Period, a royal scribe named Ahmes transcribed what is now known as the Rhind Mathematical Papyrus (British Museum EA 10057). Rather than working with arbitrary fractions with changing numerators (such as 3/5 or 4/7), Egyptian accounting exclusively recognized unit fractions—quantities with a numerator of 1 (represented by the hieroglyph of an open mouth, "r", signifying a portion or mouth to feed). To divide 3 loaves among 5 men, Ahmes did not hand out 3 small fifth-slices. He gave each man 1/2 of a loaf plus 1/10 of a loaf. The sum is identical (1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5), but every laborer received the exact same set of physical cuts, eliminating social envy and accounting fraud.',
+          civilizationOrOrigin: 'Thebes, Ancient Egypt (15th Dynasty)',
+          approximateDate: 'c. 1550 BCE',
+          epistemicStatus: {
+            consensusLevel: 'probable',
+            summary:
+              'Historians agree on how the Egyptian algorithms worked, but debate WHY Egyptians refused to write repeating unit fractions like 1/3 + 1/3.',
+            competingHypotheses: [
+              {
+                claim: 'Practical Physical Equity',
+                proponentsOrSources:
+                  'Richard J. Gillings (Mathematics in the Time of the Pharaohs)',
+                evidenceSummary:
+                  'Cutting bread or beer rations into distinct large and small slices made physical measurement and distribution verification trivial.',
+              },
+              {
+                claim: 'Scribal Elite Aesthetic & Canon',
+                proponentsOrSources:
+                  'Annette Imhausen (Mathematics in Ancient Egypt: A Contextual History)',
+                evidenceSummary:
+                  'Suggests the unit-fraction canon was a formal, conservative scribal tradition taught in administrative schools rather than purely spontaneous arithmetic necessity.',
+              },
+            ],
+          },
+        },
+        conceptualExplanation: [
+          'A unit fraction has the form $\\frac{1}{n}$, where $n$ is a positive natural integer.',
+          'The Egyptian fraction expansion theorem guarantees that every positive rational number $\\frac{p}{q} < 1$ can be expressed as a finite sum of distinct unit fractions.',
+          'Sylvester’s greedy algorithm provides one modern technique to decompose fractions, but ancient Egyptian scribes frequently chose more elegant, physically measurable denominators.',
+        ],
+        realWorldApplication:
+          'Unit fraction decompositions are applied today in fair-division cake-cutting algorithms, packet scheduling in telecommunications networks, and heliostat mirror spacing.',
+      },
+      artifactPlate: {
+        title: 'The Rhind Mathematical Papyrus (British Museum EA 10057)',
+        credit: 'Trustees of the British Museum / Wikimedia Commons',
+        license: 'Public Domain',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rhind_Mathematical_Papyrus.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
+        altText:
+          'Ancient Egyptian papyrus scroll filled with hieratic red and black mathematical script.',
+        caption:
+          'The Rhind Papyrus (c. 1550 BCE), copied by scribe Ahmes, containing the famous 2/n table and bread partition problems.',
+      },
+      exploreGraph: [
+        {
+          label: 'Rhind Mathematical Papyrus',
+          category: 'primary-text',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Rhind_Mathematical_Papyrus',
+        },
+        {
+          label: 'Scribe Ahmes',
+          category: 'person',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Ahmes',
+        },
+        {
+          label: 'Egyptian Fractions',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Egyptian_fraction',
+        },
+        {
+          label: 'Eye of Horus Fractions',
+          category: 'artifact',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Eye_of_Horus#As_fractions',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Richard J. Gillings',
+          title: 'Mathematics in the Time of the Pharaohs',
+          citationSnippet:
+            'Chapter 4: The 2/n Table of the Rhind Papyrus and the Division of Bread.',
+          publicationYear: 1982,
+        },
+        {
+          author: 'Annette Imhausen',
+          title: 'Mathematics in Ancient Egypt: A Contextual History',
+          citationSnippet: 'Administrative mathematics and table design in the Middle Kingdom.',
+          publicationYear: 2016,
+        },
+      ],
+      interactiveConfig: {
+        visualizer: 'partition-slicer',
+        initialState: { loaves: 3, workers: 5 },
+      },
+      level: 'elementary',
     },
   ]);
 
-  readonly activeLessonIndex = signal<number>(0);
   readonly currentLesson = computed(() => this.lessons()[this.activeLessonIndex()]);
   readonly allLessons = computed(() => this.lessons());
   readonly totalLessons = computed(() => this.lessons().length);
@@ -175,19 +485,17 @@ export class CurriculumService {
   readonly hasPrev = computed(() => this.activeLessonIndex() > 0);
   readonly hasNext = computed(() => this.activeLessonIndex() < this.lessons().length - 1);
 
-  readonly isDrawerOpen = signal<boolean>(false);
+  setLessonIndex(index: number): void {
+    if (index >= 0 && index < this.lessons().length) {
+      this.activeLessonIndex.set(index);
+    }
+  }
 
   toggleDrawer(open?: boolean): void {
     if (typeof open === 'boolean') {
       this.isDrawerOpen.set(open);
     } else {
       this.isDrawerOpen.update((v) => !v);
-    }
-  }
-
-  setLessonIndex(index: number): void {
-    if (index >= 0 && index < this.lessons().length) {
-      this.activeLessonIndex.set(index);
     }
   }
 
@@ -203,17 +511,26 @@ export class CurriculumService {
     }
   }
 
-  findLessonIndex(level: string, unit: string): number {
-    const normLevel = level.toLowerCase().trim();
+  findLessonIndex(levelOrStage: string, unit: string): number {
+    const norm = levelOrStage.toLowerCase().trim();
     const normUnit = unit.toLowerCase().trim();
 
     return this.lessons().findIndex((lesson) => {
-      if (lesson.level.toLowerCase() !== normLevel) {
+      const matchStageOrLevel =
+        lesson.stage.toLowerCase() === norm ||
+        lesson.strand.toLowerCase() === norm ||
+        (lesson.level && lesson.level.toLowerCase() === norm);
+      if (!matchStageOrLevel) {
         return false;
       }
 
+      const cleanUnit = normUnit.replace(/-/g, '');
+      const cleanSlug = lesson.slug.toLowerCase().replace(/-/g, '');
+
       return (
         lesson.slug.toLowerCase() === normUnit ||
+        cleanSlug === cleanUnit ||
+        (lesson.slug === 'euclids-common-notions' && normUnit === 'euclid-common-notions') ||
         lesson.id.toLowerCase() === normUnit ||
         lesson.order.toString() === normUnit ||
         `unit-${lesson.order}` === normUnit ||
@@ -222,8 +539,8 @@ export class CurriculumService {
     });
   }
 
-  navigateToLesson(level: string, unit: string): boolean {
-    const idx = this.findLessonIndex(level, unit);
+  navigateToLesson(levelOrStage: string, unit: string): boolean {
+    const idx = this.findLessonIndex(levelOrStage, unit);
     if (idx !== -1) {
       this.setLessonIndex(idx);
       return true;

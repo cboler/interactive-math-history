@@ -1,51 +1,98 @@
-export interface HistoricalSource {
-  title: string;
-  author: string;
-  publicationYear?: number | string;
-  citationSnippet: string;
-  sourceUrl?: string;
+export type CognitiveStage = 'foundations' | 'elementary' | 'intermediate' | 'advanced';
+
+export type MathematicalStrand =
+  'numeracy' | 'arithmetic' | 'algebra' | 'geometry' | 'number-theory' | 'logic' | 'calculus';
+
+export type VisualizerMode =
+  'number-line-vector' | 'balance-scale' | 'grid-array' | 'partition-slicer';
+
+export interface ScholarlyInterpretation {
+  claim: string;
+  proponentsOrSources: string;
+  evidenceSummary: string;
 }
 
-export interface WikipediaReference {
-  pageTitle: string;
+export interface EpistemicStatus {
+  consensusLevel: 'established' | 'probable' | 'contested' | 'speculative';
   summary: string;
-  url: string;
+  competingHypotheses: ScholarlyInterpretation[];
 }
 
-export type VisualizerMode = 'number-line-vector' | 'balance-scale' | 'grid-array';
+export interface ArtifactPlate {
+  title: string;
+  credit: string;
+  license: string;
+  sourceUrl: string;
+  imageUrl: string;
+  altText: string;
+  caption: string;
+}
+
+export interface ExploreNode {
+  label: string;
+  category: 'artifact' | 'person' | 'civilization' | 'concept' | 'primary-text';
+  wikipediaUrl: string;
+}
+
+export interface AcademicSource {
+  author: string;
+  title: string;
+  citationSnippet: string;
+  publicationYear?: number | string;
+}
+
+export interface DiscoveryChallenge {
+  prompt: string;
+  targetAxiom: string;
+  successCondition: string;
+  guidanceTip: string;
+}
+
+export interface InteractiveConfig {
+  visualizer: VisualizerMode;
+  initialState: Record<string, unknown>;
+  // Backwards compatibility for legacy slider components
+  minA?: number;
+  maxA?: number;
+  defaultA?: number;
+  minB?: number;
+  maxB?: number;
+  defaultB?: number;
+}
 
 export interface MathLesson {
   id: string;
   slug: string;
-  level: 'foundations' | 'arithmetic' | 'algebra' | 'geometry' | 'calculus' | 'logic';
-  order: number;
-  shortTitle: string; // e.g. "Unit 01: Addition"
+  shortTitle: string;
   title: string;
   subtitle: string;
-  mathematicalStatement: string; // e.g. "a + b = c"
+  stage: CognitiveStage;
+  strand: MathematicalStrand;
+  order: number;
+  prerequisites: string[];
+  civilization: string;
+  historicalEra: string;
+  mathematicalStatement: string; // LaTeX formatted string
 
-  // Semantic Reader Mode content (read aloud by browser TTS engines)
+  discoveryHook: DiscoveryChallenge;
+
   narrative: {
     hook: string;
     historicalContext: {
       story: string;
       civilizationOrOrigin: string;
       approximateDate: string;
-      sources: HistoricalSource[];
-      wikipedia: WikipediaReference;
+      epistemicStatus: EpistemicStatus;
     };
     conceptualExplanation: string[];
     realWorldApplication: string;
   };
 
-  // Interactive sandbox configuration
-  interactiveConfig: {
-    visualizer: VisualizerMode;
-    minA: number;
-    maxA: number;
-    defaultA: number;
-    minB: number;
-    maxB: number;
-    defaultB: number;
-  };
+  artifactPlate?: ArtifactPlate;
+  exploreGraph: ExploreNode[];
+  academicSources: AcademicSource[];
+  interactiveConfig: InteractiveConfig;
+
+  // Optional legacy route/level support
+  level?: string;
 }

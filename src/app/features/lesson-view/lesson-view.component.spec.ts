@@ -33,7 +33,7 @@ describe('LessonViewComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.formula-badge code')?.textContent?.trim()).toBe('a + b = c');
     expect(compiled.querySelector('h1')?.textContent).toContain('The Origin of Combining');
-    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 3');
+    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 4');
   });
 
   it('should cycle through units via next and previous buttons', () => {
@@ -49,9 +49,14 @@ describe('LessonViewComponent', () => {
     expect(component.curriculum.currentLesson().id).toBe('unit-03-commutative-multiplication');
     expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain('Spatial Invariance');
 
+    component.goToNext();
+    fixture.detectChanges();
+    expect(component.curriculum.currentLesson().id).toBe('unit-04-egyptian-fractions');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain('The Bread Partition');
+
     component.goToPrev();
     fixture.detectChanges();
-    expect(component.curriculum.currentLesson().id).toBe('unit-02-euclid-equality');
+    expect(component.curriculum.currentLesson().id).toBe('unit-03-commutative-multiplication');
   });
 
   it('should open and close curriculum outline drawer', () => {
@@ -82,6 +87,7 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-number-line')).toBeTruthy();
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('app-bread-slicer')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Quantity A:');
     expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain('Quantity B:');
     expect(el.querySelector('.btn-group')).toBeTruthy();
@@ -92,6 +98,7 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-number-line')).toBeFalsy();
     expect(el.querySelector('app-balance-scale')).toBeTruthy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('app-bread-slicer')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain(
       'Left Pan (A):',
     );
@@ -106,11 +113,21 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-number-line')).toBeFalsy();
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeTruthy();
+    expect(el.querySelector('app-bread-slicer')).toBeFalsy();
     expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain('Rows (A):');
     expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain(
       'Columns (B):',
     );
     expect(el.querySelector('.btn-group')).toBeFalsy(); // Operation toggle hidden
+
+    // Unit 04: partition-slicer
+    component.goToNext();
+    fixture.detectChanges();
+    expect(el.querySelector('app-number-line')).toBeFalsy();
+    expect(el.querySelector('app-balance-scale')).toBeFalsy();
+    expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('app-bread-slicer')).toBeTruthy();
+    expect(el.querySelector('.controls-panel')).toBeFalsy(); // Slider controls hidden
   });
 
   it('should sync active lesson when navigating to route directly', async () => {
@@ -126,6 +143,22 @@ describe('LessonViewComponent', () => {
       'Spatial Invariance',
     );
     expect(harness.routeNativeElement?.querySelector('app-grid-array')).toBeTruthy();
+  });
+
+  it('should render discovery hook, artifact plate, and epistemic card for Unit 04', async () => {
+    const harness = await RouterTestingHarness.create();
+    const routedComponent = await harness.navigateByUrl(
+      '/elementary/egyptian-unit-fractions-rhind',
+      LessonViewComponent,
+    );
+    expect(routedComponent.curriculum.currentLesson().id).toBe('unit-04-egyptian-fractions');
+    const el = harness.routeNativeElement;
+    expect(el?.querySelector('.discovery-card')).toBeTruthy();
+    expect(el?.querySelector('.artifact-plate img')?.getAttribute('src')).toContain(
+      'Rhind_Mathematical_Papyrus.jpg',
+    );
+    expect(el?.querySelector('.epistemic-card')).toBeTruthy();
+    expect(el?.querySelector('app-bread-slicer')).toBeTruthy();
   });
 
   it('should resolve flexible unit aliases like unit-02', async () => {

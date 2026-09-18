@@ -4,8 +4,7 @@
     <div class="nav-bar-inner">
       <div class="unit-badge-group">
         <span class="unit-level-badge">
-          {{ current.level === 'foundations' ? 'Level 0' : 'Level 1' }} · Unit
-          {{ current.order }} of {{ totalLessons() }}
+          {{ current.stage | uppercase }} · Unit {{ current.order }} of {{ totalLessons() }}
         </span>
         <button
           type="button"
@@ -79,8 +78,13 @@
 
   <!-- Semantic Reader View: Pure prose structured for browser TTS engines & Reader Mode -->
   <article class="reader-article" role="article">
+    <!-- Top Academic Eyebrow & Title -->
     <header class="lesson-header">
-      <p class="eyebrow">{{ current.level | uppercase }} · UNIT {{ current.order }}</p>
+      <div class="metadata-badges">
+        <span class="badge stage-badge">{{ current.stage | uppercase }}</span>
+        <span class="badge strand-badge">{{ current.strand | uppercase }}</span>
+        <span class="badge era-badge">{{ current.historicalEra }}</span>
+      </div>
       <h1>{{ current.title }}</h1>
       <p class="subtitle">{{ current.subtitle }}</p>
       <div class="formula-badge">
@@ -88,122 +92,79 @@
       </div>
     </header>
 
-    <!-- Narrative Section -->
-    <section class="prose-section">
-      <h2>The Human Story</h2>
-      <p class="lead-hook">{{ current.narrative.hook }}</p>
-      <p>{{ current.narrative.historicalContext.story }}</p>
-
-      <aside class="historical-card">
-        <h3>
-          <app-icon name="history"></app-icon>
-          Context &amp; Provenance
-        </h3>
-        <ul>
-          <li>
-            <strong>Origin:</strong> {{ current.narrative.historicalContext.civilizationOrOrigin }}
-          </li>
-          <li>
-            <strong>Estimated Era:</strong>
-            {{ current.narrative.historicalContext.approximateDate }}
-          </li>
-          <li>
-            <strong>Encyclopedia:</strong>
-            <a
-              [href]="current.narrative.historicalContext.wikipedia.url"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {{ current.narrative.historicalContext.wikipedia.pageTitle }}
-              <app-icon name="external-link"></app-icon>
-            </a>
-          </li>
-        </ul>
-      </aside>
+    <!-- 1. THE DISCOVERY CHALLENGE (Active Inquiry Before Prose) -->
+    <section class="discovery-card" role="region" aria-label="Discovery Challenge">
+      <div class="discovery-header">
+        <app-icon name="scale" class="discovery-icon"></app-icon>
+        <h2>The Challenge of Discovery</h2>
+      </div>
+      <p class="discovery-prompt">{{ current.discoveryHook.prompt }}</p>
+      <div class="discovery-tip">
+        <strong>Guiding Principle:</strong> {{ current.discoveryHook.targetAxiom }}
+      </div>
     </section>
 
-    <!-- Interactive Sandbox (Aria-hidden controls keep text reader flow clean) -->
-    <section class="interactive-stage">
-      <h2>Visualizing the Concept</h2>
-      <p class="interactive-instructions">
-        Adjust the parameters below to explore this concept through computational visual models.
-      </p>
+    <!-- 2. INTERACTIVE LABORATORY (Dynamic Archetype Switch) -->
+    <section class="interactive-stage" aria-label="Mathematical Experiment">
+      <h2>Interactive Laboratory</h2>
 
-      <div class="controls-panel" aria-hidden="true">
-        <div class="control-group">
-          <label for="quantity-a-input">
-            @switch (current.interactiveConfig.visualizer) {
-              @case ('balance-scale') {
-                Left Pan (A):
-              }
-              @case ('grid-array') {
-                Rows (A):
-              }
-              @default {
-                Quantity A:
-              }
-            }
-            <strong>{{ inputA() }}</strong>
-          </label>
-          <input
-            id="quantity-a-input"
-            type="range"
-            [min]="current.interactiveConfig.minA"
-            [max]="current.interactiveConfig.maxA"
-            [ngModel]="inputA()"
-            (ngModelChange)="inputA.set($event)"
-          />
-        </div>
-
-        @if (current.interactiveConfig.visualizer === 'number-line-vector') {
+      <!-- Contextual Controls for Slider-based Visualizers -->
+      @if (current.interactiveConfig.visualizer !== 'partition-slicer') {
+        <div class="controls-panel" aria-hidden="true">
           <div class="control-group">
-            <span class="control-label">Operation:</span>
-            <div class="btn-group" role="group" aria-label="Operation selection">
-              <button
-                type="button"
-                id="add-op-btn"
-                [class.active]="operation() === 'add'"
-                (click)="setOp('add')"
-              >
-                Add (+)
-              </button>
-              <button
-                type="button"
-                id="subtract-op-btn"
-                [class.active]="operation() === 'subtract'"
-                (click)="setOp('subtract')"
-              >
-                Subtract (-)
-              </button>
-            </div>
+            <label for="quantity-a-input">
+              {{ sliderALabel() }}: <strong>{{ inputA() }}</strong>
+            </label>
+            <input
+              id="quantity-a-input"
+              type="range"
+              [min]="current.interactiveConfig.minA"
+              [max]="current.interactiveConfig.maxA"
+              [ngModel]="inputA()"
+              (ngModelChange)="inputA.set($event)"
+            />
           </div>
-        }
 
-        <div class="control-group">
-          <label for="quantity-b-input">
-            @switch (current.interactiveConfig.visualizer) {
-              @case ('balance-scale') {
-                Right Pan (B):
-              }
-              @case ('grid-array') {
-                Columns (B):
-              }
-              @default {
-                Quantity B:
-              }
-            }
-            <strong>{{ inputB() }}</strong>
-          </label>
-          <input
-            id="quantity-b-input"
-            type="range"
-            [min]="current.interactiveConfig.minB"
-            [max]="current.interactiveConfig.maxB"
-            [ngModel]="inputB()"
-            (ngModelChange)="inputB.set($event)"
-          />
+          <!-- Add/Subtract Toggle only for Unit 01 -->
+          @if (current.interactiveConfig.visualizer === 'number-line-vector') {
+            <div class="control-group">
+              <span class="control-label">Operation:</span>
+              <div class="btn-group" role="group" aria-label="Operation selection">
+                <button
+                  type="button"
+                  id="add-op-btn"
+                  [class.active]="operation() === 'add'"
+                  (click)="setOp('add')"
+                >
+                  Add (+)
+                </button>
+                <button
+                  type="button"
+                  id="subtract-op-btn"
+                  [class.active]="operation() === 'subtract'"
+                  (click)="setOp('subtract')"
+                >
+                  Subtract (-)
+                </button>
+              </div>
+            </div>
+          }
+
+          <div class="control-group">
+            <label for="quantity-b-input">
+              {{ sliderBLabel() }}: <strong>{{ inputB() }}</strong>
+            </label>
+            <input
+              id="quantity-b-input"
+              type="range"
+              [min]="current.interactiveConfig.minB"
+              [max]="current.interactiveConfig.maxB"
+              [ngModel]="inputB()"
+              (ngModelChange)="inputB.set($event)"
+            />
+          </div>
         </div>
-      </div>
+      }
 
       <!-- Active Visualizer Outlet -->
       <div class="visualizer-outlet">
@@ -217,11 +178,54 @@
           @case ('grid-array') {
             <app-grid-array [rows]="inputA()" [cols]="inputB()"></app-grid-array>
           }
+          @case ('partition-slicer') {
+            <app-bread-slicer></app-bread-slicer>
+          }
         }
       </div>
     </section>
 
-    <!-- Principles to Remember -->
+    <!-- 3. NARRATIVE: THE HUMAN STORY (Optimized for Browser TTS) -->
+    <section class="prose-section">
+      <h2>The Human Story</h2>
+      <p class="lead-hook">{{ current.narrative.hook }}</p>
+      <p>{{ current.narrative.historicalContext.story }}</p>
+
+      <!-- Historical Artifact Photographic Plate -->
+      @if (current.artifactPlate; as plate) {
+        <figure class="artifact-plate">
+          <img [src]="plate.imageUrl" [alt]="plate.altText" loading="lazy" />
+          <figcaption>
+            <strong>{{ plate.title }}</strong
+            >: {{ plate.caption }}
+            <span class="plate-credit">({{ plate.credit }}, {{ plate.license }})</span>
+          </figcaption>
+        </figure>
+      }
+
+      <!-- Epistemic Transparency / Historical Uncertainty -->
+      @if (current.narrative.historicalContext.epistemicStatus; as epistemic) {
+        <aside class="epistemic-card">
+          <div class="epistemic-header">
+            <span class="consensus-tag" [attr.data-level]="epistemic.consensusLevel">
+              Historiographical Status: {{ epistemic.consensusLevel | uppercase }}
+            </span>
+          </div>
+          <p class="epistemic-summary">{{ epistemic.summary }}</p>
+          <ul class="debates-list">
+            @for (item of epistemic.competingHypotheses; track item.claim) {
+              <li>
+                <strong>{{ item.claim }}</strong> (<em>{{ item.proponentsOrSources }}</em
+                >):
+                {{ item.evidenceSummary }}
+              </li>
+            }
+          </ul>
+        </aside>
+      }
+    </section>
+
+    <!-- 4. PRINCIPLES & APPLICATION -->
     <section class="prose-section">
       <h2>Principles to Remember</h2>
       <ul class="principles-list">
@@ -229,20 +233,37 @@
           <li>{{ point }}</li>
         }
       </ul>
+
       <h3>Real-World Relevance</h3>
       <p>{{ current.narrative.realWorldApplication }}</p>
     </section>
 
-    <!-- Academic Citations -->
+    <!-- 5. EXPLORE FURTHER GRAPH & ACADEMIC REFERENCES -->
     <footer class="lesson-footer">
-      <h3>
-        <app-icon name="quote"></app-icon>
-        Academic References
-      </h3>
-      <ol>
-        @for (source of current.narrative.historicalContext.sources; track source.title) {
+      <h3>Explore Further</h3>
+      <div class="explore-chips">
+        @for (node of current.exploreGraph; track node.label) {
+          <a
+            [href]="node.wikipediaUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="explore-chip"
+          >
+            <span class="chip-category">{{ node.category }}</span>
+            <span class="chip-label">{{ node.label }} ↗</span>
+          </a>
+        }
+      </div>
+
+      <h3>Academic Bibliography</h3>
+      <ol class="sources-list">
+        @for (source of current.academicSources; track source.title) {
           <li>
-            <strong>{{ source.title }}</strong> — {{ source.author }}.
+            <strong>{{ source.title }}</strong> — {{ source.author }}
+            @if (source.publicationYear) {
+              <span>({{ source.publicationYear }})</span>
+            }
+            .
             <em>{{ source.citationSnippet }}</em>
           </li>
         }

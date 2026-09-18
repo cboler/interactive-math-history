@@ -1,4 +1,4 @@
-import { Component, inject, signal, OnInit, OnDestroy } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +10,7 @@ import {
 } from '../../shared/visualizers/number-line/number-line.component';
 import { BalanceScaleComponent } from '../../shared/visualizers/balance-scale/balance-scale.component';
 import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-array.component';
+import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 
 @Component({
@@ -21,6 +22,7 @@ import { IconComponent } from '../../shared/components/icon/icon.component';
     NumberLineComponent,
     BalanceScaleComponent,
     GridArrayComponent,
+    BreadSlicerComponent,
     IconComponent,
   ],
   templateUrl: './lesson-view.component.html',
@@ -45,6 +47,20 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   readonly inputB = signal<number>(3);
   readonly operation = signal<OperationType>('add');
 
+  readonly sliderALabel = computed(() => {
+    const viz = this.lesson()?.interactiveConfig.visualizer;
+    if (viz === 'balance-scale') return 'Left Pan (A)';
+    if (viz === 'grid-array') return 'Rows (A)';
+    return 'Quantity A';
+  });
+
+  readonly sliderBLabel = computed(() => {
+    const viz = this.lesson()?.interactiveConfig.visualizer;
+    if (viz === 'balance-scale') return 'Right Pan (B)';
+    if (viz === 'grid-array') return 'Columns (B)';
+    return 'Quantity B';
+  });
+
   ngOnInit(): void {
     this.paramSub = this.route.paramMap.subscribe((params) => {
       const level = params.get('level');
@@ -53,8 +69,12 @@ export class LessonViewComponent implements OnInit, OnDestroy {
         this.curriculum.navigateToLesson(level, unit);
         const curr = this.curriculum.currentLesson();
         if (curr) {
-          this.inputA.set(curr.interactiveConfig.defaultA);
-          this.inputB.set(curr.interactiveConfig.defaultB);
+          if (curr.interactiveConfig.defaultA !== undefined) {
+            this.inputA.set(curr.interactiveConfig.defaultA);
+          }
+          if (curr.interactiveConfig.defaultB !== undefined) {
+            this.inputB.set(curr.interactiveConfig.defaultB);
+          }
         }
       }
     });
@@ -64,17 +84,22 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     this.paramSub?.unsubscribe();
   }
 
-  toggleDrawer(): void {
-    this.curriculum.toggleDrawer();
+  toggleDrawer(open?: boolean): void {
+    this.curriculum.toggleDrawer(open);
   }
 
   selectLesson(index: number): void {
     const target = this.allLessons()[index];
     if (target) {
       this.curriculum.setLessonIndex(index);
-      this.inputA.set(target.interactiveConfig.defaultA);
-      this.inputB.set(target.interactiveConfig.defaultB);
-      this.router.navigate(['/', target.level, target.slug]);
+      if (target.interactiveConfig.defaultA !== undefined) {
+        this.inputA.set(target.interactiveConfig.defaultA);
+      }
+      if (target.interactiveConfig.defaultB !== undefined) {
+        this.inputB.set(target.interactiveConfig.defaultB);
+      }
+      const stageOrLevel = target.stage || target.level || 'foundations';
+      this.router.navigate(['/', stageOrLevel, target.slug]);
     }
     this.curriculum.toggleDrawer(false);
   }
@@ -84,9 +109,14 @@ export class LessonViewComponent implements OnInit, OnDestroy {
       this.curriculum.nextLesson();
       const curr = this.curriculum.currentLesson();
       if (curr) {
-        this.inputA.set(curr.interactiveConfig.defaultA);
-        this.inputB.set(curr.interactiveConfig.defaultB);
-        this.router.navigate(['/', curr.level, curr.slug]);
+        if (curr.interactiveConfig.defaultA !== undefined) {
+          this.inputA.set(curr.interactiveConfig.defaultA);
+        }
+        if (curr.interactiveConfig.defaultB !== undefined) {
+          this.inputB.set(curr.interactiveConfig.defaultB);
+        }
+        const stageOrLevel = curr.stage || curr.level || 'foundations';
+        this.router.navigate(['/', stageOrLevel, curr.slug]);
       }
     }
   }
@@ -96,9 +126,14 @@ export class LessonViewComponent implements OnInit, OnDestroy {
       this.curriculum.prevLesson();
       const curr = this.curriculum.currentLesson();
       if (curr) {
-        this.inputA.set(curr.interactiveConfig.defaultA);
-        this.inputB.set(curr.interactiveConfig.defaultB);
-        this.router.navigate(['/', curr.level, curr.slug]);
+        if (curr.interactiveConfig.defaultA !== undefined) {
+          this.inputA.set(curr.interactiveConfig.defaultA);
+        }
+        if (curr.interactiveConfig.defaultB !== undefined) {
+          this.inputB.set(curr.interactiveConfig.defaultB);
+        }
+        const stageOrLevel = curr.stage || curr.level || 'foundations';
+        this.router.navigate(['/', stageOrLevel, curr.slug]);
       }
     }
   }

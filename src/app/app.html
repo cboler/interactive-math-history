@@ -12,7 +12,11 @@
 
       <nav class="app-nav" aria-label="Primary Navigation">
         <a
-          [routerLink]="['/', curriculum.currentLesson().level, curriculum.currentLesson().slug]"
+          [routerLink]="[
+            '/',
+            curriculum.currentLesson().stage || curriculum.currentLesson().level,
+            curriculum.currentLesson().slug,
+          ]"
           routerLinkActive="active"
           class="nav-link"
           id="nav-link-curriculum"

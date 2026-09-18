@@ -1,0 +1,134 @@
+<div class="slicer-container" role="region" aria-label="Egyptian Bread Partition Visualizer">
+  <!-- Accessibility Live Narration -->
+  <div class="sr-only" aria-live="polite">
+    {{
+      isSolved()
+        ? 'Challenge Complete: All 5 workers received equal unit fraction portions without repeats!'
+        : 'Distribute slices into 5 worker baskets to total 3/5 loaf each.'
+    }}
+  </div>
+
+  <!-- Status Header -->
+  <div class="slicer-header">
+    <div class="header-stat">
+      <span class="stat-label">Whole Loaves Uncut:</span>
+      <span class="stat-value">{{ unslicedLoaves() }} of 3</span>
+    </div>
+    <div class="header-stat">
+      <span class="stat-label">Target per Worker:</span>
+      <span class="stat-value formula-target">3/5 (60%)</span>
+    </div>
+    <div class="header-actions">
+      <button type="button" class="btn-demo" (click)="autoSolveAhmes()">Ahmes Solution</button>
+      <button type="button" class="btn-reset" (click)="reset()">Reset Pantry</button>
+    </div>
+  </div>
+
+  <!-- Slicing Board -->
+  @if (unslicedLoaves() > 0) {
+    <div class="cutting-bench">
+      <p class="bench-title">Baker's Bench: Choose cut for 1 whole loaf</p>
+      <div class="slice-buttons">
+        @for (opt of cutOptions; track opt.denom) {
+          <button
+            type="button"
+            class="btn-cut"
+            [style.border-color]="opt.color"
+            (click)="cutLoaf(opt.denom, opt.color)"
+          >
+            {{ opt.label }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Slices Pantry (Available to distribute) -->
+  @if (availableSlices().length > 0) {
+    <div class="pantry-rack">
+      <p class="rack-title">Cut Slices Ready to Distribute (Tap worker basket to send):</p>
+      <div class="slices-grid">
+        @for (slice of availableSlices(); track slice.id) {
+          <div class="slice-token" [style.background-color]="slice.color">
+            <span class="token-label">{{ slice.label }}</span>
+            @if (slice.label === '1/2') {
+              <button
+                type="button"
+                class="btn-subdivide"
+                (click)="subdivideHalf(slice.id)"
+                title="Ahmes step: Cut this 1/2 slice into five 1/10ths"
+              >
+                ✂ 5×(1/10)
+              </button>
+            }
+            <div class="worker-dispatch">
+              @for (w of baskets(); track w.id) {
+                <button
+                  type="button"
+                  [attr.aria-label]="'Send ' + slice.label + ' to Worker ' + w.id"
+                  (click)="giveSliceToWorker(slice.id, w.id)"
+                >
+                  W{{ w.id }}
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Worker Baskets Grid -->
+  <div class="workers-array">
+    @for (w of baskets(); track w.id; let idx = $index) {
+      <div
+        class="worker-card"
+        [class.card-success]="basketSums()[idx].valid"
+        [class.card-warning]="basketSums()[idx].hasDuplicates"
+      >
+        <div class="card-head">
+          <h4>Worker {{ w.id }}</h4>
+          <span class="card-total" [class.total-match]="basketSums()[idx].isExact">
+            {{ (basketSums()[idx].sum * 100).toFixed(0) }}% / 60%
+          </span>
+        </div>
+
+        <div class="basket-tray">
+          @if (w.slices.length === 0) {
+            <p class="tray-empty">Empty basket</p>
+          } @else {
+            @for (slice of w.slices; track slice.id) {
+              <button
+                type="button"
+                class="tray-slice"
+                [style.background-color]="slice.color"
+                title="Tap to return slice"
+                (click)="returnSlice(slice, w.id)"
+              >
+                {{ slice.label }} ✕
+              </button>
+            }
+          }
+        </div>
+
+        @if (basketSums()[idx].hasDuplicates) {
+          <div class="card-status-flag">⚠️ Duplicate fraction! (Egyptian violation)</div>
+        }
+        @if (basketSums()[idx].valid) {
+          <div class="card-status-flag success-flag">✓ Balanced Ahmes Share</div>
+        }
+      </div>
+    }
+  </div>
+
+  <!-- Solution Triumph Banner -->
+  @if (isSolved()) {
+    <div class="solved-banner" role="status">
+      <h3>⚖ Ahmes' Equilibrium Achieved!</h3>
+      <p>
+        Every worker has received exactly <strong>1/2 + 1/10 = 3/5</strong> of a loaf. No fractions
+        are duplicated, and the grain of the realm is fairly accounted for.
+      </p>
+    </div>
+  }
+</div>
