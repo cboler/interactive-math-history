@@ -287,21 +287,28 @@ h1 {
   font-family: var(--font-sans);
 }
 
-.formula-badge code {
+.formula-badge {
+  display: inline-block;
   background: var(--surface-subtle);
   border: 1px solid var(--border-muted);
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 1rem;
   border-radius: var(--radius-md);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   color: var(--accent-vector-a);
-  font-weight: 600;
-  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  vertical-align: middle;
+}
+
+.formula-badge .katex {
+  color: var(--accent-vector-a);
 }
 
 /* 1. Discovery Challenge Card */
 .discovery-card {
-  background: #fdfbf7;
-  border-left: 4px solid var(--accent-vector-b, #d97706);
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--accent-vector-b);
   padding: 1.25rem;
   border-radius: 0 8px 8px 0;
   margin-bottom: 2rem;
@@ -315,25 +322,25 @@ h1 {
 }
 
 .discovery-icon {
-  color: var(--accent-vector-b, #d97706);
+  color: var(--accent-vector-b);
 }
 
 .discovery-header h2 {
   font-size: 1.1rem;
   margin: 0;
-  color: var(--text-primary, #1c1917);
+  color: var(--text-primary);
 }
 
 .discovery-prompt {
   font-size: 1.05rem;
   font-style: italic;
   margin: 0.5rem 0;
-  color: var(--text-primary, #1c1917);
+  color: var(--text-primary);
 }
 
 .discovery-tip {
   font-size: 0.85rem;
-  color: var(--text-secondary, #57534e);
+  color: var(--text-secondary);
 }
 
 /* 2. Interactive Sandbox Stage */
@@ -476,8 +483,8 @@ h1 {
 
 /* Epistemic Card */
 .epistemic-card {
-  background: #fbfbfb;
-  border: 1px solid #e5e7eb;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 1.25rem;
   margin: 2rem 0;
@@ -520,6 +527,7 @@ h1 {
   margin: 0.75rem 0 0;
   padding-left: 1.25rem;
   font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
 .debates-list li {
@@ -565,18 +573,18 @@ h1 {
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.75rem;
-  border: 1px solid var(--border-subtle, #e5e0d8);
-  background: var(--surface-card, #ffffff);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-card);
   border-radius: 9999px;
   text-decoration: none;
   font-size: 0.85rem;
-  color: var(--text-primary, #1c1917);
+  color: var(--text-primary);
   transition: all 0.2s ease;
 }
 
 .explore-chip:hover {
-  border-color: var(--accent-vector-a, #2563eb);
-  background: var(--surface-subtle, #f4f1ea);
+  border-color: var(--accent-vector-a);
+  background: var(--surface-subtle);
 }
 
 .chip-category {
@@ -648,8 +656,53 @@ h1 {
     flex: 1 1 100%;
   }
 
-  .formula-badge code {
+  .formula-badge {
     font-size: 0.95rem;
     word-break: break-word;
+  }
+}
+
+/* Dark Mode Refinements for Badges and Historiographical Tags */
+@media (prefers-color-scheme: dark) {
+  .stage-badge {
+    background: rgba(99, 102, 241, 0.25);
+    color: #c7d2fe;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+  }
+
+  .strand-badge {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fde68a;
+    border: 1px solid rgba(245, 158, 11, 0.4);
+  }
+
+  .era-badge {
+    background: var(--surface-subtle);
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .consensus-tag[data-level='contested'] {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+  }
+
+  .consensus-tag[data-level='established'] {
+    background: rgba(34, 197, 94, 0.2);
+    color: #86efac;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+  }
+
+  .consensus-tag[data-level='probable'] {
+    background: rgba(234, 179, 8, 0.2);
+    color: #fde047;
+    border: 1px solid rgba(234, 179, 8, 0.4);
+  }
+
+  .consensus-tag[data-level='speculative'] {
+    background: rgba(168, 85, 247, 0.2);
+    color: #d8b4fe;
+    border: 1px solid rgba(168, 85, 247, 0.4);
   }
 }

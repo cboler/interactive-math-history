@@ -66,6 +66,7 @@
   padding: 0.35rem 0.85rem;
   border: 1px solid var(--border-subtle, #e5e0d8);
   background: var(--surface-subtle, #f4f1ea);
+  color: var(--text-primary);
   border-radius: 6px;
   font-size: 0.85rem;
   cursor: pointer;
@@ -95,6 +96,7 @@
   min-height: 48px;
   background: var(--surface-subtle, #f4f1ea);
   border: 2px solid transparent;
+  color: var(--text-primary);
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.85rem;
@@ -277,4 +279,47 @@
   margin: 0;
   font-size: 0.9rem;
   color: #047857;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn-demo {
+    background: rgba(217, 119, 6, 0.15);
+    border-color: var(--accent-vector-b);
+    color: var(--accent-vector-b);
+  }
+
+  .btn-demo:hover {
+    background: rgba(217, 119, 6, 0.25);
+  }
+
+  .card-success {
+    background: rgba(5, 150, 105, 0.15);
+    border-color: var(--accent-eq);
+  }
+
+  .card-warning {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+  }
+
+  .card-status-flag {
+    color: #f87171;
+  }
+
+  .success-flag {
+    color: var(--accent-eq);
+  }
+
+  .solved-banner {
+    background: rgba(5, 150, 105, 0.2);
+    border-color: var(--accent-eq);
+  }
+
+  .solved-banner h3 {
+    color: var(--accent-eq);
+  }
+
+  .solved-banner p {
+    color: #a7f3d0;
+  }
 }

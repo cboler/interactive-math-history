@@ -37,7 +37,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     const article = page.locator('article.reader-article');
     await expect(article).toBeVisible();
     await expect(page.locator('h1')).toContainText('The Origin of Combining');
-    await expect(page.locator('.formula-badge code')).toHaveText('a + b = c');
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(page.locator('.formula-badge')).toContainText('a');
     await expect(page.locator('.discovery-card')).toBeVisible();
     await expect(page.locator('.artifact-plate')).toBeVisible();
     await expect(page.locator('.epistemic-card')).toBeVisible();
@@ -68,9 +69,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await nextBtn.click();
 
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
-    await expect(page.locator('.formula-badge code')).toHaveText(
-      '\\text{If } A = B \\text{ and } B = C \\text{, then } A = C',
-    );
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(page.locator('.formula-badge')).toContainText('A = B');
     await expect(navLink).toHaveText('Unit 02: Equality');
     await expect(page).toHaveTitle(/Unit 02: Equality/);
 
@@ -102,7 +102,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // 6. Navigate to Unit 03 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
-    await expect(page.locator('.formula-badge code')).toHaveText('a \\times b = b \\times a');
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(page.locator('.formula-badge')).toContainText('a');
     await expect(navLink).toHaveText('Unit 03: Multiplication');
     await expect(page).toHaveTitle(/Unit 03: Multiplication/);
 
@@ -127,9 +128,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // 7. Navigate to Unit 04 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('The Bread Partition');
-    await expect(page.locator('.formula-badge code')).toHaveText(
-      '\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}',
-    );
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(page.locator('.formula-badge')).toContainText('3');
     await expect(navLink).toHaveText('Unit 04: Fractions');
     await expect(page).toHaveTitle(/Unit 04: Fractions/);
 

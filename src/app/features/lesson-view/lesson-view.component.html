@@ -88,7 +88,7 @@
       <h1>{{ current.title }}</h1>
       <p class="subtitle">{{ current.subtitle }}</p>
       <div class="formula-badge">
-        <code>{{ current.mathematicalStatement }}</code>
+        <span [appMath]="current.mathematicalStatement" [displayMode]="false"></span>
       </div>
     </header>
 
@@ -98,9 +98,10 @@
         <app-icon name="scale" class="discovery-icon"></app-icon>
         <h2>The Challenge of Discovery</h2>
       </div>
-      <p class="discovery-prompt">{{ current.discoveryHook.prompt }}</p>
+      <p class="discovery-prompt" [innerHTML]="current.discoveryHook.prompt | mathText"></p>
       <div class="discovery-tip">
-        <strong>Guiding Principle:</strong> {{ current.discoveryHook.targetAxiom }}
+        <strong>Guiding Principle: </strong>
+        <span [innerHTML]="current.discoveryHook.targetAxiom | mathText"></span>
       </div>
     </section>
 
@@ -230,7 +231,7 @@
       <h2>Principles to Remember</h2>
       <ul class="principles-list">
         @for (point of current.narrative.conceptualExplanation; track $index) {
-          <li>{{ point }}</li>
+          <li [innerHTML]="point | mathText"></li>
         }
       </ul>
 

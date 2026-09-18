@@ -31,7 +31,8 @@ describe('LessonViewComponent', () => {
 
   it('should render mathematical statement and unit heading', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.formula-badge code')?.textContent?.trim()).toBe('a + b = c');
+    expect(compiled.querySelector('.formula-badge .katex')).toBeTruthy();
+    expect(compiled.querySelector('.formula-badge')?.textContent).toContain('a');
     expect(compiled.querySelector('h1')?.textContent).toContain('The Origin of Combining');
     expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 4');
   });

@@ -12,6 +12,8 @@ import { BalanceScaleComponent } from '../../shared/visualizers/balance-scale/ba
 import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-array.component';
 import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
+import { MathDirective } from '../../shared/directives/math.directive';
+import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
 
 @Component({
   selector: 'app-lesson-view',
@@ -24,6 +26,8 @@ import { IconComponent } from '../../shared/components/icon/icon.component';
     GridArrayComponent,
     BreadSlicerComponent,
     IconComponent,
+    MathDirective,
+    MathTextPipe,
   ],
   templateUrl: './lesson-view.component.html',
   styleUrls: ['./lesson-view.component.css'],
