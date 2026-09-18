@@ -13,6 +13,17 @@
       <div class="header-actions">
         <button
           type="button"
+          class="theme-toggle-btn"
+          id="theme-toggle-btn"
+          (click)="toggleTheme()"
+          [attr.aria-label]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
+          [attr.title]="isDark() ? 'Switch to light theme' : 'Switch to dark theme'"
+        >
+          <app-icon [name]="isDark() ? 'sun' : 'moon'"></app-icon>
+        </button>
+
+        <button
+          type="button"
           class="feedback-toggle-btn"
           id="feedback-toggle-btn"
           (click)="feedback.toggleFeedback()"

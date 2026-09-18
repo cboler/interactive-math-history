@@ -5,6 +5,8 @@ import { CurriculumService } from './services/curriculum.service';
 import { FeedbackService } from './core/services/feedback.service';
 import { IconComponent } from './shared/components/icon/icon.component';
 
+export type ThemePreference = 'system' | 'light' | 'dark';
+
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -18,12 +20,22 @@ interface BeforeInstallPromptEvent extends Event {
   styleUrl: './app.scss',
 })
 export class App implements OnInit, OnDestroy {
+  private static readonly THEME_STORAGE_KEY = 'imx_theme_preference';
+
   protected readonly title = signal('Interactive Math & History');
   protected readonly canInstall = signal(false);
   protected readonly showBackToTop = signal(false);
   protected readonly curriculum = inject(CurriculumService);
   protected readonly feedback = inject(FeedbackService);
   private readonly titleService = inject(Title);
+
+  protected readonly themePreference = signal<ThemePreference>(this.loadStorageTheme('system'));
+  protected readonly isDark = signal<boolean>(false);
+
+  private deferredPrompt: BeforeInstallPromptEvent | null = null;
+  private scrollListener?: () => void;
+  private installPromptListener?: (e: Event) => void;
+  private mediaQueryListener?: () => void;
 
   constructor() {
     effect(() => {
@@ -34,14 +46,28 @@ export class App implements OnInit, OnDestroy {
         );
       }
     });
-  }
 
-  private deferredPrompt: BeforeInstallPromptEvent | null = null;
-  private scrollListener?: () => void;
-  private installPromptListener?: (e: Event) => void;
+    effect(() => {
+      const pref = this.themePreference();
+      this.saveStorageTheme(pref);
+      this.applyThemeAttribute(pref);
+    });
+  }
 
   ngOnInit(): void {
     if (typeof window !== 'undefined') {
+      this.updateEffectiveTheme();
+
+      if (window.matchMedia) {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        this.mediaQueryListener = () => {
+          if (this.themePreference() === 'system') {
+            this.updateEffectiveTheme();
+          }
+        };
+        mq.addEventListener('change', this.mediaQueryListener);
+      }
+
       this.scrollListener = () => {
         this.showBackToTop.set(window.scrollY > 300);
       };
@@ -62,6 +88,69 @@ export class App implements OnInit, OnDestroy {
       if (this.installPromptListener) {
         window.removeEventListener('beforeinstallprompt', this.installPromptListener);
       }
+      if (this.mediaQueryListener && window.matchMedia) {
+        window
+          .matchMedia('(prefers-color-scheme: dark)')
+          .removeEventListener('change', this.mediaQueryListener);
+      }
+    }
+  }
+
+  protected toggleTheme(): void {
+    const next: ThemePreference = this.isDark() ? 'light' : 'dark';
+    this.themePreference.set(next);
+    this.feedback.tick();
+    this.feedback.lightTap();
+  }
+
+  private applyThemeAttribute(pref: ThemePreference): void {
+    if (typeof document !== 'undefined') {
+      if (pref === 'system') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', pref);
+      }
+    }
+    this.updateEffectiveTheme();
+  }
+
+  private updateEffectiveTheme(): void {
+    if (typeof window === 'undefined') return;
+    const pref = this.themePreference();
+    if (pref === 'dark') {
+      this.isDark.set(true);
+    } else if (pref === 'light') {
+      this.isDark.set(false);
+    } else {
+      const systemDark =
+        window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      this.isDark.set(!!systemDark);
+    }
+  }
+
+  private loadStorageTheme(defaultValue: ThemePreference): ThemePreference {
+    if (typeof window === 'undefined') return defaultValue;
+    try {
+      if (typeof window.localStorage !== 'undefined' && window.localStorage !== null) {
+        const val = window.localStorage.getItem(App.THEME_STORAGE_KEY) as ThemePreference;
+        if (val === 'light' || val === 'dark' || val === 'system') {
+          return val;
+        }
+      }
+    } catch {
+      // Ignore storage errors in restricted contexts
+    }
+    return defaultValue;
+  }
+
+  private saveStorageTheme(val: ThemePreference): void {
+    if (typeof window === 'undefined') return;
+    try {
+      if (typeof window.localStorage !== 'undefined' && window.localStorage !== null) {
+        window.localStorage.setItem(App.THEME_STORAGE_KEY, val);
+      }
+    } catch {
+      // Ignore storage errors
     }
   }
 

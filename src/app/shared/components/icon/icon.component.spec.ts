@@ -44,4 +44,14 @@ describe('IconComponent', () => {
     expect(fixture.nativeElement.querySelector('svg polygon')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('svg line')).toBeTruthy();
   });
+
+  it('should render sun and moon theme icons', () => {
+    fixture.componentRef.setInput('name', 'sun');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('svg circle')).toBeTruthy();
+
+    fixture.componentRef.setInput('name', 'moon');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('svg path')).toBeTruthy();
+  });
 });

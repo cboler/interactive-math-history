@@ -93,22 +93,51 @@
   cursor: not-allowed;
 }
 
-/* Collapsible Drawer */
-.drawer-panel {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-subtle);
-  animation: slideDown 0.2s ease-out;
+/* Off-Canvas Backdrop */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 15, 20, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 500;
+  animation: fadeInBackdrop 0.2s ease-out;
 }
 
-@keyframes slideDown {
+@keyframes fadeInBackdrop {
   from {
     opacity: 0;
-    transform: translateY(-6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+
+/* Off-Canvas Slide-Over Drawer Panel */
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 100vw);
+  height: 100dvh;
+  max-height: 100dvh;
+  z-index: 501;
+  background: var(--surface-card);
+  border-left: 1px solid var(--border-subtle);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -116,38 +145,62 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.75rem;
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-card);
+  flex-shrink: 0;
 }
 
 .drawer-header h3 {
-  font-size: var(--font-size-sm);
-  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-family: var(--font-serif);
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
   margin: 0;
 }
 
 .drawer-close-btn {
   background: transparent;
-  border: none;
+  border: 1px solid var(--border-subtle);
   color: var(--text-muted);
   cursor: pointer;
-  padding: var(--space-2);
+  width: 2.25rem;
+  height: 2.25rem;
   min-width: var(--touch-target-min);
   min-height: var(--touch-target-min);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-full);
   touch-action: manipulation;
+  transition: all 0.15s ease;
 }
 
 .drawer-close-btn:hover {
   background: var(--surface-subtle);
   color: var(--text-primary);
+  border-color: var(--border-muted);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer-panel {
+    animation: none;
+  }
+  .drawer-backdrop {
+    animation: none;
+  }
 }
 
 /* Domain Strand Filter Pills */
@@ -160,7 +213,8 @@
   padding-bottom: var(--space-1);
 }
 
-.strand-filter-btn {
+.strand-filter-btn,
+.filter-pill {
   background: var(--surface-subtle);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -178,18 +232,21 @@
   white-space: nowrap;
 }
 
-.strand-filter-btn:hover {
+.strand-filter-btn:hover,
+.filter-pill:hover {
   background: var(--surface-card);
   color: var(--text-primary);
   border-color: var(--border-muted);
 }
 
-.strand-filter-btn:focus-visible {
+.strand-filter-btn:focus-visible,
+.filter-pill:focus-visible {
   outline: var(--focus-ring);
   outline-offset: var(--focus-offset);
 }
 
-.strand-filter-btn.active {
+.strand-filter-btn.active,
+.filter-pill.active {
   background: var(--accent-history);
   color: var(--text-inverse);
   border-color: transparent;

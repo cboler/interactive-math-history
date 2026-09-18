@@ -34,7 +34,7 @@ describe('LessonViewComponent', () => {
     expect(compiled.querySelector('.formula-badge .katex')).toBeTruthy();
     expect(compiled.querySelector('.formula-badge')?.textContent).toContain('a');
     expect(compiled.querySelector('h1')?.textContent).toContain('The Origin of Combining');
-    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 5');
+    expect(compiled.querySelector('.unit-level-badge')?.textContent).toContain('Unit 1 of 6');
   });
 
   it('should cycle through units via next and previous buttons', () => {
@@ -62,9 +62,16 @@ describe('LessonViewComponent', () => {
       'Architecture of Reason',
     );
 
+    component.goToNext();
+    fixture.detectChanges();
+    expect(component.curriculum.currentLesson().id).toBe('unit-06-euclid-equilateral');
+    expect(fixture.nativeElement.querySelector('h1')?.textContent).toContain(
+      'The First Construction',
+    );
+
     component.goToPrev();
     fixture.detectChanges();
-    expect(component.curriculum.currentLesson().id).toBe('unit-04-egyptian-fractions');
+    expect(component.curriculum.currentLesson().id).toBe('unit-05-aristotle-logic');
   });
 
   it('should open and close curriculum outline drawer', () => {
@@ -80,6 +87,27 @@ describe('LessonViewComponent', () => {
     fixture.detectChanges();
     expect(component.isDrawerOpen()).toBe(false);
     expect(component.curriculum.activeLessonIndex()).toBe(2);
+  });
+
+  it('should close drawer on backdrop click and on Escape key', () => {
+    component.toggleDrawer(true);
+    fixture.detectChanges();
+    expect(component.isDrawerOpen()).toBe(true);
+
+    const backdrop = fixture.nativeElement.querySelector('.drawer-backdrop') as HTMLElement;
+    expect(backdrop).toBeTruthy();
+    backdrop.click();
+    fixture.detectChanges();
+    expect(component.isDrawerOpen()).toBe(false);
+
+    // Test Escape key
+    component.toggleDrawer(true);
+    fixture.detectChanges();
+    expect(component.isDrawerOpen()).toBe(true);
+
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(component.isDrawerOpen()).toBe(false);
   });
 
   it('should update operation when toggled', () => {
@@ -149,6 +177,18 @@ describe('LessonViewComponent', () => {
     expect(el.querySelector('app-grid-array')).toBeFalsy();
     expect(el.querySelector('app-bread-slicer')).toBeFalsy();
     expect(el.querySelector('app-logic-circuit')).toBeTruthy();
+    expect(el.querySelector('app-geometric-compass')).toBeFalsy();
+    expect(el.querySelector('.controls-panel')).toBeFalsy(); // Slider controls hidden
+
+    // Unit 06: geometric-compass
+    component.goToNext();
+    fixture.detectChanges();
+    expect(el.querySelector('app-number-line')).toBeFalsy();
+    expect(el.querySelector('app-balance-scale')).toBeFalsy();
+    expect(el.querySelector('app-grid-array')).toBeFalsy();
+    expect(el.querySelector('app-bread-slicer')).toBeFalsy();
+    expect(el.querySelector('app-logic-circuit')).toBeFalsy();
+    expect(el.querySelector('app-geometric-compass')).toBeTruthy();
     expect(el.querySelector('.controls-panel')).toBeFalsy(); // Slider controls hidden
   });
 
@@ -158,7 +198,7 @@ describe('LessonViewComponent', () => {
 
     // Default: 'all'
     expect(component.selectedStrand()).toBe('all');
-    expect(component.filteredLessons().length).toBe(5);
+    expect(component.filteredLessons().length).toBe(6);
 
     // Filter to 'logic' (Unit 02 and Unit 05)
     component.setStrand('logic');
@@ -184,10 +224,17 @@ describe('LessonViewComponent', () => {
     fixture.detectChanges();
     expect(component.filteredLessons().length).toBe(2);
 
+    // Filter to 'geometry' (Unit 06)
+    component.setStrandFilter('geometry');
+    fixture.detectChanges();
+    expect(component.selectedStrand()).toBe('geometry');
+    expect(component.filteredLessons().length).toBe(1);
+    expect(component.filteredLessons()[0].id).toBe('unit-06-euclid-equilateral');
+
     // Reset to 'all'
     component.setStrand('all');
     fixture.detectChanges();
-    expect(component.filteredLessons().length).toBe(5);
+    expect(component.filteredLessons().length).toBe(6);
   });
 
   it('should select lesson by id from filtered list and close drawer', () => {

@@ -4,7 +4,12 @@ export type MathematicalStrand =
   'numeracy' | 'arithmetic' | 'algebra' | 'geometry' | 'number-theory' | 'logic' | 'calculus';
 
 export type VisualizerMode =
-  'number-line-vector' | 'balance-scale' | 'grid-array' | 'partition-slicer' | 'logic-circuit';
+  | 'number-line-vector'
+  | 'balance-scale'
+  | 'grid-array'
+  | 'partition-slicer'
+  | 'logic-circuit'
+  | 'geometric-compass';
 
 export interface ScholarlyInterpretation {
   claim: string;

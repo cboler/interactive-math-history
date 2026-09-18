@@ -105,5 +105,26 @@ describe('Interactive Math & History Shell Tests', () => {
       fixture.detectChanges();
       expect(btn.getAttribute('aria-pressed')).toBe('true');
     });
+
+    it('should render and toggle theme button with data-theme attribute', async () => {
+      const fixture = TestBed.createComponent(App);
+      await fixture.whenStable();
+      fixture.detectChanges();
+      const compiled = fixture.nativeElement as HTMLElement;
+      const btn = compiled.querySelector('#theme-toggle-btn') as HTMLButtonElement;
+
+      expect(btn).toBeTruthy();
+      // Default: system/light -> clicking toggles to dark
+      btn.click();
+      fixture.detectChanges();
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+      expect(btn.getAttribute('aria-label')).toBe('Switch to light theme');
+
+      // Click again -> toggles to light
+      btn.click();
+      fixture.detectChanges();
+      expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+      expect(btn.getAttribute('aria-label')).toBe('Switch to dark theme');
+    });
   });
 });

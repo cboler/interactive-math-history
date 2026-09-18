@@ -1,0 +1,220 @@
+<div
+  class="compass-container"
+  role="region"
+  aria-label="Euclid Proposition 1 Geometric Compass Visualizer"
+>
+  <!-- Screen reader live announcement -->
+  <div class="sr-only" aria-live="polite">{{ liveAnnouncement() }}</div>
+
+  <!-- Construction Header & Stepper -->
+  <div class="compass-header">
+    <div class="stepper-track" role="tablist" aria-label="Geometric Construction Steps">
+      @for (s of steps; track s.step) {
+        <button
+          type="button"
+          role="tab"
+          class="stepper-tab"
+          [class.active]="step() === s.step"
+          [class.completed]="step() > s.step"
+          [attr.aria-selected]="step() === s.step"
+          (click)="setStep(s.step)"
+          [attr.aria-label]="'Step ' + s.step + ': ' + s.label"
+        >
+          <span class="step-num">{{ s.step }}</span>
+          <span class="step-label">{{ s.label }}</span>
+        </button>
+      }
+    </div>
+
+    <!-- Active Step Axiom Card -->
+    <div class="axiom-banner" [class.success]="step() === 4">
+      <div class="axiom-meta">
+        <span class="step-badge">Step {{ step() }} of 4</span>
+        <span class="axiom-text">{{ currentStepInfo().axiom }}</span>
+      </div>
+      @if (step() === 4) {
+        <span class="qed-badge">Q.E.D. · Proposition 1 Proven</span>
+      }
+    </div>
+  </div>
+
+  <!-- SVG Drawing Canvas -->
+  <div class="canvas-wrapper">
+    <svg
+      class="compass-svg"
+      viewBox="0 0 600 360"
+      preserveAspectRatio="xMidYMid meet"
+      aria-label="Interactive Euclid Proposition 1 Construction Diagram"
+    >
+      <defs>
+        <!-- Radial glow gradients for vertices -->
+        <filter id="glow-emerald" x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+        <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+          <path
+            d="M 30 0 L 0 0 0 30"
+            fill="none"
+            stroke="currentColor"
+            stroke-opacity="0.05"
+            stroke-width="1"
+          />
+        </pattern>
+      </defs>
+
+      <!-- Background Grid -->
+      <rect width="600" height="360" fill="url(#grid-pattern)" class="svg-grid-bg" />
+
+      <!-- Step 4: Equilateral Triangle Shaded Region -->
+      @if (step() >= 4) {
+        <polygon [attr.points]="trianglePoints()" class="equilateral-fill" aria-hidden="true" />
+      }
+
+      <!-- Step 2: Circle C_A (Sapphire) centered at A with radius AB -->
+      @if (step() >= 2) {
+        <circle
+          [attr.cx]="ax()"
+          [attr.cy]="ay()"
+          [attr.r]="radius()"
+          class="circle-a sweep-anim"
+          aria-hidden="true"
+        />
+      }
+
+      <!-- Step 3: Circle C_B (Amber) centered at B with radius BA -->
+      @if (step() >= 3) {
+        <circle
+          [attr.cx]="bx()"
+          [attr.cy]="by()"
+          [attr.r]="radius()"
+          class="circle-b sweep-anim"
+          aria-hidden="true"
+        />
+      }
+
+      <!-- Step 4: Sides AC and BC -->
+      @if (step() >= 4) {
+        <line
+          [attr.x1]="ax()"
+          [attr.y1]="ay()"
+          [attr.x2]="cx()"
+          [attr.y2]="cy()"
+          class="side-line side-ac"
+          aria-hidden="true"
+        />
+        <line
+          [attr.x1]="bx()"
+          [attr.y1]="by()"
+          [attr.x2]="cx()"
+          [attr.y2]="cy()"
+          class="side-line side-bc"
+          aria-hidden="true"
+        />
+      }
+
+      <!-- Step 1-4: Baseline Segment AB -->
+      <line
+        [attr.x1]="ax()"
+        [attr.y1]="ay()"
+        [attr.x2]="bx()"
+        [attr.y2]="by()"
+        class="baseline-ab"
+        aria-hidden="true"
+      />
+
+      <!-- Vertex Handles & Labels -->
+      <!-- Vertex A -->
+      <g class="vertex vertex-a" [attr.transform]="'translate(' + ax() + ',' + ay() + ')'">
+        <circle r="7" class="vertex-dot" />
+        <circle r="14" class="vertex-touch-zone" />
+        <text x="-16" y="20" class="vertex-label">A</text>
+      </g>
+
+      <!-- Vertex B -->
+      <g class="vertex vertex-b" [attr.transform]="'translate(' + bx() + ',' + by() + ')'">
+        <circle r="7" class="vertex-dot" />
+        <circle r="14" class="vertex-touch-zone" />
+        <text x="10" y="20" class="vertex-label">B</text>
+      </g>
+
+      <!-- Vertex C (Intersection apex when step >= 4) -->
+      @if (step() >= 4) {
+        <g class="vertex vertex-c" [attr.transform]="'translate(' + cx() + ',' + cy() + ')'">
+          <circle r="8" class="vertex-dot vertex-apex" />
+          <circle r="16" class="vertex-touch-zone" />
+          <text x="0" y="-14" class="vertex-label apex-label" text-anchor="middle">C</text>
+        </g>
+      }
+
+      <!-- Center guide indicator for baseline -->
+      <text [attr.x]="cx()" [attr.y]="ay() + 24" class="dimension-label" text-anchor="middle">
+        L = {{ baseLength() }}px
+      </text>
+    </svg>
+  </div>
+
+  <!-- Interactive Controls Panel -->
+  <div class="compass-controls">
+    <!-- Step Navigation Buttons -->
+    <div class="step-actions">
+      <button
+        type="button"
+        id="prev-step-btn"
+        class="action-btn"
+        [disabled]="step() <= 1"
+        (click)="prevStep()"
+        aria-label="Previous construction step"
+      >
+        ← Previous Step
+      </button>
+
+      <button
+        type="button"
+        id="next-step-btn"
+        class="action-btn action-primary"
+        [disabled]="step() >= 4"
+        (click)="nextStep()"
+        aria-label="Next construction step"
+      >
+        @if (step() < 3) {
+          Next: {{ steps[step()].label }} →
+        } @else if (step() === 3) {
+          Complete Construction →
+        } @else {
+          Construction Complete ✓
+        }
+      </button>
+
+      <button
+        type="button"
+        id="reset-construction-btn"
+        class="action-btn action-subtle"
+        (click)="reset()"
+        aria-label="Reset construction to baseline"
+      >
+        ↺ Reset
+      </button>
+    </div>
+
+    <!-- Baseline Length Slider -->
+    <div class="slider-control-group">
+      <div class="slider-meta">
+        <label for="base-length-slider" class="slider-label">
+          Baseline AB Radius: <strong>{{ baseLength() }}px</strong>
+        </label>
+        <span class="scale-note">Scale Invariant: Construction holds at any length</span>
+      </div>
+      <input
+        id="base-length-slider"
+        type="range"
+        [min]="minBaseLength"
+        [max]="maxBaseLength"
+        [value]="baseLength()"
+        (input)="onBaseLengthChange($event)"
+        class="compass-slider"
+        aria-label="Baseline segment AB length in pixels"
+      />
+    </div>
+  </div>
+</div>

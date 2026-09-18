@@ -594,6 +594,126 @@ export class CurriculumService {
       },
       level: 'foundations',
     },
+    // ==========================================
+    // UNIT 06: Geometric Construction
+    // ==========================================
+    {
+      id: 'unit-06-euclid-equilateral',
+      slug: 'euclids-first-construction-equilateral',
+      shortTitle: 'Unit 06: Geometry',
+      title: 'The First Construction: The Equilateral Triangle',
+      subtitle: "Straightedge, Rigid Compass, and Euclid's Elements Book I, Proposition 1",
+      stage: 'foundations',
+      strand: 'geometry',
+      order: 6,
+      prerequisites: ['unit-02-euclid-equality'],
+      civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
+      historicalEra: 'c. 300 BCE',
+      mathematicalStatement: '\\triangle ABC \\implies AB = BC = CA',
+      discoveryHook: {
+        prompt:
+          'Given only an unmarked straightedge and a collapsible compass, draw a segment AB. How can sweeping two identical circles pinpoint a third vertex C that is guaranteed to form an equilateral triangle?',
+        targetAxiom:
+          'Postulates 1 & 3: A straight line joins any two points, and a circle can be swept with any center and radius. By Common Notion 1, radii of equal circles are equal.',
+        successCondition:
+          'Complete the three geometric construction steps: Sweep Circle A, Sweep Circle B, and connect Vertex C.',
+        guidanceTip:
+          'Notice that segment AB acts simultaneously as the radius of Circle A and Circle B. Point C lies on the circumference of both.',
+      },
+      narrative: {
+        hook: 'Geometry did not begin with measurements and rulers; it began with the pure intersection of two expanding circles.',
+        historicalContext: {
+          story:
+            'Opening Book I of the Elements, Euclid did not start with an abstract definition of a triangle. He started with an imperative challenge: "On a given finite straight line, to construct an equilateral triangle." Using only two ideal instruments—an unmarked straightedge to connect points and a compass that snapped shut the moment it lifted from the papyrus—Euclid proved that purely synthetic, deductive operations could generate perfect physical symmetry without taking a single numeric measurement.',
+          civilizationOrOrigin: 'Alexandria, Hellenistic Egypt',
+          approximateDate: 'c. 300 BCE',
+          epistemicStatus: {
+            consensusLevel: 'contested',
+            summary:
+              "While Euclid's Proposition 1 is historically immortal, modern mathematical logicians identified a subtle flaw: Euclid assumed the two circles intersect without proving the continuum.",
+            competingHypotheses: [
+              {
+                claim: 'The Hidden Continuity Assumption',
+                proponentsOrSources:
+                  'Moritz Pasch (1882); David Hilbert (Foundations of Geometry, 1899)',
+                evidenceSummary:
+                  "Euclid's postulates never state that continuous lines or circles must intersect if they cross. Hilbert introduced explicit axioms of continuity and order to make Proposition 1 strictly airtight.",
+              },
+              {
+                claim: 'Diagrammatic Visual Rigor',
+                proponentsOrSources: 'Kenneth Manders (2008); Reviel Netz',
+                evidenceSummary:
+                  'Argues that classical Greek mathematical practice treated stable topological features of lettered diagrams as legitimate inferential steps rather than deductive oversights.',
+              },
+            ],
+          },
+        },
+        conceptualExplanation: [
+          'Postulate 1 permits drawing a unique straight line segment between points $A$ and $B$.',
+          'Postulate 3 permits describing circle $\\mathcal{C}_A$ centered at $A$ with radius $AB$, and circle $\\mathcal{C}_B$ centered at $B$ with radius $BA$.',
+          'Since $C$ lies on circle $\\mathcal{C}_A$, distance $AC = AB$. Since $C$ lies on circle $\\mathcal{C}_B$, distance $BC = AB$.',
+          'By Common Notion 1 ("Things equal to the same thing are equal to each other"), $AC = BC = AB$, proving $\\triangle ABC$ is equilateral.',
+        ],
+        realWorldApplication:
+          'Synthetic straightedge-and-compass geometry forms the algorithmic basis of modern CAD spline curves, CNC toolpath interpolation, and planar triangulation meshes in computer graphics.',
+      },
+      artifactPlate: {
+        title: "Euclid's Elements Book I, Proposition 1 (MS D'Orville 301)",
+        credit: 'Bodleian Library, University of Oxford / Wikimedia Commons',
+        license: 'Public Domain',
+        sourceUrl:
+          'https://commons.wikimedia.org/wiki/File:Euclid_Proposition_1_MS_D%27Orville_301.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Byzantine_Euclid.png/640px-Byzantine_Euclid.png',
+        altText:
+          'Byzantine manuscript page from 888 CE showing Greek text and Euclid Book I Proposition 1 diagram with two intersecting circles.',
+        caption:
+          "Manuscript MS D'Orville 301 (copied in 888 CE by Stephen the Clerk), displaying the canonical intersecting circles diagram for Proposition 1.",
+      },
+      exploreGraph: [
+        {
+          label: "Euclid's Elements Book I",
+          category: 'primary-text',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Euclid%27s_Elements',
+        },
+        {
+          label: 'Straightedge and Compass',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Compass-and-straightedge_construction',
+        },
+        {
+          label: "Hilbert's Axioms",
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Hilbert%27s_axioms',
+        },
+        {
+          label: 'Equilateral Triangle',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Equilateral_triangle',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Euclid (Trans. Thomas L. Heath)',
+          title: "The Thirteen Books of Euclid's Elements (Vol. 1)",
+          citationSnippet:
+            'Book I, Proposition 1: Historical commentary on the intersection of circles.',
+          publicationYear: 1956,
+        },
+        {
+          author: 'David Hilbert',
+          title: 'Foundations of Geometry (Grundlagen der Geometrie)',
+          citationSnippet:
+            "Axioms of Order and Continuity resolving Euclid's diagrammatic omissions.",
+          publicationYear: 1899,
+        },
+      ],
+      interactiveConfig: {
+        visualizer: 'geometric-compass',
+        initialState: { step: 1, baseLength: 160 },
+      },
+      level: 'foundations',
+    },
   ]);
 
   readonly currentLesson = computed(() => this.lessons()[this.activeLessonIndex()]);

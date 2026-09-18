@@ -1,9 +1,18 @@
-import { Component, inject, signal, computed, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  computed,
+  OnInit,
+  OnDestroy,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CurriculumService } from '../../services/curriculum.service';
+import { FeedbackService } from '../../core/services/feedback.service';
 import {
   NumberLineComponent,
   OperationType,
@@ -12,6 +21,7 @@ import { BalanceScaleComponent } from '../../shared/visualizers/balance-scale/ba
 import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-array.component';
 import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
 import { LogicCircuitComponent } from '../../shared/visualizers/logic-circuit/logic-circuit.component';
+import { GeometricCompassComponent } from '../../shared/visualizers/geometric-compass/geometric-compass.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { MathDirective } from '../../shared/directives/math.directive';
 import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
@@ -27,6 +37,7 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
     GridArrayComponent,
     BreadSlicerComponent,
     LogicCircuitComponent,
+    GeometricCompassComponent,
     IconComponent,
     MathDirective,
     MathTextPipe,
@@ -36,6 +47,7 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
 })
 export class LessonViewComponent implements OnInit, OnDestroy {
   readonly curriculum = inject(CurriculumService);
+  private readonly feedback = inject(FeedbackService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private paramSub?: Subscription;
@@ -97,12 +109,25 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     this.paramSub?.unsubscribe();
   }
 
+  @HostListener('window:keydown.escape')
+  handleEscape(): void {
+    if (this.isDrawerOpen()) {
+      this.toggleDrawer(false);
+    }
+  }
+
   toggleDrawer(open?: boolean): void {
     this.curriculum.toggleDrawer(open);
+    this.feedback.tick();
+    this.feedback.lightTap();
   }
 
   setStrand(strand: string): void {
     this.selectedStrand.set(strand);
+  }
+
+  setStrandFilter(strand: string): void {
+    this.setStrand(strand);
   }
 
   selectLessonById(id: string): void {

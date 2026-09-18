@@ -65,9 +65,9 @@
   --shadow-card: 0 4px 16px rgba(28, 25, 23, 0.06), 0 1px 3px rgba(28, 25, 23, 0.04);
 }
 
-/* Dark Mode Overrides */
+/* Dark Mode Overrides (System Preference & Manual Toggle) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg-canvas: #0c0f14;
     --surface-card: #161c24;
     --surface-subtle: #222b38;
@@ -90,6 +90,30 @@
     --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.3);
     --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
+}
+
+:root[data-theme='dark'] {
+  --bg-canvas: #0c0f14;
+  --surface-card: #161c24;
+  --surface-subtle: #222b38;
+  --surface-elevated: #1e2633;
+  --border-subtle: #2d3848;
+  --border-muted: #3b495d;
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-inverse: #0c0f14;
+
+  --accent-vector-a: #38bdf8;
+  --accent-vector-b: #fbbf24;
+  --accent-eq: #34d399;
+  --accent-history: #facc15;
+  --color-primary: #38bdf8;
+  --color-primary-hover: #7dd3fc;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* 1. Box-sizing reset across all elements */

@@ -9,9 +9,9 @@ describe('CurriculumService', () => {
     service = TestBed.inject(CurriculumService);
   });
 
-  it('should initialize with 5 units and default to Unit 01', () => {
+  it('should initialize with 6 units and default to Unit 01', () => {
     expect(service).toBeTruthy();
-    expect(service.totalLessons()).toBe(5);
+    expect(service.totalLessons()).toBe(6);
     expect(service.activeLessonIndex()).toBe(0);
     expect(service.hasPrev()).toBe(false);
     expect(service.hasNext()).toBe(true);
@@ -44,10 +44,19 @@ describe('CurriculumService', () => {
     expect(service.activeLessonIndex()).toBe(4);
     expect(service.currentLesson().id).toBe('unit-05-aristotle-logic');
     expect(service.hasPrev()).toBe(true);
+    expect(service.hasNext()).toBe(true);
+
+    service.nextLesson();
+    expect(service.activeLessonIndex()).toBe(5);
+    expect(service.currentLesson().id).toBe('unit-06-euclid-equilateral');
+    expect(service.hasPrev()).toBe(true);
     expect(service.hasNext()).toBe(false);
 
     // Should not advance past end
     service.nextLesson();
+    expect(service.activeLessonIndex()).toBe(5);
+
+    service.prevLesson();
     expect(service.activeLessonIndex()).toBe(4);
 
     service.prevLesson();
@@ -72,8 +81,8 @@ describe('CurriculumService', () => {
     expect(service.activeLessonIndex()).toBe(0);
     service.setLessonIndex(999);
     expect(service.activeLessonIndex()).toBe(0);
-    service.setLessonIndex(4);
-    expect(service.activeLessonIndex()).toBe(4);
+    service.setLessonIndex(5);
+    expect(service.activeLessonIndex()).toBe(5);
   });
 
   it('should find lesson index by level/stage and flexible unit descriptors', () => {
@@ -84,12 +93,14 @@ describe('CurriculumService', () => {
     expect(service.findLessonIndex('arithmetic', 'spatial-invariance-multiplication')).toBe(2);
     expect(service.findLessonIndex('elementary', 'egyptian-unit-fractions-rhind')).toBe(3);
     expect(service.findLessonIndex('foundations', 'aristotelian-logic-circuits')).toBe(4);
+    expect(service.findLessonIndex('geometry', 'euclids-first-construction-equilateral')).toBe(5);
 
     // By ID
     expect(service.findLessonIndex('foundations', 'unit-01-ishango-addition')).toBe(0);
     expect(service.findLessonIndex('foundations', 'unit-02-euclid-equality')).toBe(1);
     expect(service.findLessonIndex('elementary', 'unit-04-egyptian-fractions')).toBe(3);
     expect(service.findLessonIndex('foundations', 'unit-05-aristotle-logic')).toBe(4);
+    expect(service.findLessonIndex('geometry', 'unit-06-euclid-equilateral')).toBe(5);
 
     // By order number and unit prefixes
     expect(service.findLessonIndex('foundations', '1')).toBe(0);
@@ -98,10 +109,13 @@ describe('CurriculumService', () => {
     expect(service.findLessonIndex('elementary', 'unit-04')).toBe(3);
     expect(service.findLessonIndex('foundations', 'unit-05')).toBe(4);
     expect(service.findLessonIndex('logic', '5')).toBe(4);
+    expect(service.findLessonIndex('geometry', '6')).toBe(5);
+    expect(service.findLessonIndex('foundations', 'unit-06')).toBe(5);
 
     // Case insensitivity
     expect(service.findLessonIndex('FOUNDATIONS', 'EUCLID-COMMON-NOTIONS')).toBe(1);
     expect(service.findLessonIndex('LOGIC', 'ARISTOTELIAN-LOGIC-CIRCUITS')).toBe(4);
+    expect(service.findLessonIndex('GEOMETRY', 'EUCLIDS-FIRST-CONSTRUCTION-EQUILATERAL')).toBe(5);
 
     // Invalid combinations
     expect(service.findLessonIndex('geometry', 'origins-of-addition')).toBe(-1);
@@ -124,8 +138,13 @@ describe('CurriculumService', () => {
     expect(service.activeLessonIndex()).toBe(4);
     expect(service.currentLesson().shortTitle).toBe('Unit 05: Logic');
 
+    const success6 = service.navigateToLesson('geometry', 'euclids-first-construction-equilateral');
+    expect(success6).toBe(true);
+    expect(service.activeLessonIndex()).toBe(5);
+    expect(service.currentLesson().shortTitle).toBe('Unit 06: Geometry');
+
     const fail = service.navigateToLesson('invalid', 'unit');
     expect(fail).toBe(false);
-    expect(service.activeLessonIndex()).toBe(4);
+    expect(service.activeLessonIndex()).toBe(5);
   });
 });

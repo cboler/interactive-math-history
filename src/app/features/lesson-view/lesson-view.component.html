@@ -45,22 +45,31 @@
         </button>
       </div>
     </div>
+  </nav>
 
-    <!-- Collapsible Curriculum Drawer -->
-    @if (isDrawerOpen()) {
-      <div class="drawer-panel" id="curriculum-drawer">
-        <div class="drawer-header">
-          <h3>Curriculum Blueprint</h3>
-          <button
-            type="button"
-            class="drawer-close-btn"
-            (click)="toggleDrawer()"
-            aria-label="Close outline"
-          >
-            ✕
-          </button>
-        </div>
+  <!-- Off-Canvas Curriculum Slide-Over Drawer & Backdrop -->
+  @if (isDrawerOpen()) {
+    <div class="drawer-backdrop" (click)="toggleDrawer(false)" aria-hidden="true"></div>
+    <aside
+      class="drawer-panel"
+      id="curriculum-drawer"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="curriculum-drawer-title"
+    >
+      <div class="drawer-header">
+        <h3 id="curriculum-drawer-title">Curriculum Blueprint</h3>
+        <button
+          type="button"
+          class="drawer-close-btn"
+          (click)="toggleDrawer(false)"
+          aria-label="Close outline"
+        >
+          ✕
+        </button>
+      </div>
 
+      <div class="drawer-body">
         <!-- Domain Strand Filter Pills -->
         <div class="strand-filter-row" role="group" aria-label="Curriculum domain strand filter">
           <button
@@ -95,6 +104,14 @@
           >
             Arithmetic
           </button>
+          <button
+            type="button"
+            class="strand-filter-btn filter-pill"
+            [class.active]="selectedStrand() === 'geometry'"
+            (click)="setStrandFilter('geometry')"
+          >
+            Geometry
+          </button>
         </div>
 
         <ul class="lesson-stepper-list">
@@ -111,8 +128,8 @@
           }
         </ul>
       </div>
-    }
-  </nav>
+    </aside>
+  }
 
   <!-- Semantic Reader View: Pure prose structured for browser TTS engines & Reader Mode -->
   <article class="reader-article" role="article">
@@ -150,7 +167,8 @@
       <!-- Contextual Controls for Slider-based Visualizers -->
       @if (
         current.interactiveConfig.visualizer !== 'partition-slicer' &&
-        current.interactiveConfig.visualizer !== 'logic-circuit'
+        current.interactiveConfig.visualizer !== 'logic-circuit' &&
+        current.interactiveConfig.visualizer !== 'geometric-compass'
       ) {
         <div class="controls-panel" aria-hidden="true">
           <div class="control-group">
@@ -225,6 +243,9 @@
           }
           @case ('logic-circuit') {
             <app-logic-circuit></app-logic-circuit>
+          }
+          @case ('geometric-compass') {
+            <app-geometric-compass></app-geometric-compass>
           }
         }
       </div>
