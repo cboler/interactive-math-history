@@ -44,14 +44,14 @@ describe('Interactive Math & History Shell Tests', () => {
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(titleService.getTitle()).toContain('Unit 02: Equality');
+      expect(titleService.getTitle()).toContain('Unit 02: Subtraction');
 
       // Navigate to Unit 03
       curriculum.nextLesson();
       fixture.detectChanges();
       await fixture.whenStable();
 
-      expect(titleService.getTitle()).toContain('Unit 03: Multiplication');
+      expect(titleService.getTitle()).toContain('Unit 03: Equality');
     });
 
     it('should render skip link for accessibility', async () => {

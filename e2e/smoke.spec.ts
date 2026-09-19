@@ -49,38 +49,63 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('.formula-badge')).toContainText('a');
     await expect(page.locator('.discovery-card')).toBeVisible();
     await expect(page.locator('.artifact-plate')).toBeVisible();
-    await expect(page.locator('.epistemic-card')).toBeVisible();
-
-    // 4. Interactive stage and vector visualizer (Addition and Subtraction)
+    await expect(page.locator('.epistemic-card')).toBeVisible(); // 4. Interactive stage and vector visualizer (Addition)
     await expect(page.locator('.interactive-stage')).toBeVisible();
     await expect(page.locator('figure.visualizer-container svg')).toBeVisible();
     await expect(page.locator('#quantity-a-input')).toBeVisible();
     await expect(page.locator('#quantity-b-input')).toBeVisible();
 
-    // Verify subtraction vector direction (arrow pointing left towards result)
-    const subtractBtn = page.locator('#subtract-op-btn');
-    await expect(subtractBtn).toBeVisible();
-    await subtractBtn.click();
-    const vectorB = page.locator('line.vector-b');
-    await expect(vectorB).toBeAttached();
-    await expect(vectorB).toHaveAttribute('x1', '190');
-    await expect(vectorB).toHaveAttribute('x2', '85');
-    await expect(vectorB).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+    // Verify Unit 01 addition vectors
+    const vectorA01 = page.locator('line.vector-a');
+    await expect(vectorA01).toBeAttached();
+    await expect(vectorA01).toHaveAttribute('x1', '50');
+    await expect(vectorA01).toHaveAttribute('x2', '190');
+
+    const vectorB01 = page.locator('line.vector-b');
+    await expect(vectorB01).toBeAttached();
+    await expect(vectorB01).toHaveAttribute('x1', '190');
+    await expect(vectorB01).toHaveAttribute('x2', '295');
+    await expect(vectorB01).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+
+    // Verify operation toggle is hidden on Unit 01 (locked to addition)
+    await expect(page.locator('.btn-group')).toBeHidden();
+
+    // Verify story illustration, math diagram, and practice missions
+    await expect(page.locator('.story-illustration')).toBeVisible();
+    await expect(page.locator('.math-diagram')).toBeVisible();
+    await expect(page.locator('.practice-missions')).toBeVisible();
 
     // 5. Navigate to Unit 02 via Next button
     const unitBadge = page.locator('.unit-level-badge');
-    await expect(unitBadge).toContainText('Unit 1 of 6');
+    await expect(unitBadge).toContainText('Unit 1 of 7');
     await expect(page).toHaveTitle(/Unit 01: Addition/);
 
     const nextBtn = page.locator('#next-lesson-btn');
     await expect(nextBtn).toBeVisible();
     await nextBtn.click();
 
+    // Unit 02: Subtraction verification
+    await expect(page.locator('h1')).toContainText('The Origin of Taking Away');
+    await expect(page.locator('.formula-badge .katex')).toBeVisible();
+    await expect(page.locator('.formula-badge')).toContainText('a');
+    await expect(unitBadge).toContainText('Unit 2 of 7');
+    await expect(page).toHaveTitle(/Unit 02: Subtraction/);
+
+    // Verify subtraction vector direction on Unit 02 (initial a=7, b=3: 7*35+50=295, 4*35+50=190)
+    const vectorB02 = page.locator('line.vector-b');
+    await expect(vectorB02).toBeAttached();
+    await expect(vectorB02).toHaveAttribute('x1', '295');
+    await expect(vectorB02).toHaveAttribute('x2', '190');
+    await expect(vectorB02).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+
+    // 6. Navigate to Unit 03 via Next button
+    await nextBtn.click();
+
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('A = B');
-    await expect(unitBadge).toContainText('Unit 2 of 6');
-    await expect(page).toHaveTitle(/Unit 02: Equality/);
+    await expect(unitBadge).toContainText('Unit 3 of 7');
+    await expect(page).toHaveTitle(/Unit 03: Equality/);
 
     // Verify Balance Scale visualizer is active and controls are adapted
     await expect(page.locator('app-balance-scale')).toBeVisible();
@@ -107,13 +132,13 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await sliderA.fill('5');
     await expect(eqBadge).toBeVisible();
 
-    // 6. Navigate to Unit 03 via Next button
+    // 7. Navigate to Unit 04 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('a');
-    await expect(unitBadge).toContainText('Unit 3 of 6');
-    await expect(page).toHaveTitle(/Unit 03: Multiplication/);
+    await expect(unitBadge).toContainText('Unit 4 of 7');
+    await expect(page).toHaveTitle(/Unit 04: Multiplication/);
 
     // Verify Grid Array visualizer is active and controls are adapted
     await expect(page.locator('app-grid-array')).toBeVisible();
@@ -133,13 +158,13 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await transposeBtn.click();
     await expect(gridFormula).toHaveText('5 × 3 = 15 dots');
 
-    // 7. Navigate to Unit 04 via Next button
+    // 8. Navigate to Unit 05 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('The Bread Partition');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('3');
-    await expect(unitBadge).toContainText('Unit 4 of 6');
-    await expect(page).toHaveTitle(/Unit 04: Fractions/);
+    await expect(unitBadge).toContainText('Unit 5 of 7');
+    await expect(page).toHaveTitle(/Unit 05: Fractions/);
 
     // Verify Bread Slicer visualizer is active and slider controls are hidden
     await expect(page.locator('app-bread-slicer')).toBeVisible();
@@ -162,12 +187,12 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(solvedBanner).toBeVisible();
     await expect(solvedBanner).toContainText("Ahmes' Equilibrium Achieved!");
 
-    // 8. Navigate to Unit 05 via Next button
+    // 9. Navigate to Unit 06 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
-    await expect(unitBadge).toContainText('Unit 5 of 6');
-    await expect(page).toHaveTitle(/Unit 05: Logic/);
+    await expect(unitBadge).toContainText('Unit 6 of 7');
+    await expect(page).toHaveTitle(/Unit 06: Logic/);
 
     // Verify Logic Circuit visualizer is active and slider controls are hidden
     await expect(page.locator('app-logic-circuit')).toBeVisible();
@@ -204,12 +229,12 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await switchQBtn.click();
     await expect(circuitBadge).toContainText('Circuit Open · Lamp Extinguished');
 
-    // 9. Navigate to Unit 06 via Next button
+    // 10. Navigate to Unit 07 via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('The First Construction');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
-    await expect(unitBadge).toContainText('Unit 6 of 6');
-    await expect(page).toHaveTitle(/Unit 06: Geometry/);
+    await expect(unitBadge).toContainText('Unit 7 of 7');
+    await expect(page).toHaveTitle(/Unit 07: Geometry/);
 
     // Verify Geometric Compass visualizer is active and slider controls are hidden
     await expect(page.locator('app-geometric-compass')).toBeVisible();
@@ -249,23 +274,23 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await baseSlider.fill('200');
     await expect(compassContainer.locator('.dimension-label')).toContainText('L = 200px');
 
-    // 10. Test Curriculum Drawer & Domain Strand Filtering
+    // 11. Test Curriculum Drawer & Domain Strand Filtering
     const drawerToggle = page.locator('#drawer-toggle-btn');
     await drawerToggle.click();
     const drawerPanel = page.locator('#curriculum-drawer');
     await expect(drawerPanel).toBeVisible();
 
-    // Filter to Logic strand
+    // Filter to Logic strand (Unit 03: Equality, Unit 06: Logic)
     const logicFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'Logic' });
     await logicFilterBtn.click();
     await expect(drawerPanel.locator('.stepper-item')).toHaveCount(2);
 
-    // Filter to Numeracy strand
+    // Filter to Numeracy strand (Unit 01: Addition, Unit 02: Subtraction)
     const numFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'Numeracy' });
     await numFilterBtn.click();
-    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(1);
+    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(2);
 
-    // Filter to Geometry strand
+    // Filter to Geometry strand (Unit 07: Geometry)
     const geomFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'Geometry' });
     await geomFilterBtn.click();
     await expect(drawerPanel.locator('.stepper-item')).toHaveCount(1);
@@ -273,22 +298,22 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
       'The First Construction',
     );
 
-    // Filter to All
+    // Filter to All (7 units)
     const allFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'All' });
     await allFilterBtn.click();
-    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(6);
+    await expect(drawerPanel.locator('.stepper-item')).toHaveCount(7);
 
     // Close drawer
     const drawerCloseBtn = drawerPanel.locator('.drawer-close-btn');
     await drawerCloseBtn.click();
     await expect(drawerPanel).toBeHidden();
 
-    // 11. Verify navigation aids: End-of-Lesson Navigation & Floating Back-to-Top Button
+    // 12. Verify navigation aids: End-of-Lesson Navigation & Floating Back-to-Top Button
     const bottomPrevBtn = page.locator('#bottom-prev-lesson-btn');
     const bottomNextBtn = page.locator('#bottom-next-lesson-btn');
     const bottomDrawerBtn = page.locator('#bottom-drawer-toggle-btn');
     await expect(bottomPrevBtn).toBeVisible();
-    await expect(bottomNextBtn).toBeDisabled(); // On last unit (Unit 06)
+    await expect(bottomNextBtn).toBeDisabled(); // On last unit (Unit 07)
     await expect(bottomDrawerBtn).toBeVisible();
 
     // Verify Bottom Drawer Toggle opens the slide-over drawer visibly
@@ -307,70 +332,75 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await page.waitForFunction(() => window.scrollY < 100);
     expect(await page.evaluate(() => window.scrollY)).toBeLessThan(100);
 
-    // 12. Navigate back to Unit 05 via bottom Previous button
+    // 13. Navigate back to Unit 06 via bottom Previous button
     await bottomPrevBtn.click();
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
-    await expect(unitBadge).toContainText('Unit 5 of 6');
+    await expect(unitBadge).toContainText('Unit 6 of 7');
     await expect(page.locator('app-logic-circuit')).toBeVisible();
 
-    // 13. Prevent accidental horizontal overflow
+    // 14. Prevent accidental horizontal overflow
     const hasHorizontalOverflow = await page.evaluate(() => {
       return document.documentElement.scrollWidth > window.innerWidth;
     });
     expect(hasHorizontalOverflow).toBeFalsy();
 
-    // 14. Zero unhandled console errors or exceptions
+    // 15. Zero unhandled console errors or exceptions
     expect(consoleErrors).toEqual([]);
   });
 
   test('should support direct URL deep-linking to curriculum levels and units', async ({
     page,
   }) => {
-    // 1. Direct deep-link to Unit 03
+    // 1. Direct deep-link to Unit 04 (Multiplication)
     await page.goto('/arithmetic/spatial-invariance-multiplication');
     await expect(page.locator('h1')).toContainText('Spatial Invariance');
     await expect(page.locator('#grid-formula')).toHaveText('3 × 5 = 15 dots');
     await expect(page.locator('app-grid-array')).toBeVisible();
-    await expect(page.locator('.unit-level-badge')).toContainText('Unit 3 of 6');
-    await expect(page).toHaveTitle(/Unit 03: Multiplication/);
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 4 of 7');
+    await expect(page).toHaveTitle(/Unit 04: Multiplication/);
 
-    // 2. Direct deep-link to Unit 04
+    // 2. Direct deep-link to Unit 05 (Fractions)
     await page.goto('/elementary/egyptian-unit-fractions-rhind');
     await expect(page.locator('h1')).toContainText('The Bread Partition');
     await expect(page.locator('app-bread-slicer')).toBeVisible();
-    await expect(page.locator('.unit-level-badge')).toContainText('Unit 4 of 6');
-    await expect(page).toHaveTitle(/Unit 04: Fractions/);
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 5 of 7');
+    await expect(page).toHaveTitle(/Unit 05: Fractions/);
 
-    // 3. Direct deep-link to Unit 05
+    // 3. Direct deep-link to Unit 06 (Logic)
     await page.goto('/foundations/aristotelian-logic-circuits');
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
     await expect(page.locator('app-logic-circuit')).toBeVisible();
-    await expect(page.locator('.unit-level-badge')).toContainText('Unit 5 of 6');
-    await expect(page).toHaveTitle(/Unit 05: Logic/);
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 6 of 7');
+    await expect(page).toHaveTitle(/Unit 06: Logic/);
 
-    // 4. Direct deep-link to Unit 06
+    // 4. Direct deep-link to Unit 07 (Geometry)
     await page.goto('/geometry/euclids-first-construction-equilateral');
     await expect(page.locator('h1')).toContainText('The First Construction');
     await expect(page.locator('app-geometric-compass')).toBeVisible();
-    await expect(page.locator('.unit-level-badge')).toContainText('Unit 6 of 6');
-    await expect(page).toHaveTitle(/Unit 06: Geometry/);
+    await expect(page.locator('.unit-level-badge')).toContainText('Unit 7 of 7');
+    await expect(page).toHaveTitle(/Unit 07: Geometry/);
 
-    // 5. Direct deep-link to Unit 06 via order/alias
-    await page.goto('/foundations/unit-06');
+    // 5. Direct deep-link to Unit 07 via order/alias
+    await page.goto('/foundations/unit-07');
     await expect(page.locator('h1')).toContainText('The First Construction');
     await expect(page.locator('app-geometric-compass')).toBeVisible();
 
-    // 6. Direct deep-link to Unit 05 via order/alias
-    await page.goto('/foundations/unit-05');
+    // 6. Direct deep-link to Unit 06 via order/alias
+    await page.goto('/foundations/unit-06');
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
     await expect(page.locator('app-logic-circuit')).toBeVisible();
 
-    // 7. Direct deep-link to Unit 02 via order/alias
-    await page.goto('/foundations/unit-02');
+    // 7. Direct deep-link to Unit 03 via order/alias
+    await page.goto('/foundations/unit-03');
     await expect(page.locator('h1')).toContainText("Euclid's Common Notions");
     await expect(page.locator('app-balance-scale')).toBeVisible();
 
-    // 8. Fallback on invalid route redirecting to canonical Unit 01
+    // 8. Direct deep-link to Unit 02 via order/alias
+    await page.goto('/foundations/unit-02');
+    await expect(page.locator('h1')).toContainText('The Origin of Taking Away');
+    await expect(page.locator('app-number-line')).toBeVisible();
+
+    // 9. Fallback on invalid route redirecting to canonical Unit 01
     await page.goto('/nonexistent/unknown');
     await expect(page).toHaveURL(/.*foundations\/origins-of-addition/);
     await expect(page.locator('h1')).toContainText('The Origin of Combining');

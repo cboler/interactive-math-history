@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="Concrete mathematical diagram of tally stick subtraction: 7 notches minus 3 notches equals 4 notches remaining">
+  <defs>
+    <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#1c2333"/>
+    </linearGradient>
+    <linearGradient id="tallyWood" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#543d2b"/>
+      <stop offset="30%" stop-color="#7a5d43"/>
+      <stop offset="70%" stop-color="#664c36"/>
+      <stop offset="100%" stop-color="#382517"/>
+    </linearGradient>
+    <filter id="subGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad2)" stroke="#2b344a" stroke-width="2"/>
+
+  <!-- Subtle Blueprint / Grid Lines -->
+  <line x1="50" y1="225" x2="750" y2="225" stroke="#2a3348" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="280" y1="90" x2="280" y2="360" stroke="#2a3348" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="480" y1="90" x2="480" y2="360" stroke="#2a3348" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Top Title Banner -->
+  <text x="400" y="52" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc" letter-spacing="0.5">
+    THE TALLY STICK: SUBTRACTION AS COUNTING WHAT REMAINS
+  </text>
+  <text x="400" y="78" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8">
+    When provisions are consumed or shared, we retrace our steps and see what is left.
+  </text>
+
+  <!-- TOP OVERALL BRACKET: STARTING GROUP (A = 7) -->
+  <g transform="translate(100, 110)">
+    <path d="M10,25 L10,12 Q10,2 250,2 L250,2 Q260,2 260,-8 Q260,2 270,2 L510,2 Q520,2 520,12 L520,25" fill="none" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="180" y="-30" width="160" height="28" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1.2"/>
+    <text x="260" y="-12" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f1f5f9">
+      Starting Tally: 7 Items (A)
+    </text>
+  </g>
+
+  <!-- THE NOTCHED TALLY BONE VECTOR -->
+  <g transform="translate(80, 180)">
+    <!-- Drop Shadow -->
+    <rect x="0" y="16" width="640" height="70" rx="26" fill="#000000" opacity="0.4"/>
+
+    <!-- Main Tally Stick Body -->
+    <rect x="10" y="10" width="620" height="68" rx="24" fill="url(#tallyWood)"/>
+    <!-- Wood grain / bone curvature highlights -->
+    <path d="M20,24 Q310,18 610,24" stroke="#96775d" stroke-width="2" fill="none" opacity="0.6"/>
+    <path d="M20,68 Q310,72 610,68" stroke="#291a10" stroke-width="2.5" fill="none" opacity="0.7"/>
+
+    <!-- 4 REMAINING NOTCHES (Solid Cyan, Active) -->
+    <g transform="translate(60, 0)">
+      <rect x="-14" y="-10" width="170" height="108" rx="10" fill="#0284c7" fill-opacity="0.1" stroke="#38bdf8" stroke-width="1.5"/>
+
+      <!-- Notches 1, 2, 3, 4 -->
+      <line x1="16" y1="20" x2="16" y2="68" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" filter="url(#subGlow)"/>
+      <line x1="56" y1="20" x2="56" y2="68" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" filter="url(#subGlow)"/>
+      <line x1="96" y1="20" x2="96" y2="68" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" filter="url(#subGlow)"/>
+      <line x1="136" y1="20" x2="136" y2="68" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" filter="url(#subGlow)"/>
+
+      <!-- Inner groove shadow -->
+      <line x1="17" y1="22" x2="17" y2="66" stroke="#082f49" stroke-width="2" stroke-linecap="round"/>
+      <line x1="57" y1="22" x2="57" y2="66" stroke="#082f49" stroke-width="2" stroke-linecap="round"/>
+      <line x1="97" y1="22" x2="97" y2="66" stroke="#082f49" stroke-width="2" stroke-linecap="round"/>
+      <line x1="137" y1="22" x2="137" y2="66" stroke="#082f49" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <!-- MINUS SIGN INDICATOR -->
+    <g transform="translate(255, 44)">
+      <circle cx="0" cy="0" r="18" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#f43f5e" stroke-width="4" stroke-linecap="round"/>
+    </g>
+
+    <!-- 3 REMOVED / SHARED NOTCHES (Amber/Red with strike-through and upward exit arrow) -->
+    <g transform="translate(295, 0)">
+      <rect x="-14" y="-10" width="135" height="108" rx="10" fill="#e11d48" fill-opacity="0.12" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+      <!-- Notches 5, 6, 7 (Ghosted / Struck out) -->
+      <line x1="20" y1="20" x2="20" y2="68" stroke="#fb7185" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="60" y1="20" x2="60" y2="68" stroke="#fb7185" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+      <line x1="100" y1="20" x2="100" y2="68" stroke="#fb7185" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+
+      <!-- Diagonal cross-out slashes on each removed notch -->
+      <line x1="10" y1="60" x2="30" y2="28" stroke="#f43f5e" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="50" y1="60" x2="70" y2="28" stroke="#f43f5e" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="90" y1="60" x2="110" y2="28" stroke="#f43f5e" stroke-width="3.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- EQUALS OPERATOR -->
+    <g transform="translate(465, 44)">
+      <circle cx="0" cy="0" r="18" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+      <path d="M-8,-4 L8,-4 M-8,4 L8,4" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+    </g>
+
+    <!-- FINAL RESULT BADGE -->
+    <g transform="translate(505, 10)">
+      <rect x="0" y="0" width="115" height="68" rx="12" fill="#064e3b" fill-opacity="0.3" stroke="#34d399" stroke-width="2"/>
+      <text x="57" y="30" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#6ee7b7">REMAINING</text>
+      <text x="57" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="800" fill="#ffffff">4 Items</text>
+    </g>
+  </g>
+
+  <!-- BOTTOM LABELS & EXPLANATORY BRACKETS -->
+  <!-- Label for 4 Remaining -->
+  <g transform="translate(140, 310)">
+    <path d="M10,5 L10,18 Q10,26 80,26 L80,26 Q90,26 90,36 Q90,26 100,26 L170,26 Q180,26 180,18 L180,5" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <text x="90" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      4 Active Notches Kept
+    </text>
+  </g>
+
+  <!-- Label for 3 Taken Away -->
+  <g transform="translate(370, 310)">
+    <path d="M10,5 L10,18 Q10,26 60,26 L60,26 Q70,26 70,36 Q70,26 80,26 L130,26 Q140,26 140,18 L140,5" fill="none" stroke="#f43f5e" stroke-width="2"/>
+    <text x="70" y="56" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#f43f5e">
+      3 Notches Taken Away (B)
+    </text>
+  </g>
+
+  <!-- Central Equation Card at bottom center -->
+  <g transform="translate(280, 390)">
+    <rect x="0" y="0" width="240" height="40" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.8"/>
+    <text x="120" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#34d399">
+      7 - 3 = 4 REMAINING
+    </text>
+  </g>
+</svg>

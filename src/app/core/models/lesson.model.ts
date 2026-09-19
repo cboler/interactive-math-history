@@ -53,9 +53,27 @@ export interface DiscoveryChallenge {
   guidanceTip: string;
 }
 
+export interface LessonIllustration {
+  title: string;
+  imageUrl: string;
+  altText: string;
+  caption: string;
+}
+
+export interface PracticeChallenge {
+  id: string;
+  question: string;
+  hint: string;
+  targetA: number;
+  targetB: number;
+  expectedResult: number;
+  successMessage: string;
+}
+
 export interface InteractiveConfig {
   visualizer: VisualizerMode;
   initialState: Record<string, unknown>;
+  lockedOperation?: 'add' | 'subtract';
   // Backwards compatibility for legacy slider components
   minA?: number;
   maxA?: number;
@@ -81,6 +99,10 @@ export interface MathLesson {
 
   discoveryHook: DiscoveryChallenge;
 
+  storyIllustration?: LessonIllustration;
+  mathDiagram?: LessonIllustration;
+  practiceChallenges?: PracticeChallenge[];
+
   narrative: {
     hook: string;
     historicalContext: {
@@ -97,6 +119,8 @@ export interface MathLesson {
   exploreGraph: ExploreNode[];
   academicSources: AcademicSource[];
   interactiveConfig: InteractiveConfig;
+
+  srNarration?: string;
 
   // Optional legacy route/level support
   level?: string;

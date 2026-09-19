@@ -133,6 +133,11 @@
 
   <!-- Semantic Reader View: Pure prose structured for browser TTS engines & Reader Mode -->
   <article class="reader-article" role="article">
+    <!-- Screen Reader & Browser TTS Dynamic Narration Live Region -->
+    <div class="sr-only" aria-live="polite">
+      {{ srNarration() }}
+    </div>
+
     <!-- Top Academic Eyebrow & Title -->
     <header class="lesson-header">
       <div class="metadata-badges">
@@ -147,7 +152,58 @@
       </div>
     </header>
 
-    <!-- 1. THE DISCOVERY CHALLENGE (Active Inquiry Before Prose) -->
+    <!-- 1. NARRATIVE: THE HUMAN STORY (History First!) -->
+    <section class="prose-section history-section">
+      <h2>The Human Story</h2>
+
+      <!-- Story Scene Illustration (Rich Dual-Track Artwork) -->
+      @if (current.storyIllustration; as storyArt) {
+        <figure class="story-illustration">
+          <img [src]="storyArt.imageUrl" [alt]="storyArt.altText" loading="lazy" />
+          <figcaption>
+            <strong>{{ storyArt.title }}:</strong> {{ storyArt.caption }}
+          </figcaption>
+        </figure>
+      }
+
+      <p class="lead-hook">{{ current.narrative.hook }}</p>
+      <p>{{ current.narrative.historicalContext.story }}</p>
+
+      <!-- Historical Artifact Photographic Plate -->
+      @if (current.artifactPlate; as plate) {
+        <figure class="artifact-plate">
+          <img [src]="plate.imageUrl" [alt]="plate.altText" loading="lazy" />
+          <figcaption>
+            <strong>{{ plate.title }}</strong
+            >: {{ plate.caption }}
+            <span class="plate-credit">({{ plate.credit }}, {{ plate.license }})</span>
+          </figcaption>
+        </figure>
+      }
+
+      <!-- Epistemic Transparency / Historical Uncertainty -->
+      @if (current.narrative.historicalContext.epistemicStatus; as epistemic) {
+        <aside class="epistemic-card">
+          <div class="epistemic-header">
+            <span class="consensus-tag" [attr.data-level]="epistemic.consensusLevel">
+              Historiographical Status: {{ epistemic.consensusLevel | uppercase }}
+            </span>
+          </div>
+          <p class="epistemic-summary">{{ epistemic.summary }}</p>
+          <ul class="debates-list">
+            @for (item of epistemic.competingHypotheses; track item.claim) {
+              <li>
+                <strong>{{ item.claim }}</strong> (<em>{{ item.proponentsOrSources }}</em
+                >):
+                {{ item.evidenceSummary }}
+              </li>
+            }
+          </ul>
+        </aside>
+      }
+    </section>
+
+    <!-- 2. THE DISCOVERY CHALLENGE (Active Inquiry Grounded in the Story) -->
     <section class="discovery-card" role="region" aria-label="Discovery Challenge">
       <div class="discovery-header">
         <app-icon name="scale" class="discovery-icon"></app-icon>
@@ -160,9 +216,19 @@
       </div>
     </section>
 
-    <!-- 2. INTERACTIVE LABORATORY (Dynamic Archetype Switch) -->
+    <!-- 3. INTERACTIVE LABORATORY (Dynamic Archetype Switch) -->
     <section class="interactive-stage" aria-label="Mathematical Experiment">
       <h2>Interactive Laboratory</h2>
+
+      <!-- Concrete Mathematical Concept Diagram (CPA Bridge) -->
+      @if (current.mathDiagram; as diagram) {
+        <figure class="math-diagram">
+          <img [src]="diagram.imageUrl" [alt]="diagram.altText" loading="lazy" />
+          <figcaption>
+            <strong>{{ diagram.title }}:</strong> {{ diagram.caption }}
+          </figcaption>
+        </figure>
+      }
 
       <!-- Contextual Controls for Slider-based Visualizers -->
       @if (
@@ -185,8 +251,11 @@
             />
           </div>
 
-          <!-- Add/Subtract Toggle only for Unit 01 -->
-          @if (current.interactiveConfig.visualizer === 'number-line-vector') {
+          <!-- Add/Subtract Toggle only shown if operation is not locked -->
+          @if (
+            current.interactiveConfig.visualizer === 'number-line-vector' &&
+            !current.interactiveConfig.lockedOperation
+          ) {
             <div class="control-group">
               <span class="control-label">Operation:</span>
               <div class="btn-group" role="group" aria-label="Operation selection">
@@ -226,8 +295,8 @@
         </div>
       }
 
-      <!-- Active Visualizer Outlet -->
-      <div class="visualizer-outlet">
+      <!-- Active Visualizer Outlet (Shielded from screen-reader prose flow) -->
+      <div class="visualizer-outlet" aria-hidden="true">
         @switch (current.interactiveConfig.visualizer) {
           @case ('number-line-vector') {
             <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
@@ -249,45 +318,30 @@
           }
         }
       </div>
-    </section>
 
-    <!-- 3. NARRATIVE: THE HUMAN STORY (Optimized for Browser TTS) -->
-    <section class="prose-section">
-      <h2>The Human Story</h2>
-      <p class="lead-hook">{{ current.narrative.hook }}</p>
-      <p>{{ current.narrative.historicalContext.story }}</p>
-
-      <!-- Historical Artifact Photographic Plate -->
-      @if (current.artifactPlate; as plate) {
-        <figure class="artifact-plate">
-          <img [src]="plate.imageUrl" [alt]="plate.altText" loading="lazy" />
-          <figcaption>
-            <strong>{{ plate.title }}</strong
-            >: {{ plate.caption }}
-            <span class="plate-credit">({{ plate.credit }}, {{ plate.license }})</span>
-          </figcaption>
-        </figure>
-      }
-
-      <!-- Epistemic Transparency / Historical Uncertainty -->
-      @if (current.narrative.historicalContext.epistemicStatus; as epistemic) {
-        <aside class="epistemic-card">
-          <div class="epistemic-header">
-            <span class="consensus-tag" [attr.data-level]="epistemic.consensusLevel">
-              Historiographical Status: {{ epistemic.consensusLevel | uppercase }}
-            </span>
-          </div>
-          <p class="epistemic-summary">{{ epistemic.summary }}</p>
-          <ul class="debates-list">
-            @for (item of epistemic.competingHypotheses; track item.claim) {
-              <li>
-                <strong>{{ item.claim }}</strong> (<em>{{ item.proponentsOrSources }}</em
-                >):
-                {{ item.evidenceSummary }}
-              </li>
+      <!-- Practice Micro-Challenges Section (Try It Yourself!) -->
+      @if (current.practiceChallenges && current.practiceChallenges.length > 0) {
+        <section class="practice-missions" aria-label="Practice Micro-Missions">
+          <h2>Try It Yourself!</h2>
+          <div class="missions-grid">
+            @for (mission of current.practiceChallenges; track mission.id; let idx = $index) {
+              <div class="mission-card">
+                <div class="mission-badge">Mission {{ idx + 1 }}</div>
+                <p class="mission-question">{{ mission.question }}</p>
+                <p class="mission-hint">
+                  <em>Tip: {{ mission.hint }}</em>
+                </p>
+                <button
+                  type="button"
+                  class="load-mission-btn"
+                  (click)="setMissionValues(mission.targetA, mission.targetB)"
+                >
+                  Try This on the Number Line
+                </button>
+              </div>
             }
-          </ul>
-        </aside>
+          </div>
+        </section>
       }
     </section>
 

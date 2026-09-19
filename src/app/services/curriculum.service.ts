@@ -10,14 +10,14 @@ export class CurriculumService {
 
   readonly lessons = signal<MathLesson[]>([
     // ==========================================
-    // UNIT 01: Physical Accumulation
+    // UNIT 01: Putting Things Together (Addition)
     // ==========================================
     {
-      id: 'unit-01-ishango-addition',
+      id: 'unit-01-gathering-addition',
       slug: 'origins-of-addition',
       shortTitle: 'Unit 01: Addition',
-      title: 'The Origin of Combining: Physical Accumulation',
-      subtitle: 'From Baboon Fibulae to Directional Number Lines',
+      title: 'Unit 01: The Origin of Combining: Putting Things Together',
+      subtitle: 'The Ishango Bone, Carving Tally Marks, and the Dawn of Addition',
       stage: 'foundations',
       strand: 'numeracy',
       order: 1,
@@ -27,23 +27,41 @@ export class CurriculumService {
       mathematicalStatement: 'a + b = c',
       discoveryHook: {
         prompt:
-          'If you walk 4 paces east, and then 3 more paces east, how many total paces have you journeyed from your hearth?',
-        targetAxiom: 'Addition as continuous displacement along a 1D vector line.',
-        successCondition: 'Set Quantity A to 4 and Quantity B to 3 in additive mode.',
+          'Twenty thousand years ago on the shores of Lake Edward, you hold a dark baboon bone and a sharp quartz flake. In the morning, your fishing kin catch 3 catfish, so you carve 3 neat notches: |||. In the afternoon, you catch 2 more fish, and carve 2 more notches beside them: ||. How many permanent notches are now recorded on your bone in all?',
+        targetAxiom:
+          'Addition is carving new tallies alongside existing ones to find the whole collection along the bone.',
+        successCondition:
+          'Set First Notches (A) to 3 and Additional Notches (B) to 2 on the number line.',
         guidanceTip:
-          'Notice that the resulting arrow is not a static point; it is the compound length of two joined travels.',
+          'Observe how the second group of notches continues directly forward from the end of the first group along the counting path.',
+      },
+      storyIllustration: {
+        title: 'Carving Tally Marks into the Ishango Bone',
+        imageUrl: 'assets/illustrations/unit-01-story.svg',
+        altText:
+          'An ancient artisan seated by the waters of Lake Edward at sunset, using a sharp quartz flake to carve precise tally notches into the dark Ishango bone.',
+        caption:
+          'Twenty thousand years ago at Lake Edward, people carved notches into bone so counts would never be forgotten.',
+      },
+      mathDiagram: {
+        title: 'Bone Tally Addition: 3 + 2 = 5',
+        imageUrl: 'assets/illustrations/unit-01-diagram.svg',
+        altText:
+          'An Ishango bone shaft showing three cyan carved notches followed by two amber carved notches, unified under a bracket labeled 5 notches in all.',
+        caption:
+          'When we add on a bone tally, we carve each new notch forward to find the total count.',
       },
       narrative: {
-        hook: 'Before numbers were symbols written in ink, they were physical notches carved into bone to survive the changing seasons.',
+        hook: 'Before paper, ink, or written numerals, humanity discovered that a notch carved into bone never forgets.',
         historicalContext: {
           story:
-            'Unearthed in 1950 by Belgian geologist Jean de Heinzelin at Ishango near Lake Edward, this 10-centimeter baboon fibula bears quartz-tool score marks arranged in distinct columns. While long romanticized as humanity’s first arithmetic calculator, archaeological consensus recognizes it as physical tallying—grouping quantities to bridge memory over time. In Latin, the smooth counting stones used for similar tallies were known as calculi: the literal etymological ancestor of modern calculus.',
+            'Around 20,000 BCE, along the shores of Lake Edward in Central Africa, a thriving community of fishers and gatherers made a profound breakthrough in human memory. While pebbles can be scattered by the wind and spoken words fade in the air, a notch cut into bone endures across generations. The Ishango Bone—a dark baboon fibula with a quartz crystal fixed to its head—carries orderly columns of carved notches arranged in distinct numerical groupings. When the carver recorded three fish from the morning catch and two from the afternoon, they did not wipe away the first count. Instead, they moved their quartz blade forward along the bone, carving two more notches to record a total of five. By combining groups of notches permanently, ancient people invented the foundation of addition.',
           civilizationOrOrigin: 'Upper Paleolithic Central Africa (Modern-day DRC)',
           approximateDate: 'c. 20,000 BCE',
           epistemicStatus: {
             consensusLevel: 'contested',
             summary:
-              'Scholars debate whether the markings represent intentional prime-number arithmetic, a 6-month lunar calendar, or merely functional grip-notches.',
+              'Scholars debate whether the markings on the Ishango bone represent intentional arithmetic grouping, a lunar calendar, or practical tallies.',
             competingHypotheses: [
               {
                 claim: 'Lunar Calendrical Device',
@@ -52,27 +70,27 @@ export class CurriculumService {
                   'Analyzed micro-wear on notches and correlated column tallies (11, 13, 17, 19) to lunar synodic phases.',
               },
               {
-                claim: 'Mathematical Game or Arithmetic Table',
+                claim: 'Mathematical Grouping & Addition Table',
                 proponentsOrSources: 'Jean de Heinzelin (1957); Claudia Zaslavsky',
                 evidenceSummary:
-                  'Grouping of numbers suggests deliberate duplication, addition, and early awareness of prime sequences.',
+                  'Grouping of notches demonstrates deliberate duplication, addition, and early awareness of quantity sets.',
               },
               {
-                claim: 'Skeptical View: Non-Mathematical Markings',
+                claim: 'Skeptical View: Functional Grip Markings',
                 proponentsOrSources: 'Olivier Keller (2010)',
                 evidenceSummary:
-                  'Argues grouping patterns are arbitrary artifacts of carving technique and grip rather than symbolic number theory.',
+                  'Argues grouping patterns may be incidental carving techniques rather than formal numerical calculations.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'Addition represents the physical accumulation of discrete objects or displacement across continuous space.',
-          'On a coordinate axis, numbers are vectors possessing both length (magnitude) and direction.',
-          'Subtraction does not destroy quantity; it simply reverses the spatial vector direction along the line.',
+          'Addition means carving or grouping new tallies alongside existing ones to find the whole collection.',
+          'On the bone tally and modern number line, addition is hopping forward in the positive direction.',
+          'The plus sign (+) tells us to combine groups and move forward.',
         ],
         realWorldApplication:
-          '1D vector addition is the physical underpinning of inertial flight computers, kinematic game physics, and structural load distribution.',
+          'Combining groups of tallies is the foundation for inventory tracking, budgeting resources, calculating distances, and writing loops in software engineering.',
       },
       artifactPlate: {
         title: 'The Ishango Bone (Royal Belgian Institute of Natural Sciences)',
@@ -83,7 +101,7 @@ export class CurriculumService {
           'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ishango_bone.jpg/640px-Ishango_bone.jpg',
         altText: 'The fossilized Ishango bone displaying carved notches in three columns.',
         caption:
-          'The Ishango bone, found near the Congolese border, bearing three columns of grouped incision marks.',
+          'The Ishango Bone: Carved with deliberate groups of notches long before paper was invented.',
       },
       exploreGraph: [
         {
@@ -123,30 +141,227 @@ export class CurriculumService {
       ],
       interactiveConfig: {
         visualizer: 'number-line-vector',
-        initialState: { a: 4, b: 3, op: 'add' },
+        initialState: { a: 3, b: 2, op: 'add' },
+        lockedOperation: 'add',
         minA: 0,
         maxA: 10,
-        defaultA: 4,
+        defaultA: 3,
         minB: 0,
         maxB: 10,
-        defaultB: 3,
+        defaultB: 2,
       },
+      practiceChallenges: [
+        {
+          id: 'u1-m1',
+          question:
+            'You carve 3 notches for morning catfish and then 2 more notches for afternoon tilapia. How many total notches are marked on your bone?',
+          hint: 'Set First Notches (A) to 3 and Additional Notches (B) to 2 on the number line.',
+          targetA: 3,
+          targetB: 2,
+          expectedResult: 5,
+          successMessage: 'Terrific! 3 notches + 2 notches = 5 notches carved on the bone.',
+        },
+        {
+          id: 'u1-m2',
+          question:
+            'As the moon waxes in the African night sky, you carve 4 notches for the first week, then 3 more notches as it grows full. Where does the tally reach?',
+          hint: 'Start at 4 notches and add 3 more forward.',
+          targetA: 4,
+          targetB: 3,
+          expectedResult: 7,
+          successMessage: 'Spot on! 4 nights + 3 nights = 7 nights tracked on the bone.',
+        },
+        {
+          id: 'u1-m3',
+          question:
+            'Your family crafts 5 bone harpoon tips, and your neighbors bring 4 more. How many notches record the whole harvest?',
+          hint: 'Slide First Notches (A) to 5 and Additional Notches (B) to 4.',
+          targetA: 5,
+          targetB: 4,
+          expectedResult: 9,
+          successMessage: 'Awesome! 5 + 4 = 9 total harpoons notched onto the bone.',
+        },
+      ],
+      srNarration:
+        'Unit 01: Putting Things Together. Addition is carving notches together and stepping forward along the counting path.',
       level: 'foundations',
     },
 
     // ==========================================
-    // UNIT 02: Axioms of Equality
+    // UNIT 02: Taking Things Away (Subtraction)
     // ==========================================
     {
-      id: 'unit-02-euclid-equality',
+      id: 'unit-02-taking-away-subtraction',
+      slug: 'origins-of-subtraction',
+      shortTitle: 'Unit 02: Subtraction',
+      title: 'Unit 02: The Origin of Taking Away: Taking Things Away',
+      subtitle: 'The Lebombo Bone, Crossing Off Tallies, and the Minus Sign',
+      stage: 'foundations',
+      strand: 'numeracy',
+      order: 2,
+      prerequisites: ['unit-01-gathering-addition'],
+      civilization: 'Prehistoric Hunter-Gatherer Communities',
+      historicalEra: 'c. 40,000 BCE',
+      mathematicalStatement: 'a - b = c',
+      discoveryHook: {
+        prompt:
+          'Imagine your band holds a notched bone tracking 7 bundles of dried smoked fish for winter. When you share 3 bundles with a neighboring family, how many bundles remain on your tally?',
+        targetAxiom:
+          'Subtraction is removing items from a group or stepping backward along a tally of counts.',
+        successCondition:
+          'Set Starting Tally (A) to 7 and Notches Taken Away (B) to 3 on the number line.',
+        guidanceTip: 'Observe how the amber arrow retraces steps backward to show what remains.',
+      },
+      storyIllustration: {
+        title: 'Consulting the Tally Stick by the Campfire',
+        imageUrl: 'assets/illustrations/unit-02-story.svg',
+        altText:
+          'Paleolithic foragers seated around a glowing rock shelter fire, inspecting a notched tally bone as they distribute shared winter provisions.',
+        caption:
+          'Notched bones and tally sticks helped ancient communities track provisions and share food fairly.',
+      },
+      mathDiagram: {
+        title: 'Tally Stick Subtraction: 7 - 3 = 4',
+        imageUrl: 'assets/illustrations/unit-02-diagram.svg',
+        altText:
+          'A notched tally bone with 7 carved grooves, where 3 notches are crossed out with amber dashed marks, leaving 4 active notches intact.',
+        caption:
+          'Subtraction is starting with a tally of items, taking some away, and counting the notches that remain.',
+      },
+      narrative: {
+        hook: 'If you have seven shared food bundles and distribute three to your kin, how do you track what remains?',
+        historicalContext: {
+          story:
+            'Over 40,000 years ago, early humans in Southern Africa notched the Lebombo Bone with 29 precise incisions, creating one of the earliest known counting tools. But ancient life was not only about gathering more—it was about survival, sharing, and rationing. During lean seasons, communities needed to track stores as they were consumed. When provisions were taken from the cache, tallies were crossed off, notched backward, or accounted for. Subtraction was not destruction; it was the essential art of fairness, distribution, and knowing exactly how much remained before the next hunt.',
+          civilizationOrOrigin: 'Prehistoric Southern Africa (Border Cave)',
+          approximateDate: 'c. 40,000 BCE',
+          epistemicStatus: {
+            consensusLevel: 'established',
+            summary:
+              'Archaeological evidence across Paleolithic sites confirms tally sticks were used for debiting and tracking dwindling stores as well as accumulating tallies.',
+            competingHypotheses: [
+              {
+                claim: 'Inventory & Consumption Tracking',
+                proponentsOrSources: "Francesco d'Errico (2003)",
+                evidenceSummary:
+                  'Microscopic inspection reveals distinct notch sequences added at different times as supplies were depleted.',
+              },
+              {
+                claim: 'Reciprocal Gift & Debt Accounting',
+                proponentsOrSources: 'David Graeber (2011)',
+                evidenceSummary:
+                  'Notched tallies served as shared social memory tracking goods exchanged and obligations settled between families.',
+              },
+            ],
+          },
+        },
+        conceptualExplanation: [
+          'Subtraction is starting with a tally of items, taking some away, and counting what remains.',
+          'On the number line, subtraction reverses direction and walks backward.',
+          'The minus sign (-) tells us to separate, cross off, and take away.',
+        ],
+        realWorldApplication:
+          'Tracking remaining battery life, calculating change in commerce, monitoring fuel reserves, and managing countdown timers all rely directly on subtraction.',
+      },
+      artifactPlate: {
+        title: 'The Lebombo Bone (c. 42,000 BCE)',
+        credit: 'Border Cave Archaeological Expedition / Photo by Wellcome Collection',
+        license: 'CC BY 4.0',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Lebombo_bone.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Lebombo_bone.jpg/640px-Lebombo_bone.jpg',
+        altText: 'The fossilized Lebombo baboon fibula bearing 29 carved notches.',
+        caption:
+          'The Lebombo Bone: A 44,000-year-old baboon fibula bearing 29 carved notches, used for counting down lunar cycles or tracking supplies.',
+      },
+      exploreGraph: [
+        {
+          label: 'Tally Sticks & Markings',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Tally_mark',
+        },
+        {
+          label: 'Lebombo Bone',
+          category: 'artifact',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Lebombo_bone',
+        },
+        {
+          label: 'Hunter-Gatherer Economy',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Hunter-gatherer',
+        },
+        {
+          label: 'Subtraction',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Subtraction',
+        },
+      ],
+      academicSources: [
+        {
+          author: "Francesco d'Errico",
+          title: 'Early Notations and Graphic Systems',
+          citationSnippet:
+            'Analysis of Paleolithic notched artifacts documenting numerical tallies.',
+          publicationYear: 2003,
+        },
+        {
+          author: 'David Graeber',
+          title: 'Debt: The First 5,000 Years',
+          citationSnippet: 'Chapter 2: The Myth of Barter and Early Accounting Sticks.',
+          publicationYear: 2011,
+        },
+      ],
+      interactiveConfig: {
+        visualizer: 'number-line-vector',
+        initialState: { a: 7, b: 3, op: 'subtract' },
+        lockedOperation: 'subtract',
+        minA: 0,
+        maxA: 10,
+        defaultA: 7,
+        minB: 0,
+        maxB: 10,
+        defaultB: 3,
+      },
+      practiceChallenges: [
+        {
+          id: 'u2-m1',
+          question:
+            'You have a tally of 6 smoked fish bundles and share 2 with your kin. Step backward 2 notches to see how many remain.',
+          hint: 'Set Starting Tally (A) to 6 and Notches Taken Away (B) to 2 on the number line.',
+          targetA: 6,
+          targetB: 2,
+          expectedResult: 4,
+          successMessage: 'Spot on! 6 - 2 = 4 bundles remaining in the cache.',
+        },
+        {
+          id: 'u2-m2',
+          question:
+            'A hunter has a quiver of 8 arrows and shoots 3 during the hunt. How many arrows remain in the quiver?',
+          hint: 'Start at 8 and step backward 3.',
+          targetA: 8,
+          targetB: 3,
+          expectedResult: 5,
+          successMessage: 'Terrific! 8 - 3 = 5 arrows remaining.',
+        },
+      ],
+      srNarration:
+        'Unit 02: Taking Things Away. Subtraction is starting with a tally, removing items, and stepping backward along the path.',
+      level: 'foundations',
+    },
+
+    // ==========================================
+    // UNIT 03: Axioms of Equality
+    // ==========================================
+    {
+      id: 'unit-03-euclid-equality',
       slug: 'euclids-common-notions',
-      shortTitle: 'Unit 02: Equality',
+      shortTitle: 'Unit 03: Equality',
       title: "The Bridge of Reason: Euclid's Common Notions",
       subtitle: 'Balancing Scales and the Transitive Law of Equality',
       stage: 'foundations',
       strand: 'logic',
-      order: 2,
-      prerequisites: ['unit-01-ishango-addition'],
+      order: 3,
+      prerequisites: ['unit-01-gathering-addition', 'unit-02-taking-away-subtraction'],
       civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
       historicalEra: 'c. 300 BCE',
       mathematicalStatement: '\\text{If } A = B \\text{ and } B = C \\text{, then } A = C',
@@ -249,18 +464,18 @@ export class CurriculumService {
     },
 
     // ==========================================
-    // UNIT 03: Spatial Invariance (Commutativity)
+    // UNIT 04: Spatial Invariance (Commutativity)
     // ==========================================
     {
-      id: 'unit-03-commutative-multiplication',
+      id: 'unit-04-commutative-multiplication',
       slug: 'spatial-invariance-multiplication',
-      shortTitle: 'Unit 03: Multiplication',
+      shortTitle: 'Unit 04: Multiplication',
       title: 'Spatial Invariance: The Commutative Law',
       subtitle: 'Why 3 × 5 Always Equals 5 × 3 Across Ancient Farmlands',
       stage: 'elementary',
       strand: 'arithmetic',
-      order: 3,
-      prerequisites: ['unit-01-ishango-addition'],
+      order: 4,
+      prerequisites: ['unit-01-gathering-addition'],
       civilization: 'Ancient Mesopotamia and Old Kingdom Egypt',
       historicalEra: 'c. 1800 BCE',
       mathematicalStatement: 'a \\times b = b \\times a',
@@ -359,18 +574,18 @@ export class CurriculumService {
     },
 
     // ==========================================
-    // UNIT 04: Unit Fractions & Slicing
+    // UNIT 05: Unit Fractions & Slicing
     // ==========================================
     {
-      id: 'unit-04-egyptian-fractions',
+      id: 'unit-05-egyptian-fractions',
       slug: 'egyptian-unit-fractions-rhind',
-      shortTitle: 'Unit 04: Fractions',
+      shortTitle: 'Unit 05: Fractions',
       title: 'The Bread Partition: Unit Fractions & Ahmes',
       subtitle: 'Decomposing Quantities into Non-Repeating Unit Shares',
       stage: 'elementary',
       strand: 'arithmetic',
-      order: 4,
-      prerequisites: ['unit-01-ishango-addition', 'unit-03-commutative-multiplication'],
+      order: 5,
+      prerequisites: ['unit-01-gathering-addition', 'unit-04-commutative-multiplication'],
       civilization: 'Middle Kingdom Egypt (Thebes)',
       historicalEra: 'c. 1550 BCE',
       mathematicalStatement: '\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}',
@@ -401,37 +616,36 @@ export class CurriculumService {
                 proponentsOrSources:
                   'Richard J. Gillings (Mathematics in the Time of the Pharaohs)',
                 evidenceSummary:
-                  'Cutting bread or beer rations into distinct large and small slices made physical measurement and distribution verification trivial.',
+                  'Demonstrates that distinct unit slices allow loaves to be cut into fewer, larger pieces with less crumbs and equal physical quality.',
               },
               {
-                claim: 'Scribal Elite Aesthetic & Canon',
-                proponentsOrSources:
-                  'Annette Imhausen (Mathematics in Ancient Egypt: A Contextual History)',
+                claim: 'Religious / Canonical Numerology',
+                proponentsOrSources: 'Annette Imhausen (Mathematics in Ancient Egypt)',
                 evidenceSummary:
-                  'Suggests the unit-fraction canon was a formal, conservative scribal tradition taught in administrative schools rather than purely spontaneous arithmetic necessity.',
+                  'Eye of Horus fractional mythology influenced Egyptian canonical standards for measurement units.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'A unit fraction has the form $\\frac{1}{n}$, where $n$ is a positive natural integer.',
-          'The Egyptian fraction expansion theorem guarantees that every positive rational number $\\frac{p}{q} < 1$ can be expressed as a finite sum of distinct unit fractions.',
-          'Sylvester’s greedy algorithm provides one modern technique to decompose fractions, but ancient Egyptian scribes frequently chose more elegant, physically measurable denominators.',
+          'A unit fraction has a numerator of $1$ (e.g., $1/n$), representing an exact aliquot share.',
+          'Any proper fraction $p/q$ can be decomposed into a finite series of distinct unit fractions (the Greedy / Sylvester-Fibonacci Algorithm).',
+          'Unit fraction decomposition prevents rounding errors and ensures equitable distribution in physical resource allocation.',
         ],
         realWorldApplication:
-          'Unit fraction decompositions are applied today in fair-division cake-cutting algorithms, packet scheduling in telecommunications networks, and heliostat mirror spacing.',
+          'Unit fraction decompositions are applied in fair division algorithms, discrete cake-cutting economics, and harmonic antenna spacing.',
       },
       artifactPlate: {
         title: 'The Rhind Mathematical Papyrus (British Museum EA 10057)',
-        credit: 'Trustees of the British Museum / Wikimedia Commons',
+        credit: 'The Trustees of the British Museum / Wikimedia Commons',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rhind_Mathematical_Papyrus.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
         altText:
-          'Ancient Egyptian papyrus scroll filled with hieratic red and black mathematical script.',
+          'Papyrus roll inscribed with hieratic script and tables of fractional conversions.',
         caption:
-          'The Rhind Papyrus (c. 1550 BCE), copied by scribe Ahmes, containing the famous 2/n table and bread partition problems.',
+          'The Rhind Papyrus (c. 1550 BCE), featuring Ahmes’ 2/n table of unit fraction expansions.',
       },
       exploreGraph: [
         {
@@ -440,18 +654,18 @@ export class CurriculumService {
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Rhind_Mathematical_Papyrus',
         },
         {
-          label: 'Scribe Ahmes',
-          category: 'person',
-          wikipediaUrl: 'https://en.wikipedia.org/wiki/Ahmes',
-        },
-        {
           label: 'Egyptian Fractions',
           category: 'concept',
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Egyptian_fraction',
         },
         {
+          label: 'Ahmes the Scribe',
+          category: 'person',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Ahmes',
+        },
+        {
           label: 'Eye of Horus Fractions',
-          category: 'artifact',
+          category: 'concept',
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Eye_of_Horus#As_fractions',
         },
       ],
@@ -459,37 +673,36 @@ export class CurriculumService {
         {
           author: 'Richard J. Gillings',
           title: 'Mathematics in the Time of the Pharaohs',
-          citationSnippet:
-            'Chapter 4: The 2/n Table of the Rhind Papyrus and the Division of Bread.',
-          publicationYear: 1982,
+          citationSnippet: 'Chapter 4: The 2/n Table and the Ahmes Papyrus.',
+          publicationYear: 1972,
         },
         {
           author: 'Annette Imhausen',
           title: 'Mathematics in Ancient Egypt: A Contextual History',
-          citationSnippet: 'Administrative mathematics and table design in the Middle Kingdom.',
+          citationSnippet: 'Middle Kingdom administrative arithmetic and scribal education.',
           publicationYear: 2016,
         },
       ],
       interactiveConfig: {
         visualizer: 'partition-slicer',
-        initialState: { loaves: 3, workers: 5 },
+        initialState: { targetFraction: '3/5', loaves: 3, workers: 5 },
       },
       level: 'elementary',
     },
 
     // ==========================================
-    // UNIT 05: The Logic of Athens
+    // UNIT 06: The Logic of Athens
     // ==========================================
     {
-      id: 'unit-05-aristotle-logic',
+      id: 'unit-06-aristotle-logic',
       slug: 'aristotelian-logic-circuits',
-      shortTitle: 'Unit 05: Logic',
+      shortTitle: 'Unit 06: Logic',
       title: "The Architecture of Reason: Aristotle's Syllogism",
       subtitle: 'Propositional Connectives, Truth Tables, and Physical Circuits',
       stage: 'foundations',
       strand: 'logic',
-      order: 5,
-      prerequisites: ['unit-02-euclid-equality'],
+      order: 6,
+      prerequisites: ['unit-03-euclid-equality'],
       civilization: 'Classical Athens (Lyceum)',
       historicalEra: 'c. 350 BCE',
       mathematicalStatement: 'P \\land Q \\implies R',
@@ -594,19 +807,20 @@ export class CurriculumService {
       },
       level: 'foundations',
     },
+
     // ==========================================
-    // UNIT 06: Geometric Construction
+    // UNIT 07: Geometric Construction
     // ==========================================
     {
-      id: 'unit-06-euclid-equilateral',
+      id: 'unit-07-euclid-equilateral',
       slug: 'euclids-first-construction-equilateral',
-      shortTitle: 'Unit 06: Geometry',
+      shortTitle: 'Unit 07: Geometry',
       title: 'The First Construction: The Equilateral Triangle',
       subtitle: "Straightedge, Rigid Compass, and Euclid's Elements Book I, Proposition 1",
       stage: 'foundations',
       strand: 'geometry',
-      order: 6,
-      prerequisites: ['unit-02-euclid-equality'],
+      order: 7,
+      prerequisites: ['unit-03-euclid-equality'],
       civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
       historicalEra: 'c. 300 BCE',
       mathematicalStatement: '\\triangle ABC \\implies AB = BC = CA',
@@ -765,7 +979,30 @@ export class CurriculumService {
       const cleanUnit = normUnit.replace(/-/g, '');
       const cleanSlug = lesson.slug.toLowerCase().replace(/-/g, '');
 
+      // Check legacy unit ID and alias mapping
+      const matchesLegacy =
+        (lesson.id === 'unit-01-gathering-addition' &&
+          (normUnit === 'unit-01-ishango-addition' || normUnit === 'origins-of-addition')) ||
+        (lesson.id === 'unit-02-taking-away-subtraction' &&
+          normUnit === 'origins-of-subtraction') ||
+        (lesson.id === 'unit-03-euclid-equality' &&
+          (normUnit === 'unit-02-euclid-equality' ||
+            normUnit === 'euclids-common-notions' ||
+            normUnit === 'euclid-common-notions')) ||
+        (lesson.id === 'unit-04-commutative-multiplication' &&
+          (normUnit === 'unit-03-commutative-multiplication' ||
+            normUnit === 'spatial-invariance-multiplication')) ||
+        (lesson.id === 'unit-05-egyptian-fractions' &&
+          (normUnit === 'unit-04-egyptian-fractions' ||
+            normUnit === 'egyptian-unit-fractions-rhind')) ||
+        (lesson.id === 'unit-06-aristotle-logic' &&
+          (normUnit === 'unit-05-aristotle-logic' || normUnit === 'aristotelian-logic-circuits')) ||
+        (lesson.id === 'unit-07-euclid-equilateral' &&
+          (normUnit === 'unit-06-euclid-equilateral' ||
+            normUnit === 'euclids-first-construction-equilateral'));
+
       return (
+        matchesLegacy ||
         lesson.slug.toLowerCase() === normUnit ||
         cleanSlug === cleanUnit ||
         (lesson.slug === 'euclids-common-notions' && normUnit === 'euclid-common-notions') ||

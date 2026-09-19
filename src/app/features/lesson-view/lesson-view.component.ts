@@ -73,40 +73,73 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   readonly operation = signal<OperationType>('add');
 
   readonly sliderALabel = computed(() => {
-    const viz = this.lesson()?.interactiveConfig.visualizer;
+    const curr = this.lesson();
+    const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Left Pan (A)';
     if (viz === 'grid-array') return 'Rows (A)';
+    if (curr?.id === 'unit-01-gathering-addition') return 'First Notches (A)';
+    if (curr?.id === 'unit-02-taking-away-subtraction') return 'Starting Tally (A)';
     return 'Quantity A';
   });
 
   readonly sliderBLabel = computed(() => {
-    const viz = this.lesson()?.interactiveConfig.visualizer;
+    const curr = this.lesson();
+    const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Right Pan (B)';
     if (viz === 'grid-array') return 'Columns (B)';
+    if (curr?.id === 'unit-01-gathering-addition') return 'Additional Notches (B)';
+    if (curr?.id === 'unit-02-taking-away-subtraction') return 'Notches Taken Away (B)';
     return 'Quantity B';
   });
 
+  readonly srNarration = computed(() => {
+    const curr = this.lesson();
+    if (!curr) return '';
+    if (curr.interactiveConfig.visualizer === 'number-line-vector') {
+      const verb = this.operation() === 'add' ? 'plus' : 'minus';
+      const res =
+        this.operation() === 'add'
+          ? this.inputA() + this.inputB()
+          : Math.max(0, this.inputA() - this.inputB());
+      return `${this.inputA()} ${verb} ${this.inputB()} equals ${res}.`;
+    }
+    return curr.srNarration || curr.title;
+  });
+
   ngOnInit(): void {
+    // Initial sync
+    this.syncLessonInputs(this.curriculum.currentLesson());
+
     this.paramSub = this.route.paramMap.subscribe((params) => {
       const level = params.get('level');
       const unit = params.get('unit');
       if (level && unit) {
         this.curriculum.navigateToLesson(level, unit);
         const curr = this.curriculum.currentLesson();
-        if (curr) {
-          if (curr.interactiveConfig.defaultA !== undefined) {
-            this.inputA.set(curr.interactiveConfig.defaultA);
-          }
-          if (curr.interactiveConfig.defaultB !== undefined) {
-            this.inputB.set(curr.interactiveConfig.defaultB);
-          }
-        }
+        this.syncLessonInputs(curr);
       }
     });
   }
 
   ngOnDestroy(): void {
     this.paramSub?.unsubscribe();
+  }
+
+  private syncLessonInputs(
+    curr: import('../../core/models/lesson.model').MathLesson | undefined,
+  ): void {
+    if (!curr) return;
+    if (curr.interactiveConfig.defaultA !== undefined) {
+      this.inputA.set(curr.interactiveConfig.defaultA);
+    }
+    if (curr.interactiveConfig.defaultB !== undefined) {
+      this.inputB.set(curr.interactiveConfig.defaultB);
+    }
+    if (curr.interactiveConfig.lockedOperation) {
+      this.operation.set(curr.interactiveConfig.lockedOperation);
+    } else if (curr.interactiveConfig.initialState?.['op']) {
+      this.operation.set(curr.interactiveConfig.initialState['op'] as OperationType);
+    }
   }
 
   @HostListener('window:keydown.escape')
@@ -141,12 +174,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     const target = this.allLessons()[index];
     if (target) {
       this.curriculum.setLessonIndex(index);
-      if (target.interactiveConfig.defaultA !== undefined) {
-        this.inputA.set(target.interactiveConfig.defaultA);
-      }
-      if (target.interactiveConfig.defaultB !== undefined) {
-        this.inputB.set(target.interactiveConfig.defaultB);
-      }
+      this.syncLessonInputs(target);
       const stageOrLevel = target.stage || target.level || 'foundations';
       this.router.navigate(['/', stageOrLevel, target.slug]);
     }
@@ -158,12 +186,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
       this.curriculum.nextLesson();
       const curr = this.curriculum.currentLesson();
       if (curr) {
-        if (curr.interactiveConfig.defaultA !== undefined) {
-          this.inputA.set(curr.interactiveConfig.defaultA);
-        }
-        if (curr.interactiveConfig.defaultB !== undefined) {
-          this.inputB.set(curr.interactiveConfig.defaultB);
-        }
+        this.syncLessonInputs(curr);
         const stageOrLevel = curr.stage || curr.level || 'foundations';
         this.router.navigate(['/', stageOrLevel, curr.slug]);
       }
@@ -175,12 +198,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
       this.curriculum.prevLesson();
       const curr = this.curriculum.currentLesson();
       if (curr) {
-        if (curr.interactiveConfig.defaultA !== undefined) {
-          this.inputA.set(curr.interactiveConfig.defaultA);
-        }
-        if (curr.interactiveConfig.defaultB !== undefined) {
-          this.inputB.set(curr.interactiveConfig.defaultB);
-        }
+        this.syncLessonInputs(curr);
         const stageOrLevel = curr.stage || curr.level || 'foundations';
         this.router.navigate(['/', stageOrLevel, curr.slug]);
       }
@@ -189,5 +207,12 @@ export class LessonViewComponent implements OnInit, OnDestroy {
 
   setOp(op: OperationType): void {
     this.operation.set(op);
+  }
+
+  setMissionValues(targetA: number, targetB: number): void {
+    this.inputA.set(targetA);
+    this.inputB.set(targetB);
+    this.feedback.tick();
+    this.feedback.lightTap();
   }
 }
