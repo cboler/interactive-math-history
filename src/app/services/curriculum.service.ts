@@ -545,8 +545,7 @@ export class CurriculumService {
         imageUrl: 'assets/illustrations/unit-04-diagram.svg',
         altText:
           'Commutative multiplication grid diagram showing 3 rows of 5 dots rotating 90 degrees into 5 rows of 3 dots with invariant area 15.',
-        caption:
-          'Whether you count 3 rows of 5 or 5 rows of 3, the total area stays exactly 15.',
+        caption: 'Whether you count 3 rows of 5 or 5 rows of 3, the total area stays exactly 15.',
       },
       narrative: {
         hook: 'Turn a garden box on its side, and you still have the same number of vegetables! Multiplication is just a neat way of counting rows and columns.',
@@ -633,8 +632,7 @@ export class CurriculumService {
       practiceChallenges: [
         {
           id: 'u4-m1',
-          question:
-            'Plant a garden with 3 rows of 4 sunflowers. How many seeds did you plant?',
+          question: 'Plant a garden with 3 rows of 4 sunflowers. How many seeds did you plant?',
           hint: 'Set Rows (A) to 3 and Columns (B) to 4.',
           targetA: 3,
           targetB: 4,
@@ -652,8 +650,7 @@ export class CurriculumService {
         },
         {
           id: 'u4-m3',
-          question:
-            'Make a large orchard with 6 rows of 6 trees.',
+          question: 'Make a large orchard with 6 rows of 6 trees.',
           hint: 'Set both Rows (A) and Columns (B) to 6.',
           targetA: 6,
           targetB: 6,
@@ -685,8 +682,7 @@ export class CurriculumService {
           'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out! Distribute 12 melons evenly across 3 baskets.',
         targetAxiom:
           'Division is fair sharing: splitting a total quantity into equal portions across groups.',
-        successCondition:
-          'Set Total Items (A) to 12 and Number of Baskets (B) to 3.',
+        successCondition: 'Set Total Items (A) to 12 and Number of Baskets (B) to 3.',
         guidanceTip:
           'Observe how 12 divided across 3 baskets leaves exactly 4 melons in each basket with zero remaining.',
       },
@@ -701,14 +697,11 @@ export class CurriculumService {
       mathDiagram: {
         title: 'Fair Sharing: 12 Melons Divided Into 3 Baskets',
         imageUrl: 'assets/illustrations/unit-05-diagram.svg',
-        altText:
-          '12 golden melons split evenly into 3 woven baskets, showing 4 melons per basket.',
-        caption:
-          '12 divided into 3 equal baskets leaves 4 melons in each basket.',
+        altText: '12 golden melons split evenly into 3 woven baskets, showing 4 melons per basket.',
+        caption: '12 divided into 3 equal baskets leaves 4 melons in each basket.',
       },
       narrative: {
-        hook:
-          'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out!',
+        hook: 'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out!',
         historicalContext: {
           story:
             'In the ancient Sumerian city-state of Shuruppak (modern-day Fara, Iraq) over 4,500 years ago, city life flourished along the Euphrates river canals. As harvest season arrived, thousands of bushels of barley, emmer wheat, and dates were hauled to the central storehouses. To ensure social peace and survival, city administrators had to distribute provisions fairly to temple builders, artisans, and families. Scribes used clay tokens and stylus impressions on clay tablets to calculate rations. If a granary had 12 portions and 3 teams of workers, dividing them meant dealing them out into equal baskets until none were left over. Division was born not as an abstract exercise, but as the community practice of fairness, teamwork, and honest distribution.',
@@ -749,8 +742,7 @@ export class CurriculumService {
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
         imageUrl:
           'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/P._Oxy._I_29.jpg/640px-P._Oxy._I_29.jpg',
-        altText:
-          'Ancient clay tablet fragment bearing cuneiform records of grain distributions.',
+        altText: 'Ancient clay tablet fragment bearing cuneiform records of grain distributions.',
         caption:
           'Archaic Sumerian accounting records from Shuruppak, tracking barley disbursements and fair rations for city workers.',
       },
@@ -804,8 +796,7 @@ export class CurriculumService {
       practiceChallenges: [
         {
           id: 'u5-m1',
-          question:
-            'Distribute 8 apples equally between 2 baskets. How many in each?',
+          question: 'Distribute 8 apples equally between 2 baskets. How many in each?',
           hint: 'Set Total Items (A) to 8 and Number of Baskets (B) to 2.',
           targetA: 8,
           targetB: 2,
@@ -814,8 +805,7 @@ export class CurriculumService {
         },
         {
           id: 'u5-m2',
-          question:
-            'You have 15 figs to share among 3 scouts. Deal them out evenly.',
+          question: 'You have 15 figs to share among 3 scouts. Deal them out evenly.',
           hint: 'Set Total Items (A) to 15 and Baskets (B) to 3.',
           targetA: 15,
           targetB: 3,
@@ -824,8 +814,7 @@ export class CurriculumService {
         },
         {
           id: 'u5-m3',
-          question:
-            'Share 18 seeds equally across 6 planting pots.',
+          question: 'Share 18 seeds equally across 6 planting pots.',
           hint: 'Set Total Items (A) to 18 and Baskets (B) to 6.',
           targetA: 18,
           targetB: 6,
@@ -879,8 +868,7 @@ export class CurriculumService {
           'Instead of ragged crumbs, Egyptian unit fractions guarantee every worker receives the exact same set of physical slices.',
       },
       narrative: {
-        hook:
-          'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices!',
+        hook: 'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices!',
         historicalContext: {
           story:
             'In the Second Intermediate Period, a royal scribe named Ahmes transcribed what is now known as the Rhind Mathematical Papyrus (British Museum EA 10057). Rather than working with arbitrary fractions with changing numerators (such as 3/5 or 4/7), Egyptian accounting exclusively recognized unit fractions—quantities with a numerator of 1 (represented by the hieroglyph of an open mouth, "r", signifying a portion or mouth to feed). To divide 3 loaves among 5 men, Ahmes did not hand out 3 small fifth-slices. He gave each man 1/2 of a loaf plus 1/10 of a loaf. The sum is identical (1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5), but every laborer received the exact same set of physical cuts, eliminating social envy and accounting fraud.',
@@ -970,8 +958,7 @@ export class CurriculumService {
       practiceChallenges: [
         {
           id: 'u6-m1',
-          question:
-            'Slice 1 whole loaf directly in half.',
+          question: 'Slice 1 whole loaf directly in half.',
           hint: '1 whole loaf split into 2 equal halves: 1/2 + 1/2 = 1.',
           targetA: 1,
           targetB: 2,
@@ -980,8 +967,7 @@ export class CurriculumService {
         },
         {
           id: 'u6-m2',
-          question:
-            'Divide 2 loaves equally among 4 workers using clean halves.',
+          question: 'Divide 2 loaves equally among 4 workers using clean halves.',
           hint: '2 loaves split into halves yield 4 pieces: 2 ÷ 4 = 1/2.',
           targetA: 2,
           targetB: 4,

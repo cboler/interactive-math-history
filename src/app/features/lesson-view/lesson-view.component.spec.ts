@@ -345,9 +345,7 @@ describe('LessonViewComponent', () => {
     expect(routedComponent.curriculum.currentLesson().id).toBe(
       'unit-04-commutative-multiplication',
     );
-    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain(
-      'The Farm Grid',
-    );
+    expect(harness.routeNativeElement?.querySelector('h1')?.textContent).toContain('The Farm Grid');
     expect(harness.routeNativeElement?.querySelector('app-grid-array')).toBeTruthy();
   });
 
