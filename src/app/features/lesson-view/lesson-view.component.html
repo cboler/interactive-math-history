@@ -159,7 +159,12 @@
       <!-- Story Scene Illustration (Rich Dual-Track Artwork) -->
       @if (current.storyIllustration; as storyArt) {
         <figure class="story-illustration">
-          <img [src]="storyArt.imageUrl" [alt]="storyArt.altText" loading="lazy" />
+          <img
+            [src]="storyArt.imageUrl"
+            [alt]="storyArt.altText"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          />
           <figcaption>
             <strong>{{ storyArt.title }}:</strong> {{ storyArt.caption }}
           </figcaption>
@@ -172,11 +177,23 @@
       <!-- Historical Artifact Photographic Plate -->
       @if (current.artifactPlate; as plate) {
         <figure class="artifact-plate">
-          <img [src]="plate.imageUrl" [alt]="plate.altText" loading="lazy" />
+          <div class="image-wrapper">
+            <img
+              [src]="plate.imageUrl"
+              [alt]="plate.altText"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+              (error)="onArtifactImageError($event, plate)"
+            />
+          </div>
           <figcaption>
-            <strong>{{ plate.title }}</strong
-            >: {{ plate.caption }}
-            <span class="plate-credit">({{ plate.credit }}, {{ plate.license }})</span>
+            <strong>{{ plate.title }}</strong> — {{ plate.caption }}
+            <span class="plate-credit">
+              Credit: {{ plate.credit }} ({{ plate.license }}).
+              <a [href]="plate.sourceUrl" target="_blank" rel="noopener noreferrer"
+                >View on Wikimedia Commons</a
+              >
+            </span>
           </figcaption>
         </figure>
       }
@@ -223,7 +240,12 @@
       <!-- Concrete Mathematical Concept Diagram (CPA Bridge) -->
       @if (current.mathDiagram; as diagram) {
         <figure class="math-diagram">
-          <img [src]="diagram.imageUrl" [alt]="diagram.altText" loading="lazy" />
+          <img
+            [src]="diagram.imageUrl"
+            [alt]="diagram.altText"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+          />
           <figcaption>
             <strong>{{ diagram.title }}:</strong> {{ diagram.caption }}
           </figcaption>

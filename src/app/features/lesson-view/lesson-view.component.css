@@ -342,6 +342,7 @@
   padding-bottom: 1.75rem;
 }
 
+/* Ensure badges have strict scoped colors and high contrast across themes */
 .metadata-badges {
   display: flex;
   flex-wrap: wrap;
@@ -350,27 +351,79 @@
 }
 
 .badge {
+  display: inline-flex;
+  align-items: center;
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
 }
 
+/* Light Mode (WCAG AAA contrast) */
 .stage-badge {
-  background: #e0e7ff;
-  color: #3730a3;
+  background-color: #e0e7ff !important;
+  color: #1e1b4b !important; /* Deep Indigo on pale blue */
+  border: 1px solid #c7d2fe;
 }
 
 .strand-badge {
-  background: #fef3c7;
-  color: #92400e;
+  background-color: #fef3c7 !important;
+  color: #78350f !important; /* Deep Amber on pale yellow */
+  border: 1px solid #fde68a;
 }
 
 .era-badge {
-  background: #f4f1ea;
-  color: #57534e;
-  border: 1px solid #e5e0d8;
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important; /* Slate gray on light gray */
+  border: 1px solid #e5e7eb;
+}
+
+/* Dark Mode Overrides */
+:host-context([data-theme='dark']) .stage-badge,
+:root[data-theme='dark'] .stage-badge {
+  background-color: #1e1b4b !important;
+  color: #c7d2fe !important;
+  border-color: #312e81;
+}
+
+:host-context([data-theme='dark']) .strand-badge,
+:root[data-theme='dark'] .strand-badge {
+  background-color: #451a03 !important;
+  color: #fde68a !important;
+  border-color: #78350f;
+}
+
+:host-context([data-theme='dark']) .era-badge,
+:root[data-theme='dark'] .era-badge {
+  background-color: #1f2937 !important;
+  color: #e5e7eb !important;
+  border-color: #374151;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host-context(:not([data-theme='light'])) .stage-badge,
+  :root:not([data-theme='light']) .stage-badge {
+    background-color: #1e1b4b !important;
+    color: #c7d2fe !important;
+    border-color: #312e81;
+  }
+
+  :host-context(:not([data-theme='light'])) .strand-badge,
+  :root:not([data-theme='light']) .strand-badge {
+    background-color: #451a03 !important;
+    color: #fde68a !important;
+    border-color: #78350f;
+  }
+
+  :host-context(:not([data-theme='light'])) .era-badge,
+  :root:not([data-theme='light']) .era-badge {
+    background-color: #1f2937 !important;
+    color: #e5e7eb !important;
+    border-color: #374151;
+  }
 }
 
 h1 {
@@ -694,11 +747,29 @@ h1 {
   box-shadow: var(--shadow-subtle);
 }
 
+.artifact-plate .image-wrapper {
+  position: relative;
+  width: 100%;
+  max-height: 420px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1c1917; /* High contrast framing for historical photographs */
+}
+
 .artifact-plate img {
   width: 100%;
-  max-height: 400px;
+  max-height: 420px;
   object-fit: cover;
   display: block;
+}
+
+.artifact-plate .image-wrapper img {
+  width: auto;
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
 }
 
 .artifact-plate figcaption {
@@ -713,6 +784,16 @@ h1 {
   font-size: 0.75rem;
   color: var(--text-muted, #78716c);
   margin-top: 0.25rem;
+}
+
+.plate-credit a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  margin-left: 0.25rem;
+}
+
+.plate-credit a:hover {
+  color: var(--color-primary-hover);
 }
 
 /* Epistemic Card */
@@ -896,26 +977,8 @@ h1 {
   }
 }
 
-/* Dark Mode Refinements for Badges and Historiographical Tags */
+/* Dark Mode Refinements for Historiographical Tags */
 @media (prefers-color-scheme: dark) {
-  .stage-badge {
-    background: rgba(99, 102, 241, 0.25);
-    color: #c7d2fe;
-    border: 1px solid rgba(99, 102, 241, 0.4);
-  }
-
-  .strand-badge {
-    background: rgba(245, 158, 11, 0.25);
-    color: #fde68a;
-    border: 1px solid rgba(245, 158, 11, 0.4);
-  }
-
-  .era-badge {
-    background: var(--surface-subtle);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-subtle);
-  }
-
   .consensus-tag[data-level='contested'] {
     background: rgba(239, 68, 68, 0.2);
     color: #fca5a5;

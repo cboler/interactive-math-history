@@ -174,7 +174,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Verify Rhind Papyrus plate and Epistemic Card
     await expect(page.locator('.artifact-plate img')).toHaveAttribute(
       'src',
-      /.*Rhind_Mathematical_Papyrus\.jpg/,
+      /.*Rhind_Mathematical_Papyrus\.jpg|data:image\/svg\+xml.*/,
     );
     await expect(page.locator('.epistemic-card')).toBeVisible();
 
@@ -202,7 +202,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Verify Aristotle bust plate and Epistemic Card
     await expect(page.locator('.artifact-plate img')).toHaveAttribute(
       'src',
-      /.*Aristotle_Altemps_Inv8575\.jpg/,
+      /.*Aristotle_Altemps_Inv8575\.jpg|data:image\/svg\+xml.*/,
     );
     await expect(page.locator('.epistemic-card')).toBeVisible();
 
@@ -244,7 +244,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Verify Byzantine manuscript plate and Epistemic Card
     await expect(page.locator('.artifact-plate img')).toHaveAttribute(
       'src',
-      /.*Byzantine_Euclid\.png/,
+      /.*Byzantine_Euclid\.png|data:image\/svg\+xml.*/,
     );
     await expect(page.locator('.epistemic-card')).toBeVisible();
 

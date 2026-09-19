@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CurriculumService } from '../../services/curriculum.service';
 import { FeedbackService } from '../../core/services/feedback.service';
+import { ArtifactPlate } from '../../core/models/lesson.model';
 import {
   NumberLineComponent,
   OperationType,
@@ -225,5 +226,17 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     this.inputB.set(targetB);
     this.feedback.tick();
     this.feedback.lightTap();
+  }
+
+  onArtifactImageError(event: Event, plate?: ArtifactPlate): void {
+    const imgElement = event.target as HTMLImageElement;
+    if (!imgElement) return;
+    imgElement.onerror = null; // Prevent infinite loop
+    const title = plate?.title ?? 'Artifact';
+    // Replace with a clean local SVG or styling placeholder
+    imgElement.src =
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300" fill="%23f4f1ea"><rect width="600" height="300"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="600" fill="%2378716c">Artifact Plate: ' +
+      encodeURIComponent(title) +
+      '</text><text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="%23a8a29e">Click source link below to inspect on Wikimedia Commons</text></svg>';
   }
 }

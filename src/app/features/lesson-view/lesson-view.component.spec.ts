@@ -400,8 +400,45 @@ describe('LessonViewComponent', () => {
       const mathImg = compiled.querySelector('.math-diagram img') as HTMLImageElement;
       expect(storyImg).toBeTruthy();
       expect(storyImg.src).toContain(`assets/illustrations/unit-0${i + 1}-story.svg`);
+      expect(storyImg.getAttribute('referrerpolicy')).toBe('no-referrer');
       expect(mathImg).toBeTruthy();
       expect(mathImg.src).toContain(`assets/illustrations/unit-0${i + 1}-diagram.svg`);
+      expect(mathImg.getAttribute('referrerpolicy')).toBe('no-referrer');
     }
+  });
+
+  it('should configure artifact plate with referrerpolicy and fallback on error', () => {
+    component.selectLesson(0);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const plateImg = compiled.querySelector('.artifact-plate img') as HTMLImageElement;
+    expect(plateImg).toBeTruthy();
+    expect(plateImg.getAttribute('referrerpolicy')).toBe('no-referrer');
+    expect(compiled.querySelector('.artifact-plate .image-wrapper')).toBeTruthy();
+    const sourceLink = compiled.querySelector('.plate-credit a') as HTMLAnchorElement;
+    expect(sourceLink).toBeTruthy();
+    expect(sourceLink.href).toContain('commons.wikimedia.org');
+
+    // Simulate image error event
+    plateImg.dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+
+    expect(plateImg.src).toContain('data:image/svg+xml');
+    expect(plateImg.src).toContain('Ishango');
+    expect(plateImg.onerror).toBeNull();
+  });
+
+  it('should render metadata badges with high-contrast badge classes', () => {
+    component.selectLesson(0);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const stageBadge = compiled.querySelector('.stage-badge');
+    const strandBadge = compiled.querySelector('.strand-badge');
+    const eraBadge = compiled.querySelector('.era-badge');
+
+    expect(stageBadge).toBeTruthy();
+    expect(strandBadge).toBeTruthy();
+    expect(eraBadge).toBeTruthy();
+    expect(stageBadge?.textContent?.trim().toLowerCase()).toBe('foundations');
   });
 });

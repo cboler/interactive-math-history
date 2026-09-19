@@ -97,8 +97,7 @@ export class CurriculumService {
         credit: 'Photo by Ben2 (Wikimedia Commons / RBINS)',
         license: 'CC BY-SA 3.0',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ishango_bone.jpg',
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Ishango_bone.jpg/640px-Ishango_bone.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Ishango_bone.jpg',
         altText: 'The fossilized Ishango bone displaying carved notches in three columns.',
         caption:
           'The Ishango Bone: Carved with deliberate groups of notches long before paper was invented.',
@@ -268,8 +267,7 @@ export class CurriculumService {
         credit: 'Border Cave Archaeological Expedition / Photo by Wellcome Collection',
         license: 'CC BY 4.0',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Lebombo_bone.jpg',
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Lebombo_bone.jpg/640px-Lebombo_bone.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Lebombo_bone.jpg',
         altText: 'The fossilized Lebombo baboon fibula bearing 29 carved notches.',
         caption:
           'The Lebombo Bone: A 44,000-year-old baboon fibula bearing 29 carved notches, used for counting down lunar cycles or tracking supplies.',
@@ -422,8 +420,7 @@ export class CurriculumService {
         credit: 'University of Pennsylvania Museum / Wikimedia Commons',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/P._Oxy._I_29.jpg/640px-P._Oxy._I_29.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/P._Oxy._I_29.jpg',
         altText:
           'Ancient papyrus fragment with Greek text and a geometric diagram of Euclid Elements.',
         caption:
@@ -585,8 +582,7 @@ export class CurriculumService {
         credit: 'Yale Babylonian Collection / Wikimedia Commons',
         license: 'CC BY-SA 4.0',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ybc7289-diagonal.jpg',
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ybc7289-diagonal.jpg/640px-Ybc7289-diagonal.jpg',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Ybc7289-diagonal.jpg',
         altText:
           'Ancient Babylonian clay tablet depicting a square with intersecting diagonals and sexagesimal markings.',
         caption:
@@ -751,7 +747,7 @@ export class CurriculumService {
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rhind_Mathematical_Papyrus.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/d/d9/Rhind_Mathematical_Papyrus.jpg',
         altText:
           'Papyrus roll inscribed with hieratic script and tables of fractional conversions.',
         caption:
@@ -916,7 +912,7 @@ export class CurriculumService {
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/640px-Aristotle_Altemps_Inv8575.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg',
         altText: 'Marble bust of philosopher Aristotle with curly hair and beard.',
         caption:
           'Aristotle, whose Prior Analytics and Organon established the deductive syllogism as the bedrock of Western philosophy.',
@@ -1085,8 +1081,7 @@ export class CurriculumService {
         license: 'Public Domain',
         sourceUrl:
           'https://commons.wikimedia.org/wiki/File:Euclid_Proposition_1_MS_D%27Orville_301.jpg',
-        imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Byzantine_Euclid.png/640px-Byzantine_Euclid.png',
+        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Byzantine_Euclid.png',
         altText:
           'Byzantine manuscript page from 888 CE showing Greek text and Euclid Book I Proposition 1 diagram with two intersecting circles.',
         caption:
