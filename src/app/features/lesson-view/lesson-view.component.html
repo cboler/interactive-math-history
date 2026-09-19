@@ -162,7 +162,7 @@
           <img
             [src]="storyArt.imageUrl"
             [alt]="storyArt.altText"
-            loading="lazy"
+            loading="eager"
             referrerpolicy="no-referrer"
           />
           <figcaption>
@@ -243,7 +243,7 @@
           <img
             [src]="diagram.imageUrl"
             [alt]="diagram.altText"
-            loading="lazy"
+            loading="eager"
             referrerpolicy="no-referrer"
           />
           <figcaption>
@@ -328,6 +328,12 @@
           }
           @case ('grid-array') {
             <app-grid-array [rows]="inputA()" [cols]="inputB()"></app-grid-array>
+          }
+          @case ('sharing-distributor') {
+            <app-sharing-distributor
+              [total]="inputA()"
+              [groups]="inputB()"
+            ></app-sharing-distributor>
           }
           @case ('partition-slicer') {
             <app-bread-slicer></app-bread-slicer>

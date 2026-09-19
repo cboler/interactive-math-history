@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="Mathematical diagram of Euclid's Proposition 1 from the Elements: constructing an equilateral triangle using two intersecting circles of equal radius">
+  <defs>
+    <linearGradient id="euclidDiagBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <radialGradient id="centerGlowA" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="centerGlowB" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#818cf8" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#818cf8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="triFillGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0.35"/>
+    </linearGradient>
+    <filter id="diagGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Dark Engineering / Papyrus Blueprint Background -->
+  <rect width="800" height="450" fill="url(#euclidDiagBg)"/>
+
+  <!-- Subtle Blueprint Grid -->
+  <g stroke="#334155" stroke-width="0.75" opacity="0.35">
+    <line x1="50" y1="0" x2="50" y2="450"/>
+    <line x1="150" y1="0" x2="150" y2="450"/>
+    <line x1="250" y1="0" x2="250" y2="450"/>
+    <line x1="350" y1="0" x2="350" y2="450"/>
+    <line x1="450" y1="0" x2="450" y2="450"/>
+    <line x1="550" y1="0" x2="550" y2="450"/>
+    <line x1="650" y1="0" x2="650" y2="450"/>
+    <line x1="750" y1="0" x2="750" y2="450"/>
+    <line x1="0" y1="50" x2="800" y2="50"/>
+    <line x1="0" y1="150" x2="800" y2="150"/>
+    <line x1="0" y1="250" x2="800" y2="250"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+  </g>
+
+  <!-- Title Card Header -->
+  <g transform="translate(40, 42)">
+    <rect x="0" y="-14" width="280" height="42" rx="8" fill="#1e293b" stroke="#818cf8" stroke-width="1.5" opacity="0.95"/>
+    <text x="14" y="12" fill="#38bdf8" font-size="13" font-family="system-ui, sans-serif" font-weight="700">EUCLID'S ELEMENTS · BOOK I</text>
+    <text x="14" y="24" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Proposition 1: On a given finite line, construct an equilateral triangle.</text>
+  </g>
+
+  <!-- Main Construction Geometry Canvas -->
+  <!-- Let Centers be: A = (320, 260), B = (480, 260) -> distance r = 160 -->
+  <!-- Top Intersection C: x = 400, y = 260 - sqrt(160^2 - 80^2) = 260 - 80*sqrt(3) = 260 - 138.56 = 121.44 -->
+  <!-- Bottom Intersection D: x = 400, y = 260 + 138.56 = 398.56 -->
+  <g id="geometryFigure">
+    <!-- Circle A Glow & Perimeter (Center 320, 260, Radius 160) -->
+    <circle cx="320" cy="260" r="160" fill="url(#centerGlowA)"/>
+    <circle cx="320" cy="260" r="160" fill="none" stroke="#38bdf8" stroke-width="2.5" opacity="0.75"/>
+
+    <!-- Circle B Glow & Perimeter (Center 480, 260, Radius 160) -->
+    <circle cx="480" cy="260" r="160" fill="url(#centerGlowB)"/>
+    <circle cx="480" cy="260" r="160" fill="none" stroke="#818cf8" stroke-width="2.5" opacity="0.75"/>
+
+    <!-- The Constructed Equilateral Triangle ΔABC -->
+    <polygon points="320,260 480,260 400,121.4" fill="url(#triFillGrad)" stroke="#f43f5e" stroke-width="3.5" filter="url(#diagGlow)"/>
+
+    <!-- Radius Baseline AB -->
+    <line x1="320" y1="260" x2="480" y2="260" stroke="#f59e0b" stroke-width="4"/>
+
+    <!-- Left Leg AC (Radius of Circle A) -->
+    <line x1="320" y1="260" x2="400" y2="121.4" stroke="#38bdf8" stroke-width="3"/>
+
+    <!-- Right Leg BC (Radius of Circle B) -->
+    <line x1="480" y1="260" x2="400" y2="121.4" stroke="#818cf8" stroke-width="3"/>
+
+    <!-- Equal Side Length Tick Marks (showing AB = BC = CA = r) -->
+    <!-- Tick on AB: mid (400, 260) -->
+    <line x1="397" y1="252" x2="403" y2="268" stroke="#fef08a" stroke-width="2.5"/>
+    <line x1="400" y1="252" x2="406" y2="268" stroke="#fef08a" stroke-width="2.5"/>
+
+    <!-- Tick on AC: mid (360, 190.7) perpendicular -->
+    <g transform="translate(360, 190.7) rotate(30)">
+      <line x1="-3" y1="-8" x2="3" y2="8" stroke="#fef08a" stroke-width="2.5"/>
+      <line x1="0" y1="-8" x2="6" y2="8" stroke="#fef08a" stroke-width="2.5"/>
+    </g>
+
+    <!-- Tick on BC: mid (440, 190.7) perpendicular -->
+    <g transform="translate(440, 190.7) rotate(-30)">
+      <line x1="-3" y1="-8" x2="3" y2="8" stroke="#fef08a" stroke-width="2.5"/>
+      <line x1="0" y1="-8" x2="6" y2="8" stroke="#fef08a" stroke-width="2.5"/>
+    </g>
+
+    <!-- Center Point A -->
+    <circle cx="320" cy="260" r="7" fill="#38bdf8" stroke="#f8fafc" stroke-width="2"/>
+    <rect x="290" y="275" width="28" height="24" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="304" y="292" fill="#38bdf8" font-size="14" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">A</text>
+
+    <!-- Center Point B -->
+    <circle cx="480" cy="260" r="7" fill="#818cf8" stroke="#f8fafc" stroke-width="2"/>
+    <rect x="482" y="275" width="28" height="24" rx="4" fill="#0f172a" stroke="#818cf8" stroke-width="1.5"/>
+    <text x="496" y="292" fill="#818cf8" font-size="14" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">B</text>
+
+    <!-- Apex Point C -->
+    <circle cx="400" cy="121.4" r="8" fill="#f43f5e" stroke="#fef08a" stroke-width="2.5" filter="url(#diagGlow)"/>
+    <rect x="386" y="80" width="28" height="24" rx="4" fill="#0f172a" stroke="#f43f5e" stroke-width="1.5"/>
+    <text x="400" y="97" fill="#f43f5e" font-size="14" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">C</text>
+
+    <!-- Radius Callout labels -->
+    <text x="340" y="175" fill="#bae6fd" font-size="12" font-family="system-ui, sans-serif" font-weight="600">radius = r</text>
+    <text x="430" y="175" fill="#c7d2fe" font-size="12" font-family="system-ui, sans-serif" font-weight="600">radius = r</text>
+    <text x="400" y="285" fill="#fde68a" font-size="12" font-family="system-ui, sans-serif" font-weight="600" text-anchor="middle">baseline = r</text>
+  </g>
+
+  <!-- Left Side: Construction Step Flow Box -->
+  <g transform="translate(35, 120)">
+    <rect x="0" y="0" width="190" height="210" rx="10" fill="#0f172a" stroke="#334155" stroke-width="1.5" opacity="0.95"/>
+    <text x="14" y="24" fill="#f8fafc" font-size="12" font-family="system-ui, sans-serif" font-weight="700">CONSTRUCTION STEPS</text>
+    <line x1="14" y1="32" x2="176" y2="32" stroke="#334155" stroke-width="1"/>
+
+    <circle cx="24" cy="50" r="8" fill="#f59e0b"/>
+    <text x="24" y="54" fill="#0f172a" font-size="10" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">1</text>
+    <text x="40" y="54" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">Draw baseline segment AB</text>
+
+    <circle cx="24" cy="85" r="8" fill="#38bdf8"/>
+    <text x="24" y="89" fill="#0f172a" font-size="10" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">2</text>
+    <text x="40" y="83" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">Compass at A:</text>
+    <text x="40" y="97" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Sweep circle with radius AB</text>
+
+    <circle cx="24" cy="128" r="8" fill="#818cf8"/>
+    <text x="24" y="132" fill="#0f172a" font-size="10" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">3</text>
+    <text x="40" y="126" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">Compass at B:</text>
+    <text x="40" y="140" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Sweep circle with radius BA</text>
+
+    <circle cx="24" cy="170" r="8" fill="#f43f5e"/>
+    <text x="24" y="174" fill="#0f172a" font-size="10" font-family="system-ui, sans-serif" font-weight="bold" text-anchor="middle">4</text>
+    <text x="40" y="168" fill="#cbd5e1" font-size="11" font-family="system-ui, sans-serif">Mark intersection C</text>
+    <text x="40" y="182" fill="#94a3b8" font-size="10" font-family="system-ui, sans-serif">Connect AC and BC</text>
+  </g>
+
+  <!-- Right Side: The Incontrovertible Proof Card -->
+  <g transform="translate(575, 120)">
+    <rect x="0" y="0" width="190" height="210" rx="10" fill="#0f172a" stroke="#818cf8" stroke-width="1.5" opacity="0.95"/>
+    <text x="14" y="24" fill="#a5b4fc" font-size="12" font-family="system-ui, sans-serif" font-weight="700">THE DEDUCTIVE PROOF</text>
+    <line x1="14" y1="32" x2="176" y2="32" stroke="#334155" stroke-width="1"/>
+
+    <text x="14" y="52" fill="#e2e8f0" font-size="11" font-family="system-ui, sans-serif" font-weight="600">Circle A Radii:</text>
+    <text x="14" y="68" fill="#38bdf8" font-size="12" font-family="monospace">AC = AB = r</text>
+
+    <text x="14" y="96" fill="#e2e8f0" font-size="11" font-family="system-ui, sans-serif" font-weight="600">Circle B Radii:</text>
+    <text x="14" y="112" fill="#818cf8" font-size="12" font-family="monospace">BC = AB = r</text>
+
+    <rect x="8" y="126" width="174" height="42" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+    <text x="14" y="142" fill="#fde68a" font-size="10" font-family="system-ui, sans-serif" font-weight="bold">Common Notion 1:</text>
+    <text x="14" y="156" fill="#c7d2fe" font-size="9" font-family="system-ui, sans-serif">Things equal to the same thing</text>
+    <text x="14" y="166" fill="#c7d2fe" font-size="9" font-family="system-ui, sans-serif">are also equal to each other.</text>
+
+    <text x="14" y="188" fill="#f43f5e" font-size="11" font-family="system-ui, sans-serif" font-weight="bold">∴ AC = BC = AB</text>
+    <text x="14" y="200" fill="#4ade80" font-size="10" font-family="system-ui, sans-serif" font-weight="600">Q.E.D. ΔABC is equilateral!</text>
+  </g>
+
+  <!-- Bottom Banner: Kid Takeaway -->
+  <g transform="translate(400, 420)">
+    <rect x="-270" y="-16" width="540" height="32" rx="16" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" opacity="0.95"/>
+    <text x="0" y="5" fill="#f8fafc" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600" letter-spacing="0.3">
+      Two equal circles automatically pinpoint the third corner of a perfect triangle!
+    </text>
+  </g>
+</svg>

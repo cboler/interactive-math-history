@@ -1,214 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="Euclid of Alexandria demonstrating Proposition 1 on the marble terrace of the Mouseion, constructing an equilateral triangle with a compass and straightedge as morning light illuminates the Library scrolls">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="Aristotle strolling through the shaded marble colonnade of the Lyceum in Athens at dusk, gesturing toward an illuminated oil lamp to demonstrate the flow of deductive logic">
   <defs>
-    <linearGradient id="euclidDawnSky" x1="0%" y1="0%" x2="0%" y2="100%">
+    <linearGradient id="athensSky" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="30%" stop-color="#312e81"/>
-      <stop offset="60%" stop-color="#6366f1"/>
-      <stop offset="85%" stop-color="#ec4899"/>
+      <stop offset="35%" stop-color="#1e1b4b"/>
+      <stop offset="65%" stop-color="#431407"/>
+      <stop offset="85%" stop-color="#9a3412"/>
       <stop offset="100%" stop-color="#f59e0b"/>
     </linearGradient>
-    <linearGradient id="terraceMarble" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#334155"/>
-      <stop offset="40%" stop-color="#1e293b"/>
-      <stop offset="100%" stop-color="#0f172a"/>
+    <linearGradient id="lampLight" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#f59e0b" stop-opacity="0.8"/>
+      <stop offset="60%" stop-color="#d97706" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="marbleColumn" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#1e293b"/>
-      <stop offset="25%" stop-color="#475569"/>
-      <stop offset="70%" stop-color="#334155"/>
-      <stop offset="100%" stop-color="#0f172a"/>
-    </linearGradient>
-    <linearGradient id="brassGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef08a"/>
-      <stop offset="60%" stop-color="#f59e0b"/>
-      <stop offset="100%" stop-color="#b45309"/>
-    </linearGradient>
-    <linearGradient id="geometryNeon" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="50%" stop-color="#818cf8"/>
-      <stop offset="100%" stop-color="#c084fc"/>
-    </linearGradient>
-    <filter id="geoGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="6" result="blur"/>
+    <filter id="lampGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
 
-  <!-- Mediterranean Dawn Sky over Alexandria -->
-  <rect width="800" height="450" fill="url(#euclidDawnSky)"/>
+  <!-- Twilight Athenian Sky -->
+  <rect width="800" height="450" fill="url(#athensSky)"/>
 
-  <!-- Morning Sea Horizon -->
-  <rect x="0" y="240" width="800" height="70" fill="#1e1b4b" opacity="0.85"/>
-  <ellipse cx="640" cy="235" rx="40" ry="20" fill="#fef08a" opacity="0.6" filter="url(#geoGlow)"/>
-  <line x1="0" y1="240" x2="800" y2="240" stroke="#fef08a" stroke-width="1.5" opacity="0.5"/>
+  <!-- Distant Acropolis and Olive Groves on the Athenian Horizon -->
+  <path d="M0,280 L120,265 L220,250 L340,230 L450,235 L520,255 L650,240 L800,260 L800,340 L0,340 Z" fill="#1e142b" opacity="0.6"/>
+  <!-- Parthenon Temple Profile on the distant hill -->
+  <g transform="translate(340, 215)" opacity="0.45">
+    <rect x="0" y="8" width="65" height="4" fill="#2d1c3e"/>
+    <rect x="2" y="12" width="61" height="12" fill="#241633"/>
+    <polygon points="32,2 0,8 65,8" fill="#38224d"/>
+  </g>
 
-  <!-- Classical Colonnade of the Mouseion Terrace -->
-  <!-- Architrave / Entablature -->
-  <rect x="0" y="30" width="800" height="35" fill="#1e293b" opacity="0.95"/>
-  <rect x="0" y="24" width="800" height="8" fill="#334155"/>
-  <line x1="0" y1="65" x2="800" y2="65" stroke="#475569" stroke-width="2"/>
+  <!-- Marble Colonnade (Peripatos of the Lyceum) -->
+  <!-- Roof Beams & Entablature -->
+  <rect x="0" y="20" width="800" height="30" fill="#1b1226" stroke="#37254d" stroke-width="1.5"/>
+  <rect x="0" y="50" width="800" height="12" fill="#130c1c"/>
 
-  <!-- Ionic Columns framing the view -->
+  <!-- Fluted Classical Doric Columns -->
   <!-- Column 1 (Far Left) -->
-  <g transform="translate(40, 65)">
-    <rect x="-15" y="0" width="50" height="15" rx="3" fill="#475569"/>
-    <rect x="-5" y="15" width="30" height="230" fill="url(#marbleColumn)"/>
-    <!-- Fluting highlights -->
-    <line x1="2" y1="15" x2="2" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <line x1="10" y1="15" x2="10" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <line x1="18" y1="15" x2="18" y2="245" stroke="#0f172a" stroke-width="1.5" opacity="0.7"/>
-    <rect x="-12" y="245" width="44" height="20" rx="2" fill="#334155"/>
+  <rect x="30" y="50" width="55" height="400" fill="#271c36"/>
+  <rect x="22" y="50" width="71" height="12" rx="2" fill="#3a2b4f"/>
+  <!-- Column 2 -->
+  <rect x="220" y="50" width="50" height="400" fill="#21172f"/>
+  <rect x="214" y="50" width="62" height="12" rx="2" fill="#322444"/>
+  <!-- Column 3 -->
+  <rect x="410" y="50" width="48" height="400" fill="#1c1328"/>
+  <!-- Column 4 (Right) -->
+  <rect x="680" y="50" width="52" height="400" fill="#271c36"/>
+
+  <!-- Colonnade Paved Terrace Floor -->
+  <path d="M0,350 L800,350 L800,450 L0,450 Z" fill="#120a1c"/>
+  <line x1="0" y1="390" x2="800" y2="390" stroke="#251638" stroke-width="1.5"/>
+
+  <!-- THE BRONZE ATHENIAN OIL LAMP (Mounted on Marble Pedestal) -->
+  <g transform="translate(480, 210)">
+    <!-- Pedestal -->
+    <rect x="-16" y="70" width="32" height="85" rx="4" fill="#261b36" stroke="#432f5e" stroke-width="1.2"/>
+    <rect x="-24" y="65" width="48" height="8" rx="2" fill="#36264d"/>
+
+    <!-- Bronze Lamp Basin & Spout -->
+    <ellipse cx="0" cy="62" rx="20" ry="7" fill="#78350f" stroke="#d97706" stroke-width="1.5"/>
+    <path d="M12,62 Q28,58 32,50 Q28,46 16,58 Z" fill="#92400e"/>
+
+    <!-- Glowing Flame & Radius of Deductive Illumination -->
+    <circle cx="30" cy="48" r="45" fill="url(#lampLight)" opacity="0.6"/>
+    <ellipse cx="30" cy="48" rx="7" ry="12" fill="#fef08a" filter="url(#lampGlow)"/>
+    <ellipse cx="30" cy="46" rx="4" ry="7" fill="#ffffff"/>
   </g>
 
-  <!-- Column 2 (Left-Mid) -->
-  <g transform="translate(180, 65)">
-    <rect x="-15" y="0" width="50" height="15" rx="3" fill="#475569"/>
-    <rect x="-5" y="15" width="30" height="230" fill="url(#marbleColumn)"/>
-    <line x1="2" y1="15" x2="2" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <line x1="10" y1="15" x2="10" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <line x1="18" y1="15" x2="18" y2="245" stroke="#0f172a" stroke-width="1.5" opacity="0.7"/>
-    <rect x="-12" y="245" width="44" height="20" rx="2" fill="#334155"/>
+  <!-- ARISTOTLE (Walking with disciple, gesturing toward the lamp) -->
+  <g transform="translate(290, 215)">
+    <!-- Toga / Himation draped gracefully -->
+    <path d="M30,190 C25,125 50,85 85,75 C120,65 145,85 150,125 C145,155 155,175 165,190 Z" fill="#150e21"/>
+    <!-- Head with bearded philosopher profile -->
+    <ellipse cx="90" cy="45" rx="17" ry="22" fill="#150e21"/>
+    <!-- Beard & curly hair silhouette -->
+    <path d="M78,50 Q85,72 102,68" stroke="#150e21" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+    <!-- Lamplight rim highlight on face and draped himation -->
+    <path d="M85,75 Q115,70 135,85 Q148,110 145,145" stroke="#f59e0b" stroke-width="2.8" fill="none" opacity="0.8"/>
+
+    <!-- Right Arm extended toward the lamp in logical demonstration -->
+    <path d="M110,100 Q145,110 180,105" stroke="#150e21" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <line x1="180" y1="105" x2="195" y2="102" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
   </g>
 
-  <!-- Column 3 (Far Right) -->
-  <g transform="translate(730, 65)">
-    <rect x="-15" y="0" width="50" height="15" rx="3" fill="#475569"/>
-    <rect x="-5" y="15" width="30" height="230" fill="url(#marbleColumn)"/>
-    <line x1="2" y1="15" x2="2" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <line x1="10" y1="15" x2="10" y2="245" stroke="#64748b" stroke-width="1.5" opacity="0.6"/>
-    <rect x="-12" y="245" width="44" height="20" rx="2" fill="#334155"/>
+  <!-- Lyceum Disciple / Student (Listening attentively) -->
+  <g transform="translate(190, 235)">
+    <path d="M20,180 C25,130 45,95 70,85 C95,75 110,95 115,130 C110,155 120,170 130,180 Z" fill="#150e21"/>
+    <ellipse cx="72" cy="52" rx="15" ry="18" fill="#150e21"/>
+    <!-- Holding papyrus note scroll -->
+    <path d="M60,115 Q40,135 25,130" stroke="#150e21" stroke-width="12" fill="none" stroke-linecap="round"/>
   </g>
 
-  <!-- Distant Library Papyrus Scroll Chest and Amphora -->
-  <g transform="translate(85, 230)">
-    <rect x="0" y="10" width="45" height="40" rx="3" fill="#78350f" stroke="#b45309" stroke-width="2"/>
-    <ellipse cx="22" cy="10" rx="22" ry="6" fill="#92400e"/>
-    <!-- Papyrus roll sticking out -->
-    <path d="M12,10 L16,-15 L26,-15 L22,10 Z" fill="#fef08a" stroke="#d97706" stroke-width="1"/>
-    <ellipse cx="21" cy="-15" rx="5" ry="2" fill="#fde68a"/>
-    <text x="22" y="35" fill="#fde68a" font-size="8" font-family="sans-serif" text-anchor="middle" font-weight="bold">STOICHEIA</text>
-  </g>
-
-  <!-- Terrace Flagstone Floor -->
-  <polygon points="0,290 800,290 800,450 0,450" fill="url(#terraceMarble)"/>
-  <!-- Perspective paving lines -->
-  <line x1="0" y1="360" x2="800" y2="360" stroke="#475569" stroke-width="1.5" opacity="0.4"/>
-  <line x1="0" y1="410" x2="800" y2="410" stroke="#475569" stroke-width="2" opacity="0.5"/>
-  <line x1="100" y1="290" x2="0" y2="430" stroke="#475569" stroke-width="1.5" opacity="0.4"/>
-  <line x1="300" y1="290" x2="220" y2="450" stroke="#475569" stroke-width="1.5" opacity="0.4"/>
-  <line x1="500" y1="290" x2="520" y2="450" stroke="#475569" stroke-width="1.5" opacity="0.4"/>
-  <line x1="680" y1="290" x2="740" y2="450" stroke="#475569" stroke-width="1.5" opacity="0.4"/>
-
-  <!-- The Great Geometry Drafting Slate / Tracing Table in Center -->
-  <g transform="translate(260, 240)">
-    <!-- Slate Support Legs (Carved Marble / Bronze Pedestal) -->
-    <polygon points="40,110 50,70 190,70 200,110" fill="#0f172a"/>
-    <rect x="25" y="105" width="190" height="15" rx="4" fill="#1e293b" stroke="#334155" stroke-width="2"/>
-    <polygon points="70,120 60,170 85,170 90,120" fill="#1e293b"/>
-    <polygon points="170,120 180,170 155,170 150,120" fill="#1e293b"/>
-
-    <!-- Large Sand / Dark Wax Drafting Slab (angled perspective) -->
-    <polygon points="10,65 230,65 260,115 -20,115" fill="#090d16" stroke="#38bdf8" stroke-width="2.5"/>
-    <polygon points="12,67 228,67 256,113 -16,113" fill="#0f172a"/>
-
-    <!-- The Active Construction on the Slate: Proposition I.1! -->
-    <g transform="translate(120, 90)">
-      <!-- Baseline AB -->
-      <line x1="-40" y1="12" x2="40" y2="12" stroke="#f59e0b" stroke-width="3"/>
-      <!-- Circle A -->
-      <ellipse cx="-40" cy="12" rx="40" ry="16" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3,2" opacity="0.85"/>
-      <!-- Circle B -->
-      <ellipse cx="40" cy="12" rx="40" ry="16" fill="none" stroke="#818cf8" stroke-width="2" stroke-dasharray="3,2" opacity="0.85"/>
-      <!-- Intersection Point C at top -->
-      <circle cx="0" cy="-14" r="3.5" fill="#fef08a" filter="url(#geoGlow)"/>
-      <!-- Equilateral Triangle sides AC and BC -->
-      <line x1="-40" y1="12" x2="0" y2="-14" stroke="#ec4899" stroke-width="2.5"/>
-      <line x1="40" y1="12" x2="0" y2="-14" stroke="#ec4899" stroke-width="2.5"/>
-      <!-- Points A and B -->
-      <circle cx="-40" cy="12" r="3" fill="#f59e0b"/>
-      <circle cx="40" cy="12" r="3" fill="#f59e0b"/>
-    </g>
-
-    <!-- Straightedge ruler lying beside slate -->
-    <rect x="235" y="98" width="55" height="7" rx="1.5" fill="#d97706" stroke="#78350f" stroke-width="1" transform="rotate(-15, 235, 98)"/>
-  </g>
-
-  <!-- Euclid (Right side of slate, leaning forward with compass) -->
-  <g transform="translate(530, 160)">
-    <!-- Shadow -->
-    <ellipse cx="40" cy="240" rx="55" ry="14" fill="#030712" opacity="0.6"/>
-    <!-- Chiton / Himation (Hellenistic Robe) draped over shoulder -->
-    <path d="M15,100 C10,130 5,190 2,235 L70,235 C75,190 70,130 65,100 Z" fill="#1e1b4b"/>
-    <!-- Draped Golden Yellow & Crimson Cloak -->
-    <path d="M10,105 C25,120 50,125 65,105 C68,140 65,200 62,230 L18,230 C15,200 12,140 10,105 Z" fill="#312e81"/>
-    <path d="M15,100 C28,112 48,114 62,100 C60,135 55,175 52,210 C38,215 28,212 18,208 Z" fill="#4338ca"/>
-
-    <!-- Head & Beard -->
-    <circle cx="35" cy="55" r="20" fill="#fcd34d"/>
-    <!-- Classical Greek curled hair and beard -->
-    <path d="M18,50 C16,35 30,30 45,32 C54,34 56,45 54,54 C51,52 46,45 35,45 C25,45 20,52 18,50 Z" fill="#94a3b8"/>
-    <path d="M26,62 C26,76 34,84 44,84 C48,84 52,78 52,70 C50,72 45,74 40,74 C34,74 30,70 28,64 Z" fill="#cbd5e1"/>
-    <!-- Focused eye pointing toward drafting slate -->
-    <ellipse cx="27" cy="54" rx="2.5" ry="1.5" fill="#0f172a"/>
-
-    <!-- Left Arm resting near slate edge -->
-    <path d="M20,105 C5,120 -10,135 -30,145" stroke="#fcd34d" stroke-width="12" stroke-linecap="round" fill="none"/>
-    <circle cx="-32" cy="147" r="7" fill="#fcd34d"/>
-
-    <!-- Right Arm holding the Bronze Beam Compass -->
-    <path d="M48,105 C35,125 10,145 -15,160" stroke="#fcd34d" stroke-width="12" stroke-linecap="round" fill="none"/>
-    <circle cx="-16" cy="161" r="7" fill="#fcd34d"/>
-
-    <!-- The Historical Bronze Compass in Euclid's Hands -->
-    <g transform="translate(-18, 161) rotate(-25)">
-      <!-- Compass Hinge Pivot -->
-      <circle cx="0" cy="0" r="5" fill="#fef08a" stroke="#b45309" stroke-width="1.5"/>
-      <!-- Leg 1 (Fixed Needle Leg resting on point A) -->
-      <line x1="0" y1="0" x2="-45" y2="40" stroke="url(#brassGlow)" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="-45" cy="40" r="2" fill="#fef08a"/>
-      <!-- Leg 2 (Drawing Leg sweeping the circle arc) -->
-      <line x1="0" y1="0" x2="35" y2="42" stroke="url(#brassGlow)" stroke-width="3" stroke-linecap="round"/>
-      <!-- Glowing bronze/lead scribe tip -->
-      <circle cx="35" cy="42" r="3" fill="#38bdf8" filter="url(#geoGlow)"/>
-    </g>
-
-    <!-- Label above Euclid -->
-    <rect x="-10" y="10" width="90" height="18" rx="9" fill="#0f172a" stroke="#818cf8" stroke-width="1" opacity="0.9"/>
-    <text x="35" y="23" fill="#c7d2fe" font-size="10" font-family="sans-serif" text-anchor="middle" font-weight="bold">EUCLID OF ALEXANDRIA</text>
-  </g>
-
-  <!-- Two Eager Students (Left side of slate, watching in wonder) -->
-  <g transform="translate(190, 185)">
-    <!-- Student 1 (Leaning forward with chin resting in palm) -->
-    <ellipse cx="20" cy="215" rx="35" ry="10" fill="#030712" opacity="0.5"/>
-    <path d="M5,120 C-5,150 -10,190 -12,215 L35,215 C38,180 34,145 28,120 Z" fill="#065f46"/>
-    <circle cx="15" cy="85" r="16" fill="#fed7aa"/>
-    <!-- Dark Greek curls -->
-    <path d="M2,80 C0,68 12,62 25,64 C32,66 33,75 30,82 C26,75 14,75 5,80 Z" fill="#1c1917"/>
-    <!-- Curious Eye -->
-    <ellipse cx="21" cy="84" rx="2" ry="1.5" fill="#0f172a"/>
-    <!-- Leaning Arm -->
-    <path d="M24,120 C35,130 50,140 60,145" stroke="#fed7aa" stroke-width="9" stroke-linecap="round" fill="none"/>
-
-    <!-- Student 2 (Pointing to the intersecting top vertex C) -->
-    <g transform="translate(-60, 20)">
-      <path d="M0,110 C-10,140 -15,175 -15,195 L25,195 C28,165 25,135 20,110 Z" fill="#991b1b"/>
-      <circle cx="10" cy="75" r="15" fill="#fde68a"/>
-      <!-- Auburn curls -->
-      <path d="M-1,72 C-2,60 8,56 20,58 C26,60 27,68 24,74 C20,68 10,68 2,72 Z" fill="#451a03"/>
-      <!-- Excited Eye -->
-      <ellipse cx="16" cy="74" rx="2" ry="1.5" fill="#0f172a"/>
-      <!-- Hand extended toward vertex C -->
-      <path d="M18,110 C35,115 65,108 95,95" stroke="#fde68a" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <polygon points="95,95 102,93 99,99" fill="#fde68a"/>
-    </g>
-  </g>
-
-  <!-- Banner overlay / Title caption pill -->
-  <g transform="translate(400, 420)">
-    <rect x="-260" y="-16" width="520" height="32" rx="16" fill="#0f172a" stroke="#818cf8" stroke-width="1.5" opacity="0.95"/>
-    <text x="0" y="5" fill="#f8fafc" font-size="12" font-family="system-ui, sans-serif" text-anchor="middle" font-weight="600" letter-spacing="0.5">
-      The Mouseion of Alexandria, c. 300 BCE · Proposition I.1: Constructing an Equilateral Triangle
-    </text>
+  <!-- Title Badge -->
+  <g transform="translate(40, 360)">
+    <rect width="280" height="54" rx="8" fill="#100d18" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24" letter-spacing="1">ATHENIAN LYCEUM · c. 350 BCE</text>
+    <text x="16" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f3e8ff">Aristotle &amp; The Flow of Syllogistic Logic</text>
   </g>
 </svg>

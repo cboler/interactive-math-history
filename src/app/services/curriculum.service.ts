@@ -508,13 +508,13 @@ export class CurriculumService {
     },
 
     // ==========================================
-    // UNIT 04: Spatial Invariance (Commutativity)
+    // UNIT 04: The Farm Grid (Multiplication & Commutativity)
     // ==========================================
     {
       id: 'unit-04-commutative-multiplication',
       slug: 'spatial-invariance-multiplication',
       shortTitle: 'Unit 04: Multiplication',
-      title: 'Spatial Invariance: The Commutative Law',
+      title: 'Unit 04: The Farm Grid (Multiplication)',
       subtitle: 'Why 3 × 5 Always Equals 5 × 3 Across Ancient Farmlands',
       stage: 'elementary',
       strand: 'arithmetic',
@@ -525,7 +525,7 @@ export class CurriculumService {
       mathematicalStatement: 'a \\times b = b \\times a',
       discoveryHook: {
         prompt:
-          'Arrange a farm parcel into 3 rows of 5 crops. Now rotate the field 90 degrees. Did the total crop count change?',
+          'Turn a garden box on its side, and you still have the same number of vegetables! Multiplication is just a neat way of counting rows and columns. Arrange a farm parcel into 3 rows of 5 crops, then rotate it 90 degrees. Does the total count change?',
         targetAxiom: 'Commutativity: Multiplicative area is invariant under planar rotation.',
         successCondition:
           'Press the Transpose button and verify the total dot count remains exactly 15.',
@@ -533,12 +533,12 @@ export class CurriculumService {
           'Observe how rows transform into columns, yet the total area enclosed is completely conserved.',
       },
       storyIllustration: {
-        title: 'A Babylonian Scribe Surveying a Date Palm Orchard',
+        title: 'The Date Palm Orchard',
         imageUrl: 'assets/illustrations/unit-04-story.svg',
         altText:
           'A Babylonian scribe with a cuneiform clay tablet surveying rows of date palms by an irrigation canal near a grand ziggurat at sunset.',
         caption:
-          'Babylonian surveyors calculated harvests by planting trees in neat rectangular grids, discovering that 3 rows of 5 yield the same as 5 rows of 3.',
+          'Babylonian farmers planted trees in neat square grids so watering and harvesting was equal and fair.',
       },
       mathDiagram: {
         title: 'Spatial Invariance: 3 × 5 = 5 × 3 = 15 Area Model',
@@ -546,10 +546,10 @@ export class CurriculumService {
         altText:
           'Commutative multiplication grid diagram showing 3 rows of 5 dots rotating 90 degrees into 5 rows of 3 dots with invariant area 15.',
         caption:
-          'Turning a field by 90 degrees transforms rows into columns, but every single plant is preserved.',
+          'Whether you count 3 rows of 5 or 5 rows of 3, the total area stays exactly 15.',
       },
       narrative: {
-        hook: 'Turn a field by ninety degrees, and the grain yield remains identical: the birth of the geometric area model.',
+        hook: 'Turn a garden box on its side, and you still have the same number of vegetables! Multiplication is just a neat way of counting rows and columns.',
         historicalContext: {
           story:
             'In the fertile floodplains between the Tigris and Euphrates rivers, Babylonian scribes managed agricultural deeds using cuneiform clay tablets. When assessing crop yields or grain storage, they recognized that an orchard arranged in 3 rows of 5 date palms produced the exact same harvest as 5 rows of 3 palms. Multiplication ceased to be merely repeated addition—it became an invariant measurement of planar area.',
@@ -582,7 +582,8 @@ export class CurriculumService {
         credit: 'Yale Babylonian Collection / Wikimedia Commons',
         license: 'CC BY-SA 4.0',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ybc7289-diagonal.jpg',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Ybc7289-diagonal.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ybc7289-diagonal.jpg/640px-Ybc7289-diagonal.jpg',
         altText:
           'Ancient Babylonian clay tablet depicting a square with intersecting diagonals and sexagesimal markings.',
         caption:
@@ -633,55 +634,227 @@ export class CurriculumService {
         {
           id: 'u4-m1',
           question:
-            'A farmer prepares an orchard with 3 rows of 4 date palms. How many total trees will be planted in the parcel?',
+            'Plant a garden with 3 rows of 4 sunflowers. How many seeds did you plant?',
           hint: 'Set Rows (A) to 3 and Columns (B) to 4.',
           targetA: 3,
           targetB: 4,
           expectedResult: 12,
-          successMessage: 'Excellent! 3 rows × 4 columns = 12 date palms.',
+          successMessage: 'Excellent! 3 rows × 4 sunflowers = 12 seeds planted.',
         },
         {
           id: 'u4-m2',
-          question: 'Rotate the field into 4 rows of 3 date palms. Does the total count change?',
+          question: 'Rotate your garden so it has 4 rows of 3. Does the total count change?',
           hint: 'Set Rows (A) to 4 and Columns (B) to 3.',
           targetA: 4,
           targetB: 3,
           expectedResult: 12,
-          successMessage: 'Commutativity in action! 4 × 3 = 12 trees, identical to 3 × 4.',
+          successMessage: 'Commutativity in action! 4 × 3 = 12 seeds, identical to 3 × 4.',
         },
         {
           id: 'u4-m3',
           question:
-            'The royal storehouse lays out a square parcel of 5 rows of 5 barley bundles. How many bundles fill the square?',
-          hint: 'Set both Rows (A) and Columns (B) to 5.',
-          targetA: 5,
-          targetB: 5,
-          expectedResult: 25,
-          successMessage: 'Master surveyor! 5 × 5 = 25 bundles.',
+            'Make a large orchard with 6 rows of 6 trees.',
+          hint: 'Set both Rows (A) and Columns (B) to 6.',
+          targetA: 6,
+          targetB: 6,
+          expectedResult: 36,
+          successMessage: 'Master surveyor! 6 × 6 = 36 trees in the orchard.',
         },
       ],
-      level: 'arithmetic',
+      level: 'elementary',
     },
 
     // ==========================================
-    // UNIT 05: Unit Fractions & Slicing
+    // UNIT 05: Sharing the Harvest (Division)
     // ==========================================
     {
-      id: 'unit-05-egyptian-fractions',
-      slug: 'egyptian-unit-fractions-rhind',
-      shortTitle: 'Unit 05: Fractions',
-      title: 'The Bread Partition: Unit Fractions & Ahmes',
-      subtitle: 'Decomposing Quantities into Non-Repeating Unit Shares',
+      id: 'unit-05-fair-share-division',
+      slug: 'sharing-the-harvest',
+      shortTitle: 'Unit 05: Division',
+      title: 'Unit 05: Sharing the Harvest (Division)',
+      subtitle: 'Distributing Baskets, Equal Portions, and Fair Shares',
       stage: 'elementary',
       strand: 'arithmetic',
       order: 5,
-      prerequisites: ['unit-01-gathering-addition', 'unit-04-commutative-multiplication'],
+      prerequisites: ['unit-04-commutative-multiplication'],
+      civilization: 'Early Dynastic Mesopotamia (Sumerian City of Shuruppak)',
+      historicalEra: 'c. 2600 BCE',
+      mathematicalStatement: 'a \\div b = c',
+      discoveryHook: {
+        prompt:
+          'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out! Distribute 12 melons evenly across 3 baskets.',
+        targetAxiom:
+          'Division is fair sharing: splitting a total quantity into equal portions across groups.',
+        successCondition:
+          'Set Total Items (A) to 12 and Number of Baskets (B) to 3.',
+        guidanceTip:
+          'Observe how 12 divided across 3 baskets leaves exactly 4 melons in each basket with zero remaining.',
+      },
+      storyIllustration: {
+        title: 'Distributing Grain at the City Gate',
+        imageUrl: 'assets/illustrations/unit-05-story.svg',
+        altText:
+          'Sumerian scribes measuring equal grain rations into woven reed baskets at the Shuruppak city gate under a desert sunrise.',
+        caption:
+          'Ancient city scribes measured equal grain portions into baskets so every family received an honest share.',
+      },
+      mathDiagram: {
+        title: 'Fair Sharing: 12 Melons Divided Into 3 Baskets',
+        imageUrl: 'assets/illustrations/unit-05-diagram.svg',
+        altText:
+          '12 golden melons split evenly into 3 woven baskets, showing 4 melons per basket.',
+        caption:
+          '12 divided into 3 equal baskets leaves 4 melons in each basket.',
+      },
+      narrative: {
+        hook:
+          'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out!',
+        historicalContext: {
+          story:
+            'In the ancient Sumerian city-state of Shuruppak (modern-day Fara, Iraq) over 4,500 years ago, city life flourished along the Euphrates river canals. As harvest season arrived, thousands of bushels of barley, emmer wheat, and dates were hauled to the central storehouses. To ensure social peace and survival, city administrators had to distribute provisions fairly to temple builders, artisans, and families. Scribes used clay tokens and stylus impressions on clay tablets to calculate rations. If a granary had 12 portions and 3 teams of workers, dividing them meant dealing them out into equal baskets until none were left over. Division was born not as an abstract exercise, but as the community practice of fairness, teamwork, and honest distribution.',
+          civilizationOrOrigin: 'Sumer (Shuruppak / Fara Grain Accounts)',
+          approximateDate: 'c. 2600 BCE',
+          epistemicStatus: {
+            consensusLevel: 'established',
+            summary:
+              'Archaeologists have unearthed hundreds of administrative tablets from archaic Ur and Shuruppak detailing exact reciprocal grain allocations and division algorithms.',
+            competingHypotheses: [
+              {
+                claim: 'Ration Distribution as Arithmetic Origin',
+                proponentsOrSources: 'Eleanor Robson (Mathematics in Ancient Iraq, 2008)',
+                evidenceSummary:
+                  'Administrative tablets show division originated in the practical civil need to apportion grain, land plots, and beer rations equally.',
+              },
+              {
+                claim: 'Reciprocal Sexagesimal Multiplication',
+                proponentsOrSources: 'Jöran Friberg (2007)',
+                evidenceSummary:
+                  'Suggests later Babylonian scribes converted division problems into multiplication by sexagesimal reciprocals.',
+              },
+            ],
+          },
+        },
+        conceptualExplanation: [
+          'Division ($a \\div b = c$) splits a total quantity ($a$) into $b$ equal groups, resulting in $c$ items per group.',
+          'When a collection cannot be split evenly into whole units, the amount left over is called the remainder ($a = b \\times c + r$).',
+          'Division is the inverse operation of multiplication: if $3 \\times 4 = 12$, then $12 \\div 3 = 4$.',
+        ],
+        realWorldApplication:
+          'Fair sharing division is essential for distributing computational workloads across server clusters, calculating equal pay rates, budgeting monthly expenses, and rendering framerates in game engines.',
+      },
+      artifactPlate: {
+        title: 'Sumerian Administrative Tablet from Shuruppak (c. 2600 BCE)',
+        credit: 'University of Pennsylvania Museum / Wikimedia Commons',
+        license: 'Public Domain',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/P._Oxy._I_29.jpg/640px-P._Oxy._I_29.jpg',
+        altText:
+          'Ancient clay tablet fragment bearing cuneiform records of grain distributions.',
+        caption:
+          'Archaic Sumerian accounting records from Shuruppak, tracking barley disbursements and fair rations for city workers.',
+      },
+      exploreGraph: [
+        {
+          label: 'Division (mathematics)',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Division_(mathematics)',
+        },
+        {
+          label: 'Sumerian Accounting',
+          category: 'civilization',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Cuneiform',
+        },
+        {
+          label: 'Fair Division',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Fair_division',
+        },
+        {
+          label: 'Counting Rods & Abacus',
+          category: 'concept',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Counting_rods',
+        },
+      ],
+      academicSources: [
+        {
+          author: 'Eleanor Robson',
+          title: 'Mathematics in Ancient Iraq: A Social History',
+          citationSnippet:
+            'Scribal training, grain disbursements, and archaic accounting at Shuruppak and Ur.',
+          publicationYear: 2008,
+        },
+        {
+          author: 'Carl B. Boyer and Uta C. Merzbach',
+          title: 'A History of Mathematics',
+          citationSnippet: 'Chapter 3: Cuneiform records and sexagesimal arithmetic.',
+          publicationYear: 2011,
+        },
+      ],
+      interactiveConfig: {
+        visualizer: 'sharing-distributor',
+        initialState: { totalItems: 12, groupCount: 3 },
+        minA: 2,
+        maxA: 24,
+        defaultA: 12,
+        minB: 1,
+        maxB: 6,
+        defaultB: 3,
+      },
+      practiceChallenges: [
+        {
+          id: 'u5-m1',
+          question:
+            'Distribute 8 apples equally between 2 baskets. How many in each?',
+          hint: 'Set Total Items (A) to 8 and Number of Baskets (B) to 2.',
+          targetA: 8,
+          targetB: 2,
+          expectedResult: 4,
+          successMessage: 'Fairly shared! 8 ÷ 2 = 4 apples in each basket.',
+        },
+        {
+          id: 'u5-m2',
+          question:
+            'You have 15 figs to share among 3 scouts. Deal them out evenly.',
+          hint: 'Set Total Items (A) to 15 and Baskets (B) to 3.',
+          targetA: 15,
+          targetB: 3,
+          expectedResult: 5,
+          successMessage: 'Spot on! 15 ÷ 3 = 5 figs for each scout.',
+        },
+        {
+          id: 'u5-m3',
+          question:
+            'Share 18 seeds equally across 6 planting pots.',
+          hint: 'Set Total Items (A) to 18 and Baskets (B) to 6.',
+          targetA: 18,
+          targetB: 6,
+          expectedResult: 3,
+          successMessage: 'Master grower! 18 seeds ÷ 6 pots = 3 seeds per pot.',
+        },
+      ],
+      level: 'elementary',
+    },
+
+    // ==========================================
+    // UNIT 06: Slicing the Loaf (Unit Fractions)
+    // ==========================================
+    {
+      id: 'unit-06-egyptian-fractions',
+      slug: 'egyptian-unit-fractions-rhind',
+      shortTitle: 'Unit 06: Fractions',
+      title: 'Unit 06: Slicing the Loaf (Unit Fractions)',
+      subtitle: 'Ahmes the Scribe and Fair Bread Partitions',
+      stage: 'elementary',
+      strand: 'arithmetic',
+      order: 6,
+      prerequisites: ['unit-04-commutative-multiplication', 'unit-05-fair-share-division'],
       civilization: 'Middle Kingdom Egypt (Thebes)',
       historicalEra: 'c. 1550 BCE',
       mathematicalStatement: '\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}',
       discoveryHook: {
         prompt:
-          'You have 3 loaves of bread to distribute equally among 5 workers. Egyptian law forbids repeating fractions (like 1/5 + 1/5 + 1/5). Can you slice and distribute the loaves so every worker receives identical unit-fraction portions?',
+          'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices! Can you slice and distribute the loaves so every worker receives identical unit-fraction portions?',
         targetAxiom:
           'Every rational fraction can be expressed as a sum of distinct unit fractions: m/n = 1/x + 1/y.',
         successCondition:
@@ -690,23 +863,24 @@ export class CurriculumService {
           'Slice 2 loaves into halves (yielding 4 halves) and 1 loaf into tenths... then distribute them fairly!',
       },
       storyIllustration: {
-        title: 'Ahmes the Scribe Slicing Bread Along the Nile',
-        imageUrl: 'assets/illustrations/unit-05-story.svg',
+        title: 'Breakfast Along the Nile',
+        imageUrl: 'assets/illustrations/unit-06-story.svg',
         altText:
           'Scribe Ahmes with the Rhind Papyrus and a bronze knife cutting fresh loaves of bread by the Nile for stonemasons constructing the Karnak temple.',
         caption:
-          'Ahmes the scribe calculated exact bread rations for temple stonecutters, dividing 3 loaves fairly among 5 workers using unit slices.',
+          'Scribe Ahmes measures clean cuts across fresh bread loaves so every builder gets the exact same portion.',
       },
       mathDiagram: {
         title: 'Egyptian Unit Fraction Decomposition: 3/5 = 1/2 + 1/10',
-        imageUrl: 'assets/illustrations/unit-05-diagram.svg',
+        imageUrl: 'assets/illustrations/unit-06-diagram.svg',
         altText:
           'Decomposition diagram showing three whole loaves sliced into halves and tenths so five workers receive identical portions of 1/2 + 1/10.',
         caption:
           'Instead of ragged crumbs, Egyptian unit fractions guarantee every worker receives the exact same set of physical slices.',
       },
       narrative: {
-        hook: 'If you give five laborers each three-fifths of a loaf, disputes erupt over who received the ragged crust. Ancient Egyptian scribes resolved this by requiring identical, perfect unit slices.',
+        hook:
+          'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices!',
         historicalContext: {
           story:
             'In the Second Intermediate Period, a royal scribe named Ahmes transcribed what is now known as the Rhind Mathematical Papyrus (British Museum EA 10057). Rather than working with arbitrary fractions with changing numerators (such as 3/5 or 4/7), Egyptian accounting exclusively recognized unit fractions—quantities with a numerator of 1 (represented by the hieroglyph of an open mouth, "r", signifying a portion or mouth to feed). To divide 3 loaves among 5 men, Ahmes did not hand out 3 small fifth-slices. He gave each man 1/2 of a loaf plus 1/10 of a loaf. The sum is identical (1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5), but every laborer received the exact same set of physical cuts, eliminating social envy and accounting fraud.',
@@ -742,12 +916,12 @@ export class CurriculumService {
           'Unit fraction decompositions are applied in fair division algorithms, discrete cake-cutting economics, and harmonic antenna spacing.',
       },
       artifactPlate: {
-        title: 'The Rhind Mathematical Papyrus (British Museum EA 10057)',
+        title: 'The Rhind Mathematical Papyrus EA 10057',
         credit: 'The Trustees of the British Museum / Wikimedia Commons',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rhind_Mathematical_Papyrus.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/d/d9/Rhind_Mathematical_Papyrus.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
         altText:
           'Papyrus roll inscribed with hieratic script and tables of fractional conversions.',
         caption:
@@ -795,51 +969,51 @@ export class CurriculumService {
       },
       practiceChallenges: [
         {
-          id: 'u5-m1',
+          id: 'u6-m1',
           question:
-            'Ahmes needs to divide 3 loaves among 5 stonecutters. Each worker needs a 1/2 slice and a 1/10 slice. What is each worker’s total share?',
-          hint: 'Add 1/2 (0.5) and 1/10 (0.1) together.',
+            'Slice 1 whole loaf directly in half.',
+          hint: '1 whole loaf split into 2 equal halves: 1/2 + 1/2 = 1.',
+          targetA: 1,
+          targetB: 2,
+          expectedResult: 1,
+          successMessage: 'Clean cut! 1/2 + 1/2 = 1 whole loaf.',
+        },
+        {
+          id: 'u6-m2',
+          question:
+            'Divide 2 loaves equally among 4 workers using clean halves.',
+          hint: '2 loaves split into halves yield 4 pieces: 2 ÷ 4 = 1/2.',
+          targetA: 2,
+          targetB: 4,
+          expectedResult: 0.5,
+          successMessage: 'Equally shared! Each of the 4 workers gets 1/2 loaf.',
+        },
+        {
+          id: 'u6-m3',
+          question:
+            "Solve Scribe Ahmes' challenge: Give 5 workers equal shares of 3 loaves using only halves and tenths!",
+          hint: '1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5.',
           targetA: 3,
           targetB: 5,
           expectedResult: 0.6,
-          successMessage: 'Fairly divided! 1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5.',
-        },
-        {
-          id: 'u5-m2',
-          question:
-            'If 2 loaves are sliced in half, how many half-loaves (1/2) do you get to share?',
-          hint: '2 loaves with 2 halves each.',
-          targetA: 2,
-          targetB: 2,
-          expectedResult: 4,
-          successMessage: 'Exactly! 2 loaves × 2 halves/loaf = 4 half-loaves.',
-        },
-        {
-          id: 'u5-m3',
-          question:
-            'If 1 loaf is sliced into tenths, how many 1/10 slices are created for the baskets?',
-          hint: '1 whole loaf split into 10 equal parts.',
-          targetA: 1,
-          targetB: 10,
-          expectedResult: 10,
-          successMessage: 'Correct! 1 whole loaf produces 10 tenths (1/10 each).',
+          successMessage: 'Brilliant scribal math! 1/2 + 1/10 = 3/5.',
         },
       ],
       level: 'elementary',
     },
 
     // ==========================================
-    // UNIT 06: The Logic of Athens
+    // UNIT 07: The Logic of Athens
     // ==========================================
     {
-      id: 'unit-06-aristotle-logic',
+      id: 'unit-07-aristotle-logic',
       slug: 'aristotelian-logic-circuits',
-      shortTitle: 'Unit 06: Logic',
+      shortTitle: 'Unit 07: Logic',
       title: "The Architecture of Reason: Aristotle's Syllogism",
       subtitle: 'Propositional Connectives, Truth Tables, and Physical Circuits',
       stage: 'foundations',
       strand: 'logic',
-      order: 6,
+      order: 7,
       prerequisites: ['unit-03-euclid-equality'],
       civilization: 'Classical Athens (Lyceum)',
       historicalEra: 'c. 350 BCE',
@@ -856,7 +1030,7 @@ export class CurriculumService {
       },
       storyIllustration: {
         title: 'Aristotle Lecturing at the Lyceum Colonnade',
-        imageUrl: 'assets/illustrations/unit-06-story.svg',
+        imageUrl: 'assets/illustrations/unit-07-story.svg',
         altText:
           'Aristotle strolling through the olive gardens and shaded marble colonnade of the Lyceum in Athens, demonstrating logical reasoning by the glow of a bronze oil lamp.',
         caption:
@@ -864,7 +1038,7 @@ export class CurriculumService {
       },
       mathDiagram: {
         title: 'The Physical Logic of Syllogisms: AND (Series) vs OR (Parallel)',
-        imageUrl: 'assets/illustrations/unit-06-diagram.svg',
+        imageUrl: 'assets/illustrations/unit-07-diagram.svg',
         altText:
           'Dual schematic diagram contrasting a series circuit (P AND Q gate) with a parallel circuit (P OR Q gate) and truth tables.',
         caption:
@@ -961,7 +1135,7 @@ export class CurriculumService {
       },
       practiceChallenges: [
         {
-          id: 'u6-m1',
+          id: 'u7-m1',
           question:
             'In an AND series circuit, both premise P and premise Q must be closed (True). Set both switches to 1 to illuminate the Lyceum lamp!',
           hint: 'Both switches must be active for series flow.',
@@ -971,7 +1145,7 @@ export class CurriculumService {
           successMessage: 'Circuit complete! 1 AND 1 = 1. Truth flows uninterrupted.',
         },
         {
-          id: 'u6-m2',
+          id: 'u7-m2',
           question:
             'What happens in an AND circuit if premise P is true (1) but premise Q is false (0)?',
           hint: 'A broken switch in series breaks the whole circuit.',
@@ -982,7 +1156,7 @@ export class CurriculumService {
             'The circuit breaks! 1 AND 0 = 0. Deductive conclusions require all premises to hold.',
         },
         {
-          id: 'u6-m3',
+          id: 'u7-m3',
           question:
             'In an OR parallel circuit, does the lamp light if at least one switch is closed (1 OR 0)?',
           hint: 'Parallel circuits provide alternate paths for truth.',
@@ -997,17 +1171,17 @@ export class CurriculumService {
     },
 
     // ==========================================
-    // UNIT 07: Geometric Construction
+    // UNIT 08: Geometric Construction
     // ==========================================
     {
-      id: 'unit-07-euclid-equilateral',
+      id: 'unit-08-euclid-equilateral',
       slug: 'euclids-first-construction-equilateral',
-      shortTitle: 'Unit 07: Geometry',
+      shortTitle: 'Unit 08: Geometry',
       title: 'The First Construction: The Equilateral Triangle',
       subtitle: "Straightedge, Rigid Compass, and Euclid's Elements Book I, Proposition 1",
       stage: 'foundations',
       strand: 'geometry',
-      order: 7,
+      order: 8,
       prerequisites: ['unit-03-euclid-equality'],
       civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
       historicalEra: 'c. 300 BCE',
@@ -1024,7 +1198,7 @@ export class CurriculumService {
       },
       storyIllustration: {
         title: 'Euclid Demonstrating Proposition 1 at the Mouseion Terrace',
-        imageUrl: 'assets/illustrations/unit-07-story.svg',
+        imageUrl: 'assets/illustrations/unit-08-story.svg',
         altText:
           'Euclid of Alexandria demonstrating Proposition 1 on the marble terrace of the Mouseion, constructing an equilateral triangle with a compass and straightedge as morning light illuminates the Library scrolls.',
         caption:
@@ -1032,7 +1206,7 @@ export class CurriculumService {
       },
       mathDiagram: {
         title: "Euclid's Proposition 1: Constructing an Equilateral Triangle",
-        imageUrl: 'assets/illustrations/unit-07-diagram.svg',
+        imageUrl: 'assets/illustrations/unit-08-diagram.svg',
         altText:
           "Mathematical diagram of Euclid's Proposition 1 from the Elements: constructing an equilateral triangle using two intersecting circles of equal radius.",
         caption:
@@ -1131,7 +1305,7 @@ export class CurriculumService {
       },
       practiceChallenges: [
         {
-          id: 'u7-m1',
+          id: 'u8-m1',
           question:
             'Start with a baseline AB of length 160 pixels. What is the radius of the circle swept around center A?',
           hint: 'Postulate 3 states the circle radius equals the distance between the two points (AB).',
@@ -1141,7 +1315,7 @@ export class CurriculumService {
           successMessage: 'Spot on! Circle A has radius equal to segment AB (160px).',
         },
         {
-          id: 'u7-m2',
+          id: 'u8-m2',
           question:
             'Now sweep Circle B from center B with the same radius AB. Where do the two equal circles cross?',
           hint: 'Look for the apex intersection above the baseline.',
@@ -1151,7 +1325,7 @@ export class CurriculumService {
           successMessage: 'Found it! The two circles intersect at apex point C above the baseline.',
         },
         {
-          id: 'u7-m3',
+          id: 'u8-m3',
           question: 'By Common Notion 1, since AC = AB and BC = AB, what is the length of side BC?',
           hint: 'Things equal to the same thing are equal to each other.',
           targetA: 160,
@@ -1227,13 +1401,24 @@ export class CurriculumService {
         (lesson.id === 'unit-04-commutative-multiplication' &&
           (normUnit === 'unit-03-commutative-multiplication' ||
             normUnit === 'spatial-invariance-multiplication')) ||
-        (lesson.id === 'unit-05-egyptian-fractions' &&
-          (normUnit === 'unit-04-egyptian-fractions' ||
+        (lesson.id === 'unit-05-fair-share-division' &&
+          (normUnit === 'unit-05' ||
+            normUnit === 'sharing-the-harvest' ||
+            normUnit === 'fair-share-division')) ||
+        (lesson.id === 'unit-06-egyptian-fractions' &&
+          (normUnit === 'unit-06' ||
+            normUnit === 'unit-05-egyptian-fractions' ||
+            normUnit === 'unit-04-egyptian-fractions' ||
             normUnit === 'egyptian-unit-fractions-rhind')) ||
-        (lesson.id === 'unit-06-aristotle-logic' &&
-          (normUnit === 'unit-05-aristotle-logic' || normUnit === 'aristotelian-logic-circuits')) ||
-        (lesson.id === 'unit-07-euclid-equilateral' &&
-          (normUnit === 'unit-06-euclid-equilateral' ||
+        (lesson.id === 'unit-07-aristotle-logic' &&
+          (normUnit === 'unit-07' ||
+            normUnit === 'unit-06-aristotle-logic' ||
+            normUnit === 'unit-05-aristotle-logic' ||
+            normUnit === 'aristotelian-logic-circuits')) ||
+        (lesson.id === 'unit-08-euclid-equilateral' &&
+          (normUnit === 'unit-08' ||
+            normUnit === 'unit-07-euclid-equilateral' ||
+            normUnit === 'unit-06-euclid-equilateral' ||
             normUnit === 'euclids-first-construction-equilateral'));
 
       return (

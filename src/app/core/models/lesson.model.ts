@@ -8,6 +8,7 @@ export type VisualizerMode =
   | 'balance-scale'
   | 'grid-array'
   | 'partition-slicer'
+  | 'sharing-distributor'
   | 'logic-circuit'
   | 'geometric-compass';
 

@@ -1,0 +1,46 @@
+<figure class="distributor-wrapper">
+  <div class="sr-only" aria-live="polite">
+    {{ speechSummary() }}
+  </div>
+
+  <div class="status-banner" [class.success]="isEquitable()" [class.warning]="!isEquitable()">
+    <span class="status-icon">{{ isEquitable() ? '⚖️' : '⚠️' }}</span>
+    <span class="status-text">
+      {{ totalCount() }} ÷ {{ groupCount() }} = <strong>{{ itemsPerGroup() }} each</strong>
+      @if (remainder() > 0) {
+        <em> (with {{ remainder() }} remaining)</em>
+      }
+    </span>
+  </div>
+
+  <!-- Baskets Display -->
+  <div class="baskets-grid" [style.--columns]="groupCount()">
+    @for (g of groupIndices(); track g) {
+      <div class="basket-card">
+        <div class="basket-label">Basket {{ g + 1 }}</div>
+        <div class="token-well">
+          @for (item of distributedItems(); track $index) {
+            <div class="token" title="Item"></div>
+          }
+        </div>
+        <div class="basket-count">{{ itemsPerGroup() }} items</div>
+      </div>
+    }
+  </div>
+
+  <!-- Remainder / Leftover Pool -->
+  @if (remainder() > 0) {
+    <div class="remainder-pool">
+      <div class="remainder-label">Leftover to share:</div>
+      <div class="token-well leftover">
+        @for (r of remainderItems(); track $index) {
+          <div class="token leftover-token" title="Remainder item"></div>
+        }
+      </div>
+    </div>
+  }
+
+  <figcaption class="caption">
+    Figure: Dividing {{ totalCount() }} items equally across {{ groupCount() }} baskets.
+  </figcaption>
+</figure>

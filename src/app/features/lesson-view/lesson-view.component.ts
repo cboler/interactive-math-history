@@ -23,6 +23,7 @@ import { GridArrayComponent } from '../../shared/visualizers/grid-array/grid-arr
 import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
 import { LogicCircuitComponent } from '../../shared/visualizers/logic-circuit/logic-circuit.component';
 import { GeometricCompassComponent } from '../../shared/visualizers/geometric-compass/geometric-compass.component';
+import { SharingDistributorComponent } from '../../shared/visualizers/sharing-distributor/sharing-distributor.component';
 import { IconComponent } from '../../shared/components/icon/icon.component';
 import { MathDirective } from '../../shared/directives/math.directive';
 import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
@@ -37,6 +38,7 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
     BalanceScaleComponent,
     GridArrayComponent,
     BreadSlicerComponent,
+    SharingDistributorComponent,
     LogicCircuitComponent,
     GeometricCompassComponent,
     IconComponent,
@@ -78,6 +80,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Left Pan (A)';
     if (viz === 'grid-array') return 'Rows (A)';
+    if (viz === 'sharing-distributor') return 'Total Items (A)';
     if (curr?.id === 'unit-01-gathering-addition') return 'First Notches (A)';
     if (curr?.id === 'unit-02-taking-away-subtraction') return 'Starting Tally (A)';
     return 'Quantity A';
@@ -88,6 +91,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Right Pan (B)';
     if (viz === 'grid-array') return 'Columns (B)';
+    if (viz === 'sharing-distributor') return 'Number of Baskets (B)';
     if (curr?.id === 'unit-01-gathering-addition') return 'Additional Notches (B)';
     if (curr?.id === 'unit-02-taking-away-subtraction') return 'Notches Taken Away (B)';
     return 'Quantity B';
@@ -98,6 +102,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Balance This on the Scale';
     if (viz === 'grid-array') return 'Set Field Grid Dimensions';
+    if (viz === 'sharing-distributor') return 'Distribute Baskets';
     if (viz === 'partition-slicer') return 'Explore Bread Share';
     if (viz === 'logic-circuit') return 'Test Circuit State';
     if (viz === 'geometric-compass') return 'Set Baseline Length';
