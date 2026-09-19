@@ -92,6 +92,17 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     return 'Quantity B';
   });
 
+  readonly missionButtonLabel = computed(() => {
+    const curr = this.lesson();
+    const viz = curr?.interactiveConfig.visualizer;
+    if (viz === 'balance-scale') return 'Balance This on the Scale';
+    if (viz === 'grid-array') return 'Set Field Grid Dimensions';
+    if (viz === 'partition-slicer') return 'Explore Bread Share';
+    if (viz === 'logic-circuit') return 'Test Circuit State';
+    if (viz === 'geometric-compass') return 'Set Baseline Length';
+    return 'Try This on the Number Line';
+  });
+
   readonly srNarration = computed(() => {
     const curr = this.lesson();
     if (!curr) return '';

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="An Alexandrian market portico overlooking the harbor at sunset with merchants verifying trade goods on a bronze balance scale">
+  <defs>
+    <linearGradient id="alexSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="35%" stop-color="#43285c"/>
+      <stop offset="65%" stop-color="#7e3256"/>
+      <stop offset="85%" stop-color="#c85a42"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="medSea" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" stop-opacity="0.7"/>
+      <stop offset="30%" stop-color="#4c1d47"/>
+      <stop offset="70%" stop-color="#1e1e38"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="marbleCol" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2d2238"/>
+      <stop offset="30%" stop-color="#645275"/>
+      <stop offset="70%" stop-color="#453654"/>
+      <stop offset="100%" stop-color="#1f1829"/>
+    </linearGradient>
+    <linearGradient id="bronzeBeam" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+    <filter id="pharosGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Mediterranean Sunset Sky -->
+  <rect width="800" height="450" fill="url(#alexSky)"/>
+
+  <!-- Distant Alexandria Harbor & Sea -->
+  <rect x="0" y="270" width="800" height="180" fill="url(#medSea)"/>
+
+  <!-- Sun Glow on Horizon -->
+  <circle cx="560" cy="265" r="35" fill="#fde68a" opacity="0.8" filter="url(#pharosGlow)"/>
+  <ellipse cx="560" cy="285" rx="60" ry="3" fill="#fde68a" opacity="0.6"/>
+  <ellipse cx="560" cy="298" rx="45" ry="2.5" fill="#f59e0b" opacity="0.5"/>
+  <ellipse cx="560" cy="315" rx="35" ry="2" fill="#d97706" opacity="0.4"/>
+
+  <!-- Pharos of Alexandria Lighthouse in the distance -->
+  <g transform="translate(680, 185)" opacity="0.85">
+    <!-- Base -->
+    <polygon points="10,85 14,50 36,50 40,85" fill="#241930"/>
+    <!-- Middle Octagonal Tier -->
+    <polygon points="16,50 18,25 32,25 34,50" fill="#2f213d"/>
+    <!-- Top Cylindrical Lantern & Beacon -->
+    <rect x="22" y="10" width="6" height="15" fill="#3a2b4a"/>
+    <circle cx="25" cy="8" r="5" fill="#fef08a" filter="url(#pharosGlow)"/>
+    <polygon points="25,8 80,-5 80,18" fill="#fef08a" opacity="0.25"/>
+  </g>
+
+  <!-- Merchant Ships in Alexandria Harbor -->
+  <path d="M430,282 C440,280 460,280 470,282 C465,286 435,286 430,282 Z" fill="#1b1326"/>
+  <line x1="450" y1="270" x2="450" y2="283" stroke="#1b1326" stroke-width="1.5"/>
+  <polygon points="450,272 462,276 450,280" fill="#2d1e3d" opacity="0.7"/>
+
+  <!-- Classical Hellenistic Portico Architecture (Columns & Architrave) -->
+  <!-- Architrave Beam across the top -->
+  <rect x="0" y="30" width="800" height="28" fill="#1b1424" stroke="#3b2b48" stroke-width="1.5"/>
+  <rect x="0" y="58" width="800" height="10" fill="#130d1c"/>
+
+  <!-- Left Fluted Column -->
+  <rect x="40" y="58" width="55" height="392" fill="url(#marbleCol)"/>
+  <rect x="32" y="58" width="71" height="14" rx="2" fill="#2d2238"/>
+  <rect x="32" y="410" width="71" height="20" rx="3" fill="#1d1626"/>
+
+  <!-- Center-Left Background Column -->
+  <rect x="320" y="58" width="45" height="392" fill="url(#marbleCol)" opacity="0.6"/>
+  <rect x="314" y="58" width="57" height="12" rx="2" fill="#2d2238" opacity="0.6"/>
+
+  <!-- Paved Marble Flagstone Floor -->
+  <path d="M0,340 L800,340 L800,450 L0,450 Z" fill="#120c1a"/>
+  <line x1="0" y1="380" x2="800" y2="380" stroke="#2a1b38" stroke-width="1.5"/>
+  <line x1="0" y1="420" x2="800" y2="420" stroke="#2a1b38" stroke-width="1.5"/>
+
+  <!-- Trade Goods: Amphorae & Grain Sacks in the Corner -->
+  <g transform="translate(110, 320)">
+    <!-- Grain Sacks -->
+    <ellipse cx="25" cy="65" rx="28" ry="20" fill="#4a3728"/>
+    <ellipse cx="65" cy="70" rx="30" ry="22" fill="#5c4432"/>
+    <path d="M25,50 Q28,40 32,45" stroke="#785a42" stroke-width="3" fill="none"/>
+    <!-- Terra-cotta Olive Oil Amphora -->
+    <path d="M85,30 Q95,45 92,75 Q85,85 75,85 Q65,85 58,75 Q55,45 65,30 Z" fill="#9a3412"/>
+    <rect x="71" y="24" width="8" height="8" rx="1" fill="#7c2d12"/>
+    <path d="M64,36 Q55,46 64,56 M86,36 Q95,46 86,56" stroke="#c2410c" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- THE CENTRAL FOCUS: THE BRONZE BALANCE SCALE ON MARKET TABLE -->
+  <g transform="translate(360, 180)">
+    <!-- Merchant Table / Pedestal -->
+    <rect x="40" y="150" width="180" height="90" rx="8" fill="#1c1426" stroke="#3b2b48" stroke-width="1.5"/>
+    <rect x="30" y="145" width="200" height="12" rx="3" fill="#2d203b"/>
+
+    <!-- Central Bronze Pillar / Stand -->
+    <rect x="125" y="40" width="10" height="110" rx="3" fill="url(#bronzeBeam)"/>
+    <ellipse cx="130" cy="148" rx="25" ry="6" fill="#78350f"/>
+    <!-- Center Pivot / Fulcrum Point -->
+    <circle cx="130" cy="40" r="8" fill="#fef08a" stroke="#b45309" stroke-width="1.5"/>
+    <!-- Vertical Plumb Line (True Equilibrium Indicator) -->
+    <line x1="130" y1="40" x2="130" y2="75" stroke="#f59e0b" stroke-width="1.8" stroke-dasharray="2,2"/>
+    <polygon points="128,75 132,75 130,82" fill="#f59e0b"/>
+
+    <!-- Horizontal Balance Beam (Perfect Level: A = B) -->
+    <line x1="30" y1="40" x2="230" y2="40" stroke="url(#bronzeBeam)" stroke-width="6" stroke-linecap="round"/>
+    <!-- Beam ends rings -->
+    <circle cx="30" cy="40" r="4" fill="#fef08a"/>
+    <circle cx="230" cy="40" r="4" fill="#fef08a"/>
+
+    <!-- LEFT SUSPENSION & PAN A -->
+    <g transform="translate(30, 40)">
+      <!-- Suspension Cords -->
+      <line x1="0" y1="0" x2="-22" y2="60" stroke="#d97706" stroke-width="1.2"/>
+      <line x1="0" y1="0" x2="22" y2="60" stroke="#d97706" stroke-width="1.2"/>
+      <!-- Pan A -->
+      <ellipse cx="0" cy="62" rx="28" ry="6" fill="#78350f" stroke="#fef08a" stroke-width="1.5"/>
+      <path d="M-28,62 Q0,76 28,62" fill="#92400e" stroke="#f59e0b" stroke-width="1"/>
+      <!-- Geometric Weights on Pan A (Left Pan) -->
+      <rect x="-16" y="52" width="12" height="10" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1"/>
+      <rect x="0" y="50" width="14" height="12" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1"/>
+      <rect x="-7" y="42" width="10" height="9" rx="2" fill="#38bdf8" stroke="#0284c7" stroke-width="1"/>
+    </g>
+
+    <!-- RIGHT SUSPENSION & PAN B -->
+    <g transform="translate(230, 40)">
+      <!-- Suspension Cords -->
+      <line x1="0" y1="0" x2="-22" y2="60" stroke="#d97706" stroke-width="1.2"/>
+      <line x1="0" y1="0" x2="22" y2="60" stroke="#d97706" stroke-width="1.2"/>
+      <!-- Pan B -->
+      <ellipse cx="0" cy="62" rx="28" ry="6" fill="#78350f" stroke="#fef08a" stroke-width="1.5"/>
+      <path d="M-28,62 Q0,76 28,62" fill="#92400e" stroke="#f59e0b" stroke-width="1"/>
+      <!-- Equal Weights on Pan B (Right Pan) -->
+      <rect x="-16" y="52" width="12" height="10" rx="2" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+      <rect x="0" y="50" width="14" height="12" rx="2" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+      <rect x="-7" y="42" width="10" height="9" rx="2" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+    </g>
+  </g>
+
+  <!-- Scholars & Merchants in Discussion (Silhouettes observing equilibrium) -->
+  <!-- Scholar (Right, with tunic and papyrus roll) -->
+  <g transform="translate(620, 230)">
+    <path d="M20,180 C25,120 45,90 70,80 C95,70 115,90 120,120 C115,145 125,160 135,180 Z" fill="#130e1c"/>
+    <ellipse cx="75" cy="50" rx="16" ry="20" fill="#130e1c"/>
+    <path d="M50,75 Q75,70 95,80" stroke="#f59e0b" stroke-width="2" fill="none" opacity="0.6"/>
+    <!-- Arm holding papyrus scroll -->
+    <path d="M60,110 Q40,135 15,130" stroke="#130e1c" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <rect x="5" y="125" width="22" height="6" rx="2" fill="#e2d8b8" transform="rotate(-20 15 125)"/>
+  </g>
+
+  <!-- Title Badge -->
+  <g transform="translate(40, 350)">
+    <rect width="285" height="54" rx="8" fill="#120c1a" fill-opacity="0.9" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24" letter-spacing="1">PTOLEMAIC ALEXANDRIA · c. 300 BCE</text>
+    <text x="16" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#e2d9f3">Euclid’s Common Notions &amp; The Balance of Equality</text>
+  </g>
+</svg>

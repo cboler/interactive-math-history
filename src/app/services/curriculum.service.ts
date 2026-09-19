@@ -373,6 +373,21 @@ export class CurriculumService {
         guidanceTip:
           'Watch the center equilibrium pointer align with the zero-degree vertical plumb line.',
       },
+      storyIllustration: {
+        title: 'Verifying Weights in the Alexandrian Harbor Market',
+        imageUrl: 'assets/illustrations/unit-03-story.svg',
+        altText:
+          'An Alexandrian market portico overlooking the harbor at sunset with merchants verifying trade goods on a bronze balance scale.',
+        caption:
+          'In ancient Alexandria, merchants verified honest exchange on an equal-arm beam scale long before mathematical symbols existed.',
+      },
+      mathDiagram: {
+        title: 'The Axiom of Balance: A = B and B = C implies A = C',
+        imageUrl: 'assets/illustrations/unit-03-diagram.svg',
+        altText:
+          'An equal-arm bronze balance scale demonstrating equilibrium with 5 weights on each pan and a zero-degree plumb dial.',
+        caption: 'When two quantities balance the same third weight, they must balance each other.',
+      },
       narrative: {
         hook: 'Before the modern equals sign was invented in 1557, equality was not a mark on paper: it was physical balance verified upon an honest merchant’s scale.',
         historicalContext: {
@@ -460,6 +475,38 @@ export class CurriculumService {
         maxB: 10,
         defaultB: 5,
       },
+      practiceChallenges: [
+        {
+          id: 'u3-m1',
+          question:
+            'A merchant places 4 bronze weights on the left pan. How many weights must be placed on the right pan to achieve perfect level equilibrium?',
+          hint: 'Set Left Pan (A) to 4 and Right Pan (B) to 4.',
+          targetA: 4,
+          targetB: 4,
+          expectedResult: 4,
+          successMessage: 'Balanced! 4 = 4. The plumb line points straight to zero.',
+        },
+        {
+          id: 'u3-m2',
+          question:
+            'You are testing a 7-drachma bundle of aromatic spices on the left pan. Balance it with honest bronze weights on the right!',
+          hint: 'Place 7 weights on both pans.',
+          targetA: 7,
+          targetB: 7,
+          expectedResult: 7,
+          successMessage: 'Equilibrium restored! Both pans hold exactly 7.',
+        },
+        {
+          id: 'u3-m3',
+          question:
+            'A trader brings 2 heavy olive oil flasks. Match them on the right pan to prove honest trading.',
+          hint: 'Set both pans to 2.',
+          targetA: 2,
+          targetB: 2,
+          expectedResult: 2,
+          successMessage: 'Fair trade verified! 2 = 2 on the beam.',
+        },
+      ],
       level: 'foundations',
     },
 
@@ -487,6 +534,22 @@ export class CurriculumService {
           'Press the Transpose button and verify the total dot count remains exactly 15.',
         guidanceTip:
           'Observe how rows transform into columns, yet the total area enclosed is completely conserved.',
+      },
+      storyIllustration: {
+        title: 'A Babylonian Scribe Surveying a Date Palm Orchard',
+        imageUrl: 'assets/illustrations/unit-04-story.svg',
+        altText:
+          'A Babylonian scribe with a cuneiform clay tablet surveying rows of date palms by an irrigation canal near a grand ziggurat at sunset.',
+        caption:
+          'Babylonian surveyors calculated harvests by planting trees in neat rectangular grids, discovering that 3 rows of 5 yield the same as 5 rows of 3.',
+      },
+      mathDiagram: {
+        title: 'Spatial Invariance: 3 × 5 = 5 × 3 = 15 Area Model',
+        imageUrl: 'assets/illustrations/unit-04-diagram.svg',
+        altText:
+          'Commutative multiplication grid diagram showing 3 rows of 5 dots rotating 90 degrees into 5 rows of 3 dots with invariant area 15.',
+        caption:
+          'Turning a field by 90 degrees transforms rows into columns, but every single plant is preserved.',
       },
       narrative: {
         hook: 'Turn a field by ninety degrees, and the grain yield remains identical: the birth of the geometric area model.',
@@ -570,6 +633,37 @@ export class CurriculumService {
         maxB: 8,
         defaultB: 5,
       },
+      practiceChallenges: [
+        {
+          id: 'u4-m1',
+          question:
+            'A farmer prepares an orchard with 3 rows of 4 date palms. How many total trees will be planted in the parcel?',
+          hint: 'Set Rows (A) to 3 and Columns (B) to 4.',
+          targetA: 3,
+          targetB: 4,
+          expectedResult: 12,
+          successMessage: 'Excellent! 3 rows × 4 columns = 12 date palms.',
+        },
+        {
+          id: 'u4-m2',
+          question: 'Rotate the field into 4 rows of 3 date palms. Does the total count change?',
+          hint: 'Set Rows (A) to 4 and Columns (B) to 3.',
+          targetA: 4,
+          targetB: 3,
+          expectedResult: 12,
+          successMessage: 'Commutativity in action! 4 × 3 = 12 trees, identical to 3 × 4.',
+        },
+        {
+          id: 'u4-m3',
+          question:
+            'The royal storehouse lays out a square parcel of 5 rows of 5 barley bundles. How many bundles fill the square?',
+          hint: 'Set both Rows (A) and Columns (B) to 5.',
+          targetA: 5,
+          targetB: 5,
+          expectedResult: 25,
+          successMessage: 'Master surveyor! 5 × 5 = 25 bundles.',
+        },
+      ],
       level: 'arithmetic',
     },
 
@@ -598,6 +692,22 @@ export class CurriculumService {
           'Give each of the 5 worker baskets exactly 1/2 and 1/10 of a loaf (Total: 3/5).',
         guidanceTip:
           'Slice 2 loaves into halves (yielding 4 halves) and 1 loaf into tenths... then distribute them fairly!',
+      },
+      storyIllustration: {
+        title: 'Ahmes the Scribe Slicing Bread Along the Nile',
+        imageUrl: 'assets/illustrations/unit-05-story.svg',
+        altText:
+          'Scribe Ahmes with the Rhind Papyrus and a bronze knife cutting fresh loaves of bread by the Nile for stonemasons constructing the Karnak temple.',
+        caption:
+          'Ahmes the scribe calculated exact bread rations for temple stonecutters, dividing 3 loaves fairly among 5 workers using unit slices.',
+      },
+      mathDiagram: {
+        title: 'Egyptian Unit Fraction Decomposition: 3/5 = 1/2 + 1/10',
+        imageUrl: 'assets/illustrations/unit-05-diagram.svg',
+        altText:
+          'Decomposition diagram showing three whole loaves sliced into halves and tenths so five workers receive identical portions of 1/2 + 1/10.',
+        caption:
+          'Instead of ragged crumbs, Egyptian unit fractions guarantee every worker receives the exact same set of physical slices.',
       },
       narrative: {
         hook: 'If you give five laborers each three-fifths of a loaf, disputes erupt over who received the ragged crust. Ancient Egyptian scribes resolved this by requiring identical, perfect unit slices.',
@@ -687,6 +797,38 @@ export class CurriculumService {
         visualizer: 'partition-slicer',
         initialState: { targetFraction: '3/5', loaves: 3, workers: 5 },
       },
+      practiceChallenges: [
+        {
+          id: 'u5-m1',
+          question:
+            'Ahmes needs to divide 3 loaves among 5 stonecutters. Each worker needs a 1/2 slice and a 1/10 slice. What is each worker’s total share?',
+          hint: 'Add 1/2 (0.5) and 1/10 (0.1) together.',
+          targetA: 3,
+          targetB: 5,
+          expectedResult: 0.6,
+          successMessage: 'Fairly divided! 1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5.',
+        },
+        {
+          id: 'u5-m2',
+          question:
+            'If 2 loaves are sliced in half, how many half-loaves (1/2) do you get to share?',
+          hint: '2 loaves with 2 halves each.',
+          targetA: 2,
+          targetB: 2,
+          expectedResult: 4,
+          successMessage: 'Exactly! 2 loaves × 2 halves/loaf = 4 half-loaves.',
+        },
+        {
+          id: 'u5-m3',
+          question:
+            'If 1 loaf is sliced into tenths, how many 1/10 slices are created for the baskets?',
+          hint: '1 whole loaf split into 10 equal parts.',
+          targetA: 1,
+          targetB: 10,
+          expectedResult: 10,
+          successMessage: 'Correct! 1 whole loaf produces 10 tenths (1/10 each).',
+        },
+      ],
       level: 'elementary',
     },
 
@@ -715,6 +857,22 @@ export class CurriculumService {
           'Configure the circuit to successfully illuminate the lamp under both AND and OR configurations.',
         guidanceTip:
           'Notice how electric current mirrors the flow of deductive validity: a broken switch invalidates the conclusion.',
+      },
+      storyIllustration: {
+        title: 'Aristotle Lecturing at the Lyceum Colonnade',
+        imageUrl: 'assets/illustrations/unit-06-story.svg',
+        altText:
+          'Aristotle strolling through the olive gardens and shaded marble colonnade of the Lyceum in Athens, demonstrating logical reasoning by the glow of a bronze oil lamp.',
+        caption:
+          'In 4th-century Athens, Aristotle paced the shaded walkways of the Lyceum, demonstrating which deductions can never fail.',
+      },
+      mathDiagram: {
+        title: 'The Physical Logic of Syllogisms: AND (Series) vs OR (Parallel)',
+        imageUrl: 'assets/illustrations/unit-06-diagram.svg',
+        altText:
+          'Dual schematic diagram contrasting a series circuit (P AND Q gate) with a parallel circuit (P OR Q gate) and truth tables.',
+        caption:
+          'Truth flows like electric current: an AND gate requires every premise to be unbroken, while an OR gate shines if any valid path exists.',
       },
       narrative: {
         hook: 'Before logic was silicon chips and binary code, it was Aristotle pacing the Lyceum gardens, determining which arguments could never be refuted.',
@@ -805,6 +963,40 @@ export class CurriculumService {
         visualizer: 'logic-circuit',
         initialState: { gate: 'AND', switchP: true, switchQ: false },
       },
+      practiceChallenges: [
+        {
+          id: 'u6-m1',
+          question:
+            'In an AND series circuit, both premise P and premise Q must be closed (True). Set both switches to 1 to illuminate the Lyceum lamp!',
+          hint: 'Both switches must be active for series flow.',
+          targetA: 1,
+          targetB: 1,
+          expectedResult: 1,
+          successMessage: 'Circuit complete! 1 AND 1 = 1. Truth flows uninterrupted.',
+        },
+        {
+          id: 'u6-m2',
+          question:
+            'What happens in an AND circuit if premise P is true (1) but premise Q is false (0)?',
+          hint: 'A broken switch in series breaks the whole circuit.',
+          targetA: 1,
+          targetB: 0,
+          expectedResult: 0,
+          successMessage:
+            'The circuit breaks! 1 AND 0 = 0. Deductive conclusions require all premises to hold.',
+        },
+        {
+          id: 'u6-m3',
+          question:
+            'In an OR parallel circuit, does the lamp light if at least one switch is closed (1 OR 0)?',
+          hint: 'Parallel circuits provide alternate paths for truth.',
+          targetA: 1,
+          targetB: 0,
+          expectedResult: 1,
+          successMessage:
+            'The lamp glows! 1 OR 0 = 1. In parallel logic, one valid path is enough.',
+        },
+      ],
       level: 'foundations',
     },
 
@@ -833,6 +1025,22 @@ export class CurriculumService {
           'Complete the three geometric construction steps: Sweep Circle A, Sweep Circle B, and connect Vertex C.',
         guidanceTip:
           'Notice that segment AB acts simultaneously as the radius of Circle A and Circle B. Point C lies on the circumference of both.',
+      },
+      storyIllustration: {
+        title: 'Euclid Demonstrating Proposition 1 at the Mouseion Terrace',
+        imageUrl: 'assets/illustrations/unit-07-story.svg',
+        altText:
+          'Euclid of Alexandria demonstrating Proposition 1 on the marble terrace of the Mouseion, constructing an equilateral triangle with a compass and straightedge as morning light illuminates the Library scrolls.',
+        caption:
+          'At the Mouseion of Alexandria, Euclid used an unmarked straightedge and compass to create perfect symmetry from pure deduction.',
+      },
+      mathDiagram: {
+        title: "Euclid's Proposition 1: Constructing an Equilateral Triangle",
+        imageUrl: 'assets/illustrations/unit-07-diagram.svg',
+        altText:
+          "Mathematical diagram of Euclid's Proposition 1 from the Elements: constructing an equilateral triangle using two intersecting circles of equal radius.",
+        caption:
+          'Two equal circles automatically pinpoint the third corner of a triangle whose sides are guaranteed to be equal.',
       },
       narrative: {
         hook: 'Geometry did not begin with measurements and rulers; it began with the pure intersection of two expanding circles.',
@@ -926,6 +1134,38 @@ export class CurriculumService {
         visualizer: 'geometric-compass',
         initialState: { step: 1, baseLength: 160 },
       },
+      practiceChallenges: [
+        {
+          id: 'u7-m1',
+          question:
+            'Start with a baseline AB of length 160 pixels. What is the radius of the circle swept around center A?',
+          hint: 'Postulate 3 states the circle radius equals the distance between the two points (AB).',
+          targetA: 160,
+          targetB: 160,
+          expectedResult: 160,
+          successMessage: 'Spot on! Circle A has radius equal to segment AB (160px).',
+        },
+        {
+          id: 'u7-m2',
+          question:
+            'Now sweep Circle B from center B with the same radius AB. Where do the two equal circles cross?',
+          hint: 'Look for the apex intersection above the baseline.',
+          targetA: 160,
+          targetB: 160,
+          expectedResult: 1,
+          successMessage: 'Found it! The two circles intersect at apex point C above the baseline.',
+        },
+        {
+          id: 'u7-m3',
+          question: 'By Common Notion 1, since AC = AB and BC = AB, what is the length of side BC?',
+          hint: 'Things equal to the same thing are equal to each other.',
+          targetA: 160,
+          targetB: 160,
+          expectedResult: 160,
+          successMessage:
+            'Q.E.D.! All three sides are equal (160px). Triangle ABC is perfectly equilateral.',
+        },
+      ],
       level: 'foundations',
     },
   ]);

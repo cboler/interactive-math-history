@@ -174,4 +174,32 @@ describe('CurriculumService', () => {
     expect(fail).toBe(false);
     expect(service.activeLessonIndex()).toBe(6);
   });
+
+  it('should provide story illustrations, math diagrams, and practice challenges for all 7 units', () => {
+    const lessons = service.lessons();
+    expect(lessons.length).toBe(7);
+
+    for (const lesson of lessons) {
+      expect(lesson.storyIllustration).toBeDefined();
+      expect(lesson.storyIllustration?.imageUrl).toMatch(
+        /^assets\/illustrations\/unit-0\d-story\.svg$/,
+      );
+      expect(lesson.storyIllustration?.title).toBeTruthy();
+
+      expect(lesson.mathDiagram).toBeDefined();
+      expect(lesson.mathDiagram?.imageUrl).toMatch(
+        /^assets\/illustrations\/unit-0\d-diagram\.svg$/,
+      );
+      expect(lesson.mathDiagram?.title).toBeTruthy();
+
+      expect(lesson.practiceChallenges).toBeDefined();
+      expect(lesson.practiceChallenges!.length).toBeGreaterThanOrEqual(2);
+      for (const challenge of lesson.practiceChallenges!) {
+        expect(challenge.id).toBeTruthy();
+        expect(challenge.question).toBeTruthy();
+        expect(challenge.hint).toBeTruthy();
+        expect(challenge.successMessage).toBeTruthy();
+      }
+    }
+  });
 });

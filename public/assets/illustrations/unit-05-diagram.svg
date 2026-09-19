@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="Concrete mathematical diagram of Ahmes' Egyptian unit fraction decomposition: 3 loaves divided by 5 equals one half plus one tenth">
+  <defs>
+    <linearGradient id="bgGrad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141724"/>
+      <stop offset="100%" stop-color="#1c2333"/>
+    </linearGradient>
+    <linearGradient id="breadGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+    <filter id="breadGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background Card -->
+  <rect width="800" height="450" rx="16" fill="url(#bgGrad5)" stroke="#2b344a" stroke-width="2"/>
+
+  <!-- Blueprint Coordinate Grid Lines -->
+  <line x1="50" y1="210" x2="750" y2="210" stroke="#2a3348" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="400" y1="70" x2="400" y2="370" stroke="#2a3348" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Top Title Banner -->
+  <text x="400" y="48" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc" letter-spacing="0.5">
+    THE RHIND PAPYRUS: UNIT FRACTION DECOMPOSITION
+  </text>
+  <text x="400" y="72" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8">
+    Dividing 3 loaves among 5 workers without repeating fractions: 3/5 = 1/2 + 1/10
+  </text>
+
+  <!-- TOP SECTION: THE 3 PHYSICAL LOAVES AND HOW THEY ARE SLICED -->
+  <g transform="translate(100, 110)">
+    <!-- Loaf 1 (Cut into halves: 1/2 + 1/2) -->
+    <g transform="translate(0, 0)">
+      <circle cx="60" cy="50" r="45" fill="url(#breadGold)" stroke="#78350f" stroke-width="2"/>
+      <line x1="60" y1="5" x2="60" y2="95" stroke="#1e293b" stroke-width="3.5" stroke-dasharray="4,2"/>
+      <text x="35" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#78350f">1/2</text>
+      <text x="85" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#78350f">1/2</text>
+      <text x="60" y="112" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Loaf 1</text>
+    </g>
+
+    <!-- Loaf 2 (Cut into halves: 1/2 + 1/2) -->
+    <g transform="translate(160, 0)">
+      <circle cx="60" cy="50" r="45" fill="url(#breadGold)" stroke="#78350f" stroke-width="2"/>
+      <line x1="60" y1="5" x2="60" y2="95" stroke="#1e293b" stroke-width="3.5" stroke-dasharray="4,2"/>
+      <text x="35" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#78350f">1/2</text>
+      <text x="85" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#78350f">1/2</text>
+      <text x="60" y="112" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Loaf 2</text>
+    </g>
+
+    <!-- Loaf 3 (Cut into tenths: 1/10 each) -->
+    <g transform="translate(320, 0)">
+      <circle cx="60" cy="50" r="45" fill="url(#breadGold)" stroke="#78350f" stroke-width="2"/>
+      <!-- Sliced into 10 sectors -->
+      <line x1="60" y1="5" x2="60" y2="95" stroke="#1e293b" stroke-width="2"/>
+      <line x1="15" y1="50" x2="105" y2="50" stroke="#1e293b" stroke-width="2"/>
+      <line x1="28" y1="26" x2="92" y2="74" stroke="#1e293b" stroke-width="2"/>
+      <line x1="28" y1="74" x2="92" y2="26" stroke="#1e293b" stroke-width="2"/>
+      <circle cx="60" cy="50" r="14" fill="#fde68a" stroke="#78350f" stroke-width="1.5"/>
+      <text x="60" y="54" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" fill="#78350f">1/10s</text>
+      <text x="60" y="112" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Loaf 3</text>
+    </g>
+
+    <!-- Bracket summing 3 loaves -->
+    <g transform="translate(450, 20)">
+      <rect width="145" height="65" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="72" y="26" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fbbf24">TOTAL SUPPLY</text>
+      <text x="72" y="50" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="800" fill="#ffffff">3 Loaves</text>
+    </g>
+  </g>
+
+  <!-- DOWNWARD DISTRIBUTION ARROWS -->
+  <g transform="translate(400, 245)">
+    <line x1="0" y1="0" x2="0" y2="28" stroke="#10b981" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="-6,26 6,26 0,36" fill="#10b981"/>
+    <text x="12" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" fill="#34d399">
+      EQUAL DISTRIBUTION TO 5 WORKERS
+    </text>
+  </g>
+
+  <!-- BOTTOM SECTION: THE 5 IDENTICAL WORKER BASKETS -->
+  <g transform="translate(70, 290)">
+    <!-- Worker 1 -->
+    <g transform="translate(0, 0)">
+      <rect width="115" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="57" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Worker 1</text>
+      <text x="57" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">1/2 + 1/10</text>
+    </g>
+
+    <!-- Worker 2 -->
+    <g transform="translate(135, 0)">
+      <rect width="115" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="57" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Worker 2</text>
+      <text x="57" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">1/2 + 1/10</text>
+    </g>
+
+    <!-- Worker 3 -->
+    <g transform="translate(270, 0)">
+      <rect width="115" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="57" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Worker 3</text>
+      <text x="57" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">1/2 + 1/10</text>
+    </g>
+
+    <!-- Worker 4 -->
+    <g transform="translate(405, 0)">
+      <rect width="115" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="57" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Worker 4</text>
+      <text x="57" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">1/2 + 1/10</text>
+    </g>
+
+    <!-- Worker 5 -->
+    <g transform="translate(540, 0)">
+      <rect width="115" height="58" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+      <text x="57" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">Worker 5</text>
+      <text x="57" y="44" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#f8fafc">1/2 + 1/10</text>
+    </g>
+  </g>
+
+  <!-- EQUALITY EQUATION BANNER (Bottom Center) -->
+  <g transform="translate(230, 375)">
+    <rect width="340" height="48" rx="10" fill="#1e293b" stroke="#10b981" stroke-width="2"/>
+    <text x="170" y="30" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#34d399">
+      3/5 = 1/2 + 1/10 (3/5 PER SHARE)
+    </text>
+  </g>
+</svg>

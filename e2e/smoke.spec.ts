@@ -55,16 +55,16 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('#quantity-a-input')).toBeVisible();
     await expect(page.locator('#quantity-b-input')).toBeVisible();
 
-    // Verify Unit 01 addition vectors
+    // Verify Unit 01 addition vectors (initial a=3, b=2: 3*35+50=155, 155+2*35=225)
     const vectorA01 = page.locator('line.vector-a');
     await expect(vectorA01).toBeAttached();
     await expect(vectorA01).toHaveAttribute('x1', '50');
-    await expect(vectorA01).toHaveAttribute('x2', '190');
+    await expect(vectorA01).toHaveAttribute('x2', '155');
 
     const vectorB01 = page.locator('line.vector-b');
     await expect(vectorB01).toBeAttached();
-    await expect(vectorB01).toHaveAttribute('x1', '190');
-    await expect(vectorB01).toHaveAttribute('x2', '295');
+    await expect(vectorB01).toHaveAttribute('x1', '155');
+    await expect(vectorB01).toHaveAttribute('x2', '225');
     await expect(vectorB01).toHaveAttribute('marker-end', 'url(#arrow-amber)');
 
     // Verify operation toggle is hidden on Unit 01 (locked to addition)

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" role="img" aria-label="A Babylonian scribe with clay tablet and stylus inspecting a date palm orchard planted in rectangular rows beside an irrigation canal at sunrise">
+  <defs>
+    <linearGradient id="mepoSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#191b35"/>
+      <stop offset="35%" stop-color="#3c2f4c"/>
+      <stop offset="65%" stop-color="#7c4a45"/>
+      <stop offset="85%" stop-color="#c67344"/>
+      <stop offset="100%" stop-color="#f5b061"/>
+    </linearGradient>
+    <linearGradient id="canalWater" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c67344" stop-opacity="0.8"/>
+      <stop offset="30%" stop-color="#5a3d42"/>
+      <stop offset="70%" stop-color="#242338"/>
+      <stop offset="100%" stop-color="#111524"/>
+    </linearGradient>
+    <linearGradient id="clayTab" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a8815b"/>
+      <stop offset="50%" stop-color="#c7a17a"/>
+      <stop offset="100%" stop-color="#8c6845"/>
+    </linearGradient>
+    <filter id="mepoGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Mesopotamian Dawn Sky -->
+  <rect width="800" height="450" fill="url(#mepoSky)"/>
+
+  <!-- Stepped Ziggurat in the Morning Haze -->
+  <g transform="translate(60, 180)" opacity="0.4">
+    <!-- Bottom Tier -->
+    <polygon points="20,110 30,75 130,75 140,110" fill="#2d2238"/>
+    <!-- Middle Tier -->
+    <polygon points="40,75 48,50 112,50 120,75" fill="#3c2b4a"/>
+    <!-- Top Tier & Temple Shrine -->
+    <polygon points="60,50 65,32 95,32 100,50" fill="#4d365e"/>
+    <rect x="73" y="20" width="14" height="12" fill="#5c4170"/>
+    <!-- Central Access Stairway -->
+    <polygon points="76,110 77,50 83,50 84,110" fill="#201729"/>
+  </g>
+
+  <!-- Sun Rising over the Babylonian Plain -->
+  <circle cx="480" cy="240" r="38" fill="#fde68a" filter="url(#mepoGlow)"/>
+
+  <!-- Euphrates Irrigation Canal -->
+  <path d="M0,320 Q250,310 500,325 Q680,335 800,315 L800,375 Q680,395 500,380 Q250,370 0,380 Z" fill="url(#canalWater)"/>
+  <!-- Canal Water Highlights -->
+  <ellipse cx="480" cy="345" rx="55" ry="3" fill="#fde68a" opacity="0.6"/>
+  <ellipse cx="480" cy="358" rx="40" ry="2.5" fill="#f59e0b" opacity="0.5"/>
+
+  <!-- Silt Embankments and Field Bounds -->
+  <path d="M0,450 L0,360 Q260,350 510,365 Q690,375 800,355 L800,450 Z" fill="#171221"/>
+  <path d="M0,320 L0,260 Q260,255 510,265 Q690,270 800,250 L800,320 Z" fill="#21172e"/>
+
+  <!-- THE DATE PALM ORCHARD (Structured 3 × 5 Rectangular Array) -->
+  <g transform="translate(180, 180)">
+    <!-- 3 Rows of 5 Date Palms -->
+    <!-- Row 1 (Back, smaller) -->
+    <g transform="translate(0, 0) scale(0.65)" opacity="0.75">
+      <!-- 5 Palms in Row 1 -->
+      <g transform="translate(0, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="5" fill="none"/><path d="M10,10 Q-15,-5 -25,10 M10,10 Q-5,-20 0,-25 M10,10 Q25,-20 20,-25 M10,10 Q35,-5 45,10" stroke="#047857" stroke-width="3" fill="none"/><circle cx="10" cy="10" r="14" fill="#065f46" opacity="0.7"/></g>
+      <g transform="translate(90, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="5" fill="none"/><circle cx="10" cy="10" r="14" fill="#065f46" opacity="0.7"/></g>
+      <g transform="translate(180, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="5" fill="none"/><circle cx="10" cy="10" r="14" fill="#065f46" opacity="0.7"/></g>
+      <g transform="translate(270, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="5" fill="none"/><circle cx="10" cy="10" r="14" fill="#065f46" opacity="0.7"/></g>
+      <g transform="translate(360, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="5" fill="none"/><circle cx="10" cy="10" r="14" fill="#065f46" opacity="0.7"/></g>
+    </g>
+
+    <!-- Row 2 (Middle) -->
+    <g transform="translate(20, 25) scale(0.8)" opacity="0.85">
+      <g transform="translate(0, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="6" fill="none"/><circle cx="10" cy="10" r="16" fill="#059669" opacity="0.8"/></g>
+      <g transform="translate(90, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="6" fill="none"/><circle cx="10" cy="10" r="16" fill="#059669" opacity="0.8"/></g>
+      <g transform="translate(180, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="6" fill="none"/><circle cx="10" cy="10" r="16" fill="#059669" opacity="0.8"/></g>
+      <g transform="translate(270, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="6" fill="none"/><circle cx="10" cy="10" r="16" fill="#059669" opacity="0.8"/></g>
+      <g transform="translate(360, 0)"><path d="M10,90 Q8,45 10,10" stroke="#3b2b1d" stroke-width="6" fill="none"/><circle cx="10" cy="10" r="16" fill="#059669" opacity="0.8"/></g>
+    </g>
+
+    <!-- Row 3 (Foreground, prominent) -->
+    <g transform="translate(40, 50)">
+      <g transform="translate(0, 0)"><path d="M10,90 Q8,45 10,10" stroke="#2b1e13" stroke-width="7" fill="none"/><circle cx="10" cy="10" r="18" fill="#10b981"/></g>
+      <g transform="translate(90, 0)"><path d="M10,90 Q8,45 10,10" stroke="#2b1e13" stroke-width="7" fill="none"/><circle cx="10" cy="10" r="18" fill="#10b981"/></g>
+      <g transform="translate(180, 0)"><path d="M10,90 Q8,45 10,10" stroke="#2b1e13" stroke-width="7" fill="none"/><circle cx="10" cy="10" r="18" fill="#10b981"/></g>
+      <g transform="translate(270, 0)"><path d="M10,90 Q8,45 10,10" stroke="#2b1e13" stroke-width="7" fill="none"/><circle cx="10" cy="10" r="18" fill="#10b981"/></g>
+      <g transform="translate(360, 0)"><path d="M10,90 Q8,45 10,10" stroke="#2b1e13" stroke-width="7" fill="none"/><circle cx="10" cy="10" r="18" fill="#10b981"/></g>
+    </g>
+  </g>
+
+  <!-- THE BABYLONIAN SCRIBE (Foreground right with Cuneiform Tablet) -->
+  <g transform="translate(610, 230)">
+    <!-- Seated Body -->
+    <path d="M30,190 C35,130 55,90 90,80 C120,70 145,90 150,130 C145,155 155,175 170,190 Z" fill="#130e1c"/>
+    <ellipse cx="95" cy="50" rx="17" ry="22" fill="#130e1c"/>
+    <!-- Golden dawn rim light -->
+    <path d="M70,75 Q95,70 120,80 Q135,100 135,130" stroke="#f59e0b" stroke-width="2.5" fill="none" opacity="0.7"/>
+
+    <!-- Left Arm holding Cuneiform Clay Tablet -->
+    <path d="M80,105 Q50,130 15,125" stroke="#130e1c" stroke-width="15" fill="none" stroke-linecap="round"/>
+
+    <!-- Clay Tablet with Cuneiform Markings -->
+    <g transform="translate(0, 110) rotate(-15)">
+      <rect x="0" y="0" width="45" height="34" rx="4" fill="url(#clayTab)" stroke="#5c432d" stroke-width="1.5"/>
+      <!-- Cuneiform wedge impressions (Wedges representing 3 × 5 = 15) -->
+      <line x1="8" y1="8" x2="16" y2="8" stroke="#3d2c1d" stroke-width="1.5"/>
+      <line x1="8" y1="14" x2="22" y2="14" stroke="#3d2c1d" stroke-width="1.5"/>
+      <line x1="8" y1="20" x2="30" y2="20" stroke="#3d2c1d" stroke-width="1.5"/>
+      <line x1="8" y1="26" x2="36" y2="26" stroke="#3d2c1d" stroke-width="1.5"/>
+    </g>
+
+    <!-- Right Hand with Triangular Reed Stylus -->
+    <path d="M120,115 Q100,135 60,135" stroke="#130e1c" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <line x1="60" y1="135" x2="35" y2="125" stroke="#fde68a" stroke-width="2.5"/>
+  </g>
+
+  <!-- Title Badge -->
+  <g transform="translate(40, 360)">
+    <rect width="280" height="54" rx="8" fill="#100d18" fill-opacity="0.9" stroke="#10b981" stroke-width="1.5"/>
+    <text x="16" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#34d399" letter-spacing="1">ANCIENT BABYLONIA · c. 1800 BCE</text>
+    <text x="16" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#f3e8ff">The Commutative Law: 3 × 5 = 5 × 3</text>
+  </g>
+</svg>

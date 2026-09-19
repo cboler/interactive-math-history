@@ -361,4 +361,47 @@ describe('LessonViewComponent', () => {
     const router = TestBed.inject(Router);
     expect(router.url).toBe('/foundations/origins-of-addition');
   });
+
+  it('should compute context-appropriate missionButtonLabel for each visualizer', () => {
+    // Unit 01 (number-line-vector)
+    component.selectLesson(0);
+    expect(component.missionButtonLabel()).toBe('Try This on the Number Line');
+
+    // Unit 03 (balance-scale)
+    component.selectLesson(2);
+    expect(component.missionButtonLabel()).toBe('Balance This on the Scale');
+
+    // Unit 04 (grid-array)
+    component.selectLesson(3);
+    expect(component.missionButtonLabel()).toBe('Set Field Grid Dimensions');
+
+    // Unit 05 (partition-slicer)
+    component.selectLesson(4);
+    expect(component.missionButtonLabel()).toBe('Explore Bread Share');
+
+    // Unit 06 (logic-circuit)
+    component.selectLesson(5);
+    expect(component.missionButtonLabel()).toBe('Test Circuit State');
+
+    // Unit 07 (geometric-compass)
+    component.selectLesson(6);
+    expect(component.missionButtonLabel()).toBe('Set Baseline Length');
+  });
+
+  it('should render story illustrations and math diagrams across all units', () => {
+    const total = component.curriculum.totalLessons();
+    expect(total).toBe(7);
+
+    for (let i = 0; i < total; i++) {
+      component.selectLesson(i);
+      fixture.detectChanges();
+      const compiled = fixture.nativeElement as HTMLElement;
+      const storyImg = compiled.querySelector('.story-illustration img') as HTMLImageElement;
+      const mathImg = compiled.querySelector('.math-diagram img') as HTMLImageElement;
+      expect(storyImg).toBeTruthy();
+      expect(storyImg.src).toContain(`assets/illustrations/unit-0${i + 1}-story.svg`);
+      expect(mathImg).toBeTruthy();
+      expect(mathImg.src).toContain(`assets/illustrations/unit-0${i + 1}-diagram.svg`);
+    }
+  });
 });
