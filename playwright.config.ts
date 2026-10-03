@@ -1,5 +1,9 @@
 import { defineConfig } from '@playwright/test';
 
+// Set E2E_PORT when another project's dev server already occupies 4200
+const port = process.env['E2E_PORT'] ?? '4200';
+const baseURL = `http://localhost:${port}`;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -8,7 +12,7 @@ export default defineConfig({
   workers: process.env['CI'] ? 1 : undefined,
   reporter: 'list',
   use: {
-    baseURL: 'http://localhost:4200',
+    baseURL,
     trace: 'on-first-retry',
   },
   projects: [
@@ -38,8 +42,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm start',
-    url: 'http://localhost:4200',
+    command: `npm start -- --port ${port}`,
+    url: baseURL,
     reuseExistingServer: !process.env['CI'],
     timeout: 120 * 1000,
   },

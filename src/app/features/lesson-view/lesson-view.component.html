@@ -15,7 +15,7 @@
           aria-controls="curriculum-drawer"
         >
           <app-icon name="book"></app-icon>
-          <span class="btn-text">Curriculum Outline</span>
+          <span class="btn-text">All Lessons</span>
         </button>
       </div>
 
@@ -58,12 +58,12 @@
       aria-labelledby="curriculum-drawer-title"
     >
       <div class="drawer-header">
-        <h3 id="curriculum-drawer-title">Curriculum Blueprint</h3>
+        <h3 id="curriculum-drawer-title">All Lessons</h3>
         <button
           type="button"
           class="drawer-close-btn"
           (click)="toggleDrawer(false)"
-          aria-label="Close outline"
+          aria-label="Close lesson list"
         >
           ✕
         </button>
@@ -71,58 +71,52 @@
 
       <div class="drawer-body">
         <!-- Domain Strand Filter Pills -->
-        <div class="strand-filter-row" role="group" aria-label="Curriculum domain strand filter">
+        <div class="strand-filter-row" role="group" aria-label="Filter lessons by topic">
           <button
             type="button"
             class="strand-filter-btn"
             [class.active]="selectedStrand() === 'all'"
+            [attr.aria-pressed]="selectedStrand() === 'all'"
             (click)="setStrand('all')"
           >
             All
           </button>
-          <button
-            type="button"
-            class="strand-filter-btn"
-            [class.active]="selectedStrand() === 'numeracy'"
-            (click)="setStrand('numeracy')"
-          >
-            Numeracy
-          </button>
-          <button
-            type="button"
-            class="strand-filter-btn"
-            [class.active]="selectedStrand() === 'logic'"
-            (click)="setStrand('logic')"
-          >
-            Logic
-          </button>
-          <button
-            type="button"
-            class="strand-filter-btn"
-            [class.active]="selectedStrand() === 'arithmetic'"
-            (click)="setStrand('arithmetic')"
-          >
-            Arithmetic
-          </button>
-          <button
-            type="button"
-            class="strand-filter-btn filter-pill"
-            [class.active]="selectedStrand() === 'geometry'"
-            (click)="setStrandFilter('geometry')"
-          >
-            Geometry
-          </button>
+          @for (strand of strands(); track strand) {
+            <button
+              type="button"
+              class="strand-filter-btn"
+              [class.active]="selectedStrand() === strand"
+              [attr.aria-pressed]="selectedStrand() === strand"
+              (click)="setStrand(strand)"
+            >
+              {{ strand | titlecase }}
+            </button>
+          }
         </div>
 
         <ul class="lesson-stepper-list">
           @for (item of filteredLessons(); track item.id) {
             <li class="stepper-item" [class.active]="item.id === current.id">
-              <button type="button" class="stepper-btn" (click)="selectLessonById(item.id)">
-                <span class="stepper-number">0{{ item.order }}</span>
-                <div class="stepper-meta">
+              <button
+                type="button"
+                class="stepper-btn"
+                [attr.aria-current]="item.id === current.id ? 'page' : null"
+                (click)="selectLessonById(item.id)"
+              >
+                <span class="stepper-number">{{ item.order | number: '2.0-0' }}</span>
+                <span class="stepper-meta">
                   <span class="stepper-title">{{ item.title }}</span>
-                  <span class="stepper-statement">{{ item.mathematicalStatement }}</span>
-                </div>
+                  <span class="stepper-era">{{ item.historicalEra }}</span>
+                  <span class="stepper-statement" [appMath]="item.mathematicalStatement"></span>
+                  @if (lessonProgress().get(item.id); as missions) {
+                    <span
+                      class="stepper-progress"
+                      [class.all-done]="missions.done === missions.total"
+                    >
+                      ★ {{ missions.done }} of {{ missions.total }} missions
+                    </span>
+                  }
+                </span>
               </button>
             </li>
           }
@@ -151,6 +145,33 @@
         <span [appMath]="current.mathematicalStatement" [displayMode]="false"></span>
       </div>
     </header>
+
+    <!-- 0. LINEAGE: The earlier lessons this one stands on (teaching order, not always date order) -->
+    <section class="lineage-card" aria-labelledby="built-on-heading">
+      <h2 id="built-on-heading">What This Lesson Builds On</h2>
+      @if (priorDiscoveries().length > 0) {
+        <ul class="lineage-list">
+          @for (prior of priorDiscoveries(); track prior.lesson.id) {
+            <li>
+              <button
+                type="button"
+                class="lineage-link"
+                (click)="selectLessonById(prior.lesson.id)"
+              >
+                {{ prior.lesson.shortTitle }}
+              </button>
+              @if (prior.connection) {
+                <p class="lineage-connection">{{ prior.connection }}</p>
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="lineage-empty">
+          This is where the journey begins. No earlier lessons needed, just curiosity!
+        </p>
+      }
+    </section>
 
     <!-- 1. NARRATIVE: THE HUMAN STORY (History First!) -->
     <section class="prose-section history-section">
@@ -200,10 +221,11 @@
 
       <!-- Epistemic Transparency / Historical Uncertainty -->
       @if (current.narrative.historicalContext.epistemicStatus; as epistemic) {
-        <aside class="epistemic-card">
+        <aside class="epistemic-card" aria-labelledby="how-we-know-heading">
           <div class="epistemic-header">
+            <h3 id="how-we-know-heading">How Do We Know?</h3>
             <span class="consensus-tag" [attr.data-level]="epistemic.consensusLevel">
-              Historiographical Status: {{ epistemic.consensusLevel | uppercase }}
+              {{ consensusLabels[epistemic.consensusLevel] }}
             </span>
           </div>
           <p class="epistemic-summary">{{ epistemic.summary }}</p>
@@ -228,14 +250,22 @@
       </div>
       <p class="discovery-prompt" [innerHTML]="current.discoveryHook.prompt | mathText"></p>
       <div class="discovery-tip">
-        <strong>Guiding Principle: </strong>
+        <strong>The big idea: </strong>
         <span [innerHTML]="current.discoveryHook.targetAxiom | mathText"></span>
       </div>
+      <div class="discovery-tip">
+        <strong>Try it in the lab: </strong>
+        <span>{{ current.discoveryHook.successCondition }}</span>
+      </div>
+      <details class="discovery-hint">
+        <summary>Need a hint?</summary>
+        <p>{{ current.discoveryHook.guidanceTip }}</p>
+      </details>
     </section>
 
     <!-- 3. INTERACTIVE LABORATORY (Dynamic Archetype Switch) -->
     <section class="interactive-stage" aria-label="Mathematical Experiment">
-      <h2>Interactive Laboratory</h2>
+      <h2>The Math Lab</h2>
 
       <!-- Concrete Mathematical Concept Diagram (CPA Bridge) -->
       @if (current.mathDiagram; as diagram) {
@@ -258,7 +288,7 @@
         current.interactiveConfig.visualizer !== 'logic-circuit' &&
         current.interactiveConfig.visualizer !== 'geometric-compass'
       ) {
-        <div class="controls-panel" aria-hidden="true">
+        <div class="controls-panel">
           <div class="control-group">
             <label for="quantity-a-input">
               {{ sliderALabel() }}: <strong>{{ inputA() }}</strong>
@@ -317,8 +347,8 @@
         </div>
       }
 
-      <!-- Active Visualizer Outlet (Shielded from screen-reader prose flow) -->
-      <div class="visualizer-outlet" aria-hidden="true">
+      <!-- Active Visualizer Outlet (each visualizer hides its own decorative SVG from screen readers) -->
+      <div class="visualizer-outlet" #labOutlet>
         @switch (current.interactiveConfig.visualizer) {
           @case ('number-line-vector') {
             <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
@@ -347,46 +377,99 @@
         }
       </div>
 
+      <!-- Latest mission success, announced right beside the lab -->
+      <div class="mission-celebration-region" role="status" aria-live="polite">
+        @if (celebrationMessage(); as message) {
+          <p class="mission-celebration">
+            <span class="celebration-star" aria-hidden="true">★</span>
+            <span><strong>Mission complete!</strong> {{ message }}</span>
+          </p>
+        }
+      </div>
+
       <!-- Practice Micro-Challenges Section (Try It Yourself!) -->
       @if (current.practiceChallenges && current.practiceChallenges.length > 0) {
         <section class="practice-missions" aria-label="Practice Micro-Missions">
-          <h2>Try It Yourself!</h2>
+          <div class="missions-header">
+            <h2>Try It Yourself!</h2>
+            <span class="missions-progress" id="missions-progress">
+              {{ completedInLesson() }} of {{ current.practiceChallenges.length }} done
+            </span>
+          </div>
           <div class="missions-grid">
             @for (mission of current.practiceChallenges; track mission.id; let idx = $index) {
-              <div class="mission-card">
-                <div class="mission-badge">Mission {{ idx + 1 }}</div>
+              <div class="mission-card" [class.done]="completedMissions().has(mission.id)">
+                <div class="mission-badge">
+                  Mission {{ idx + 1 }}
+                  @if (completedMissions().has(mission.id)) {
+                    <span class="mission-check">✓ Done</span>
+                  }
+                </div>
                 <p class="mission-question">{{ mission.question }}</p>
-                <p class="mission-hint">
-                  <em>Tip: {{ mission.hint }}</em>
-                </p>
-                <button
-                  type="button"
-                  class="load-mission-btn"
-                  (click)="setMissionValues(mission.targetA, mission.targetB)"
-                >
+                @if (completedMissions().has(mission.id)) {
+                  <p class="mission-success">{{ mission.successMessage }}</p>
+                } @else {
+                  <p class="mission-hint">
+                    <em>Tip: {{ mission.hint }}</em>
+                  </p>
+                }
+                <button type="button" class="load-mission-btn" (click)="startMission(mission)">
                   {{ missionButtonLabel() }}
                 </button>
               </div>
             }
           </div>
+          @if (completedInLesson() > 0) {
+            <button
+              type="button"
+              class="reset-missions-btn"
+              id="reset-missions-btn"
+              (click)="resetMissions()"
+            >
+              ↺ Start these missions again
+            </button>
+          }
         </section>
       }
     </section>
 
     <!-- 4. PRINCIPLES & APPLICATION -->
     <section class="prose-section">
-      <h2>Principles to Remember</h2>
+      <h2>Big Ideas to Remember</h2>
       <ul class="principles-list">
         @for (point of current.narrative.conceptualExplanation; track $index) {
           <li [innerHTML]="point | mathText"></li>
         }
       </ul>
 
-      <h3>Real-World Relevance</h3>
+      <h3>Why It Matters Today</h3>
       <p>{{ current.narrative.realWorldApplication }}</p>
     </section>
 
-    <!-- 5. EXPLORE FURTHER GRAPH & ACADEMIC REFERENCES -->
+    <!-- 5. LINEAGE: The later lessons that reuse this one -->
+    <section class="lineage-card lineage-next" aria-labelledby="leads-to-heading">
+      <h2 id="leads-to-heading">Where This Idea Leads</h2>
+      @if (nextDiscoveries().length > 0) {
+        <ul class="lineage-list">
+          @for (next of nextDiscoveries(); track next.lesson.id) {
+            <li>
+              <button type="button" class="lineage-link" (click)="selectLessonById(next.lesson.id)">
+                {{ next.lesson.shortTitle }}
+              </button>
+              @if (next.connection) {
+                <p class="lineage-connection">{{ next.connection }}</p>
+              }
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="lineage-empty">
+          Mathematicians are still building on this idea today, and new lessons will too.
+        </p>
+      }
+    </section>
+
+    <!-- 6. EXPLORE FURTHER GRAPH & ACADEMIC REFERENCES -->
     <footer class="lesson-footer">
       <h3>Explore Further</h3>
       <div class="explore-chips">
@@ -403,7 +486,7 @@
         }
       </div>
 
-      <h3>Academic Bibliography</h3>
+      <h3>Books and Papers Behind This Story</h3>
       <ol class="sources-list">
         @for (source of current.academicSources; track source.title) {
           <li>
@@ -440,7 +523,7 @@
           aria-controls="curriculum-drawer"
         >
           <app-icon name="book"></app-icon>
-          <span class="btn-text">Curriculum Outline</span>
+          <span class="btn-text">All Lessons</span>
         </button>
 
         <button

@@ -42,7 +42,7 @@ export class App implements OnInit, OnDestroy {
       const current = this.curriculum.currentLesson();
       if (current) {
         this.titleService.setTitle(
-          `${current.shortTitle}: ${current.title} • Interactive Math & History`,
+          `${current.shortTitle} — ${current.title} • Interactive Math & History`,
         );
       }
     });

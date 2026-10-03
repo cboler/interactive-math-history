@@ -99,4 +99,37 @@ describe('BreadSlicerComponent', () => {
     expect(component.baskets().every((b) => b.slices.length === 0)).toBe(true);
     expect(component.isSolved()).toBe(false);
   });
+
+  it('should report milestones on the way to the Ahmes solution', () => {
+    expect(component.labState()).toEqual({
+      halvesCut: false,
+      everyWorkerHasHalf: false,
+      solved: false,
+    });
+
+    // All three loaves into halves: six halves on the bench
+    component.cutLoaf(2, '#2563eb');
+    component.cutLoaf(2, '#2563eb');
+    component.cutLoaf(2, '#2563eb');
+    expect(component.labState().halvesCut).toBe(true);
+    expect(component.labState().everyWorkerHasHalf).toBe(false);
+
+    // One half each leaves a single half over, and the sharing is not yet finished
+    for (const basket of component.baskets()) {
+      component.giveSliceToWorker(component.availableSlices()[0].id, basket.id);
+    }
+    expect(component.availableSlices().map((s) => s.label)).toEqual(['1/2']);
+    expect(component.labState()).toEqual({
+      halvesCut: true,
+      everyWorkerHasHalf: true,
+      solved: false,
+    });
+
+    // The leftover half becomes five tenths, one per worker: 1/2 + 1/10 = 3/5 each
+    component.subdivideHalf(component.availableSlices()[0].id);
+    for (const basket of component.baskets()) {
+      component.giveSliceToWorker(component.availableSlices()[0].id, basket.id);
+    }
+    expect(component.labState().solved).toBe(true);
+  });
 });

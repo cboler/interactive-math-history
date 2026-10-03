@@ -84,7 +84,23 @@ export class NumberLineComponent {
     };
   });
 
+  // Taking away more than there is: the line stops at zero rather than showing a wrong answer
+  readonly takesTooMany = computed(
+    () => this.operation() === 'subtract' && this.valB() > this.valA(),
+  );
+
+  readonly caption = computed(() => {
+    if (this.takesTooMany()) {
+      return `You only have ${this.valA()}, so you cannot take away ${this.valB()}. Much later, people invented negative numbers to solve exactly this puzzle!`;
+    }
+    const secondHop = this.operation() === 'add' ? 'forward' : 'back';
+    return `Start at 0 and hop forward ${this.valA()}. Then hop ${secondHop} ${this.valB()}. You land on ${this.result()}.`;
+  });
+
   readonly speechSummary = computed(() => {
+    if (this.takesTooMany()) {
+      return `Vector number line: you cannot take away ${this.valB()} from ${this.valA()}. The line stops at 0.`;
+    }
     const verb = this.operation() === 'add' ? 'plus' : 'minus';
     return `Vector number line illustrating ${this.valA()} ${verb} ${this.valB()} equals ${this.result()}.`;
   });

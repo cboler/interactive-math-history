@@ -140,4 +140,19 @@ describe('LogicCircuitComponent', () => {
       'Statement P is True, Statement Q is True. Gate AND. Lamp is Lit.',
     );
   });
+
+  it('should set up the whole circuit at once for practice missions', () => {
+    const chimeSpy = vi.spyOn(feedbackService, 'equilibriumChime');
+
+    component.applyState('OR', false, true);
+    expect(component.labState()).toEqual({ gate: 'OR', switchP: false, switchQ: true });
+    expect(component.isLit()).toBe(true);
+    expect(chimeSpy).toHaveBeenCalledTimes(1);
+
+    // No celebration when the lamp goes dark
+    component.applyState('AND', true, false);
+    expect(component.labState()).toEqual({ gate: 'AND', switchP: true, switchQ: false });
+    expect(component.isLit()).toBe(false);
+    expect(chimeSpy).toHaveBeenCalledTimes(1);
+  });
 });

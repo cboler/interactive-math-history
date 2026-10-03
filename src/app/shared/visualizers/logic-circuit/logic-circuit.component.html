@@ -1,8 +1,4 @@
-<div
-  class="logic-circuit-container"
-  role="region"
-  aria-label="Aristotelian Truth Circuit Laboratory"
->
+<div class="logic-circuit-container" role="region" aria-label="Logic circuit lab">
   <!-- Screen reader live announcement region -->
   <div class="sr-only" aria-live="polite" aria-atomic="true">
     {{ liveAnnouncement() }}
@@ -11,7 +7,7 @@
   <!-- Primary Circuit Header & Mode Selector -->
   <div class="circuit-header">
     <div class="circuit-title-group">
-      <h3 class="circuit-heading">Aristotelian Logic Gate Circuit</h3>
+      <h3 class="circuit-heading">The Logic Circuit</h3>
       <span class="circuit-status-badge" [class.lit]="isLit()">
         <span class="status-dot"></span>
         {{ isLit() ? 'Circuit Closed · Lamp Lit' : 'Circuit Open · Lamp Extinguished' }}
@@ -19,7 +15,7 @@
     </div>
 
     <!-- Gate Type Selector (AND / OR) -->
-    <div class="gate-toggle-group" role="group" aria-label="Logic Gate Type">
+    <div class="gate-toggle-group" role="group" aria-label="Choose AND or OR">
       <button
         type="button"
         id="gate-and-btn"
@@ -29,7 +25,7 @@
         (click)="setGateType('AND')"
       >
         <span class="gate-symbol">P ∧ Q</span>
-        <span class="gate-desc">AND (Series)</span>
+        <span class="gate-desc">AND (in a row)</span>
       </button>
       <button
         type="button"
@@ -40,7 +36,7 @@
         (click)="setGateType('OR')"
       >
         <span class="gate-symbol">P ∨ Q</span>
-        <span class="gate-desc">OR (Parallel)</span>
+        <span class="gate-desc">OR (side by side)</span>
       </button>
     </div>
   </div>
@@ -52,7 +48,7 @@
       viewBox="0 0 760 340"
       preserveAspectRatio="xMidYMid meet"
       role="img"
-      aria-label="Physical truth circuit schematic displaying battery, switches, and Athenian oil lamp"
+      aria-label="Circuit drawing with a battery, two switches, and an oil lamp"
     >
       <defs>
         <!-- Lamp Radiant Glow Filter -->
@@ -138,7 +134,7 @@
           (keydown.space)="toggleSwitchP()"
           role="button"
           tabindex="0"
-          [attr.aria-label]="'Knife switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
+          [attr.aria-label]="'Switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
         >
           <!-- Switch Terminal Contacts -->
           <circle cx="200" cy="110" r="7" class="terminal-post" />
@@ -158,7 +154,7 @@
           />
 
           <!-- Switch Handle & Label -->
-          <text x="240" y="80" class="switch-badge-label">Premise P</text>
+          <text x="240" y="80" class="switch-badge-label">Statement P</text>
           <text x="240" y="145" class="switch-state-text">
             {{ switchP() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
           </text>
@@ -179,7 +175,7 @@
           (keydown.space)="toggleSwitchQ()"
           role="button"
           tabindex="0"
-          [attr.aria-label]="'Knife switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
+          [attr.aria-label]="'Switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
         >
           <!-- Switch Terminal Contacts -->
           <circle cx="380" cy="110" r="7" class="terminal-post" />
@@ -198,7 +194,7 @@
           />
 
           <!-- Switch Handle & Label -->
-          <text x="420" y="80" class="switch-badge-label">Premise Q</text>
+          <text x="420" y="80" class="switch-badge-label">Statement Q</text>
           <text x="420" y="145" class="switch-state-text">
             {{ switchQ() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
           </text>
@@ -237,7 +233,7 @@
           (keydown.space)="toggleSwitchP()"
           role="button"
           tabindex="0"
-          [attr.aria-label]="'Knife switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
+          [attr.aria-label]="'Switch P is ' + (switchP() ? 'Closed (True)' : 'Open (False)')"
         >
           <circle cx="240" cy="60" r="7" class="terminal-post" />
           <circle cx="360" cy="60" r="7" class="terminal-post" />
@@ -253,7 +249,7 @@
             [attr.transform]="!switchP() ? 'rotate(-30 240 60)' : ''"
           />
 
-          <text x="300" y="32" class="switch-badge-label">Premise P</text>
+          <text x="300" y="32" class="switch-badge-label">Statement P</text>
           <text x="300" y="95" class="switch-state-text">
             {{ switchP() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
           </text>
@@ -268,7 +264,7 @@
           (keydown.space)="toggleSwitchQ()"
           role="button"
           tabindex="0"
-          [attr.aria-label]="'Knife switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
+          [attr.aria-label]="'Switch Q is ' + (switchQ() ? 'Closed (True)' : 'Open (False)')"
         >
           <circle cx="240" cy="170" r="7" class="terminal-post" />
           <circle cx="360" cy="170" r="7" class="terminal-post" />
@@ -284,7 +280,7 @@
             [attr.transform]="!switchQ() ? 'rotate(-30 240 170)' : ''"
           />
 
-          <text x="300" y="142" class="switch-badge-label">Premise Q</text>
+          <text x="300" y="142" class="switch-badge-label">Statement Q</text>
           <text x="300" y="205" class="switch-state-text">
             {{ switchQ() ? 'TRUE (Closed)' : 'FALSE (Open)' }}
           </text>
@@ -410,16 +406,14 @@
         (click)="toggleSwitchP()"
       >
         <div class="card-indicator-row">
-          <span class="premise-badge">Premise P</span>
+          <span class="premise-badge">Statement P</span>
           <span class="toggle-pill" [class.pill-true]="switchP()">
             {{ switchP() ? 'TRUE' : 'FALSE' }}
           </span>
         </div>
         <div class="card-label-row">
-          <span class="card-action-text">{{
-            switchP() ? 'Knife Switch Closed' : 'Knife Switch Open'
-          }}</span>
-          <span class="card-hint-text">Click to toggle premise validity</span>
+          <span class="card-action-text">{{ switchP() ? 'Switch Closed' : 'Switch Open' }}</span>
+          <span class="card-hint-text">Tap to flip between true and false</span>
         </div>
       </button>
 
@@ -433,16 +427,14 @@
         (click)="toggleSwitchQ()"
       >
         <div class="card-indicator-row">
-          <span class="premise-badge">Premise Q</span>
+          <span class="premise-badge">Statement Q</span>
           <span class="toggle-pill" [class.pill-true]="switchQ()">
             {{ switchQ() ? 'TRUE' : 'FALSE' }}
           </span>
         </div>
         <div class="card-label-row">
-          <span class="card-action-text">{{
-            switchQ() ? 'Knife Switch Closed' : 'Knife Switch Open'
-          }}</span>
-          <span class="card-hint-text">Click to toggle premise validity</span>
+          <span class="card-action-text">{{ switchQ() ? 'Switch Closed' : 'Switch Open' }}</span>
+          <span class="card-hint-text">Tap to flip between true and false</span>
         </div>
       </button>
     </div>
@@ -452,7 +444,7 @@
   <div class="truth-table-section">
     <div class="table-header-row">
       <h4 class="table-title">
-        Truth Table: {{ gateType() === 'AND' ? 'Conjunction (P ∧ Q)' : 'Disjunction (P ∨ Q)' }}
+        Truth Table: {{ gateType() === 'AND' ? 'P AND Q (P ∧ Q)' : 'P OR Q (P ∨ Q)' }}
       </h4>
       <span class="table-formula-badge">
         {{ gateType() === 'AND' ? 'Output = P AND Q' : 'Output = P OR Q' }}
@@ -460,14 +452,14 @@
     </div>
 
     <div class="table-container">
-      <table class="truth-table" aria-label="Propositional Truth Table">
+      <table class="truth-table" aria-label="Truth table">
         <thead>
           <tr>
-            <th scope="col">Premise P</th>
-            <th scope="col">Premise Q</th>
+            <th scope="col">Statement P</th>
+            <th scope="col">Statement Q</th>
             <th scope="col">{{ gateType() === 'AND' ? 'P ∧ Q' : 'P ∨ Q' }}</th>
-            <th scope="col">Lantern Status</th>
-            <th scope="col">Logical State</th>
+            <th scope="col">Lantern</th>
+            <th scope="col">Right Now</th>
           </tr>
         </thead>
         <tbody>
@@ -490,12 +482,12 @@
               </td>
               <td class="cell-lamp">
                 <span class="lamp-status-indicator" [class.lamp-lit]="row.output">
-                  {{ row.output ? '● Illuminated' : '○ Dark' }}
+                  {{ row.output ? '● Lit' : '○ Dark' }}
                 </span>
               </td>
               <td class="cell-active">
                 @if (row.isActive) {
-                  <span class="active-badge">Active Circuit State</span>
+                  <span class="active-badge">You are here</span>
                 } @else {
                   <span class="inactive-label">—</span>
                 }

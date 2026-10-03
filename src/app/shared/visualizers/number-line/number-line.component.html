@@ -84,7 +84,7 @@
       </text>
     }
   </svg>
-  <figcaption class="caption">
-    Directional vector displacement along a one-dimensional coordinate axis.
+  <figcaption class="caption" [class.caption-warning]="takesTooMany()">
+    {{ caption() }}
   </figcaption>
 </figure>

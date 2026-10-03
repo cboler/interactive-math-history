@@ -50,16 +50,18 @@
       <text x="60" y="112" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Loaf 2</text>
     </g>
 
-    <!-- Loaf 3 (Cut into tenths: 1/10 each) -->
+    <!-- Loaf 3 (Cut into halves; the leftover half is then cut into five tenths) -->
     <g transform="translate(320, 0)">
       <circle cx="60" cy="50" r="45" fill="url(#breadGold)" stroke="#78350f" stroke-width="2"/>
-      <!-- Sliced into 10 sectors -->
-      <line x1="60" y1="5" x2="60" y2="95" stroke="#1e293b" stroke-width="2"/>
-      <line x1="15" y1="50" x2="105" y2="50" stroke="#1e293b" stroke-width="2"/>
-      <line x1="28" y1="26" x2="92" y2="74" stroke="#1e293b" stroke-width="2"/>
-      <line x1="28" y1="74" x2="92" y2="26" stroke="#1e293b" stroke-width="2"/>
-      <circle cx="60" cy="50" r="14" fill="#fde68a" stroke="#78350f" stroke-width="1.5"/>
-      <text x="60" y="54" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" fill="#78350f">1/10s</text>
+      <line x1="60" y1="5" x2="60" y2="95" stroke="#1e293b" stroke-width="3.5" stroke-dasharray="4,2"/>
+      <text x="35" y="55" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="800" fill="#78350f">1/2</text>
+      <!-- Right half sliced into five equal 1/10 wedges (36 degrees each) -->
+      <line x1="60" y1="50" x2="86.5" y2="13.6" stroke="#1e293b" stroke-width="2"/>
+      <line x1="60" y1="50" x2="102.8" y2="36.1" stroke="#1e293b" stroke-width="2"/>
+      <line x1="60" y1="50" x2="102.8" y2="63.9" stroke="#1e293b" stroke-width="2"/>
+      <line x1="60" y1="50" x2="86.5" y2="86.4" stroke="#1e293b" stroke-width="2"/>
+      <rect x="66" y="41" width="36" height="18" rx="9" fill="#fde68a" stroke="#78350f" stroke-width="1.5"/>
+      <text x="84" y="54" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="800" fill="#78350f">5×1/10</text>
       <text x="60" y="112" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" fill="#fde68a">Loaf 3</text>
     </g>
 

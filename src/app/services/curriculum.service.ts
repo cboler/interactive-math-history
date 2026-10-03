@@ -16,7 +16,7 @@ export class CurriculumService {
       id: 'unit-01-gathering-addition',
       slug: 'origins-of-addition',
       shortTitle: 'Unit 01: Addition',
-      title: 'Unit 01: The Origin of Combining: Putting Things Together',
+      title: 'The Origin of Combining: Putting Things Together',
       subtitle: 'The Ishango Bone, Carving Tally Marks, and the Dawn of Addition',
       stage: 'foundations',
       strand: 'numeracy',
@@ -55,31 +55,31 @@ export class CurriculumService {
         hook: 'Before paper, ink, or written numerals, humanity discovered that a notch carved into bone never forgets.',
         historicalContext: {
           story:
-            'Around 20,000 BCE, along the shores of Lake Edward in Central Africa, a thriving community of fishers and gatherers made a profound breakthrough in human memory. While pebbles can be scattered by the wind and spoken words fade in the air, a notch cut into bone endures across generations. The Ishango Bone—a dark baboon fibula with a quartz crystal fixed to its head—carries orderly columns of carved notches arranged in distinct numerical groupings. When the carver recorded three fish from the morning catch and two from the afternoon, they did not wipe away the first count. Instead, they moved their quartz blade forward along the bone, carving two more notches to record a total of five. By combining groups of notches permanently, ancient people invented the foundation of addition.',
+            'Around 20,000 BCE, along the shores of Lake Edward in Central Africa, a thriving community of fishers and gatherers made a profound breakthrough in human memory. While pebbles can be scattered by the wind and spoken words fade in the air, a notch cut into bone endures across generations. The Ishango Bone—a dark baboon fibula with a quartz crystal fixed to its head—carries orderly columns of carved notches arranged in distinct numerical groupings. Nobody wrote down what the notches meant, so we have to imagine: a carver who recorded three fish from the morning catch and two from the afternoon would not wipe away the first count. Instead, they would move their quartz blade forward along the bone, carving two more notches to record a total of five. By combining groups of notches permanently, ancient people took the first steps toward addition.',
           civilizationOrOrigin: 'Upper Paleolithic Central Africa (Modern-day DRC)',
           approximateDate: 'c. 20,000 BCE',
           epistemicStatus: {
             consensusLevel: 'contested',
             summary:
-              'Scholars debate whether the markings on the Ishango bone represent intentional arithmetic grouping, a lunar calendar, or practical tallies.',
+              'Everyone agrees the bone is real and about 20,000 years old. What the notches mean is still argued over: a number game, a Moon calendar, or just a better grip?',
             competingHypotheses: [
               {
-                claim: 'Lunar Calendrical Device',
+                claim: 'A Moon Calendar',
                 proponentsOrSources: 'Alexander Marshack (1972)',
                 evidenceSummary:
-                  'Analyzed micro-wear on notches and correlated column tallies (11, 13, 17, 19) to lunar synodic phases.',
+                  'Studied the notches under a microscope and noticed the three columns add up to 60, 48, and 60: about six months of watching the Moon change shape.',
               },
               {
-                claim: 'Mathematical Grouping & Addition Table',
+                claim: 'A Number Game',
                 proponentsOrSources: 'Jean de Heinzelin (1957); Claudia Zaslavsky',
                 evidenceSummary:
-                  'Grouping of notches demonstrates deliberate duplication, addition, and early awareness of quantity sets.',
+                  'Some groups look like doubling (3 then 6, 4 then 8), and one column holds 11, 13, 17, and 19. That seems too neat to be an accident.',
               },
               {
-                claim: 'Skeptical View: Functional Grip Markings',
+                claim: 'Maybe Just a Handle',
                 proponentsOrSources: 'Olivier Keller (2010)',
                 evidenceSummary:
-                  'Argues grouping patterns may be incidental carving techniques rather than formal numerical calculations.',
+                  'Warns that we may be seeing patterns we want to see. The notches could simply have made the tool easier to hold.',
               },
             ],
           },
@@ -90,17 +90,18 @@ export class CurriculumService {
           'The plus sign (+) tells us to combine groups and move forward.',
         ],
         realWorldApplication:
-          'Combining groups of tallies is the foundation for inventory tracking, budgeting resources, calculating distances, and writing loops in software engineering.',
+          'Every time you count your savings, keep score in a game, or work out how far you have walked, you are doing what the bone carvers did. Shops, banks, and computers add millions of times every second, and it all starts with putting groups together.',
       },
       artifactPlate: {
         title: 'The Ishango Bone (Royal Belgian Institute of Natural Sciences)',
-        credit: 'Photo by Ben2 (Wikimedia Commons / RBINS)',
-        license: 'CC BY-SA 3.0',
+        credit: 'Photo by JhowieNitnek (Wikimedia Commons)',
+        license: 'CC BY-SA 4.0',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ishango_bone.jpg',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e0/Ishango_bone.jpg',
-        altText: 'The fossilized Ishango bone displaying carved notches in three columns.',
-        caption:
-          'The Ishango Bone: Carved with deliberate groups of notches long before paper was invented.',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Ishango_bone.jpg/960px-Ishango_bone.jpg',
+        altText:
+          'The slim, dark Ishango bone standing upright in a museum case, with rows of small notches cut along its side.',
+        caption: 'Carved with deliberate groups of notches long before paper was invented.',
       },
       exploreGraph: [
         {
@@ -121,21 +122,22 @@ export class CurriculumService {
         {
           label: 'History of Central Africa',
           category: 'civilization',
-          wikipediaUrl: 'https://en.wikipedia.org/wiki/Pre-colonial_African_history',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/History_of_Central_Africa',
         },
       ],
       academicSources: [
         {
           author: 'Carl B. Boyer and Uta C. Merzbach',
           title: 'A History of Mathematics',
-          citationSnippet: 'Chapter 1: The Origins of Counting and Prehistoric Records.',
+          citationSnippet: 'Chapter 1 ("Traces"): the earliest evidence of counting.',
           publicationYear: 2011,
         },
         {
           author: 'George Gheverghese Joseph',
           title: 'The Crest of the Peacock: Non-European Roots of Mathematics',
-          citationSnippet: 'Chapter 2: Rivers of Life: Prehistoric Mathematics in Africa.',
-          publicationYear: 2010,
+          citationSnippet:
+            'Chapter 2: Mathematics from Bones, Strings, and Standing Stones (the Ishango bone).',
+          publicationYear: 2011,
         },
       ],
       interactiveConfig: {
@@ -193,14 +195,21 @@ export class CurriculumService {
       id: 'unit-02-taking-away-subtraction',
       slug: 'origins-of-subtraction',
       shortTitle: 'Unit 02: Subtraction',
-      title: 'Unit 02: The Origin of Taking Away: Taking Things Away',
+      title: 'The Origin of Taking Away: Taking Things Away',
       subtitle: 'The Lebombo Bone, Crossing Off Tallies, and the Minus Sign',
       stage: 'foundations',
       strand: 'numeracy',
       order: 2,
       prerequisites: ['unit-01-gathering-addition'],
-      civilization: 'Prehistoric Hunter-Gatherer Communities',
-      historicalEra: 'c. 40,000 BCE',
+      buildsOn: [
+        {
+          lessonId: 'unit-01-gathering-addition',
+          connection:
+            'Taking away undoes adding. If 4 + 3 = 7, then 7 − 3 = 4: you walk back along the very same notches.',
+        },
+      ],
+      civilization: 'Stone Age Southern Africa (Lebombo Mountains)',
+      historicalEra: 'c. 41,000 BCE',
       mathematicalStatement: 'a - b = c',
       discoveryHook: {
         prompt:
@@ -231,25 +240,31 @@ export class CurriculumService {
         hook: 'If you have seven shared food bundles and distribute three to your kin, how do you track what remains?',
         historicalContext: {
           story:
-            'Over 40,000 years ago, early humans in Southern Africa notched the Lebombo Bone with 29 precise incisions, creating one of the earliest known counting tools. But ancient life was not only about gathering more—it was about survival, sharing, and rationing. During lean seasons, communities needed to track stores as they were consumed. When provisions were taken from the cache, tallies were crossed off, notched backward, or accounted for. Subtraction was not destruction; it was the essential art of fairness, distribution, and knowing exactly how much remained before the next hunt.',
-          civilizationOrOrigin: 'Prehistoric Southern Africa (Border Cave)',
-          approximateDate: 'c. 40,000 BCE',
+            'About 43,000 years ago, in a cave high in the Lebombo Mountains of Southern Africa, someone cut 29 neat notches into a baboon’s leg bone. It is one of the oldest counting tools ever found: more than twice as old as the Ishango Bone! Scientists who studied the notches under a microscope found they were cut with four different tools, which suggests the marks were added on four separate occasions. Somebody was keeping track of something. We do not know what they were counting. But ancient life was not only about gathering more—it was about survival and sharing. A family with 7 bundles of dried fish who gave 3 to their neighbors needed to know how many were left for winter. Subtraction was not destruction; it was the art of sharing fairly and knowing exactly how much remained before the next hunt.',
+          civilizationOrOrigin: 'Stone Age Southern Africa (Border Cave)',
+          approximateDate: 'c. 41,000 BCE',
           epistemicStatus: {
-            consensusLevel: 'established',
+            consensusLevel: 'speculative',
             summary:
-              'Archaeological evidence across Paleolithic sites confirms tally sticks were used for debiting and tracking dwindling stores as well as accumulating tallies.',
+              'The bone is real, and most experts think its notches are a tally. But nobody knows what was being counted, and taking away leaves no fossil. Who first subtracted, and when, is a best guess.',
             competingHypotheses: [
               {
-                claim: 'Inventory & Consumption Tracking',
-                proponentsOrSources: "Francesco d'Errico (2003)",
+                claim: 'A Tally That Grew Over Time',
+                proponentsOrSources: "Francesco d'Errico, Lucinda Backwell, and colleagues (2012)",
                 evidenceSummary:
-                  'Microscopic inspection reveals distinct notch sequences added at different times as supplies were depleted.',
+                  'Under the microscope the 29 notches turn out to have been cut with four different tools, so the count was probably added to on four separate occasions.',
               },
               {
-                claim: 'Reciprocal Gift & Debt Accounting',
-                proponentsOrSources: 'David Graeber (2011)',
+                claim: 'A Moon Counter',
+                proponentsOrSources: 'A popular suggestion (for example David Darling, 2004)',
                 evidenceSummary:
-                  'Notched tallies served as shared social memory tracking goods exchanged and obligations settled between families.',
+                  'There are 29 notches, close to the 29½ days from one new Moon to the next.',
+              },
+              {
+                claim: 'Careful: the Bone Is Broken',
+                proponentsOrSources: 'A caution raised by many archaeologists',
+                evidenceSummary:
+                  'One end of the bone has snapped off, so there may once have been more than 29 notches.',
               },
             ],
           },
@@ -258,19 +273,22 @@ export class CurriculumService {
           'Subtraction is starting with a tally of items, taking some away, and counting what remains.',
           'On the number line, subtraction reverses direction and walks backward.',
           'The minus sign (-) tells us to separate, cross off, and take away.',
+          'The signs + and − are much younger than the ideas. They first appeared in a printed book in Germany in 1489.',
         ],
         realWorldApplication:
-          'Tracking remaining battery life, calculating change in commerce, monitoring fuel reserves, and managing countdown timers all rely directly on subtraction.',
+          'How much battery is left on a tablet? How much change do you get at the shop? How many days until your birthday? Every "how much is left?" question is answered by subtraction.',
       },
       artifactPlate: {
-        title: 'The Lebombo Bone (c. 42,000 BCE)',
-        credit: 'Border Cave Archaeological Expedition / Photo by Wellcome Collection',
-        license: 'CC BY 4.0',
-        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Lebombo_bone.jpg',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/b9/Lebombo_bone.jpg',
-        altText: 'The fossilized Lebombo baboon fibula bearing 29 carved notches.',
+        title: 'Border Cave, Lebombo Mountains (South Africa)',
+        credit: 'Photo by Androstachys (Wikimedia Commons)',
+        license: 'Public Domain',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Border_Cave00.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Border_Cave00.jpg/960px-Border_Cave00.jpg',
+        altText:
+          'Archaeologists at work in the wide mouth of Border Cave, seen as dark outlines against sunlit green hills.',
         caption:
-          'The Lebombo Bone: A 44,000-year-old baboon fibula bearing 29 carved notches, used for counting down lunar cycles or tracking supplies.',
+          'Border Cave, where the roughly 43,000-year-old Lebombo Bone was found. No freely shareable photograph of the bone itself exists, so this is the place it came from.',
       },
       exploreGraph: [
         {
@@ -296,17 +314,18 @@ export class CurriculumService {
       ],
       academicSources: [
         {
-          author: "Francesco d'Errico",
-          title: 'Early Notations and Graphic Systems',
+          author: "Francesco d'Errico, Lucinda Backwell, and colleagues",
+          title:
+            'Early Evidence of San Material Culture Represented by Organic Artifacts from Border Cave, South Africa',
           citationSnippet:
-            'Analysis of Paleolithic notched artifacts documenting numerical tallies.',
-          publicationYear: 2003,
+            'Proceedings of the National Academy of Sciences 109(33): dating and microscope study of the notched bone.',
+          publicationYear: 2012,
         },
         {
-          author: 'David Graeber',
-          title: 'Debt: The First 5,000 Years',
-          citationSnippet: 'Chapter 2: The Myth of Barter and Early Accounting Sticks.',
-          publicationYear: 2011,
+          author: 'Georges Ifrah',
+          title: 'The Universal History of Numbers',
+          citationSnippet: 'Notched bones and tally sticks as the first number records.',
+          publicationYear: 2000,
         },
       ],
       interactiveConfig: {
@@ -355,21 +374,33 @@ export class CurriculumService {
       slug: 'euclids-common-notions',
       shortTitle: 'Unit 03: Equality',
       title: "The Bridge of Reason: Euclid's Common Notions",
-      subtitle: 'Balancing Scales and the Transitive Law of Equality',
+      subtitle: 'Balance Scales and the Rule That Equal Things Stay Equal',
       stage: 'foundations',
       strand: 'logic',
       order: 3,
       prerequisites: ['unit-01-gathering-addition', 'unit-02-taking-away-subtraction'],
+      buildsOn: [
+        {
+          lessonId: 'unit-01-gathering-addition',
+          connection:
+            'Euclid’s second rule is about adding: add the same amount to two equal piles and they are still equal.',
+        },
+        {
+          lessonId: 'unit-02-taking-away-subtraction',
+          connection:
+            'His third rule is about taking away: remove the same amount from two equal piles and they still match.',
+        },
+      ],
       civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
       historicalEra: 'c. 300 BCE',
       mathematicalStatement: '\\text{If } A = B \\text{ and } B = C \\text{, then } A = C',
       discoveryHook: {
         prompt:
-          'Place 5 weights on the left pan. How many weights must you place on the right pan to eliminate beam deflection?',
+          'A merchant puts 5 weights on the left pan of a scale. How many weights must go on the right pan to make the beam sit perfectly level?',
         targetAxiom: 'Common Notion 1: Things which equal the same thing also equal one another.',
         successCondition: 'Bring both Left and Right pans to equal quantities.',
         guidanceTip:
-          'Watch the center equilibrium pointer align with the zero-degree vertical plumb line.',
+          'Watch the pointer at the top of the scale. When both pans hold the same amount, it points straight up.',
       },
       storyIllustration: {
         title: 'Verifying Weights in the Alexandrian Harbor Market',
@@ -387,44 +418,46 @@ export class CurriculumService {
         caption: 'When two quantities balance the same third weight, they must balance each other.',
       },
       narrative: {
-        hook: 'Before the modern equals sign was invented in 1557, equality was not a mark on paper: it was physical balance verified upon an honest merchant’s scale.',
+        hook: 'Before anyone drew the equals sign, "equal" was something you could see: two pans of an honest merchant’s scale hanging perfectly level.',
         historicalContext: {
           story:
-            'In Ptolemaic Alexandria, Greek geometer Euclid cataloged the logical bedrock of geometry in the Elements. Rather than treating equality as self-evident intuition, he codified his "Common Notions"—foundational axioms establishing that things equal to the same thing are equal to each other, and that equals added to equals result in whole equals. These axioms governed land taxation and boundary disputes after the annual flooding of the Nile River.',
+            'About 2,300 years ago, in the busy Egyptian port city of Alexandria, a Greek teacher named Euclid wrote the most famous math book of all time: the Elements. Euclid wanted every idea in his book to be proven step by step, so that nobody could argue with it. But every proof has to start somewhere. So he began with a short list of rules so obvious that everybody agrees with them. He called them "common notions". The first says that things equal to the same thing are also equal to each other. The second says that if you add equal amounts to equal amounts, the totals are still equal. Merchants in the harbor market already trusted these rules every day: if one bag of spice balances a bronze weight, and a second bag balances the same weight, the two bags must weigh the same. Euclid’s big idea was to write the rules down and build all of geometry on top of them. The = sign itself came much later. A Welsh doctor named Robert Recorde invented it in 1557 because he was tired of writing "is equal to" over and over. He chose two matching lines because, he wrote, no two things can be more equal.',
           civilizationOrOrigin: 'Alexandria, Egypt (Hellenistic Greek World)',
           approximateDate: 'c. 300 BCE',
           epistemicStatus: {
             consensusLevel: 'established',
             summary:
-              'Euclid’s Common Notions are universally acknowledged as the historical birth of rigorous deductive axiomatic proof.',
+              'Historians agree that Euclid’s Elements is where these rules were first written down as the starting point for proofs. What they still discuss is exactly how many of the rules Euclid wrote himself.',
             competingHypotheses: [
               {
-                claim: 'Did Euclid Author All Axioms?',
+                claim: 'How Many Rules Did Euclid Write?',
                 proponentsOrSources: 'Thomas L. Heath (1908 Commentary)',
                 evidenceSummary:
-                  'Manuscript analysis indicates later Byzantine commentators may have expanded Euclid’s original five Common Notions to nine.',
+                  'Old hand-written copies of the Elements disagree: some list five common notions and some list as many as nine. Later copyists probably added the extras.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'Equality ($=$) is an equivalence relation possessing reflexivity, symmetry, and transitivity.',
-          'An algebraic equation represents an equilibrium: whatever transformation is performed on one pan must be mirrored on the other.',
-          'Deductive mathematics requires unproven foundational postulates from which all theorems must logically derive.',
+          'The equals sign ($=$) means "is the same amount as", like a scale sitting level.',
+          'If $A = B$ and $B = C$, then $A = C$. You never have to weigh $A$ against $C$: you already know!',
+          'Whatever you do to one pan, do the same to the other and the scale stays level. This is the secret behind solving equations.',
+          'Mathematics is built like a tower: a few simple rules everyone accepts at the bottom, and everything else proven on top of them.',
         ],
         realWorldApplication:
-          'Transitive equality is the foundation of relational database query compilers, type inference engines in programming languages, and electronic scale calibrators.',
+          'Every time you swap coins for something of the same value, double a recipe, or find a missing number in an equation, you are trusting these rules. Scientists and engineers balance equations to design bridges, mix medicines, and send rockets into space.',
       },
       artifactPlate: {
         title: "Papyrus Oxyrhynchus 29 (Euclid's Elements Book II)",
-        credit: 'University of Pennsylvania Museum / Wikimedia Commons',
+        credit: 'Penn Museum, University of Pennsylvania (via Wikimedia Commons)',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1a/P._Oxy._I_29.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/P._Oxy._I_29.jpg/960px-P._Oxy._I_29.jpg',
         altText:
-          'Ancient papyrus fragment with Greek text and a geometric diagram of Euclid Elements.',
+          'A torn scrap of brown papyrus with lines of Greek handwriting and a small diagram of a divided rectangle.',
         caption:
-          "One of the oldest surviving fragments of Euclid's Elements (c. 75–125 CE), excavated at Oxyrhynchus.",
+          "One of the oldest surviving pieces of Euclid's Elements (c. 75–125 CE), found in an ancient rubbish heap at Oxyrhynchus, Egypt.",
       },
       exploreGraph: [
         {
@@ -443,9 +476,14 @@ export class CurriculumService {
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Axiomatic_system',
         },
         {
-          label: 'Balance Scale Metaphor',
-          category: 'concept',
-          wikipediaUrl: 'https://en.wikipedia.org/wiki/Balance_puzzle',
+          label: 'Balance Scales',
+          category: 'artifact',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Weighing_scale',
+        },
+        {
+          label: 'Robert Recorde & the = Sign',
+          category: 'person',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Robert_Recorde',
         },
       ],
       academicSources: [
@@ -476,12 +514,12 @@ export class CurriculumService {
         {
           id: 'u3-m1',
           question:
-            'A merchant places 4 bronze weights on the left pan. How many weights must be placed on the right pan to achieve perfect level equilibrium?',
+            'A merchant places 4 bronze weights on the left pan. How many weights must be placed on the right pan to make the scale sit perfectly level?',
           hint: 'Set Left Pan (A) to 4 and Right Pan (B) to 4.',
           targetA: 4,
           targetB: 4,
           expectedResult: 4,
-          successMessage: 'Balanced! 4 = 4. The plumb line points straight to zero.',
+          successMessage: 'Balanced! 4 = 4. The pointer stands straight up.',
         },
         {
           id: 'u3-m2',
@@ -491,7 +529,7 @@ export class CurriculumService {
           targetA: 7,
           targetB: 7,
           expectedResult: 7,
-          successMessage: 'Equilibrium restored! Both pans hold exactly 7.',
+          successMessage: 'Perfectly level! Both pans hold exactly 7.',
         },
         {
           id: 'u3-m3',
@@ -514,23 +552,31 @@ export class CurriculumService {
       id: 'unit-04-commutative-multiplication',
       slug: 'spatial-invariance-multiplication',
       shortTitle: 'Unit 04: Multiplication',
-      title: 'Unit 04: The Farm Grid (Multiplication)',
+      title: 'The Farm Grid (Multiplication)',
       subtitle: 'Why 3 × 5 Always Equals 5 × 3 Across Ancient Farmlands',
       stage: 'elementary',
       strand: 'arithmetic',
       order: 4,
       prerequisites: ['unit-01-gathering-addition'],
-      civilization: 'Ancient Mesopotamia and Old Kingdom Egypt',
+      buildsOn: [
+        {
+          lessonId: 'unit-01-gathering-addition',
+          connection:
+            'Multiplying is adding the same number again and again: 3 rows of 5 is 5 + 5 + 5.',
+        },
+      ],
+      civilization: 'Ancient Mesopotamia (Babylonia)',
       historicalEra: 'c. 1800 BCE',
       mathematicalStatement: 'a \\times b = b \\times a',
       discoveryHook: {
         prompt:
           'Turn a garden box on its side, and you still have the same number of vegetables! Multiplication is just a neat way of counting rows and columns. Arrange a farm parcel into 3 rows of 5 crops, then rotate it 90 degrees. Does the total count change?',
-        targetAxiom: 'Commutativity: Multiplicative area is invariant under planar rotation.',
+        targetAxiom:
+          'The Commutative Property: you can swap the order of the numbers you multiply and the answer stays the same.',
         successCondition:
-          'Press the Transpose button and verify the total dot count remains exactly 15.',
+          'Press the Turn the Grid button and check that the total stays exactly 15.',
         guidanceTip:
-          'Observe how rows transform into columns, yet the total area enclosed is completely conserved.',
+          'Watch the rows become columns. Nothing is added and nothing is taken away, so the total cannot change.',
       },
       storyIllustration: {
         title: 'The Date Palm Orchard',
@@ -541,52 +587,58 @@ export class CurriculumService {
           'Babylonian farmers planted trees in neat square grids so watering and harvesting was equal and fair.',
       },
       mathDiagram: {
-        title: 'Spatial Invariance: 3 × 5 = 5 × 3 = 15 Area Model',
+        title: 'Turning the Grid: 3 × 5 = 5 × 3 = 15',
         imageUrl: 'assets/illustrations/unit-04-diagram.svg',
         altText:
-          'Commutative multiplication grid diagram showing 3 rows of 5 dots rotating 90 degrees into 5 rows of 3 dots with invariant area 15.',
+          'A grid of 3 rows of 5 dots turned on its side to become 5 rows of 3 dots. Both grids hold 15 dots.',
         caption: 'Whether you count 3 rows of 5 or 5 rows of 3, the total area stays exactly 15.',
       },
       narrative: {
         hook: 'Turn a garden box on its side, and you still have the same number of vegetables! Multiplication is just a neat way of counting rows and columns.',
         historicalContext: {
           story:
-            'In the fertile floodplains between the Tigris and Euphrates rivers, Babylonian scribes managed agricultural deeds using cuneiform clay tablets. When assessing crop yields or grain storage, they recognized that an orchard arranged in 3 rows of 5 date palms produced the exact same harvest as 5 rows of 3 palms. Multiplication ceased to be merely repeated addition—it became an invariant measurement of planar area.',
-          civilizationOrOrigin: 'Mesopotamia (Babylonia) & Nile Valley Egypt',
+            'Almost 4,000 years ago, in the land between the Tigris and Euphrates rivers (today’s Iraq), Babylonian scribes kept track of fields, orchards, and grain by pressing wedge-shaped marks into soft clay. Counting every date palm one by one was far too slow, so young scribes learned multiplication tables by heart, just as you do. Hundreds of their practice tablets still survive, and some are even signed by the students who wrote them. Working with rectangular fields all day, the scribes knew that 3 rows of 5 date palms and 5 rows of 3 hold exactly the same number of trees. Multiplication was no longer just adding over and over. It had become a way to measure a whole rectangle at once. Proving that the swap always works took much longer: Euclid did it in his Elements (Book VII, Proposition 16) around 300 BCE, and the rule only got its name, "commutative", in 1814 from the French mathematician François Servois.',
+          civilizationOrOrigin: 'Mesopotamia (Babylonia)',
           approximateDate: 'c. 1800 BCE',
           epistemicStatus: {
             consensusLevel: 'established',
             summary:
-              'The geometric interpretation of multiplication as rectangular area is historically universal across Egyptian, Babylonian, and Vedic sources.',
+              'Historians agree that Babylonian scribes used multiplication tables and worked out the areas of fields. What they debate is how the scribes pictured multiplying in their minds.',
             competingHypotheses: [
               {
-                claim: 'Discrete vs Continuous Priority',
-                proponentsOrSources: 'Reviel Netz (The Shaping of Deduction in Greek Mathematics)',
+                claim: 'Pictures First: Cutting and Pasting Rectangles',
+                proponentsOrSources: 'Jens Høyrup (Lengths, Widths, Surfaces, 2002)',
                 evidenceSummary:
-                  'Debates whether early civilizations viewed multiplication primarily as discrete dot-counting or continuous rectangular land surface area.',
+                  'The words on the tablets describe moving and joining real rectangles, so scribes may have thought of multiplying as building a shape.',
+              },
+              {
+                claim: 'Numbers First: Tables and Recipes',
+                proponentsOrSources: 'Otto Neugebauer (1930s–1950s)',
+                evidenceSummary:
+                  'Read the same tablets as step-by-step number recipes, a little like modern algebra without the letters.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'Multiplication maps two orthogonal linear dimensions ($A$ and $B$) to a 2D scalar area ($A \\times B$).',
-          'The Commutative Property states that order of operations does not affect the resulting scalar product.',
-          'Transposition of an $M \\times N$ matrix into an $N \\times M$ matrix preserves the trace, determinant, and total cardinality.',
+          'Multiplication is a fast way to count equal groups: $3 \\times 5$ means 3 rows with 5 in each row.',
+          'The Commutative Property says $a \\times b = b \\times a$. Turn the grid on its side and the total never changes.',
+          'The total is also the area of the rectangle: the number of unit squares that fit inside it.',
         ],
         realWorldApplication:
-          'Matrix transpose symmetry is central to image rotation algorithms, quantum state bra-ket commutators, and relational database cross-joins.',
+          'Seats in a cinema, eggs in a carton, tiles on a floor, pixels on a screen: anything arranged in rows and columns is counted by multiplying. When a tablet rotates a photo, it swaps rows and columns just like the farm grid, and not a single pixel is lost.',
       },
       artifactPlate: {
-        title: 'Babylonian Clay Tablet YBC 7289',
-        credit: 'Yale Babylonian Collection / Wikimedia Commons',
+        title: 'A Student’s Multiplication Table (Ashmolean Museum, Oxford)',
+        credit: 'Photo by Zunkir (Wikimedia Commons)',
         license: 'CC BY-SA 4.0',
-        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Ybc7289-diagonal.jpg',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Multiplication_tablet_Ashmolean.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Ybc7289-diagonal.jpg/640px-Ybc7289-diagonal.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Multiplication_tablet_Ashmolean.jpg/960px-Multiplication_tablet_Ashmolean.jpg',
         altText:
-          'Ancient Babylonian clay tablet depicting a square with intersecting diagonals and sexagesimal markings.',
+          'A small clay tablet covered in neat rows of wedge-shaped cuneiform numbers, held by museum clips.',
         caption:
-          'Tablet YBC 7289 (c. 1800–1600 BCE), demonstrating sophisticated Babylonian geometric calculation of square diagonals.',
+          'A clay multiplication table from the city of Larsa (c. 1900–1600 BCE), signed by the apprentice scribe who wrote it: Suen-apil-Urim.',
       },
       exploreGraph: [
         {
@@ -600,16 +652,17 @@ export class CurriculumService {
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Babylonian_mathematics',
         },
         {
-          label: 'Area Model of Multiplication',
+          label: 'Multiplication Tables',
           category: 'concept',
-          wikipediaUrl: 'https://en.wikipedia.org/wiki/Multiplication_algorithm',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Multiplication_table',
         },
       ],
       academicSources: [
         {
           author: 'Carl B. Boyer and Uta C. Merzbach',
           title: 'A History of Mathematics',
-          citationSnippet: 'Chapter 3: Mesopotamia and Cuneiform Clay Deeds.',
+          citationSnippet:
+            'Chapter 3 ("Mesopotamia"): cuneiform numbers and multiplication tables.',
           publicationYear: 2011,
         },
         {
@@ -668,12 +721,24 @@ export class CurriculumService {
       id: 'unit-05-fair-share-division',
       slug: 'sharing-the-harvest',
       shortTitle: 'Unit 05: Division',
-      title: 'Unit 05: Sharing the Harvest (Division)',
+      title: 'Sharing the Harvest (Division)',
       subtitle: 'Distributing Baskets, Equal Portions, and Fair Shares',
       stage: 'elementary',
       strand: 'arithmetic',
       order: 5,
-      prerequisites: ['unit-04-commutative-multiplication'],
+      prerequisites: ['unit-02-taking-away-subtraction', 'unit-04-commutative-multiplication'],
+      buildsOn: [
+        {
+          lessonId: 'unit-02-taking-away-subtraction',
+          connection:
+            'Dealing out shares is taking away the same amount again and again until nothing is left.',
+        },
+        {
+          lessonId: 'unit-04-commutative-multiplication',
+          connection:
+            'Division runs multiplication backwards: because 3 × 4 = 12, we know 12 ÷ 3 = 4.',
+        },
+      ],
       civilization: 'Early Dynastic Mesopotamia (Sumerian City of Shuruppak)',
       historicalEra: 'c. 2600 BCE',
       mathematicalStatement: 'a \\div b = c',
@@ -704,25 +769,25 @@ export class CurriculumService {
         hook: 'If you and your friends pick 12 sweet melons and want to share them fairly, how many does each person take home? Division is simply sharing equally without leaving anyone out!',
         historicalContext: {
           story:
-            'In the ancient Sumerian city-state of Shuruppak (modern-day Fara, Iraq) over 4,500 years ago, city life flourished along the Euphrates river canals. As harvest season arrived, thousands of bushels of barley, emmer wheat, and dates were hauled to the central storehouses. To ensure social peace and survival, city administrators had to distribute provisions fairly to temple builders, artisans, and families. Scribes used clay tokens and stylus impressions on clay tablets to calculate rations. If a granary had 12 portions and 3 teams of workers, dividing them meant dealing them out into equal baskets until none were left over. Division was born not as an abstract exercise, but as the community practice of fairness, teamwork, and honest distribution.',
+            'In the ancient Sumerian city-state of Shuruppak (modern-day Fara, Iraq) over 4,500 years ago, city life flourished along the Euphrates river canals. As harvest season arrived, thousands of bushels of barley, emmer wheat, and dates were hauled to the central storehouses. To ensure social peace and survival, city administrators had to distribute provisions fairly to temple builders, artisans, and families. Scribes used clay tokens and stylus impressions on clay tablets to calculate rations. If a granary had 12 portions and 3 teams of workers, dividing them meant dealing them out into equal baskets until none were left over. One tablet from Shuruppak holds the oldest division problem ever found: a granary full of barley is shared out so that every worker gets 7 measures. How many workers can be fed? The scribe’s answer, 164,571 workers with 3 measures left over, is exactly right. A second tablet with the same problem gets it wrong: even 4,500 years ago, students made mistakes on their homework! Division was born not as an abstract exercise, but as the community practice of fairness, teamwork, and honest distribution.',
           civilizationOrOrigin: 'Sumer (Shuruppak / Fara Grain Accounts)',
           approximateDate: 'c. 2600 BCE',
           epistemicStatus: {
             consensusLevel: 'established',
             summary:
-              'Archaeologists have unearthed hundreds of administrative tablets from archaic Ur and Shuruppak detailing exact reciprocal grain allocations and division algorithms.',
+              'Archaeologists have dug up hundreds of clay tablets from Shuruppak that record grain being shared out, so we are sure these scribes divided. Exactly how they worked out the answers is still discussed.',
             competingHypotheses: [
               {
-                claim: 'Ration Distribution as Arithmetic Origin',
+                claim: 'Division Began with Sharing Food',
                 proponentsOrSources: 'Eleanor Robson (Mathematics in Ancient Iraq, 2008)',
                 evidenceSummary:
-                  'Administrative tablets show division originated in the practical civil need to apportion grain, land plots, and beer rations equally.',
+                  'The city’s record tablets show division growing out of a practical need: sharing grain, land, and beer rations equally.',
               },
               {
-                claim: 'Reciprocal Sexagesimal Multiplication',
+                claim: 'A Later Shortcut: Multiply Instead',
                 proponentsOrSources: 'Jöran Friberg (2007)',
                 evidenceSummary:
-                  'Suggests later Babylonian scribes converted division problems into multiplication by sexagesimal reciprocals.',
+                  'Later Babylonian scribes turned division into multiplication by looking up a "reciprocal" (1 divided by the number) in a table.',
               },
             ],
           },
@@ -733,18 +798,20 @@ export class CurriculumService {
           'Division is the inverse operation of multiplication: if $3 \\times 4 = 12$, then $12 \\div 3 = 4$.',
         ],
         realWorldApplication:
-          'Fair sharing division is essential for distributing computational workloads across server clusters, calculating equal pay rates, budgeting monthly expenses, and rendering framerates in game engines.',
+          'Splitting a pizza, dealing cards, sharing out pocket money, working out how many buses a class trip needs: division answers every "how many each?" question. Computers use it too, to share big jobs fairly between many machines.',
       },
       artifactPlate: {
-        title: 'Sumerian Administrative Tablet from Shuruppak (c. 2600 BCE)',
-        credit: 'University of Pennsylvania Museum / Wikimedia Commons',
+        title: 'Sumerian Account Tablet (British Museum, c. 2500 BCE)',
+        credit: 'Photo by Gavin.collins (Wikimedia Commons); tablet BM 15826, British Museum',
         license: 'Public Domain',
-        sourceUrl: 'https://commons.wikimedia.org/wiki/File:P._Oxy._I_29.jpg',
+        sourceUrl:
+          'https://commons.wikimedia.org/wiki/File:Sumerian_account_of_silver_for_the_govenor_(background_removed).png',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/P._Oxy._I_29.jpg/640px-P._Oxy._I_29.jpg',
-        altText: 'Ancient clay tablet fragment bearing cuneiform records of grain distributions.',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Sumerian_account_of_silver_for_the_govenor_%28background_removed%29.png/500px-Sumerian_account_of_silver_for_the_govenor_%28background_removed%29.png',
+        altText:
+          'A square, cushion-shaped clay tablet divided into boxes, each filled with early cuneiform signs.',
         caption:
-          'Archaic Sumerian accounting records from Shuruppak, tracking barley disbursements and fair rations for city workers.',
+          'A scribe’s account tablet from Shuruppak or nearby Abu Salabikh. Tablets like this recorded who received what: the paperwork behind fair sharing.',
       },
       exploreGraph: [
         {
@@ -763,9 +830,9 @@ export class CurriculumService {
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Fair_division',
         },
         {
-          label: 'Counting Rods & Abacus',
-          category: 'concept',
-          wikipediaUrl: 'https://en.wikipedia.org/wiki/Counting_rods',
+          label: 'Shuruppak',
+          category: 'civilization',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/Shuruppak',
         },
       ],
       academicSources: [
@@ -781,6 +848,13 @@ export class CurriculumService {
           title: 'A History of Mathematics',
           citationSnippet: 'Chapter 3: Cuneiform records and sexagesimal arithmetic.',
           publicationYear: 2011,
+        },
+        {
+          author: 'Jens Høyrup',
+          title: 'Investigations of an Early Sumerian Division Problem, c. 2500 B.C.',
+          citationSnippet:
+            'Historia Mathematica 9: the two Shuruppak school tablets, one solved correctly and one not.',
+          publicationYear: 1982,
         },
       ],
       interactiveConfig: {
@@ -832,24 +906,36 @@ export class CurriculumService {
       id: 'unit-06-egyptian-fractions',
       slug: 'egyptian-unit-fractions-rhind',
       shortTitle: 'Unit 06: Fractions',
-      title: 'Unit 06: Slicing the Loaf (Unit Fractions)',
+      title: 'Slicing the Loaf (Unit Fractions)',
       subtitle: 'Ahmes the Scribe and Fair Bread Partitions',
       stage: 'elementary',
       strand: 'arithmetic',
       order: 6,
       prerequisites: ['unit-04-commutative-multiplication', 'unit-05-fair-share-division'],
-      civilization: 'Middle Kingdom Egypt (Thebes)',
+      buildsOn: [
+        {
+          lessonId: 'unit-05-fair-share-division',
+          connection:
+            'A fraction is a division you have not finished: 3 loaves ÷ 5 workers is written 3/5.',
+        },
+        {
+          lessonId: 'unit-04-commutative-multiplication',
+          connection:
+            'To add 1/2 and 1/10 you multiply to make matching pieces: 1/2 is the same as 5/10.',
+        },
+      ],
+      civilization: 'Ancient Egypt (Thebes)',
       historicalEra: 'c. 1550 BCE',
       mathematicalStatement: '\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}',
       discoveryHook: {
         prompt:
           'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices! Can you slice and distribute the loaves so every worker receives identical unit-fraction portions?',
         targetAxiom:
-          'Every rational fraction can be expressed as a sum of distinct unit fractions: m/n = 1/x + 1/y.',
+          'Any fraction can be built by adding different unit fractions (fractions with 1 on top), like 3/5 = 1/2 + 1/10.',
         successCondition:
           'Give each of the 5 worker baskets exactly 1/2 and 1/10 of a loaf (Total: 3/5).',
         guidanceTip:
-          'Slice 2 loaves into halves (yielding 4 halves) and 1 loaf into tenths... then distribute them fairly!',
+          'Cut all 3 loaves into halves and give each worker one half. One half is left over: cut it into 5 equal pieces (tenths) and hand those out too!',
       },
       storyIllustration: {
         title: 'Breakfast Along the Nile',
@@ -863,7 +949,7 @@ export class CurriculumService {
         title: 'Egyptian Unit Fraction Decomposition: 3/5 = 1/2 + 1/10',
         imageUrl: 'assets/illustrations/unit-06-diagram.svg',
         altText:
-          'Decomposition diagram showing three whole loaves sliced into halves and tenths so five workers receive identical portions of 1/2 + 1/10.',
+          'Three loaves cut into six halves, with the last half cut again into five tenths, so that five workers each receive 1/2 + 1/10.',
         caption:
           'Instead of ragged crumbs, Egyptian unit fractions guarantee every worker receives the exact same set of physical slices.',
       },
@@ -871,49 +957,49 @@ export class CurriculumService {
         hook: 'What happens when you have 3 fresh loaves of bread, but 5 hungry builders? You cannot just give someone a broken crumb—ancient Egyptian scribes found a genius way to cut fair slices!',
         historicalContext: {
           story:
-            'In the Second Intermediate Period, a royal scribe named Ahmes transcribed what is now known as the Rhind Mathematical Papyrus (British Museum EA 10057). Rather than working with arbitrary fractions with changing numerators (such as 3/5 or 4/7), Egyptian accounting exclusively recognized unit fractions—quantities with a numerator of 1 (represented by the hieroglyph of an open mouth, "r", signifying a portion or mouth to feed). To divide 3 loaves among 5 men, Ahmes did not hand out 3 small fifth-slices. He gave each man 1/2 of a loaf plus 1/10 of a loaf. The sum is identical (1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5), but every laborer received the exact same set of physical cuts, eliminating social envy and accounting fraud.',
-          civilizationOrOrigin: 'Thebes, Ancient Egypt (15th Dynasty)',
+            'About 3,500 years ago in Egypt, a scribe named Ahmes copied out a long scroll of math problems. He tells us he was copying an even older scroll, written a few hundred years before his time. Today it is called the Rhind Mathematical Papyrus, and it is kept in the British Museum. Egyptian scribes almost always wrote fractions with a 1 on top: "unit fractions" like 1/2, 1/3, or 1/10. In hieroglyphs they drew a mouth-shaped sign (meaning "a part") above the number. So how would they share 3 loaves among 5 workers? Not by handing out three little fifths. Problem 3 on the scroll shares 6 loaves among 10 men, which is the very same share, and it gives each man 1/2 of a loaf plus 1/10 of a loaf. Check it: 1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5. Every worker gets exactly the same two pieces, so anyone can see at a glance that the sharing is fair.',
+          civilizationOrOrigin: 'Thebes, Ancient Egypt (Second Intermediate Period)',
           approximateDate: 'c. 1550 BCE',
           epistemicStatus: {
             consensusLevel: 'probable',
             summary:
-              'Historians agree on how the Egyptian algorithms worked, but debate WHY Egyptians refused to write repeating unit fractions like 1/3 + 1/3.',
+              'Historians agree on how the Egyptian method worked. What they still wonder is WHY scribes stuck to unit fractions and never wrote the same one twice (no 1/5 + 1/5).',
             competingHypotheses: [
               {
-                claim: 'Practical Physical Equity',
+                claim: 'Fewer, Fairer Pieces',
                 proponentsOrSources:
                   'Richard J. Gillings (Mathematics in the Time of the Pharaohs)',
                 evidenceSummary:
-                  'Demonstrates that distinct unit slices allow loaves to be cut into fewer, larger pieces with less crumbs and equal physical quality.',
+                  'Different unit fractions let loaves be cut into fewer, bigger pieces, and everyone can see that the shares match.',
               },
               {
-                claim: 'Religious / Canonical Numerology',
+                claim: 'It Was Simply How Fractions Were Written',
                 proponentsOrSources: 'Annette Imhausen (Mathematics in Ancient Egypt)',
                 evidenceSummary:
-                  'Eye of Horus fractional mythology influenced Egyptian canonical standards for measurement units.',
+                  'Egyptian writing only had a way to say "one part out of n". Since there is only one "fifth part", any other share had to be a sum of different parts.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'A unit fraction has a numerator of $1$ (e.g., $1/n$), representing an exact aliquot share.',
-          'Any proper fraction $p/q$ can be decomposed into a finite series of distinct unit fractions (the Greedy / Sylvester-Fibonacci Algorithm).',
-          'Unit fraction decomposition prevents rounding errors and ensures equitable distribution in physical resource allocation.',
+          'A unit fraction has a $1$ on top, like $\\frac{1}{2}$ or $\\frac{1}{10}$. It means one of that many equal pieces.',
+          'Any fraction can be written as a sum of different unit fractions: $\\frac{3}{5} = \\frac{1}{2} + \\frac{1}{10}$.',
+          'To add fractions, first cut them into same-sized pieces: $\\frac{1}{2} = \\frac{5}{10}$, so $\\frac{5}{10} + \\frac{1}{10} = \\frac{6}{10} = \\frac{3}{5}$.',
         ],
         realWorldApplication:
-          'Unit fraction decompositions are applied in fair division algorithms, discrete cake-cutting economics, and harmonic antenna spacing.',
+          'Half a pizza, a quarter of an hour, a third of a cup of flour: fractions appear wherever something is shared or measured. Cooks, builders, and musicians use them every day, and mathematicians are still solving puzzles about Egyptian fractions right now.',
       },
       artifactPlate: {
         title: 'The Rhind Mathematical Papyrus EA 10057',
-        credit: 'The Trustees of the British Museum / Wikimedia Commons',
+        credit: 'British Museum, EA 10057 (via Wikimedia Commons)',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Rhind_Mathematical_Papyrus.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Rhind_Mathematical_Papyrus.jpg/640px-Rhind_Mathematical_Papyrus.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/d/d9/Rhind_Mathematical_Papyrus.jpg',
         altText:
-          'Papyrus roll inscribed with hieratic script and tables of fractional conversions.',
+          'A long strip of brown papyrus covered in black and red Egyptian handwriting, with small diagrams of triangles.',
         caption:
-          'The Rhind Papyrus (c. 1550 BCE), featuring Ahmes’ 2/n table of unit fraction expansions.',
+          'Part of the Rhind Papyrus, copied by the scribe Ahmes around 1550 BCE. It is over five meters long!',
       },
       exploreGraph: [
         {
@@ -941,7 +1027,7 @@ export class CurriculumService {
         {
           author: 'Richard J. Gillings',
           title: 'Mathematics in the Time of the Pharaohs',
-          citationSnippet: 'Chapter 4: The 2/n Table and the Ahmes Papyrus.',
+          citationSnippet: 'The 2/n table and the bread-sharing problems of the Rhind Papyrus.',
           publicationYear: 1972,
         },
         {
@@ -958,31 +1044,37 @@ export class CurriculumService {
       practiceChallenges: [
         {
           id: 'u6-m1',
-          question: 'Slice 1 whole loaf directly in half.',
+          question:
+            'On the Baker’s Bench, cut one whole loaf into halves. How many pieces do you get?',
           hint: '1 whole loaf split into 2 equal halves: 1/2 + 1/2 = 1.',
           targetA: 1,
           targetB: 2,
-          expectedResult: 1,
-          successMessage: 'Clean cut! 1/2 + 1/2 = 1 whole loaf.',
+          expectedResult: 2,
+          successMessage: 'Clean cut! One loaf makes 2 halves: 1/2 + 1/2 = 1 whole loaf.',
+          targetState: { halvesCut: true },
         },
         {
           id: 'u6-m2',
-          question: 'Divide 2 loaves equally among 4 workers using clean halves.',
-          hint: '2 loaves split into halves yield 4 pieces: 2 ÷ 4 = 1/2.',
-          targetA: 2,
-          targetB: 4,
+          question:
+            'Cut all 3 loaves into halves and give every worker one half. Is the sharing finished? What is left on the bench?',
+          hint: '3 loaves make 6 halves. 5 workers take one each, so 6 − 5 = 1 half is left.',
+          targetA: 3,
+          targetB: 5,
           expectedResult: 0.5,
-          successMessage: 'Equally shared! Each of the 4 workers gets 1/2 loaf.',
+          successMessage:
+            'Every worker has 1/2, and one half is still on the bench. Not finished yet!',
+          targetState: { everyWorkerHasHalf: true },
         },
         {
           id: 'u6-m3',
           question:
-            "Solve Scribe Ahmes' challenge: Give 5 workers equal shares of 3 loaves using only halves and tenths!",
+            "Solve Scribe Ahmes' challenge: cut the leftover half into 5 tenths and give one to each worker!",
           hint: '1/2 + 1/10 = 5/10 + 1/10 = 6/10 = 3/5.',
           targetA: 3,
           targetB: 5,
           expectedResult: 0.6,
-          successMessage: 'Brilliant scribal math! 1/2 + 1/10 = 3/5.',
+          successMessage: 'Brilliant scribal math! Every worker has 1/2 + 1/10 = 3/5 of a loaf.',
+          targetState: { solved: true },
         },
       ],
       level: 'elementary',
@@ -996,23 +1088,29 @@ export class CurriculumService {
       slug: 'aristotelian-logic-circuits',
       shortTitle: 'Unit 07: Logic',
       title: "The Architecture of Reason: Aristotle's Syllogism",
-      subtitle: 'Propositional Connectives, Truth Tables, and Physical Circuits',
-      stage: 'foundations',
+      subtitle: 'AND, OR, True, False, and How Logic Became Electricity',
+      stage: 'intermediate',
       strand: 'logic',
       order: 7,
       prerequisites: ['unit-03-euclid-equality'],
+      buildsOn: [
+        {
+          lessonId: 'unit-03-euclid-equality',
+          connection:
+            'Euclid’s first rule is itself a tiny argument: IF A = B AND B = C, THEN A = C. Logic studies the "if", the "and", and the "then".',
+        },
+      ],
       civilization: 'Classical Athens (Lyceum)',
       historicalEra: 'c. 350 BCE',
       mathematicalStatement: 'P \\land Q \\implies R',
       discoveryHook: {
         prompt:
-          'To illuminate the Athenian Lyceum lantern, two premises must both be true (P AND Q). Wire the switches in series. What happens if you switch to an alternative premise (P OR Q)?',
+          'To light the lantern in Aristotle’s school, two statements must BOTH be true (P AND Q). Flip the switches and see. Then change the rule to P OR Q. What is different?',
         targetAxiom:
-          'Conjunction requires simultaneous truth (series); disjunction requires at least one true path (parallel).',
-        successCondition:
-          'Configure the circuit to successfully illuminate the lamp under both AND and OR configurations.',
+          'AND needs every statement to be true (switches in a row). OR needs at least one to be true (switches side by side).',
+        successCondition: 'Light the lamp once with the AND circuit and once with the OR circuit.',
         guidanceTip:
-          'Notice how electric current mirrors the flow of deductive validity: a broken switch invalidates the conclusion.',
+          'Electricity reaching the lamp is like truth reaching a conclusion: one open switch in a row stops everything.',
       },
       storyIllustration: {
         title: 'Aristotle Lecturing at the Lyceum Colonnade',
@@ -1020,62 +1118,62 @@ export class CurriculumService {
         altText:
           'Aristotle strolling through the olive gardens and shaded marble colonnade of the Lyceum in Athens, demonstrating logical reasoning by the glow of a bronze oil lamp.',
         caption:
-          'In 4th-century Athens, Aristotle paced the shaded walkways of the Lyceum, demonstrating which deductions can never fail.',
+          'In Athens about 2,350 years ago, Aristotle walked the shaded paths of his school, the Lyceum, working out which arguments can never fail.',
       },
       mathDiagram: {
-        title: 'The Physical Logic of Syllogisms: AND (Series) vs OR (Parallel)',
+        title: 'Logic You Can Build: AND (in a Row) vs OR (Side by Side)',
         imageUrl: 'assets/illustrations/unit-07-diagram.svg',
         altText:
-          'Dual schematic diagram contrasting a series circuit (P AND Q gate) with a parallel circuit (P OR Q gate) and truth tables.',
+          'Two circuit drawings. In the first, two switches sit in a row (P AND Q). In the second, they sit side by side (P OR Q). Each has a lamp.',
         caption:
-          'Truth flows like electric current: an AND gate requires every premise to be unbroken, while an OR gate shines if any valid path exists.',
+          'Truth flows like electricity: an AND circuit needs every switch closed, while an OR circuit lights up if any one path is open to it.',
       },
       narrative: {
-        hook: 'Before logic was silicon chips and binary code, it was Aristotle pacing the Lyceum gardens, determining which arguments could never be refuted.',
+        hook: 'Long before computer chips, logic was a man walking through a garden in Athens, asking: which arguments can never be wrong?',
         historicalContext: {
           story:
-            'In 4th-century BCE Athens, democratic assemblies and courtroom trials demanded a reliable standard to separate genuine truth from sophistry. In the Prior Analytics, Aristotle established formal syllogistic deduction: if All humans are mortal (P) and Socrates is human (Q), then Socrates is mortal (R). Centuries later, Claude Shannon realized that these exact Boolean connectives could be physically manifested through electrical switches: closed switches represent True, open switches represent False, series wiring represents AND, and parallel wiring represents OR.',
+            'About 2,350 years ago in Athens, people argued all day long: in the marketplace, in the law courts, and in the city assembly. The philosopher Aristotle wanted a way to tell a good argument from a clever trick. Teaching at his school, the Lyceum, he noticed that some arguments work every single time, no matter what they are about. A famous example goes: All humans are mortal. Socrates is a human. So Socrates is mortal. If the first two statements are true, the third one MUST be true. Aristotle called this pattern a syllogism, and with it he began the study of logic. The story kept growing. In 1854 an English teacher named George Boole showed that logic can be written like arithmetic, using just two values: true and false. Then in 1937 a 21-year-old student, Claude Shannon, realized that Boole’s true and false could be built out of electric switches: closed means true, open means false, switches in a row make AND, and switches side by side make OR. Every computer, phone, and game console is made of billions of these tiny switches.',
           civilizationOrOrigin: 'Athens, Ancient Greece',
           approximateDate: 'c. 350 BCE',
           epistemicStatus: {
             consensusLevel: 'established',
             summary:
-              'Aristotle is recognized as the founder of formal logic, but historians debate the completeness of his term logic compared to later Stoic propositional logic.',
+              'Historians agree that Aristotle wrote the first known books on logic. They also point out that he did not do it all: the AND / OR / IF-THEN logic in this lab comes from a rival school, the Stoics.',
             competingHypotheses: [
               {
-                claim: 'Term Logic Priority',
+                claim: 'Aristotle: the Logic of Groups',
                 proponentsOrSources: 'Aristotle (Organon / Prior Analytics)',
                 evidenceSummary:
-                  'Focused entirely on category inclusion (All A is B) rather than conditional statements (If P, then Q).',
+                  'His syllogisms are about groups of things ("all A are B") rather than about joining whole statements with AND and OR.',
               },
               {
-                claim: 'Stoic Propositional Foundations',
+                claim: 'The Stoics: the Logic of Statements',
                 proponentsOrSources: 'Chrysippus of Soli (c. 280–206 BCE)',
                 evidenceSummary:
-                  'Developed true propositional calculus and five fundamental inference rules (including Modus Ponens) independent of Aristotle.',
+                  'Worked out rules for joining statements with "and", "or", and "if… then": much closer to the logic computers use today.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'A proposition is a declarative statement that is either strictly True ($1$) or False ($0$).',
-          'Conjunction ($P \\land Q$) requires both inputs to be True, modeled physically by two switches wired in series.',
-          'Disjunction ($P \\lor Q$) requires at least one input to be True, modeled physically by switches wired in parallel.',
-          'Deductive validity ensures that if all premises are True, the conclusion cannot be False.',
+          'A statement (mathematicians say "proposition") is a sentence that is either true or false, like "It is raining."',
+          '$P \\land Q$ means "P AND Q". It is true only when both are true, like two switches in a row.',
+          '$P \\lor Q$ means "P OR Q". It is true when at least one is true, like two switches side by side.',
+          'A valid argument is one where true starting statements always lead to a true conclusion.',
         ],
         realWorldApplication:
-          'Boolean algebra and propositional logic form the physical foundation of every digital microchip, logic gate (ALU), search engine query parser, and cryptographic proof.',
+          'Every search you type, every level of a video game, and every text message relies on billions of tiny AND and OR switches inside a chip. Logic helps outside computers too: it is how detectives, doctors, and scientists check whether a conclusion really follows from the clues.',
       },
       artifactPlate: {
         title: 'Bust of Aristotle (Roman copy after Greek original)',
-        credit: 'Ludovisi Collection / National Roman Museum / Wikimedia Commons',
+        credit: 'Photo by Jastrow (Wikimedia Commons); Palazzo Altemps, National Roman Museum',
         license: 'Public Domain',
         sourceUrl: 'https://commons.wikimedia.org/wiki/File:Aristotle_Altemps_Inv8575.jpg',
         imageUrl:
-          'https://upload.wikimedia.org/wikipedia/commons/a/ae/Aristotle_Altemps_Inv8575.jpg',
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Aristotle_Altemps_Inv8575.jpg/960px-Aristotle_Altemps_Inv8575.jpg',
         altText: 'Marble bust of philosopher Aristotle with curly hair and beard.',
         caption:
-          'Aristotle, whose Prior Analytics and Organon established the deductive syllogism as the bedrock of Western philosophy.',
+          'Aristotle, in a Roman marble copy of a Greek bronze portrait made around 330 BCE.',
       },
       exploreGraph: [
         {
@@ -1092,6 +1190,11 @@ export class CurriculumService {
           label: 'Boolean Algebra',
           category: 'concept',
           wikipediaUrl: 'https://en.wikipedia.org/wiki/Boolean_algebra',
+        },
+        {
+          label: 'George Boole',
+          category: 'person',
+          wikipediaUrl: 'https://en.wikipedia.org/wiki/George_Boole',
         },
         {
           label: 'Claude Shannon & Circuits',
@@ -1123,34 +1226,34 @@ export class CurriculumService {
         {
           id: 'u7-m1',
           question:
-            'In an AND series circuit, both premise P and premise Q must be closed (True). Set both switches to 1 to illuminate the Lyceum lamp!',
-          hint: 'Both switches must be active for series flow.',
+            'In the AND circuit, both switches must be closed (true). Close P and Q to light the Lyceum lantern!',
+          hint: 'Switches in a row: the electricity needs every one of them closed.',
           targetA: 1,
           targetB: 1,
           expectedResult: 1,
-          successMessage: 'Circuit complete! 1 AND 1 = 1. Truth flows uninterrupted.',
+          successMessage: 'Circuit complete! True AND true = true. The lantern glows.',
+          targetState: { gate: 'AND', switchP: true, switchQ: true },
         },
         {
           id: 'u7-m2',
-          question:
-            'What happens in an AND circuit if premise P is true (1) but premise Q is false (0)?',
-          hint: 'A broken switch in series breaks the whole circuit.',
+          question: 'Still in the AND circuit: what happens if P is true but Q is false?',
+          hint: 'One open switch in a row breaks the whole path.',
           targetA: 1,
           targetB: 0,
           expectedResult: 0,
           successMessage:
-            'The circuit breaks! 1 AND 0 = 0. Deductive conclusions require all premises to hold.',
+            'The lantern goes dark. True AND false = false: every statement has to hold.',
+          targetState: { gate: 'AND', switchP: true, switchQ: false },
         },
         {
           id: 'u7-m3',
-          question:
-            'In an OR parallel circuit, does the lamp light if at least one switch is closed (1 OR 0)?',
-          hint: 'Parallel circuits provide alternate paths for truth.',
+          question: 'Switch to the OR circuit. Does the lantern light when only P is true?',
+          hint: 'Side-by-side switches give the electricity another way through.',
           targetA: 1,
           targetB: 0,
           expectedResult: 1,
-          successMessage:
-            'The lamp glows! 1 OR 0 = 1. In parallel logic, one valid path is enough.',
+          successMessage: 'The lantern glows! True OR false = true. One good path is enough.',
+          targetState: { gate: 'OR', switchP: true, switchQ: false },
         },
       ],
       level: 'foundations',
@@ -1164,23 +1267,35 @@ export class CurriculumService {
       slug: 'euclids-first-construction-equilateral',
       shortTitle: 'Unit 08: Geometry',
       title: 'The First Construction: The Equilateral Triangle',
-      subtitle: "Straightedge, Rigid Compass, and Euclid's Elements Book I, Proposition 1",
-      stage: 'foundations',
+      subtitle: "A Ruler With No Numbers, a Compass, and the Very First Proof in Euclid's Elements",
+      stage: 'intermediate',
       strand: 'geometry',
       order: 8,
-      prerequisites: ['unit-03-euclid-equality'],
+      prerequisites: ['unit-03-euclid-equality', 'unit-07-aristotle-logic'],
+      buildsOn: [
+        {
+          lessonId: 'unit-03-euclid-equality',
+          connection:
+            'The proof ends with Common Notion 1: sides AC and BC both equal AB, so they must equal each other.',
+        },
+        {
+          lessonId: 'unit-07-aristotle-logic',
+          connection:
+            'A proof is a chain of logic. Every step must follow from the one before it, just as Aristotle demanded.',
+        },
+      ],
       civilization: 'Ptolemaic Alexandria (Hellenistic Greece)',
       historicalEra: 'c. 300 BCE',
-      mathematicalStatement: '\\triangle ABC \\implies AB = BC = CA',
+      mathematicalStatement: 'AB = BC = CA',
       discoveryHook: {
         prompt:
-          'Given only an unmarked straightedge and a collapsible compass, draw a segment AB. How can sweeping two identical circles pinpoint a third vertex C that is guaranteed to form an equilateral triangle?',
+          'You have a straightedge with no numbers on it and a compass. Someone draws a line from A to B. Can you find a third point C so that triangle ABC has three sides of exactly the same length, without measuring anything?',
         targetAxiom:
-          'Postulates 1 & 3: A straight line joins any two points, and a circle can be swept with any center and radius. By Common Notion 1, radii of equal circles are equal.',
+          'Every point on a circle is the same distance from its center. Two circles of the same size can find a point that is equally far from A and from B.',
         successCondition:
-          'Complete the three geometric construction steps: Sweep Circle A, Sweep Circle B, and connect Vertex C.',
+          'Follow the steps: sweep a circle around A, sweep a circle around B, then join the crossing point C to A and B.',
         guidanceTip:
-          'Notice that segment AB acts simultaneously as the radius of Circle A and Circle B. Point C lies on the circumference of both.',
+          'The line AB is the radius of BOTH circles. Point C sits on both circles at once.',
       },
       storyIllustration: {
         title: 'Euclid Demonstrating Proposition 1 at the Mouseion Terrace',
@@ -1188,7 +1303,7 @@ export class CurriculumService {
         altText:
           'Euclid of Alexandria demonstrating Proposition 1 on the marble terrace of the Mouseion, constructing an equilateral triangle with a compass and straightedge as morning light illuminates the Library scrolls.',
         caption:
-          'At the Mouseion of Alexandria, Euclid used an unmarked straightedge and compass to create perfect symmetry from pure deduction.',
+          'At the great library of Alexandria, Euclid used a plain straightedge and a compass to build a perfect triangle by reasoning alone.',
       },
       mathDiagram: {
         title: "Euclid's Proposition 1: Constructing an Equilateral Triangle",
@@ -1199,53 +1314,54 @@ export class CurriculumService {
           'Two equal circles automatically pinpoint the third corner of a triangle whose sides are guaranteed to be equal.',
       },
       narrative: {
-        hook: 'Geometry did not begin with measurements and rulers; it began with the pure intersection of two expanding circles.',
+        hook: 'The very first thing Euclid builds in his famous book needs no numbers at all: only two circles.',
         historicalContext: {
           story:
-            'Opening Book I of the Elements, Euclid did not start with an abstract definition of a triangle. He started with an imperative challenge: "On a given finite straight line, to construct an equilateral triangle." Using only two ideal instruments—an unmarked straightedge to connect points and a compass that snapped shut the moment it lifted from the papyrus—Euclid proved that purely synthetic, deductive operations could generate perfect physical symmetry without taking a single numeric measurement.',
+            'Open Euclid’s Elements to its very first puzzle and you find a challenge: "On a given finite straight line, to construct an equilateral triangle", which means a triangle with three equal sides. Euclid allows himself only two tools: a straightedge for drawing lines (it has no markings, so no measuring!) and a compass for drawing circles. He draws a circle around each end of the line, each one reaching to the other end. Where the circles cross, he marks a point and joins it up. Then comes the clever part: he PROVES the three sides must be equal, using the rule about equal things from his common notions. No measuring and no guessing, just reasoning. For more than 2,000 years, students all over the world have begun geometry with this exact page.',
           civilizationOrOrigin: 'Alexandria, Hellenistic Egypt',
           approximateDate: 'c. 300 BCE',
           epistemicStatus: {
             consensusLevel: 'contested',
             summary:
-              "While Euclid's Proposition 1 is historically immortal, modern mathematical logicians identified a subtle flaw: Euclid assumed the two circles intersect without proving the continuum.",
+              'This really is the first proposition in the Elements. But sharp-eyed mathematicians later spotted a gap: Euclid never proves that the two circles actually cross! It looks obvious in the picture, yet none of his starting rules says so.',
             competingHypotheses: [
               {
-                claim: 'The Hidden Continuity Assumption',
+                claim: 'The Missing Rule',
                 proponentsOrSources:
                   'Moritz Pasch (1882); David Hilbert (Foundations of Geometry, 1899)',
                 evidenceSummary:
-                  "Euclid's postulates never state that continuous lines or circles must intersect if they cross. Hilbert introduced explicit axioms of continuity and order to make Proposition 1 strictly airtight.",
+                  'Showed that Euclid needed extra starting rules about when lines and circles must meet, and wrote those rules down to close the gap.',
               },
               {
-                claim: 'Diagrammatic Visual Rigor',
-                proponentsOrSources: 'Kenneth Manders (2008); Reviel Netz',
+                claim: 'The Picture Is Part of the Proof',
+                proponentsOrSources: 'Kenneth Manders (2008); Reviel Netz (1999)',
                 evidenceSummary:
-                  'Argues that classical Greek mathematical practice treated stable topological features of lettered diagrams as legitimate inferential steps rather than deductive oversights.',
+                  'Argue that for Greek mathematicians a careful diagram was a fair way to show that the circles meet, not a mistake.',
               },
             ],
           },
         },
         conceptualExplanation: [
-          'Postulate 1 permits drawing a unique straight line segment between points $A$ and $B$.',
-          'Postulate 3 permits describing circle $\\mathcal{C}_A$ centered at $A$ with radius $AB$, and circle $\\mathcal{C}_B$ centered at $B$ with radius $BA$.',
-          'Since $C$ lies on circle $\\mathcal{C}_A$, distance $AC = AB$. Since $C$ lies on circle $\\mathcal{C}_B$, distance $BC = AB$.',
-          'By Common Notion 1 ("Things equal to the same thing are equal to each other"), $AC = BC = AB$, proving $\\triangle ABC$ is equilateral.',
+          'A straightedge joins any two points with a straight line (Euclid’s Postulate 1).',
+          'A compass draws a circle around any center, through any other point (Postulate 3).',
+          '$C$ is on the circle around $A$, so $AC = AB$. $C$ is also on the circle around $B$, so $BC = AB$.',
+          'Two things equal to the same thing are equal to each other (Common Notion 1), so $AC = BC = AB$. All three sides match!',
         ],
         realWorldApplication:
-          'Synthetic straightedge-and-compass geometry forms the algorithmic basis of modern CAD spline curves, CNC toolpath interpolation, and planar triangulation meshes in computer graphics.',
+          'Builders, carpenters, and artists still use compass-and-straightedge tricks to make perfect shapes without measuring. Triangles are the strongest shape for bridges and roof beams, and every 3D video game character is built from thousands of tiny triangles. Most of all, Euclid’s habit of proving things step by step became the model for all of mathematics and science.',
       },
       artifactPlate: {
-        title: "Euclid's Elements Book I, Proposition 1 (MS D'Orville 301)",
-        credit: 'Bodleian Library, University of Oxford / Wikimedia Commons',
+        title: 'The First Printed Edition of Euclid’s Elements (Venice, 1482)',
+        credit:
+          'Printed by Erhard Ratdolt; plate from C. Thomas-Stanford, Early Editions of Euclid’s Elements (1926), via Wikimedia Commons',
         license: 'Public Domain',
-        sourceUrl:
-          'https://commons.wikimedia.org/wiki/File:Euclid_Proposition_1_MS_D%27Orville_301.jpg',
-        imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Byzantine_Euclid.png',
+        sourceUrl: 'https://commons.wikimedia.org/wiki/File:Thomas-Stanford_Plate01b.jpg',
+        imageUrl:
+          'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Thomas-Stanford_Plate01b.jpg/960px-Thomas-Stanford_Plate01b.jpg',
         altText:
-          'Byzantine manuscript page from 888 CE showing Greek text and Euclid Book I Proposition 1 diagram with two intersecting circles.',
+          'An ornate page printed in 1482, with a decorated border and small diagrams of lines, circles, and triangles in the margin.',
         caption:
-          "Manuscript MS D'Orville 301 (copied in 888 CE by Stephen the Clerk), displaying the canonical intersecting circles diagram for Proposition 1.",
+          'The opening page of Book I in the first printed Elements. For almost 1,800 years before this, every copy had to be written out by hand.',
       },
       exploreGraph: [
         {
@@ -1293,32 +1409,35 @@ export class CurriculumService {
         {
           id: 'u8-m1',
           question:
-            'Start with a baseline AB of length 160 pixels. What is the radius of the circle swept around center A?',
-          hint: 'Postulate 3 states the circle radius equals the distance between the two points (AB).',
-          targetA: 160,
-          targetB: 160,
-          expectedResult: 160,
-          successMessage: 'Spot on! Circle A has radius equal to segment AB (160px).',
+            'Put the compass point on A and sweep a circle that passes through B. What is the radius of this circle?',
+          hint: 'The radius is the distance from the center to the edge. Here that is the line AB.',
+          targetA: 2,
+          targetB: 0,
+          expectedResult: 2,
+          successMessage: 'Spot on! Circle A has a radius equal to the line AB.',
+          targetState: { step: 2 },
         },
         {
           id: 'u8-m2',
           question:
-            'Now sweep Circle B from center B with the same radius AB. Where do the two equal circles cross?',
-          hint: 'Look for the apex intersection above the baseline.',
-          targetA: 160,
-          targetB: 160,
-          expectedResult: 1,
-          successMessage: 'Found it! The two circles intersect at apex point C above the baseline.',
+            'Now put the compass point on B and sweep a second circle through A. Where do the two equal circles cross?',
+          hint: 'Look above the line AB.',
+          targetA: 3,
+          targetB: 0,
+          expectedResult: 3,
+          successMessage: 'Found it! The two circles cross at a point above the line. Call it C.',
+          targetState: { step: 3 },
         },
         {
           id: 'u8-m3',
-          question: 'By Common Notion 1, since AC = AB and BC = AB, what is the length of side BC?',
+          question: 'Join C to A and to B. Why must all three sides be the same length?',
           hint: 'Things equal to the same thing are equal to each other.',
-          targetA: 160,
-          targetB: 160,
-          expectedResult: 160,
+          targetA: 4,
+          targetB: 0,
+          expectedResult: 4,
           successMessage:
-            'Q.E.D.! All three sides are equal (160px). Triangle ABC is perfectly equilateral.',
+            'Q.E.D.! AC = AB and BC = AB, so all three sides are equal. Triangle ABC is perfectly equilateral.',
+          targetState: { step: 4 },
         },
       ],
       level: 'foundations',
@@ -1331,6 +1450,27 @@ export class CurriculumService {
 
   readonly hasPrev = computed(() => this.activeLessonIndex() > 0);
   readonly hasNext = computed(() => this.activeLessonIndex() < this.lessons().length - 1);
+
+  // Lessons the current one stands on (in teaching order), each with the reason it matters here
+  readonly priorDiscoveries = computed(() => {
+    const current = this.currentLesson();
+    return current.prerequisites
+      .map((id) => this.lessons().find((l) => l.id === id))
+      .filter((lesson): lesson is MathLesson => !!lesson)
+      .map((lesson) => ({ lesson, connection: this.connectionBetween(lesson, current) }));
+  });
+
+  // Later lessons that reuse the current one
+  readonly nextDiscoveries = computed(() => {
+    const current = this.currentLesson();
+    return this.lessons()
+      .filter((l) => l.prerequisites.includes(current.id))
+      .map((lesson) => ({ lesson, connection: this.connectionBetween(current, lesson) }));
+  });
+
+  private connectionBetween(earlier: MathLesson, later: MathLesson): string {
+    return later.buildsOn?.find((link) => link.lessonId === earlier.id)?.connection ?? '';
+  }
 
   setLessonIndex(index: number): void {
     if (index >= 0 && index < this.lessons().length) {

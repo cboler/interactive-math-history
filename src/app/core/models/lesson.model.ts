@@ -69,6 +69,15 @@ export interface PracticeChallenge {
   targetB: number;
   expectedResult: number;
   successMessage: string;
+  // Lab state that completes the mission on visualizers without A/B sliders
+  // (same vocabulary as InteractiveConfig.initialState). Defaults to { a: targetA, b: targetB }.
+  targetState?: Record<string, unknown>;
+}
+
+// How an earlier lesson's discovery is reused by this one ("standing on the shoulders of...").
+export interface DiscoveryLink {
+  lessonId: string;
+  connection: string;
 }
 
 export interface InteractiveConfig {
@@ -94,6 +103,8 @@ export interface MathLesson {
   strand: MathematicalStrand;
   order: number;
   prerequisites: string[];
+  // One entry per prerequisite, explaining what this lesson borrows from it
+  buildsOn?: DiscoveryLink[];
   civilization: string;
   historicalEra: string;
   mathematicalStatement: string; // LaTeX formatted string

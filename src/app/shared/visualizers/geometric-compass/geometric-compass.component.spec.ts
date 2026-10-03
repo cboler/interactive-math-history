@@ -174,4 +174,10 @@ describe('GeometricCompassComponent', () => {
     expect(el.querySelector('.vertex-c')).toBeTruthy();
     expect(el.querySelector('.qed-badge')).toBeTruthy();
   });
+
+  it('should expose the current step as lab state for practice missions', () => {
+    expect(component.labState()).toEqual({ step: 1 });
+    component.setStep(3);
+    expect(component.labState()).toEqual({ step: 3 });
+  });
 });

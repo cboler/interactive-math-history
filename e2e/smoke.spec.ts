@@ -77,6 +77,35 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('.math-diagram')).toBeVisible();
     await expect(page.locator('.practice-missions')).toBeVisible();
 
+    // Lineage: Unit 01 starts the journey and leads on to later units
+    const builtOn = page.locator('.lineage-card').first();
+    const leadsTo = page.locator('.lineage-card.lineage-next');
+    await expect(builtOn).toContainText('where the journey begins');
+    await expect(leadsTo.locator('.lineage-link')).toHaveCount(3);
+    await expect(leadsTo).toContainText('Unit 02: Subtraction');
+
+    // Historical certainty is labelled in plain language
+    await expect(page.locator('.consensus-tag')).toHaveText('Still debated');
+
+    // Practice mission: nothing is ticked on load, and the button completes Mission 2 (4 + 3 = 7)
+    const missionsProgress = page.locator('#missions-progress');
+    await expect(missionsProgress).toHaveText('0 of 3 done');
+    const missionCards = page.locator('.mission-card');
+    await missionCards.nth(1).locator('.load-mission-btn').click();
+    await expect(missionCards.nth(1)).toHaveClass(/done/);
+    await expect(page.locator('.mission-celebration')).toContainText('4 nights + 3 nights = 7');
+    await expect(missionsProgress).toHaveText('1 of 3 done');
+    await expect(page.locator('app-number-line figcaption')).toHaveText(
+      'Start at 0 and hop forward 4. Then hop forward 3. You land on 7.',
+    );
+    await expect(page.locator('app-number-line')).toBeInViewport();
+
+    // Progress survives a reload, and can be reset
+    await page.reload();
+    await expect(missionCards.nth(1)).toHaveClass(/done/);
+    await page.locator('#reset-missions-btn').click();
+    await expect(missionsProgress).toHaveText('0 of 3 done');
+
     // 5. Navigate to Unit 02 via Next button
     const unitBadge = page.locator('.unit-level-badge');
     await expect(unitBadge).toContainText('Unit 1 of 8');
@@ -99,6 +128,19 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(vectorB02).toHaveAttribute('x1', '295');
     await expect(vectorB02).toHaveAttribute('x2', '190');
     await expect(vectorB02).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+
+    // Unit 02 builds on Unit 01, and says why
+    await expect(page.locator('.lineage-card').first()).toContainText('Unit 01: Addition');
+    await expect(page.locator('.lineage-card').first()).toContainText('Taking away undoes adding');
+
+    // Taking away more than there is never shows a false equation
+    await page.locator('#quantity-a-input').fill('3');
+    await page.locator('#quantity-b-input').fill('5');
+    await expect(page.locator('app-number-line figcaption')).toContainText(
+      'You only have 3, so you cannot take away 5.',
+    );
+    await page.locator('#quantity-a-input').fill('7');
+    await page.locator('#quantity-b-input').fill('3');
 
     // 6. Navigate to Unit 03 via Next button
     await nextBtn.click();
@@ -218,14 +260,19 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
 
     const solvedBanner = page.locator('.solved-banner');
     await expect(solvedBanner).toBeVisible();
-    await expect(solvedBanner).toContainText("Ahmes' Equilibrium Achieved!");
+    await expect(solvedBanner).toContainText("Ahmes' Challenge Solved!");
+    await expect(page.locator('#missions-progress')).toHaveText('3 of 3 done');
 
     // 10. Navigate to Unit 07 (Logic) via Next button
     await nextBtn.click();
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(unitBadge).toContainText('Unit 7 of 8');
+    await expect(unitBadge).toContainText('INTERMEDIATE');
+    await expect(page).toHaveURL(/.*intermediate\/aristotelian-logic-circuits/);
     await expect(page).toHaveTitle(/Unit 07: Logic/);
+    // Each new lesson opens at the top of the page
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(100);
 
     // Verify Logic Circuit visualizer is active and slider controls are hidden
     await expect(page.locator('app-logic-circuit')).toBeVisible();
@@ -274,10 +321,10 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('.controls-panel')).toBeHidden();
     await expect(page.locator('app-logic-circuit')).toBeHidden();
 
-    // Verify Byzantine manuscript plate and Epistemic Card
+    // Verify first printed edition plate and Epistemic Card
     await expect(page.locator('.artifact-plate img')).toHaveAttribute(
       'src',
-      /.*Byzantine_Euclid\.png|data:image\/svg\+xml.*/,
+      /.*Thomas-Stanford_Plate01b\.jpg|data:image\/svg\+xml.*/,
     );
     await expect(page.locator('.epistemic-card')).toBeVisible();
 
@@ -305,7 +352,8 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Test Baseline Length Slider
     const baseSlider = compassContainer.locator('#base-length-slider');
     await baseSlider.fill('200');
-    await expect(compassContainer.locator('.dimension-label')).toContainText('L = 200px');
+    await expect(compassContainer.locator('.dimension-label')).toContainText('AB = 200');
+    await expect(page.locator('#missions-progress')).toHaveText('3 of 3 done');
 
     // 12. Test Curriculum Drawer & Domain Strand Filtering
     const drawerToggle = page.locator('#drawer-toggle-btn');
@@ -340,6 +388,10 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     const allFilterBtn = drawerPanel.locator('.strand-filter-btn', { hasText: 'All' });
     await allFilterBtn.click();
     await expect(drawerPanel.locator('.stepper-item')).toHaveCount(8);
+
+    // Outline shows typeset math and mission progress for each unit
+    await expect(drawerPanel.locator('.stepper-statement .katex')).toHaveCount(8);
+    await expect(drawerPanel.locator('.stepper-progress.all-done')).toHaveCount(2);
 
     // Close drawer
     const drawerCloseBtn = drawerPanel.locator('.drawer-close-btn');
@@ -411,7 +463,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('.unit-level-badge')).toContainText('Unit 6 of 8');
     await expect(page).toHaveTitle(/Unit 06: Fractions/);
 
-    // 4. Direct deep-link to Unit 07 (Logic)
+    // 4. Direct deep-link to Unit 07 (Logic) via its legacy "foundations" address
     await page.goto('/foundations/aristotelian-logic-circuits');
     await expect(page.locator('h1')).toContainText('Architecture of Reason');
     await expect(page.locator('app-logic-circuit')).toBeVisible();

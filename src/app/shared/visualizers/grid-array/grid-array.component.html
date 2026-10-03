@@ -11,10 +11,10 @@
       [class.transposed]="isTransposed()"
       (click)="toggleTranspose()"
       id="transpose-btn"
-      aria-label="Rotate Grid 90 degrees Transpose"
+      aria-label="Turn the grid on its side"
     >
       <app-icon name="rotate"></app-icon>
-      <span>Rotate Grid 90° (Transpose)</span>
+      <span>Turn the Grid</span>
     </button>
 
     <div class="formula-banner">
@@ -23,9 +23,9 @@
       </div>
       <div class="formula-note">
         @if (isTransposed()) {
-          Transposed: ({{ cols() }} × {{ rows() }}) ≡ ({{ rows() }} × {{ cols() }})
+          Turned: {{ cols() }} × {{ rows() }} is the same as {{ rows() }} × {{ cols() }}
         } @else {
-          Standard: ({{ rows() }} × {{ cols() }}) ≡ ({{ cols() }} × {{ rows() }})
+          {{ rows() }} × {{ cols() }} is the same as {{ cols() }} × {{ rows() }}
         }
       </div>
     </div>
@@ -143,6 +143,6 @@
   </svg>
 
   <figcaption class="caption">
-    Two-dimensional area model demonstrating spatial invariance and commutativity (A × B = B × A).
+    Turn the grid and count again. The total never changes, because A × B = B × A.
   </figcaption>
 </figure>

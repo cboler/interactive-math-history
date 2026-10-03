@@ -3,6 +3,10 @@ import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { LessonViewComponent } from './lesson-view.component';
 import { CurriculumService } from '../../services/curriculum.service';
+import { LogicCircuitComponent } from '../../shared/visualizers/logic-circuit/logic-circuit.component';
+import { GeometricCompassComponent } from '../../shared/visualizers/geometric-compass/geometric-compass.component';
+import { BreadSlicerComponent } from '../../shared/visualizers/bread-slicer/bread-slicer.component';
+import { By } from '@angular/platform-browser';
 import { routes } from '../../app.routes';
 
 describe('LessonViewComponent', () => {
@@ -10,6 +14,13 @@ describe('LessonViewComponent', () => {
   let fixture: ComponentFixture<LessonViewComponent>;
 
   beforeEach(async () => {
+    // Mission progress is persisted; start every test with a clean slate
+    try {
+      window.localStorage.removeItem('imx_completed_missions');
+    } catch {
+      // Storage unavailable in this environment
+    }
+
     await TestBed.configureTestingModule({
       imports: [LessonViewComponent],
       providers: [CurriculumService, provideRouter(routes)],
@@ -399,23 +410,230 @@ describe('LessonViewComponent', () => {
 
     // Unit 04 (grid-array)
     component.selectLesson(3);
-    expect(component.missionButtonLabel()).toBe('Set Field Grid Dimensions');
+    expect(component.missionButtonLabel()).toBe('Plant This Grid');
 
     // Unit 05 (sharing-distributor)
     component.selectLesson(4);
-    expect(component.missionButtonLabel()).toBe('Distribute Baskets');
+    expect(component.missionButtonLabel()).toBe('Share Into Baskets');
 
     // Unit 06 (partition-slicer)
     component.selectLesson(5);
-    expect(component.missionButtonLabel()).toBe('Explore Bread Share');
+    expect(component.missionButtonLabel()).toBe('Go to the Bread Bench');
 
     // Unit 07 (logic-circuit)
     component.selectLesson(6);
-    expect(component.missionButtonLabel()).toBe('Test Circuit State');
+    expect(component.missionButtonLabel()).toBe('Try This on the Circuit');
 
     // Unit 08 (geometric-compass)
     component.selectLesson(7);
-    expect(component.missionButtonLabel()).toBe('Set Baseline Length');
+    expect(component.missionButtonLabel()).toBe('Show This Step');
+  });
+
+  it('should show what each lesson builds on and where it leads', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    const sections = () => el.querySelectorAll('.lineage-card');
+
+    // Unit 01 has no prerequisites but opens the door to later units
+    expect(sections()[0].querySelector('.lineage-empty')?.textContent).toContain(
+      'where the journey begins',
+    );
+    const leadsTo = [...sections()[1].querySelectorAll('.lineage-link')].map((b) =>
+      b.textContent?.trim(),
+    );
+    expect(leadsTo).toEqual([
+      'Unit 02: Subtraction',
+      'Unit 03: Equality',
+      'Unit 04: Multiplication',
+    ]);
+
+    // Unit 06 (Fractions) stands on multiplication and division, with a reason for each
+    component.selectLesson(5);
+    fixture.detectChanges();
+    const priorLinks = sections()[0].querySelectorAll('.lineage-link');
+    expect([...priorLinks].map((b) => b.textContent?.trim())).toEqual([
+      'Unit 04: Multiplication',
+      'Unit 05: Division',
+    ]);
+    const reasons = sections()[0].querySelectorAll('.lineage-connection');
+    expect(reasons.length).toBe(2);
+    expect(reasons[1].textContent).toContain('A fraction is a division you have not finished');
+
+    // Following a link opens that lesson
+    (priorLinks[1] as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(component.curriculum.currentLesson().id).toBe('unit-05-fair-share-division');
+  });
+
+  it('should label historical certainty in plain language', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    const tag = () => el.querySelector('.consensus-tag');
+
+    expect(tag()?.getAttribute('data-level')).toBe('contested');
+    expect(tag()?.textContent?.trim()).toBe('Still debated');
+
+    component.selectLesson(1);
+    fixture.detectChanges();
+    expect(tag()?.textContent?.trim()).toBe('A best guess');
+
+    component.selectLesson(2);
+    fixture.detectChanges();
+    expect(tag()?.textContent?.trim()).toBe('Historians agree');
+  });
+
+  it('should show the lab goal and a hint in the discovery challenge', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    const card = el.querySelector('.discovery-card');
+    expect(card?.textContent).toContain('Set First Notches (A) to 3');
+    expect(card?.querySelector('details.discovery-hint summary')?.textContent).toContain(
+      'Need a hint?',
+    );
+  });
+
+  it('should keep lab controls reachable by assistive technology', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    expect(el.querySelector('.controls-panel')?.hasAttribute('aria-hidden')).toBe(false);
+    expect(el.querySelector('.visualizer-outlet')?.hasAttribute('aria-hidden')).toBe(false);
+    // The decorative drawing itself stays hidden; its text alternative is the live region
+    expect(el.querySelector('app-number-line svg')?.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('should render curriculum outline statements as math, not raw LaTeX', () => {
+    component.toggleDrawer(true);
+    fixture.detectChanges();
+    const statements = fixture.nativeElement.querySelectorAll('.stepper-statement');
+    expect(statements.length).toBe(8);
+    for (const statement of statements) {
+      expect(statement.querySelector('.katex')).toBeTruthy();
+    }
+    expect(fixture.nativeElement.querySelector('.stepper-era')?.textContent).toContain(
+      'c. 20,000 BCE',
+    );
+    expect(fixture.nativeElement.querySelector('.stepper-progress')?.textContent).toContain(
+      '0 of 3 missions',
+    );
+  });
+
+  describe('practice missions', () => {
+    const cards = () =>
+      [
+        ...(fixture.nativeElement as HTMLElement).querySelectorAll('.mission-card'),
+      ] as HTMLElement[];
+    const settle = async () => {
+      fixture.detectChanges();
+      await fixture.whenStable();
+      fixture.detectChanges();
+    };
+
+    it('should not tick off a mission that merely matches the starting state', async () => {
+      // Unit 01 opens at 3 + 2, which is exactly Mission 1
+      await settle();
+      expect(component.completedInLesson()).toBe(0);
+      expect(cards()[0].classList.contains('done')).toBe(false);
+    });
+
+    it('should complete a mission from its button and show the success message', async () => {
+      (cards()[0].querySelector('.load-mission-btn') as HTMLButtonElement).click();
+      await settle();
+
+      expect(component.completedInLesson()).toBe(1);
+      expect(cards()[0].classList.contains('done')).toBe(true);
+      expect(cards()[0].querySelector('.mission-success')?.textContent).toContain(
+        '3 notches + 2 notches = 5 notches',
+      );
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.mission-celebration')?.textContent).toContain('Mission complete!');
+      expect(el.querySelector('#missions-progress')?.textContent).toContain('1 of 3 done');
+    });
+
+    it('should complete a mission when the learner moves the sliders themselves', async () => {
+      component.inputA.set(5);
+      await settle();
+      expect(component.completedInLesson()).toBe(0);
+
+      component.inputB.set(4);
+      await settle();
+      expect(cards()[2].classList.contains('done')).toBe(true);
+      expect(component.celebrationMessage()).toContain('5 + 4 = 9');
+    });
+
+    it('should reset the missions of the current lesson', async () => {
+      (cards()[1].querySelector('.load-mission-btn') as HTMLButtonElement).click();
+      await settle();
+      expect(component.completedInLesson()).toBe(1);
+
+      const el = fixture.nativeElement as HTMLElement;
+      (el.querySelector('#reset-missions-btn') as HTMLButtonElement).click();
+      await settle();
+      expect(component.completedInLesson()).toBe(0);
+      expect(el.querySelector('.mission-celebration')).toBeFalsy();
+      expect(el.querySelector('#reset-missions-btn')).toBeFalsy();
+    });
+
+    it('should drive the logic circuit from mission buttons', async () => {
+      component.selectLesson(6);
+      await settle();
+      // The circuit opens on AND with P true and Q false (Mission 2) but nothing is ticked yet
+      expect(component.completedInLesson()).toBe(0);
+
+      (cards()[2].querySelector('.load-mission-btn') as HTMLButtonElement).click();
+      await settle();
+
+      const circuit = fixture.debugElement.query(By.directive(LogicCircuitComponent))
+        .componentInstance as LogicCircuitComponent;
+      expect(circuit.gateType()).toBe('OR');
+      expect(circuit.isLit()).toBe(true);
+      expect(cards()[2].classList.contains('done')).toBe(true);
+      expect(cards()[1].classList.contains('done')).toBe(false);
+    });
+
+    it('should follow the compass construction step by step', async () => {
+      component.selectLesson(7);
+      await settle();
+
+      const compass = fixture.debugElement.query(By.directive(GeometricCompassComponent))
+        .componentInstance as GeometricCompassComponent;
+      compass.nextStep();
+      await settle();
+      expect(cards().map((c) => c.classList.contains('done'))).toEqual([true, false, false]);
+
+      (cards()[2].querySelector('.load-mission-btn') as HTMLButtonElement).click();
+      await settle();
+      expect(compass.step()).toBe(4);
+      expect(cards().map((c) => c.classList.contains('done'))).toEqual([true, false, true]);
+    });
+
+    it('should track hands-on progress at the bread bench', async () => {
+      component.selectLesson(5);
+      await settle();
+
+      const slicer = fixture.debugElement.query(By.directive(BreadSlicerComponent))
+        .componentInstance as BreadSlicerComponent;
+
+      // The button only leads to the bench; the cutting is up to the learner
+      (cards()[0].querySelector('.load-mission-btn') as HTMLButtonElement).click();
+      await settle();
+      expect(component.completedInLesson()).toBe(0);
+
+      slicer.cutLoaf(2, '#2563eb');
+      await settle();
+      expect(cards().map((c) => c.classList.contains('done'))).toEqual([true, false, false]);
+
+      slicer.cutLoaf(2, '#2563eb');
+      slicer.cutLoaf(2, '#2563eb');
+      for (const basket of slicer.baskets()) {
+        slicer.giveSliceToWorker(slicer.availableSlices()[0].id, basket.id);
+      }
+      await settle();
+      expect(cards().map((c) => c.classList.contains('done'))).toEqual([true, true, false]);
+
+      slicer.subdivideHalf(slicer.availableSlices()[0].id);
+      for (const basket of slicer.baskets()) {
+        slicer.giveSliceToWorker(slicer.availableSlices()[0].id, basket.id);
+      }
+      await settle();
+      expect(slicer.isSolved()).toBe(true);
+      expect(cards().map((c) => c.classList.contains('done'))).toEqual([true, true, true]);
+    });
   });
 
   it('should render story illustrations and math diagrams across all units', () => {

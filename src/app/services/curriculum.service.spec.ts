@@ -199,6 +199,98 @@ describe('CurriculumService', () => {
     expect(service.activeLessonIndex()).toBe(7);
   });
 
+  it('should resolve lessons by their current stage as well as legacy level routes', () => {
+    // Units 07 and 08 moved from "foundations" to "intermediate"; old links must keep working
+    expect(service.currentLesson().stage).toBe('foundations');
+    expect(service.findLessonIndex('intermediate', 'aristotelian-logic-circuits')).toBe(6);
+    expect(service.findLessonIndex('foundations', 'aristotelian-logic-circuits')).toBe(6);
+    expect(service.findLessonIndex('intermediate', 'euclids-first-construction-equilateral')).toBe(
+      7,
+    );
+    expect(service.findLessonIndex('foundations', 'unit-08')).toBe(7);
+  });
+
+  it('should order lessons so difficulty never steps backwards', () => {
+    const stageRank = { foundations: 0, elementary: 1, intermediate: 2, advanced: 3 };
+    const ranks = service.lessons().map((l) => stageRank[l.stage]);
+    expect(ranks).toEqual([...ranks].sort((a, b) => a - b));
+    expect(service.lessons().map((l) => l.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+  });
+
+  it('should only build on lessons that come earlier, and explain every link', () => {
+    const lessons = service.lessons();
+    const orderById = new Map(lessons.map((l) => [l.id, l.order]));
+
+    for (const lesson of lessons) {
+      for (const prerequisite of lesson.prerequisites) {
+        expect(orderById.has(prerequisite), `${lesson.id} -> ${prerequisite}`).toBe(true);
+        expect(orderById.get(prerequisite)!).toBeLessThan(lesson.order);
+      }
+      // Exactly one plain-language connection per prerequisite
+      expect((lesson.buildsOn ?? []).map((link) => link.lessonId).sort()).toEqual(
+        [...lesson.prerequisites].sort(),
+      );
+      for (const link of lesson.buildsOn ?? []) {
+        expect(link.connection.length).toBeGreaterThan(20);
+      }
+    }
+  });
+
+  it('should expose what the current lesson builds on and where it leads', () => {
+    // Unit 01: nothing before it, three lessons reuse it
+    expect(service.priorDiscoveries()).toEqual([]);
+    expect(service.nextDiscoveries().map((d) => d.lesson.id)).toEqual([
+      'unit-02-taking-away-subtraction',
+      'unit-03-euclid-equality',
+      'unit-04-commutative-multiplication',
+    ]);
+    expect(service.nextDiscoveries()[0].connection).toContain('Taking away undoes adding');
+
+    // Unit 08: stands on equality and logic, nothing after it yet
+    service.setLessonIndex(7);
+    expect(service.priorDiscoveries().map((d) => d.lesson.id)).toEqual([
+      'unit-03-euclid-equality',
+      'unit-07-aristotle-logic',
+    ]);
+    expect(service.priorDiscoveries()[0].connection).toContain('Common Notion 1');
+    expect(service.nextDiscoveries()).toEqual([]);
+  });
+
+  it('should give every mission a unique id and a lab state it can reach', () => {
+    const sliderLabs = ['number-line-vector', 'balance-scale', 'grid-array', 'sharing-distributor'];
+    const ids = new Set<string>();
+
+    for (const lesson of service.lessons()) {
+      const config = lesson.interactiveConfig;
+      for (const mission of lesson.practiceChallenges ?? []) {
+        expect(ids.has(mission.id), `duplicate mission id ${mission.id}`).toBe(false);
+        ids.add(mission.id);
+
+        if (sliderLabs.includes(config.visualizer)) {
+          // Slider missions must sit inside the slider ranges, or they could never be completed
+          expect(mission.targetA).toBeGreaterThanOrEqual(config.minA!);
+          expect(mission.targetA).toBeLessThanOrEqual(config.maxA!);
+          expect(mission.targetB).toBeGreaterThanOrEqual(config.minB!);
+          expect(mission.targetB).toBeLessThanOrEqual(config.maxB!);
+        } else {
+          expect(mission.targetState, `${mission.id} needs a targetState`).toBeDefined();
+        }
+      }
+    }
+  });
+
+  it('should source every artifact photograph from Wikimedia Commons over https', () => {
+    for (const lesson of service.lessons()) {
+      const plate = lesson.artifactPlate;
+      expect(plate, `${lesson.id} artifact plate`).toBeDefined();
+      expect(plate!.imageUrl).toMatch(/^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\//);
+      expect(plate!.sourceUrl).toMatch(/^https:\/\/commons\.wikimedia\.org\/wiki\/File:/);
+      expect(plate!.license).toBeTruthy();
+      expect(plate!.credit).toBeTruthy();
+      expect(plate!.altText.length).toBeGreaterThan(20);
+    }
+  });
+
   it('should provide story illustrations, math diagrams, and practice challenges for all 8 units', () => {
     const lessons = service.lessons();
     expect(lessons.length).toBe(8);

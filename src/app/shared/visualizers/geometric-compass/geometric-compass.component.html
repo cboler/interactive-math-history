@@ -1,14 +1,10 @@
-<div
-  class="compass-container"
-  role="region"
-  aria-label="Euclid Proposition 1 Geometric Compass Visualizer"
->
+<div class="compass-container" role="region" aria-label="Compass and straightedge lab">
   <!-- Screen reader live announcement -->
   <div class="sr-only" aria-live="polite">{{ liveAnnouncement() }}</div>
 
   <!-- Construction Header & Stepper -->
   <div class="compass-header">
-    <div class="stepper-track" role="tablist" aria-label="Geometric Construction Steps">
+    <div class="stepper-track" role="tablist" aria-label="Construction steps">
       @for (s of steps; track s.step) {
         <button
           type="button"
@@ -44,7 +40,7 @@
       class="compass-svg"
       viewBox="0 0 600 360"
       preserveAspectRatio="xMidYMid meet"
-      aria-label="Interactive Euclid Proposition 1 Construction Diagram"
+      aria-label="Construction drawing for Euclid's Proposition 1"
     >
       <defs>
         <!-- Radial glow gradients for vertices -->
@@ -149,7 +145,7 @@
 
       <!-- Center guide indicator for baseline -->
       <text [attr.x]="cx()" [attr.y]="ay() + 24" class="dimension-label" text-anchor="middle">
-        L = {{ baseLength() }}px
+        AB = {{ baseLength() }}
       </text>
     </svg>
   </div>
@@ -201,9 +197,9 @@
     <div class="slider-control-group">
       <div class="slider-meta">
         <label for="base-length-slider" class="slider-label">
-          Baseline AB Radius: <strong>{{ baseLength() }}px</strong>
+          Length of line AB: <strong>{{ baseLength() }}</strong>
         </label>
-        <span class="scale-note">Scale Invariant: Construction holds at any length</span>
+        <span class="scale-note">Make AB longer or shorter. The proof still works!</span>
       </div>
       <input
         id="base-length-slider"
@@ -213,7 +209,7 @@
         [value]="baseLength()"
         (input)="onBaseLengthChange($event)"
         class="compass-slider"
-        aria-label="Baseline segment AB length in pixels"
+        aria-label="Length of line AB"
       />
     </div>
   </div>

@@ -46,7 +46,9 @@
   <!-- Slices Pantry (Available to distribute) -->
   @if (availableSlices().length > 0) {
     <div class="pantry-rack">
-      <p class="rack-title">Cut Slices Ready to Distribute (Tap worker basket to send):</p>
+      <p class="rack-title">
+        Cut slices ready to share (tap W1 to W5 to give a slice to that worker):
+      </p>
       <div class="slices-grid">
         @for (slice of availableSlices(); track slice.id) {
           <div class="slice-token" [style.background-color]="slice.color">
@@ -112,7 +114,9 @@
         </div>
 
         @if (basketSums()[idx].hasDuplicates) {
-          <div class="card-status-flag">⚠️ Duplicate fraction! (Egyptian violation)</div>
+          <div class="card-status-flag">
+            ⚠️ Same slice twice! Egyptian scribes used each fraction only once.
+          </div>
         }
         @if (basketSums()[idx].valid) {
           <div class="card-status-flag success-flag">✓ Balanced Ahmes Share</div>
@@ -124,7 +128,7 @@
   <!-- Solution Triumph Banner -->
   @if (isSolved()) {
     <div class="solved-banner" role="status">
-      <h3>⚖ Ahmes' Equilibrium Achieved!</h3>
+      <h3>⚖ Ahmes' Challenge Solved!</h3>
       <p>
         Every worker has received exactly <strong>1/2 + 1/10 = 3/5</strong> of a loaf. No fractions
         are duplicated, and the grain of the realm is fairly accounted for.

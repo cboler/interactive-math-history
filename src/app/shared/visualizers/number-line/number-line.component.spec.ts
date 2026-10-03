@@ -26,13 +26,28 @@ describe('NumberLineComponent', () => {
     );
   });
 
-  it('should calculate subtraction result and prevent negative results', () => {
+  it('should stop at zero and explain when more is taken away than there is', () => {
     component.a = 3;
     component.b = 5;
     component.op = 'subtract';
     expect(component.result()).toBe(0);
-    expect(component.speechSummary()).toContain(
-      'Vector number line illustrating 3 minus 5 equals 0.',
+    expect(component.takesTooMany()).toBe(true);
+    // Never claims the false equation "3 minus 5 equals 0"
+    expect(component.speechSummary()).toContain('you cannot take away 5 from 3');
+    expect(component.caption()).toContain('You only have 3, so you cannot take away 5.');
+  });
+
+  it('should describe the hops in a plain-language caption', async () => {
+    component.a = 7;
+    component.b = 3;
+    component.op = 'subtract';
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(component.takesTooMany()).toBe(false);
+    const caption = (fixture.nativeElement as HTMLElement).querySelector('figcaption');
+    expect(caption?.textContent?.trim()).toBe(
+      'Start at 0 and hop forward 7. Then hop back 3. You land on 4.',
     );
   });
 

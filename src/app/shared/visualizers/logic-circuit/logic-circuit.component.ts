@@ -63,6 +63,22 @@ export class LogicCircuitComponent {
     return `Statement P is ${pStr}, Statement Q is ${qStr}. Gate ${gateStr}. Lamp is ${lampStr}.`;
   });
 
+  readonly labState = computed(() => ({
+    gate: this.gateType(),
+    switchP: this.switchP(),
+    switchQ: this.switchQ(),
+  }));
+
+  // Sets up the whole circuit in one step (used by practice missions)
+  applyState(gate: LogicGateType, p: boolean, q: boolean): void {
+    const wasLit = this.isLit();
+    this.gateType.set(gate);
+    this.switchP.set(p);
+    this.switchQ.set(q);
+    this.feedback.snapWhoosh();
+    this.checkLitTransition(wasLit);
+  }
+
   setGateType(gate: LogicGateType): void {
     if (this.gateType() === gate) return;
     const wasLit = this.isLit();

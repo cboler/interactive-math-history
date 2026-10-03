@@ -10,9 +10,11 @@ When working in this repository or any project created from this template, follo
    - Keep the Angular Service Worker (`@angular/service-worker`, `ngsw-config.json`), Web App Manifest (`public/manifest.webmanifest`), and GitHub Actions Pages deployment workflows intact unless a project requirement explicitly dictates modifying them.
    - Maintain the SPA 404 fallback mechanism (`scripts/prepare-pages.mjs`) to ensure client-side routing survives direct navigation and browser refreshes on GitHub Pages.
 
-2. **Replace Placeholder UI**:
-   - The initial components (`src/app/home/` and `src/app/status/`) and header branding are demonstration placeholders meant to be replaced with your application's domain UI.
-   - Update branding metadata in `src/index.html`, `public/manifest.webmanifest`, and app icons in `public/icons/`.
+2. **Write for Children, and Keep the History Honest**:
+   - Lesson content lives in `src/app/services/curriculum.service.ts`. The readers are kids: use short sentences, concrete examples, and plain words in lessons, lab labels, and captions.
+   - Do not state invented or uncertain history as fact. Say how sure historians are in the lesson's `epistemicStatus`, and cite real sources.
+   - Every prerequisite needs a `buildsOn` sentence explaining what the lesson borrows from it. The lesson order is a teaching order, not a timeline.
+   - Artifact photographs must come from a Wikimedia Commons file page, with its real credit and license.
 
 3. **Preserve Responsive & Accessibility Standards**:
    - Adhere to the mobile-first foundations defined in `src/styles.scss` (system font stack, accessible `:focus-visible` outlines, touch targets >= 44px, safe-area insets, and reduced-motion support).

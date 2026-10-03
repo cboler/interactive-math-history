@@ -73,6 +73,17 @@ export class BreadSlicerComponent {
     );
   });
 
+  // Milestones on the way to the Ahmes solution (watched by practice missions)
+  readonly labState = computed(() => {
+    const isHalf = (s: Slice) => s.label === '1/2';
+    const baskets = this.baskets();
+    return {
+      halvesCut: this.availableSlices().some(isHalf) || baskets.some((b) => b.slices.some(isHalf)),
+      everyWorkerHasHalf: baskets.every((b) => b.slices.some(isHalf)),
+      solved: this.isSolved(),
+    };
+  });
+
   cutLoaf(denom: number, color: string): void {
     if (this.unslicedLoaves() <= 0) return;
 

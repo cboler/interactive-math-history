@@ -50,31 +50,33 @@ export class GeometricCompassComponent {
   readonly steps: ConstructionStepInfo[] = [
     {
       step: 1,
-      label: 'Segment AB',
-      sublabel: 'Baseline',
-      axiom: 'Postulate 1: A straight line segment joins points A and B.',
+      label: 'Line AB',
+      sublabel: 'Starting line',
+      axiom: 'Postulate 1: You can draw a straight line between any two points, A and B.',
     },
     {
       step: 2,
-      label: 'Circle A (𝒞_A)',
+      label: 'Circle around A',
       sublabel: 'Center A, Radius AB',
-      axiom: 'Postulate 3: Describe circle 𝒞_A with center A and radius AB.',
+      axiom: 'Postulate 3: Draw a circle with center A that reaches to B.',
     },
     {
       step: 3,
-      label: 'Circle B (𝒞_B)',
+      label: 'Circle around B',
       sublabel: 'Center B, Radius BA',
-      axiom: 'Postulate 3: Describe circle 𝒞_B with center B and radius BA.',
+      axiom: 'Postulate 3: Draw a circle with center B that reaches to A.',
     },
     {
       step: 4,
       label: 'Equilateral △ABC',
-      sublabel: 'Intersection & Sides',
-      axiom: 'Common Notion 1: AC = AB and BC = AB, thus AB = BC = CA.',
+      sublabel: 'Crossing point & sides',
+      axiom: 'Common Notion 1: AC = AB and BC = AB, so AB = BC = CA.',
     },
   ];
 
   readonly currentStepInfo = computed(() => this.steps[this.step() - 1]);
+
+  readonly labState = computed(() => ({ step: this.step() }));
 
   readonly liveAnnouncement = computed(() => {
     switch (this.step()) {

@@ -3,6 +3,9 @@ import {
   inject,
   signal,
   computed,
+  effect,
+  viewChild,
+  ElementRef,
   OnInit,
   OnDestroy,
   HostListener,
@@ -13,7 +16,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CurriculumService } from '../../services/curriculum.service';
 import { FeedbackService } from '../../core/services/feedback.service';
-import { ArtifactPlate } from '../../core/models/lesson.model';
+import { ProgressService } from '../../core/services/progress.service';
+import {
+  ArtifactPlate,
+  EpistemicStatus,
+  MathLesson,
+  PracticeChallenge,
+} from '../../core/models/lesson.model';
 import {
   NumberLineComponent,
   OperationType,
@@ -51,9 +60,15 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
 export class LessonViewComponent implements OnInit, OnDestroy {
   readonly curriculum = inject(CurriculumService);
   private readonly feedback = inject(FeedbackService);
+  private readonly progress = inject(ProgressService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private paramSub?: Subscription;
+
+  private readonly circuit = viewChild(LogicCircuitComponent);
+  private readonly compass = viewChild(GeometricCompassComponent);
+  private readonly slicer = viewChild(BreadSlicerComponent);
+  private readonly labOutlet = viewChild<ElementRef<HTMLElement>>('labOutlet');
 
   readonly lesson = this.curriculum.currentLesson;
   readonly allLessons = this.curriculum.allLessons;
@@ -61,15 +76,35 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   readonly totalLessons = this.curriculum.totalLessons;
   readonly hasPrev = this.curriculum.hasPrev;
   readonly hasNext = this.curriculum.hasNext;
+  readonly priorDiscoveries = this.curriculum.priorDiscoveries;
+  readonly nextDiscoveries = this.curriculum.nextDiscoveries;
+
+  readonly consensusLabels: Record<EpistemicStatus['consensusLevel'], string> = {
+    established: 'Historians agree',
+    probable: 'Probably true',
+    contested: 'Still debated',
+    speculative: 'A best guess',
+  };
 
   readonly isDrawerOpen = this.curriculum.isDrawerOpen;
 
   readonly selectedStrand = signal<string>('all');
+  readonly strands = computed(() => [...new Set(this.allLessons().map((l) => l.strand))]);
   readonly filteredLessons = computed(() => {
     const strand = this.selectedStrand();
     const lessons = this.allLessons();
     return strand === 'all' ? lessons : lessons.filter((l) => l.strand === strand);
   });
+
+  readonly lessonProgress = computed(
+    () =>
+      new Map(
+        this.allLessons().map((l): [string, { done: number; total: number }] => {
+          const ids = (l.practiceChallenges ?? []).map((m) => m.id);
+          return [l.id, { done: this.progress.countCompleted(ids), total: ids.length }];
+        }),
+      ),
+  );
 
   readonly inputA = signal<number>(4);
   readonly inputB = signal<number>(3);
@@ -101,27 +136,85 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     const curr = this.lesson();
     const viz = curr?.interactiveConfig.visualizer;
     if (viz === 'balance-scale') return 'Balance This on the Scale';
-    if (viz === 'grid-array') return 'Set Field Grid Dimensions';
-    if (viz === 'sharing-distributor') return 'Distribute Baskets';
-    if (viz === 'partition-slicer') return 'Explore Bread Share';
-    if (viz === 'logic-circuit') return 'Test Circuit State';
-    if (viz === 'geometric-compass') return 'Set Baseline Length';
+    if (viz === 'grid-array') return 'Plant This Grid';
+    if (viz === 'sharing-distributor') return 'Share Into Baskets';
+    if (viz === 'partition-slicer') return 'Go to the Bread Bench';
+    if (viz === 'logic-circuit') return 'Try This on the Circuit';
+    if (viz === 'geometric-compass') return 'Show This Step';
     return 'Try This on the Number Line';
   });
 
+  // The visualizers announce their own changes; this region introduces the lesson itself.
   readonly srNarration = computed(() => {
     const curr = this.lesson();
     if (!curr) return '';
-    if (curr.interactiveConfig.visualizer === 'number-line-vector') {
-      const verb = this.operation() === 'add' ? 'plus' : 'minus';
-      const res =
-        this.operation() === 'add'
-          ? this.inputA() + this.inputB()
-          : Math.max(0, this.inputA() - this.inputB());
-      return `${this.inputA()} ${verb} ${this.inputB()} equals ${res}.`;
-    }
     return curr.srNarration || curr.title;
   });
+
+  // What the lab currently shows, in the vocabulary of PracticeChallenge.targetState.
+  // Null while the lesson's visualizer is still being mounted.
+  readonly labState = computed<Record<string, unknown> | null>(() => {
+    switch (this.lesson().interactiveConfig.visualizer) {
+      case 'logic-circuit':
+        return this.circuit()?.labState() ?? null;
+      case 'geometric-compass':
+        return this.compass()?.labState() ?? null;
+      case 'partition-slicer':
+        return this.slicer()?.labState() ?? null;
+      default:
+        return { a: this.inputA(), b: this.inputB() };
+    }
+  });
+
+  readonly completedMissions = this.progress.completedMissions;
+  readonly lessonMissionIds = computed(() =>
+    (this.lesson().practiceChallenges ?? []).map((m) => m.id),
+  );
+  readonly completedInLesson = computed(() =>
+    this.progress.countCompleted(this.lessonMissionIds()),
+  );
+
+  // Most recent success, shown beside the lab where the learner is looking
+  private readonly celebration = signal<{ lessonId: string; message: string } | null>(null);
+  readonly celebrationMessage = computed(() => {
+    const latest = this.celebration();
+    return latest?.lessonId === this.lesson().id ? latest.message : '';
+  });
+
+  // Missions only count once the learner has changed something in the lab, so a
+  // mission that matches the lab's starting state is not ticked off on page load.
+  private readonly touchedLessonId = signal<string | null>(null);
+  private labBaseline: { lessonId: string; key: string } | null = null;
+
+  constructor() {
+    effect(() => {
+      const lesson = this.lesson();
+      const state = this.labState();
+      if (!state) return;
+
+      const key = JSON.stringify(state);
+      if (this.labBaseline?.lessonId !== lesson.id) {
+        this.labBaseline = { lessonId: lesson.id, key };
+      }
+      const touched = this.touchedLessonId() === lesson.id || key !== this.labBaseline.key;
+      if (!touched) return;
+      this.touchedLessonId.set(lesson.id);
+
+      const done = this.completedMissions();
+      const fresh = (lesson.practiceChallenges ?? []).filter(
+        (m) => !done.has(m.id) && this.missionMatches(m, state),
+      );
+      if (fresh.length > 0) {
+        this.progress.complete(fresh.map((m) => m.id));
+        this.celebration.set({
+          lessonId: lesson.id,
+          message: fresh[fresh.length - 1].successMessage,
+        });
+        this.feedback.equilibriumChime();
+        this.feedback.successPulse();
+      }
+    });
+  }
 
   ngOnInit(): void {
     // Initial sync
@@ -142,9 +235,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     this.paramSub?.unsubscribe();
   }
 
-  private syncLessonInputs(
-    curr: import('../../core/models/lesson.model').MathLesson | undefined,
-  ): void {
+  private syncLessonInputs(curr: MathLesson | undefined): void {
     if (!curr) return;
     if (curr.interactiveConfig.defaultA !== undefined) {
       this.inputA.set(curr.interactiveConfig.defaultA);
@@ -231,6 +322,51 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     this.inputB.set(targetB);
     this.feedback.tick();
     this.feedback.lightTap();
+  }
+
+  // Sets the lab up for a mission (or, for the hands-on bread bench, just takes the learner there)
+  startMission(mission: PracticeChallenge): void {
+    this.touchedLessonId.set(this.lesson().id);
+    const target = mission.targetState ?? {};
+
+    switch (this.lesson().interactiveConfig.visualizer) {
+      case 'logic-circuit':
+        this.circuit()?.applyState(
+          target['gate'] === 'OR' ? 'OR' : 'AND',
+          target['switchP'] === true,
+          target['switchQ'] === true,
+        );
+        break;
+      case 'geometric-compass':
+        if (typeof target['step'] === 'number') {
+          this.compass()?.setStep(target['step']);
+        }
+        break;
+      case 'partition-slicer':
+        this.feedback.tick();
+        break;
+      default:
+        this.setMissionValues(mission.targetA, mission.targetB);
+    }
+
+    const lab = this.labOutlet()?.nativeElement;
+    if (lab && typeof lab.scrollIntoView === 'function') {
+      lab.scrollIntoView({ block: 'center' });
+    }
+  }
+
+  resetMissions(): void {
+    this.progress.reset(this.lessonMissionIds());
+    this.celebration.set(null);
+    this.touchedLessonId.set(null);
+    const state = this.labState();
+    this.labBaseline = state ? { lessonId: this.lesson().id, key: JSON.stringify(state) } : null;
+    this.feedback.tick();
+  }
+
+  private missionMatches(mission: PracticeChallenge, state: Record<string, unknown>): boolean {
+    const target = mission.targetState ?? { a: mission.targetA, b: mission.targetB };
+    return Object.entries(target).every(([key, value]) => state[key] === value);
   }
 
   onArtifactImageError(event: Event, plate?: ArtifactPlate): void {
