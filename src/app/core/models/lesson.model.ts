@@ -4,6 +4,7 @@ export type MathematicalStrand =
   'numeracy' | 'arithmetic' | 'algebra' | 'geometry' | 'number-theory' | 'logic' | 'calculus';
 
 export type VisualizerMode =
+  | 'addition-game'
   | 'number-line-vector'
   | 'balance-scale'
   | 'grid-array'

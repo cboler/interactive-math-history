@@ -1,0 +1,152 @@
+<section class="addition-game" aria-labelledby="addition-game-title">
+  <header class="game-header">
+    <h3 id="addition-game-title">Try it yourself</h3>
+    <span class="game-progress" aria-label="Questions answered correctly"
+      >{{ game.completed() }}/6 ★</span
+    >
+  </header>
+  <div class="game-body">
+    <div class="question-panel">
+      <div class="question-nav">
+        <button
+          type="button"
+          class="question-arrow"
+          aria-label="Previous question"
+          [disabled]="game.index() === 0"
+          (click)="move(-1)"
+        >
+          ‹
+        </button>
+        <div class="question-center">
+          <span class="question-position">{{ game.index() + 1 }}/6</span>
+          <p class="question-equation" aria-live="polite">
+            {{ game.current().a }} + {{ game.current().b }} =
+            {{ game.current().correct ? game.current().a + game.current().b : '?' }}
+          </p>
+        </div>
+        <button
+          type="button"
+          class="question-arrow"
+          aria-label="Next question"
+          [disabled]="game.index() === 5"
+          (click)="move(1)"
+        >
+          ›
+        </button>
+      </div>
+      <form class="answer-form" (ngSubmit)="check()">
+        <label class="sr-only" for="addition-answer">Your answer</label>
+        <input
+          id="addition-answer"
+          type="text"
+          inputmode="numeric"
+          autocomplete="off"
+          maxlength="1"
+          placeholder="?"
+          [disabled]="game.current().correct"
+          [ngModel]="
+            game.current().correct ? (game.current().a + game.current().b).toString() : answer()
+          "
+          (ngModelChange)="answer.set($event); message.set('')"
+          name="answer"
+        />
+        <button type="submit" class="check-answer" [disabled]="game.current().correct">
+          {{ game.current().correct ? '✓' : 'Check' }}
+        </button>
+      </form>
+      <div class="game-feedback" role="status" aria-live="polite">
+        @if (game.allDone()) {
+          <span class="success">Six stars! ★</span>
+        } @else if (game.current().correct) {
+          <span class="success">★ {{ message() || 'Done!' }}</span>
+        } @else {
+          <span>{{ message() }}</span>
+        }
+      </div>
+      <div class="stars" aria-hidden="true">
+        @for (question of game.questions(); track $index) {
+          <span [class.earned]="question.correct" [class.current]="$index === game.index()">{{
+            question.correct ? '★' : '☆'
+          }}</span>
+        }
+      </div>
+      <button type="button" class="play-again" (click)="replay()">↻ Play again</button>
+    </div>
+    <div class="calculator" role="group" aria-label="Addition calculator">
+      <h4>Calculator</h4>
+      <div class="calculator-equation">
+        <input
+          class="number-a"
+          type="number"
+          min="0"
+          max="9"
+          step="1"
+          inputmode="numeric"
+          aria-label="First number"
+          [ngModel]="a()"
+          (ngModelChange)="setNumber('a', $event)"
+          (blur)="$any($event.target).value = a()"
+        />
+        <span aria-hidden="true">+</span>
+        <input
+          class="number-b"
+          type="number"
+          min="0"
+          max="9"
+          step="1"
+          inputmode="numeric"
+          aria-label="Second number"
+          [ngModel]="b()"
+          (ngModelChange)="setNumber('b', $event)"
+          (blur)="$any($event.target).value = b()"
+        />
+        <span aria-hidden="true">=</span>
+        <button
+          type="button"
+          class="calculator-total"
+          [attr.aria-label]="'Answer ' + total()"
+          [disabled]="game.current().correct"
+          (click)="check(total().toString())"
+        >
+          {{ total() }}
+        </button>
+      </div>
+      <div class="calculator-sliders">
+        <input
+          type="range"
+          min="0"
+          max="9"
+          step="1"
+          aria-label="First number slider"
+          [ngModel]="a()"
+          (ngModelChange)="setNumber('a', $event)"
+        />
+        <input
+          type="range"
+          min="0"
+          max="9"
+          step="1"
+          aria-label="Second number slider"
+          [ngModel]="b()"
+          (ngModelChange)="setNumber('b', $event)"
+        />
+      </div>
+      <div
+        class="tally-tray"
+        role="img"
+        [attr.aria-label]="a() + ' marks plus ' + b() + ' marks equals ' + total()"
+      >
+        <div class="tallies first">
+          @for (mark of marksA(); track $index) {
+            <span></span>
+          }
+        </div>
+        <div class="tallies second">
+          @for (mark of marksB(); track $index) {
+            <span></span>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

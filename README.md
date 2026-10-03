@@ -14,6 +14,7 @@ Before numbers were symbols written in ink, they were physical notches carved in
 - **Ideas build on ideas**: Each lesson shows what it builds on (with a one-sentence reason for every link) and where the idea leads next.
 - **Hands-on labs**: Seven SVG visualizers driven by Angular Signals (number line, balance scale, grid, sharing baskets, bread slicer, logic circuit, compass and straightedge), each with polite `aria-live` narration.
 - **Practice missions**: Short challenges completed in the lab. Progress is saved in the browser (`localStorage`) and can be reset per lesson.
+- **Unit 1 addition game**: Six randomized questions, one at a time, with single-digit numbers and totals. Type an answer or tap the calculator total. Correct answers earn saved stars; previous/next arrows clear the calculator, and Play again starts a new set. The game session is stored separately from other lessons' mission progress.
 - **Semantic Reader Mode**: Prose-first articles structured with semantic `<article>`, `<header>`, `<section>`, `<aside>`, and `<footer>` tags, designed for browser text-to-speech ("Listen to this page") and distraction-free reader modes.
 - **Installable PWA**: Configured with Angular Service Worker (`ngsw-config.json`) and Web App Manifest. The app shell and illustrations work offline; artifact photographs are loaded from Wikimedia Commons and need a connection.
 - **Automated GitHub Pages CI/CD**: Fully automated GitHub Actions workflow with Playwright multi-viewport smoke tests, linting, formatting, and SPA 404 routing fallback.
@@ -24,7 +25,7 @@ Before numbers were symbols written in ink, they were physical notches carved in
 
 | Unit   | Stage        | Idea                                       | Historical Context                               | Lab                      | Builds on |
 | :----- | :----------- | :----------------------------------------- | :----------------------------------------------- | :----------------------- | :-------- |
-| **01** | Foundations  | Addition ($a + b = c$)                     | Ishango Bone, Central Africa (c. 20,000 BCE)     | Number line              | —         |
+| **01** | Foundations  | Addition ($a + b = c$)                     | Ishango Bone, Central Africa (c. 20,000 BCE)     | Addition game            | —         |
 | **02** | Foundations  | Subtraction ($a - b = c$)                  | Lebombo Bone, Southern Africa (c. 41,000 BCE)    | Number line              | 01        |
 | **03** | Foundations  | Equality (if $A = B$ and $B = C$, $A = C$) | Euclid's Common Notions, Alexandria (c. 300 BCE) | Balance scale            | 01, 02    |
 | **04** | Elementary   | Multiplication ($a \times b = b \times a$) | Babylonian multiplication tables (c. 1800 BCE)   | Grid array               | 01        |
@@ -43,7 +44,7 @@ All lesson content lives in `src/app/services/curriculum.service.ts` and follows
 2. List earlier lessons in `prerequisites`, and give each one a sentence in `buildsOn` saying what is borrowed from it.
 3. Write for children: short sentences, concrete examples, and no claim stated as fact unless the sources support it. Put uncertainty in `epistemicStatus`.
 4. Pick an `interactiveConfig.visualizer`. Missions on slider labs use `targetA` / `targetB`; missions on the other labs need a `targetState` the lab can reach.
-5. Add `unit-NN-story.svg` and `unit-NN-diagram.svg` to `public/assets/illustrations/`, and an `artifactPlate` whose image, credit, and license come from a Wikimedia Commons file page.
+5. Add story and diagram images (SVG or PNG) to `public/assets/illustrations/`, and an `artifactPlate` whose image, credit, and license come from a Wikimedia Commons file page.
 6. Run the quality gates below. The unit tests check prerequisites, mission reachability, and image sources for every lesson.
 
 ---

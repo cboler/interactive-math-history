@@ -21,7 +21,7 @@ describe('CurriculumService', () => {
     expect(unit1.title).toContain('Putting Things Together');
     expect(unit1.storyIllustration).toBeTruthy();
     expect(unit1.mathDiagram).toBeTruthy();
-    expect(unit1.practiceChallenges?.length).toBe(3);
+    expect(unit1.interactiveConfig.visualizer).toBe('addition-game');
   });
 
   it('should navigate through lessons sequentially across all 8 units', () => {
@@ -298,16 +298,20 @@ describe('CurriculumService', () => {
     for (const lesson of lessons) {
       expect(lesson.storyIllustration).toBeDefined();
       expect(lesson.storyIllustration?.imageUrl).toMatch(
-        /^assets\/illustrations\/unit-0\d-story\.svg$/,
+        /^assets\/illustrations\/unit-0\d-story\.(svg|png)$/,
       );
       expect(lesson.storyIllustration?.title).toBeTruthy();
 
       expect(lesson.mathDiagram).toBeDefined();
       expect(lesson.mathDiagram?.imageUrl).toMatch(
-        /^assets\/illustrations\/unit-0\d-diagram\.svg$/,
+        /^assets\/illustrations\/unit-0\d-diagram\.(svg|png)$/,
       );
       expect(lesson.mathDiagram?.title).toBeTruthy();
 
+      if (lesson.interactiveConfig.visualizer === 'addition-game') {
+        expect(lesson.practiceChallenges).toBeUndefined();
+        continue;
+      }
       expect(lesson.practiceChallenges).toBeDefined();
       expect(lesson.practiceChallenges!.length).toBeGreaterThanOrEqual(2);
       for (const challenge of lesson.practiceChallenges!) {

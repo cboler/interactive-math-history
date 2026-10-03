@@ -47,27 +47,14 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await expect(page.locator('h1')).toContainText('The Origin of Combining');
     await expect(page.locator('.formula-badge .katex')).toBeVisible();
     await expect(page.locator('.formula-badge')).toContainText('a');
-    await expect(page.locator('.discovery-card')).toBeVisible();
+    await expect(page.locator('.discovery-card')).toBeHidden();
     await expect(page.locator('.artifact-plate')).toBeVisible();
     await expect(page.locator('.epistemic-card')).toBeVisible();
 
-    // 4. Interactive stage and vector visualizer (Addition)
+    // 4. Unit 01 uses one addition question and a calculator, without mission cards.
     await expect(page.locator('.interactive-stage')).toBeVisible();
-    await expect(page.locator('figure.visualizer-container svg')).toBeVisible();
-    await expect(page.locator('#quantity-a-input')).toBeVisible();
-    await expect(page.locator('#quantity-b-input')).toBeVisible();
-
-    // Verify Unit 01 addition vectors (initial a=3, b=2: 3*35+50=155, 155+2*35=225)
-    const vectorA01 = page.locator('line.vector-a');
-    await expect(vectorA01).toBeAttached();
-    await expect(vectorA01).toHaveAttribute('x1', '50');
-    await expect(vectorA01).toHaveAttribute('x2', '155');
-
-    const vectorB01 = page.locator('line.vector-b');
-    await expect(vectorB01).toBeAttached();
-    await expect(vectorB01).toHaveAttribute('x1', '155');
-    await expect(vectorB01).toHaveAttribute('x2', '225');
-    await expect(vectorB01).toHaveAttribute('marker-end', 'url(#arrow-amber)');
+    await expect(page.locator('app-addition-game')).toBeVisible();
+    await expect(page.locator('.calculator-total')).toHaveText('0');
 
     // Verify operation toggle is hidden on Unit 01 (locked to addition)
     await expect(page.locator('.btn-group')).toBeHidden();
@@ -75,7 +62,7 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Verify story illustration, math diagram, and practice missions
     await expect(page.locator('.story-illustration')).toBeVisible();
     await expect(page.locator('.math-diagram')).toBeVisible();
-    await expect(page.locator('.practice-missions')).toBeVisible();
+    await expect(page.locator('.practice-missions')).toBeHidden();
 
     // Lineage: Unit 01 starts the journey and leads on to later units
     const builtOn = page.locator('.lineage-card').first();
@@ -87,24 +74,18 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     // Historical certainty is labelled in plain language
     await expect(page.locator('.consensus-tag')).toHaveText('Still debated');
 
-    // Practice mission: nothing is ticked on load, and the button completes Mission 2 (4 + 3 = 7)
-    const missionsProgress = page.locator('#missions-progress');
-    await expect(missionsProgress).toHaveText('0 of 3 done');
-    const missionCards = page.locator('.mission-card');
-    await missionCards.nth(1).locator('.load-mission-btn').click();
-    await expect(missionCards.nth(1)).toHaveClass(/done/);
-    await expect(page.locator('.mission-celebration')).toContainText('4 nights + 3 nights = 7');
-    await expect(missionsProgress).toHaveText('1 of 3 done');
-    await expect(page.locator('app-number-line figcaption')).toHaveText(
-      'Start at 0 and hop forward 4. Then hop forward 3. You land on 7.',
-    );
-    await expect(page.locator('app-number-line')).toBeInViewport();
-
-    // Progress survives a reload, and can be reset
+    // A genuine correct answer earns a star; saved questions and answers survive a reload.
+    const equation = page.locator('.question-equation');
+    const question = (await equation.innerText()).match(/(\d) \+ (\d) = \?/)!;
+    await page.locator('#addition-answer').fill(String(Number(question[1]) + Number(question[2])));
+    await page.locator('#addition-answer').press('Enter');
+    await expect(page.locator('.game-progress')).toHaveText('1/6 ★');
+    const solved = await equation.innerText();
     await page.reload();
-    await expect(missionCards.nth(1)).toHaveClass(/done/);
-    await page.locator('#reset-missions-btn').click();
-    await expect(missionsProgress).toHaveText('0 of 3 done');
+    await expect(equation).toHaveText(solved);
+    await expect(page.locator('.game-progress')).toHaveText('1/6 ★');
+    await page.getByRole('button', { name: 'Play again' }).click();
+    await expect(page.locator('.game-progress')).toHaveText('0/6 ★');
 
     // 5. Navigate to Unit 02 via Next button
     const unitBadge = page.locator('.unit-level-badge');
@@ -506,6 +487,6 @@ test.describe('Responsive Shell & Curriculum Smoke Tests', () => {
     await page.goto('/nonexistent/unknown');
     await expect(page).toHaveURL(/.*foundations\/origins-of-addition/);
     await expect(page.locator('h1')).toContainText('The Origin of Combining');
-    await expect(page.locator('app-number-line')).toBeVisible();
+    await expect(page.locator('app-addition-game')).toBeVisible();
   });
 });

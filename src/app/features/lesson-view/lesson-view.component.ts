@@ -17,6 +17,8 @@ import { Subscription } from 'rxjs';
 import { CurriculumService } from '../../services/curriculum.service';
 import { FeedbackService } from '../../core/services/feedback.service';
 import { ProgressService } from '../../core/services/progress.service';
+import { AdditionGameService } from '../../core/services/addition-game.service';
+import { AdditionGameComponent } from '../addition-game/addition-game.component';
 import {
   ArtifactPlate,
   EpistemicStatus,
@@ -53,6 +55,7 @@ import { MathTextPipe } from '../../shared/pipes/math-text.pipe';
     IconComponent,
     MathDirective,
     MathTextPipe,
+    AdditionGameComponent,
   ],
   templateUrl: './lesson-view.component.html',
   styleUrls: ['./lesson-view.component.css'],
@@ -61,6 +64,7 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   readonly curriculum = inject(CurriculumService);
   private readonly feedback = inject(FeedbackService);
   private readonly progress = inject(ProgressService);
+  private readonly additionGame = inject(AdditionGameService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private paramSub?: Subscription;
@@ -100,6 +104,12 @@ export class LessonViewComponent implements OnInit, OnDestroy {
     () =>
       new Map(
         this.allLessons().map((l): [string, { done: number; total: number }] => {
+          if (l.interactiveConfig.visualizer === 'addition-game') {
+            return [
+              l.id,
+              { done: this.additionGame.completed(), total: this.additionGame.questions().length },
+            ];
+          }
           const ids = (l.practiceChallenges ?? []).map((m) => m.id);
           return [l.id, { done: this.progress.countCompleted(ids), total: ids.length }];
         }),
@@ -155,6 +165,8 @@ export class LessonViewComponent implements OnInit, OnDestroy {
   // Null while the lesson's visualizer is still being mounted.
   readonly labState = computed<Record<string, unknown> | null>(() => {
     switch (this.lesson().interactiveConfig.visualizer) {
+      case 'addition-game':
+        return null;
       case 'logic-circuit':
         return this.circuit()?.labState() ?? null;
       case 'geometric-compass':

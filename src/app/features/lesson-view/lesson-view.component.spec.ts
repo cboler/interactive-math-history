@@ -17,6 +17,7 @@ describe('LessonViewComponent', () => {
     // Mission progress is persisted; start every test with a clean slate
     try {
       window.localStorage.removeItem('imx_completed_missions');
+      window.localStorage.removeItem('imx_addition_game_v1');
     } catch {
       // Storage unavailable in this environment
     }
@@ -52,21 +53,15 @@ describe('LessonViewComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.story-illustration img')).toBeTruthy();
     expect(compiled.querySelector('.story-illustration figcaption')?.textContent).toContain(
-      'carved notches into bone',
+      'An imagined Moon-watching game',
     );
     expect(compiled.querySelector('.math-diagram img')).toBeTruthy();
-    expect(compiled.querySelector('.math-diagram figcaption')?.textContent).toContain('bone tally');
+    expect(compiled.querySelector('.math-diagram figcaption')?.textContent).toContain('3 + 2 = 5');
 
-    const missions = compiled.querySelectorAll('.mission-card');
-    expect(missions.length).toBe(3);
-
-    // Test clicking a mission preset button
-    const missionBtn = missions[0].querySelector('.load-mission-btn') as HTMLButtonElement;
-    expect(missionBtn).toBeTruthy();
-    missionBtn.click();
-    fixture.detectChanges();
-    expect(component.inputA()).toBe(3);
-    expect(component.inputB()).toBe(2);
+    expect(compiled.querySelector('app-addition-game')).toBeTruthy();
+    expect(compiled.querySelectorAll('.mission-card').length).toBe(0);
+    expect(compiled.querySelector('.controls-panel')).toBeFalsy();
+    expect(compiled.querySelector('.discovery-card')).toBeFalsy();
   });
 
   it('should cycle through units via next and previous buttons', () => {
@@ -169,19 +164,14 @@ describe('LessonViewComponent', () => {
   it('should dynamically mount correct visualizers and adapt control labels', () => {
     const el = fixture.nativeElement as HTMLElement;
 
-    // Unit 01: number-line-vector (locked to addition)
-    expect(el.querySelector('app-number-line')).toBeTruthy();
+    // Unit 01: a compact addition game, with its own calculator
+    expect(el.querySelector('app-addition-game')).toBeTruthy();
     expect(el.querySelector('app-balance-scale')).toBeFalsy();
     expect(el.querySelector('app-grid-array')).toBeFalsy();
     expect(el.querySelector('app-sharing-distributor')).toBeFalsy();
     expect(el.querySelector('app-bread-slicer')).toBeFalsy();
     expect(el.querySelector('app-logic-circuit')).toBeFalsy();
-    expect(el.querySelector('label[for="quantity-a-input"]')?.textContent).toContain(
-      'First Notches (A):',
-    );
-    expect(el.querySelector('label[for="quantity-b-input"]')?.textContent).toContain(
-      'Additional Notches (B):',
-    );
+    expect(el.querySelector('.controls-panel')).toBeFalsy();
     expect(el.querySelector('.btn-group')).toBeFalsy(); // Operation toggle hidden due to lockedOperation: 'add'
 
     // Unit 02: number-line-vector (locked to subtraction)
@@ -400,8 +390,8 @@ describe('LessonViewComponent', () => {
   });
 
   it('should compute context-appropriate missionButtonLabel for each visualizer', () => {
-    // Unit 01 (number-line-vector)
-    component.selectLesson(0);
+    // Unit 02 (number-line-vector)
+    component.selectLesson(1);
     expect(component.missionButtonLabel()).toBe('Try This on the Number Line');
 
     // Unit 03 (balance-scale)
@@ -481,15 +471,19 @@ describe('LessonViewComponent', () => {
   });
 
   it('should show the lab goal and a hint in the discovery challenge', () => {
+    component.selectLesson(1);
+    fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
     const card = el.querySelector('.discovery-card');
-    expect(card?.textContent).toContain('Set First Notches (A) to 3');
+    expect(card?.textContent).toContain('Set Starting Tally (A)');
     expect(card?.querySelector('details.discovery-hint summary')?.textContent).toContain(
       'Need a hint?',
     );
   });
 
   it('should keep lab controls reachable by assistive technology', () => {
+    component.selectLesson(1);
+    fixture.detectChanges();
     const el = fixture.nativeElement as HTMLElement;
     expect(el.querySelector('.controls-panel')?.hasAttribute('aria-hidden')).toBe(false);
     expect(el.querySelector('.visualizer-outlet')?.hasAttribute('aria-hidden')).toBe(false);
@@ -509,7 +503,7 @@ describe('LessonViewComponent', () => {
       'c. 20,000 BCE',
     );
     expect(fixture.nativeElement.querySelector('.stepper-progress')?.textContent).toContain(
-      '0 of 3 missions',
+      '0 of 6 stars',
     );
   });
 
@@ -525,20 +519,23 @@ describe('LessonViewComponent', () => {
     };
 
     it('should not tick off a mission that merely matches the starting state', async () => {
-      // Unit 01 opens at 3 + 2, which is exactly Mission 1
+      component.selectLesson(6);
+      // Unit 07 opens on AND with P=true and Q=false, matching Mission 2.
       await settle();
       expect(component.completedInLesson()).toBe(0);
       expect(cards()[0].classList.contains('done')).toBe(false);
     });
 
     it('should complete a mission from its button and show the success message', async () => {
+      component.selectLesson(2);
+      await settle();
       (cards()[0].querySelector('.load-mission-btn') as HTMLButtonElement).click();
       await settle();
 
       expect(component.completedInLesson()).toBe(1);
       expect(cards()[0].classList.contains('done')).toBe(true);
       expect(cards()[0].querySelector('.mission-success')?.textContent).toContain(
-        '3 notches + 2 notches = 5 notches',
+        'Balanced! 4 = 4',
       );
       const el = fixture.nativeElement as HTMLElement;
       expect(el.querySelector('.mission-celebration')?.textContent).toContain('Mission complete!');
@@ -546,17 +543,21 @@ describe('LessonViewComponent', () => {
     });
 
     it('should complete a mission when the learner moves the sliders themselves', async () => {
-      component.inputA.set(5);
+      component.selectLesson(2);
+      await settle();
+      component.inputA.set(2);
       await settle();
       expect(component.completedInLesson()).toBe(0);
 
-      component.inputB.set(4);
+      component.inputB.set(2);
       await settle();
       expect(cards()[2].classList.contains('done')).toBe(true);
-      expect(component.celebrationMessage()).toContain('5 + 4 = 9');
+      expect(component.celebrationMessage()).toContain('2 = 2');
     });
 
     it('should reset the missions of the current lesson', async () => {
+      component.selectLesson(2);
+      await settle();
       (cards()[1].querySelector('.load-mission-btn') as HTMLButtonElement).click();
       await settle();
       expect(component.completedInLesson()).toBe(1);
@@ -647,10 +648,14 @@ describe('LessonViewComponent', () => {
       const storyImg = compiled.querySelector('.story-illustration img') as HTMLImageElement;
       const mathImg = compiled.querySelector('.math-diagram img') as HTMLImageElement;
       expect(storyImg).toBeTruthy();
-      expect(storyImg.src).toContain(`assets/illustrations/unit-0${i + 1}-story.svg`);
+      expect(storyImg.src).toContain(
+        `assets/illustrations/unit-0${i + 1}-story.${i === 0 ? 'png' : 'svg'}`,
+      );
       expect(storyImg.getAttribute('referrerpolicy')).toBe('no-referrer');
       expect(mathImg).toBeTruthy();
-      expect(mathImg.src).toContain(`assets/illustrations/unit-0${i + 1}-diagram.svg`);
+      expect(mathImg.src).toContain(
+        `assets/illustrations/unit-0${i + 1}-diagram.${i === 0 ? 'png' : 'svg'}`,
+      );
       expect(mathImg.getAttribute('referrerpolicy')).toBe('no-referrer');
     }
   });

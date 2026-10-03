@@ -17,7 +17,7 @@ export class CurriculumService {
       slug: 'origins-of-addition',
       shortTitle: 'Unit 01: Addition',
       title: 'The Origin of Combining: Putting Things Together',
-      subtitle: 'The Ishango Bone, Carving Tally Marks, and the Dawn of Addition',
+      subtitle: 'A Moon-Watching Story, a Counting Game, and the Ishango Bone',
       stage: 'foundations',
       strand: 'numeracy',
       order: 1,
@@ -27,35 +27,33 @@ export class CurriculumService {
       mathematicalStatement: 'a + b = c',
       discoveryHook: {
         prompt:
-          'Twenty thousand years ago on the shores of Lake Edward, you hold a dark baboon bone and a sharp quartz flake. In the morning, your fishing kin catch 3 catfish, so you carve 3 neat notches: |||. In the afternoon, you catch 2 more fish, and carve 2 more notches beside them: ||. How many permanent notches are now recorded on your bone in all?',
+          'Imagine keeping a little Moon diary. You have 3 marks for 3 nights of watching the Moon. Two more nights pass, so you add 2 marks. Can you guess how many nights your diary remembers before you count the marks?',
         targetAxiom:
-          'Addition is carving new tallies alongside existing ones to find the whole collection along the bone.',
-        successCondition:
-          'Set First Notches (A) to 3 and Additional Notches (B) to 2 on the number line.',
-        guidanceTip:
-          'Observe how the second group of notches continues directly forward from the end of the first group along the counting path.',
+          'Addition puts two groups together. Keep the first 3 marks and add 2 more to find the whole group.',
+        successCondition: 'Try a question. Type your answer or use the calculator.',
+        guidanceTip: 'Start with 3. Count on two more: 4, 5. Each hop stands for one more night.',
       },
       storyIllustration: {
-        title: 'Carving Tally Marks into the Ishango Bone',
-        imageUrl: 'assets/illustrations/unit-01-story.svg',
+        title: 'The Moon-Watching Game',
+        imageUrl: 'assets/illustrations/unit-01-story.png',
         altText:
-          'An ancient artisan seated by the waters of Lake Edward at sunset, using a sharp quartz flake to carve precise tally notches into the dark Ishango bone.',
+          'A smiling child points to marks on a small bone held by a caregiver beside a quiet lake, with a crescent Moon glowing in the evening sky.',
         caption:
-          'Twenty thousand years ago at Lake Edward, people carved notches into bone so counts would never be forgotten.',
+          'An imagined Moon-watching game. Could marks on a bone help someone remember the nights? We do not know what the Ishango marks meant.',
       },
       mathDiagram: {
-        title: 'Bone Tally Addition: 3 + 2 = 5',
-        imageUrl: 'assets/illustrations/unit-01-diagram.svg',
+        title: 'Three Marks and Two More',
+        imageUrl: 'assets/illustrations/unit-01-diagram.png',
         altText:
-          'An Ishango bone shaft showing three cyan carved notches followed by two amber carved notches, unified under a bracket labeled 5 notches in all.',
+          'An illustrated tally bone with three blue marks and two orange marks. A bracket joins all five marks above the equation 3 + 2 = 5.',
         caption:
-          'When we add on a bone tally, we carve each new notch forward to find the total count.',
+          'In our imagined Moon diary, 3 marks and 2 more marks remember 5 nights: 3 + 2 = 5.',
       },
       narrative: {
-        hook: 'Before paper, ink, or written numerals, humanity discovered that a notch carved into bone never forgets.',
+        hook: 'The Moon looks a little different tonight. How could you remember all the nights you have watched it?',
         historicalContext: {
           story:
-            'Around 20,000 BCE, along the shores of Lake Edward in Central Africa, a thriving community of fishers and gatherers made a profound breakthrough in human memory. While pebbles can be scattered by the wind and spoken words fade in the air, a notch cut into bone endures across generations. The Ishango Bone—a dark baboon fibula with a quartz crystal fixed to its head—carries orderly columns of carved notches arranged in distinct numerical groupings. Nobody wrote down what the notches meant, so we have to imagine: a carver who recorded three fish from the morning catch and two from the afternoon would not wipe away the first count. Instead, they would move their quartz blade forward along the bone, carving two more notches to record a total of five. By combining groups of notches permanently, ancient people took the first steps toward addition.',
+            'The Ishango bone is a real old bone with groups of little marks. Nobody knows for sure what those marks meant. Some researchers think they might have tracked the Moon. Others see number patterns. Let us imagine a story inspired by those ideas. Beside a quiet lake, a child and a caregiver look up at a thin, bright Moon. They decide to remember each night with a mark on a little bone. After three nights, there are three marks. Two more nights pass, and they add two more. The caregiver covers the marks with a thumb. "Can you guess how many now?" The child starts at three and counts on: "Four, five!" They uncover the marks and check together. Three and two make five. Their Moon diary has become a counting game! This is our made-up story, not something we know the Ishango people did. It helps us explore an idea we can test ourselves: putting groups together is addition.',
           civilizationOrOrigin: 'Upper Paleolithic Central Africa (Modern-day DRC)',
           approximateDate: 'c. 20,000 BCE',
           epistemicStatus: {
@@ -85,12 +83,12 @@ export class CurriculumService {
           },
         },
         conceptualExplanation: [
-          'Addition means carving or grouping new tallies alongside existing ones to find the whole collection.',
-          'On the bone tally and modern number line, addition is hopping forward in the positive direction.',
+          'Addition puts groups together. Three marks and two more marks make five marks.',
+          'You can count on instead of starting again: start at 3, then say 4, 5.',
           'The plus sign (+) tells us to combine groups and move forward.',
         ],
         realWorldApplication:
-          'Every time you count your savings, keep score in a game, or work out how far you have walked, you are doing what the bone carvers did. Shops, banks, and computers add millions of times every second, and it all starts with putting groups together.',
+          'You can make your own Moon diary with a grown-up: draw one mark for each night you look at the sky. Or play the guessing game with buttons. Put down 3, add 2, and guess the total before counting. Addition also helps you keep score, count your coins, and work out how many days you have marked on a calendar.',
       },
       artifactPlate: {
         title: 'The Ishango Bone (Royal Belgian Institute of Natural Sciences)',
@@ -141,50 +139,11 @@ export class CurriculumService {
         },
       ],
       interactiveConfig: {
-        visualizer: 'number-line-vector',
-        initialState: { a: 3, b: 2, op: 'add' },
-        lockedOperation: 'add',
-        minA: 0,
-        maxA: 10,
-        defaultA: 3,
-        minB: 0,
-        maxB: 10,
-        defaultB: 2,
+        visualizer: 'addition-game',
+        initialState: {},
       },
-      practiceChallenges: [
-        {
-          id: 'u1-m1',
-          question:
-            'You carve 3 notches for morning catfish and then 2 more notches for afternoon tilapia. How many total notches are marked on your bone?',
-          hint: 'Set First Notches (A) to 3 and Additional Notches (B) to 2 on the number line.',
-          targetA: 3,
-          targetB: 2,
-          expectedResult: 5,
-          successMessage: 'Terrific! 3 notches + 2 notches = 5 notches carved on the bone.',
-        },
-        {
-          id: 'u1-m2',
-          question:
-            'As the moon waxes in the African night sky, you carve 4 notches for the first week, then 3 more notches as it grows full. Where does the tally reach?',
-          hint: 'Start at 4 notches and add 3 more forward.',
-          targetA: 4,
-          targetB: 3,
-          expectedResult: 7,
-          successMessage: 'Spot on! 4 nights + 3 nights = 7 nights tracked on the bone.',
-        },
-        {
-          id: 'u1-m3',
-          question:
-            'Your family crafts 5 bone harpoon tips, and your neighbors bring 4 more. How many notches record the whole harvest?',
-          hint: 'Slide First Notches (A) to 5 and Additional Notches (B) to 4.',
-          targetA: 5,
-          targetB: 4,
-          expectedResult: 9,
-          successMessage: 'Awesome! 5 + 4 = 9 total harpoons notched onto the bone.',
-        },
-      ],
       srNarration:
-        'Unit 01: Putting Things Together. Addition is carving notches together and stepping forward along the counting path.',
+        'Unit 01: Putting Things Together. Imagine a Moon diary and a counting game. Three nights plus two more nights make five. The story is imagined; the Ishango bone is real.',
       level: 'foundations',
     },
 

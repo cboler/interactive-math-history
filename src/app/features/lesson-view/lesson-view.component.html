@@ -113,7 +113,10 @@
                       class="stepper-progress"
                       [class.all-done]="missions.done === missions.total"
                     >
-                      ★ {{ missions.done }} of {{ missions.total }} missions
+                      ★ {{ missions.done }} of {{ missions.total }}
+                      {{
+                        item.interactiveConfig.visualizer === 'addition-game' ? 'stars' : 'missions'
+                      }}
                     </span>
                   }
                 </span>
@@ -243,26 +246,27 @@
     </section>
 
     <!-- 2. THE DISCOVERY CHALLENGE (Active Inquiry Grounded in the Story) -->
-    <section class="discovery-card" role="region" aria-label="Discovery Challenge">
-      <div class="discovery-header">
-        <app-icon name="scale" class="discovery-icon"></app-icon>
-        <h2>The Challenge of Discovery</h2>
-      </div>
-      <p class="discovery-prompt" [innerHTML]="current.discoveryHook.prompt | mathText"></p>
-      <div class="discovery-tip">
-        <strong>The big idea: </strong>
-        <span [innerHTML]="current.discoveryHook.targetAxiom | mathText"></span>
-      </div>
-      <div class="discovery-tip">
-        <strong>Try it in the lab: </strong>
-        <span>{{ current.discoveryHook.successCondition }}</span>
-      </div>
-      <details class="discovery-hint">
-        <summary>Need a hint?</summary>
-        <p>{{ current.discoveryHook.guidanceTip }}</p>
-      </details>
-    </section>
-
+    @if (current.interactiveConfig.visualizer !== 'addition-game') {
+      <section class="discovery-card" role="region" aria-label="Discovery Challenge">
+        <div class="discovery-header">
+          <app-icon name="scale" class="discovery-icon"></app-icon>
+          <h2>The Challenge of Discovery</h2>
+        </div>
+        <p class="discovery-prompt" [innerHTML]="current.discoveryHook.prompt | mathText"></p>
+        <div class="discovery-tip">
+          <strong>The big idea: </strong>
+          <span [innerHTML]="current.discoveryHook.targetAxiom | mathText"></span>
+        </div>
+        <div class="discovery-tip">
+          <strong>Try it in the lab: </strong>
+          <span>{{ current.discoveryHook.successCondition }}</span>
+        </div>
+        <details class="discovery-hint">
+          <summary>Need a hint?</summary>
+          <p>{{ current.discoveryHook.guidanceTip }}</p>
+        </details>
+      </section>
+    }
     <!-- 3. INTERACTIVE LABORATORY (Dynamic Archetype Switch) -->
     <section class="interactive-stage" aria-label="Mathematical Experiment">
       <h2>The Math Lab</h2>
@@ -284,6 +288,7 @@
 
       <!-- Contextual Controls for Slider-based Visualizers -->
       @if (
+        current.interactiveConfig.visualizer !== 'addition-game' &&
         current.interactiveConfig.visualizer !== 'partition-slicer' &&
         current.interactiveConfig.visualizer !== 'logic-circuit' &&
         current.interactiveConfig.visualizer !== 'geometric-compass'
@@ -350,6 +355,9 @@
       <!-- Active Visualizer Outlet (each visualizer hides its own decorative SVG from screen readers) -->
       <div class="visualizer-outlet" #labOutlet>
         @switch (current.interactiveConfig.visualizer) {
+          @case ('addition-game') {
+            <app-addition-game></app-addition-game>
+          }
           @case ('number-line-vector') {
             <app-number-line [a]="inputA()" [b]="inputB()" [op]="operation()"></app-number-line>
           }
